@@ -47,13 +47,6 @@
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
   ),
-  'jamesmills/laravel-timezone' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'JamesMills\\LaravelTimezone\\LaravelTimezoneServiceProvider',
-    ),
-  ),
   'laravel/tinker' => 
   array (
     'providers' => 
@@ -84,17 +77,6 @@
     'providers' => 
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
-  'torann/geoip' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Torann\\GeoIP\\GeoIPServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'GeoIP' => 'Torann\\GeoIP\\Facades\\GeoIP',
     ),
   ),
 );
