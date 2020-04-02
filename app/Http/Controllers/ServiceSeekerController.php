@@ -143,4 +143,14 @@ class ServiceSeekerController extends Controller
 
       return Response::json(json_encode($data));
     }
+
+    function service_seeker_jobs_full_history(){
+      $service_seeker_jobs = Job::where('service_seeker_id', Auth::id())
+                              ->where('status','!=' , 'DRAFT')
+                              ->where('status','!=' , 'COMPLETED')
+                              ->orderby('job_date_time', 'asc')
+                              ->get();
+      //dd($service_seeker_jobs);
+      return View::make("service_seeker.jobs.history")->with('service_seeker_jobs', $service_seeker_jobs);
+    }
 }

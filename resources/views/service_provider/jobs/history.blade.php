@@ -58,7 +58,7 @@
                   </div>
                </div>
                <div class="d-flex bd-highlight">
-                  <div class="p-0 w-100 bd-highlight"><i class="far fa-calendar-alt"></i> 28/02/2020 10:30AM</div>
+                  <div class="p-0 w-100 bd-highlight"><i class="far fa-calendar-alt"></i> {{date('d/m/Y h:i a', strtotime($job->job_date_time))}}</div>
                </div>
             </li>
             @endforeach
@@ -78,6 +78,5 @@
 <script>
 var app_url = "{{URL::to('/')}}";
 </script>
-
 @include('service_provider.bottom_navigation_bar')
 @endsection

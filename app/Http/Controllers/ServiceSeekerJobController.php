@@ -14,11 +14,13 @@ use Carbon\Carbon;
 
 class ServiceSeekerJobController extends Controller
 {
-    //
+    
+
     protected function show_jobs(){
-      $seeker_jobs = Job::where('service_seeker_id', Auth::id())->where('status', '!=', 'DRAFT')->get();
+        $seeker_jobs = Job::where('service_seeker_id', Auth::id())->where('status', '!=', 'DRAFT')->orderBy('job_date_time', 'asc')->get();
       return View::make("service_seeker.jobs.jobs")->with('jobs', $seeker_jobs);
     }
+
 
     protected function show_job($id){
       //get job details
@@ -35,54 +37,49 @@ class ServiceSeekerJobController extends Controller
   		}
     }
 
+
     protected function filter_jobs(){
       $filter_action = $_POST['filter_action'];
-
       $user_id = Auth::id();
       if($filter_action == "ALL"){
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', '!=', 'DRAFT')->get();
+        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', '!=', 'DRAFT')->orderBy('job_date_time', 'asc')->get();
       }else{
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', $filter_action)->get();
+        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', $filter_action)->orderBy('job_date_time', 'asc')->get();
       }
-
       //render the html page.
       $viewRendered = view('service_seeker.jobs.jobs_templates.jobs_templates_list', compact('jobs'))->render();
       return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
     }
 
-	protected function filter_job_offer($job_id){
-		$filter_action = $_POST['filter_action'];
-		$user_id = Auth::id();
-		if($job_id != null){
-			$job = Job::find($job_id);
-			if($job){
-				$conversations = $job->conversations;
-				if($filter_action == "PRICELH"){
-					$conversations = $conversations->sortBy('json.offer');
-				}else if($filter_action == "PRICEHL"){
-					$conversations = $conversations->sortByDesc('json.offer');
-				}
-			}
-		}
-		$viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer', compact('conversations'))->render();
-		return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
-	}
+    protected function filter_job_offer($job_id){
+      $filter_action = $_POST['filter_action'];
+      $user_id = Auth::id();
+      if($job_id != null){
+        $job = Job::find($job_id);
+        if($job){
+          $conversations = $job->conversations;
+          if($filter_action == "PRICELH"){
+            $conversations = $conversations->sortBy('json.offer');
+          }else if($filter_action == "PRICEHL"){
+            $conversations = $conversations->sortByDesc('json.offer');
+          }
+        }
+      }
+      $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer', compact('conversations'))->render();
+      return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
+    }
 
     protected function request_job_draft(){
       $draft_obj = json_decode($_POST['draft_obj']);
       $seeker_id = Auth::user()->id;
-
       $response = false;
-
       if($draft_obj->service_subcategory_id != null){
         //check if user has a draft job available
         $draft_job = Job::where('status', 'DRAFT')->where('service_seeker_id', $seeker_id)->first();
         if($draft_job){
           $draft_job->title = $draft_obj->title;
           $draft_job->description = $draft_obj->description;
-          //Sultan - Task 2.1.9
           $draft_job->service_category_id = $draft_obj->service_category_id;
-          ///////
           $draft_job->service_subcategory_id = $draft_obj->service_subcategory_id;
           if($draft_obj->job_date_time != null){
             $draft_job->job_date_time = $draft_obj->job_date_time;
@@ -99,9 +96,7 @@ class ServiceSeekerJobController extends Controller
           $job->title = $draft_obj->title;
           $job->description = $draft_obj->description;
           $job->status = "DRAFT";
-          //Sultan - Task 2.1.9
           $job->service_category_id = $draft_obj->service_category_id;
-          /////
           $job->service_subcategory_id = $draft_obj->service_subcategory_id;
           if($job->job_date_time != null){
             $job->job_date_time = $draft_obj->job_date_time;
@@ -117,7 +112,8 @@ class ServiceSeekerJobController extends Controller
       }
       return Response::json($response);
     }
-    //
+    
+
     protected function clear_job_draft(){
       $job_draft_id = $_POST['job_draft_id'];
       $response = false;
@@ -142,14 +138,12 @@ class ServiceSeekerJobController extends Controller
       }
       return Response::json($response);
     }
-    //
+
+    
     protected function request_job(){
       $job_obj = json_decode($_POST['job_obj']);
       $seeker_id = Auth::user()->id;
-
-
       $response = false;
-
       //check whether a draft job exists for this job.
       if($job_obj->current_job_draft_id != null){
         $job = Job::where('id', $job_obj->current_job_draft_id)->where('status', 'Draft')->where('service_seeker_id', $seeker_id)->first();
@@ -160,20 +154,14 @@ class ServiceSeekerJobController extends Controller
             $job->job_date_time = $job_obj->job_date_time;
           }
           $job->service_seeker_id = $seeker_id;
-          //Sultan - Task 2.1.9
           $job->street_number = $job_obj->current_address_string[0]->long_name;
           $job->street_name = $job_obj->current_address_string[1]->long_name;
           $job->state = $job_obj->current_address_string[4]->long_name;
           $job->postcode = $job_obj->current_address_string[6]->long_name;
           $job->city = $job_obj->current_address_string[3]->long_name;
-          // Anuj, how do you want me to store locality.
-
-
-
           $job->service_category_id = $job_obj->service_category_id;
           $job->service_category_name = $job_obj->service_category_name;
           $job->service_subcategory_name = $job_obj->service_subcategory_name;
-          /////
           $job->service_subcategory_id = $job_obj->service_subcategory_id;
           $job->job_lat = $job_obj->job_lat;
           $job->job_lng = $job_obj->job_lng;
@@ -189,18 +177,14 @@ class ServiceSeekerJobController extends Controller
           $job->job_date_time = $job_obj->job_date_time;
         }
         $job->service_seeker_id = $seeker_id;
-        //Sultan - Task 2.1.9
         $job->street_number = $job_obj->current_address_string[0]['long_name'];
         $job->street_name = $job_obj->current_address_string[1]['long_name'];
         $job->state = $job_obj->current_address_string[4]['long_name'];
         $job->postcode = $job_obj->current_address_string[6]['long_name'];
         $job->city = $job_obj->current_address_string[3]['long_name'];
-        // Anuj, how do you want me to store locality.
-
         $job->service_category_id = $job_obj->service_category_id;
         $job->service_category_name = $job_obj->service_category_name;
         $job->service_subcategory_name = $job_obj->service_subcategory_name;
-        /////
         $job->service_subcategory_id = $job_obj->service_subcategory_id;
         $job->job_lat = $job_obj->job_lat;
         $job->job_lng = $job_obj->job_lng;
@@ -211,12 +195,12 @@ class ServiceSeekerJobController extends Controller
       return Response::json($response);
     }
 
+
     protected function show_job_conversation($job_id, $service_provider_id, $source){
       //make sure the messages are in right order
       $job = Job::find($job_id);
       $conversation = Conversation::where('job_id', $job_id)
                             ->where('service_provider_id', $service_provider_id)->first();
-
       $conversation_messages = Conversation::where('job_id', $job_id)
                             ->where('service_provider_id', $service_provider_id)
                             ->join('conversation_messages', 'conversation_messages.conversation_id', 'conversations.id')
@@ -228,72 +212,63 @@ class ServiceSeekerJobController extends Controller
 
     protected function send_message(){
       // needs if guards; make sure the request ids and their relevant data in table exists before quering the data.
-
       $conversation_id = $_POST['conversation_id'];
-	  $message = $_POST['message'];
-	  $response = false;
-	  if($conversation_id != null && $message != null){
-		  $receiver_id = Auth::user()->id;
-
-		  $conversation = Conversation::where('id',$conversation_id)->first();
-
-
-
-		  $msg = new ConversationMessage();
-		  $msg->user_id = Auth::id();
-		  $msg->conversation_id = $conversation->id;
-		  $msg->text = $message;
-		  $msg->msg_created_at = Carbon::now();
-
-		  $response = $msg->save();
-
-      if($response){
-        //change job status to pending if this is server seeker's first message
-        $is_first_msg = ConversationMessage::where('conversation_id', $conversation->id)->where('user_id', Auth::id())->get();
-        if(count($is_first_msg) == 1){
-          $job = Job::find($conversation->job_id);
-          $job->status = 'PENDING';
-          $job->save();
+      $message = $_POST['message'];
+      $response = false;
+      if($conversation_id != null && $message != null){
+        $receiver_id = Auth::user()->id;
+        $conversation = Conversation::where('id',$conversation_id)->first();
+        $msg = new ConversationMessage();
+        $msg->user_id = Auth::id();
+        $msg->conversation_id = $conversation->id;
+        $msg->text = $message;
+        $msg->msg_created_at = Carbon::now();
+        $response = $msg->save();
+        if($response){
+          //change job status to pending if this is server seeker's first message
+          $is_first_msg = ConversationMessage::where('conversation_id', $conversation->id)->where('user_id', Auth::id())->get();
+          if(count($is_first_msg) == 1){
+            $job = Job::find($conversation->job_id);
+            $job->status = 'PENDING';
+            $job->save();
+          }
         }
-      }
-
-	  }
+	    }
       return Response::json($response);
     }
 
-	protected function check_new_messages(){
-    $response = false;
-		$conversation_id = $_POST['conversation_id'];
-		if(isset($_POST['msgs'])){
-			$msgs = $_POST['msgs'];
-			$last_msg = end($msgs);
-			// return Response::json($last_msg);
-			$last_msg_created_at = $last_msg['msg_created_at'];
-		}else{
-			$last_msg_created_at = false;
-		}
-			// msgs array is sorted by msg_created_at ASC
-			if(!$last_msg_created_at){
-				$new_messages = ConversationMessage::where('conversation_id', $conversation_id)->first();
-			}else{
-				$new_messages = ConversationMessage::where('conversation_id', $conversation_id)->where('msg_created_at', '>', $last_msg_created_at)->first();
-			}
-			if($new_messages){
-				$response = true;
-				$response = $new_messages->conversation;
-				$msgs = Conversation::where('job_id', $response['job_id'])
-								->where('service_provider_id', $response['service_provider_id'])
-								->where('msg_created_at', '>', $last_msg_created_at)
-								->join('conversation_messages', 'conversation_messages.conversation_id', 'conversations.id')
-								->join('users', 'users.id', 'conversation_messages.user_id')
-								->orderBy('conversation_messages.msg_created_at', 'ASC')
-								->get();
-				$viewRendered = view('service_provider.jobs.partial.conversation_templates.job_conversation_messages_new', compact('msgs'))->render();
-				return Response::json(['html'=>$viewRendered, 'msgs'=>$msgs]);
-
-			}
-	return Response::json($response);
-	}
+    protected function check_new_messages(){
+      $response = false;
+      $conversation_id = $_POST['conversation_id'];
+      if(isset($_POST['msgs'])){
+        $msgs = $_POST['msgs'];
+        $last_msg = end($msgs);
+        // return Response::json($last_msg);
+        $last_msg_created_at = $last_msg['msg_created_at'];
+      } else {
+        $last_msg_created_at = false;
+      }
+        // msgs array is sorted by msg_created_at ASC
+        if(!$last_msg_created_at){
+          $new_messages = ConversationMessage::where('conversation_id', $conversation_id)->first();
+        }else{
+          $new_messages = ConversationMessage::where('conversation_id', $conversation_id)->where('msg_created_at', '>', $last_msg_created_at)->first();
+        }
+        if($new_messages){
+          $response = true;
+          $response = $new_messages->conversation;
+          $msgs = Conversation::where('job_id', $response['job_id'])
+                  ->where('service_provider_id', $response['service_provider_id'])
+                  ->where('msg_created_at', '>', $last_msg_created_at)
+                  ->join('conversation_messages', 'conversation_messages.conversation_id', 'conversations.id')
+                  ->join('users', 'users.id', 'conversation_messages.user_id')
+                  ->orderBy('conversation_messages.msg_created_at', 'ASC')
+                  ->get();
+          $viewRendered = view('service_provider.jobs.partial.conversation_templates.job_conversation_messages_new', compact('msgs'))->render();
+          return Response::json(['html'=>$viewRendered, 'msgs'=>$msgs]);
+        }
+      return Response::json($response);
+    }
 
 
   //Service seeker job offer accept function. 
@@ -355,12 +330,8 @@ class ServiceSeekerJobController extends Controller
   }
 
   protected function timer(){
-
-
-
     return view('service_seeker.timer');
 	}
 
-	//write a function to verify that the user modiying the database table has the right to do so. E.g. If user is modifyling the data in an individual jobs table, make sure that the job was posted by the same user and not someone else.
-	// This will help to avoid any kind of spoofing.
+  
 }

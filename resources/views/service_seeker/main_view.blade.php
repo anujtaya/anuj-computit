@@ -61,6 +61,8 @@ var seeker_services_fetch_url = "{{route('service_seeker_services_filter')}}"
 var seeker_services_filter_array = null;
 var sort_unselected_class = "btn btn-white rounded-capsules border fs--1";
 var sort_selected_class = "btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--1";
+var app_url = "{{URL::to('/')}}";
+
 
 function populate_seeker_services(){
     var search_term = $('#seeker_services_filter_input').val();
@@ -91,7 +93,7 @@ function display_updated_seeker_service_list(data) {
       div_2.addEventListener('click', function(){
         user_service_selection(this.id);
       });
-      img.src = "{{asset('images/service_icons/garden_and_outdoor.png')}}";
+      img.src = app_url + "/images/service_icons/"+ data[i]['service_name'] + ".svg";
       img.classList = "rounded mx-auto d-block";
       img.style = "height: 60px; width: 50px;";
       var text = document.createTextNode(data[i]['service_name']);

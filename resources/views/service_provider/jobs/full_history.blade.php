@@ -45,6 +45,5 @@
 <script>
 var app_url = "{{URL::to('/')}}";
 </script>
-
 @include('service_provider.bottom_navigation_bar')
 @endsection

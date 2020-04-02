@@ -26,10 +26,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/more/faqs',  'ServiceSeekerController@service_seeker_more_faqs')->name('service_seeker_more_faqs');
   Route::get('/service_seeker/more/wallet',  'ServiceSeekerController@service_seeker_more_wallet')->name('service_seeker_more_wallet');
   Route::get('/service_seeker/more/help',  'ServiceSeekerController@service_seeker_more_help')->name('service_seeker_more_help');
-  //profile routes
+  Route::get('/service_seeker/jobs/full_history',  'ServiceSeekerController@service_seeker_jobs_full_history')->name('service_seeker_jobs_full_history');
   Route::post('/service_seeker/job/details/update', 'ServiceSeekerController@service_seeker_job_details_update')->name('service_seeker_job_details_update');
   //jobs routes
-  Route::get('/service_seeker/jobs', 'ServiceSeekerJobController@show_jobs')->name('service_seeker_jobs');
+  Route::get('/service_seeker/jobs/history', 'ServiceSeekerJobController@show_jobs')->name('service_seeker_jobs');
   Route::get('/service_seeker/jobs/job/{id}', 'ServiceSeekerJobController@show_job')->name('service_seeker_job');
   Route::post('/service_seeker/jobs/request/submit', 'JobController@request_job')->name('service_seeker_jobs_request_submit');
   Route::post('/service_seeker/jobs/filter', 'ServiceSeekerJobController@filter_jobs')->name('service_seeker_jobs_filter');
