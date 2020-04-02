@@ -12,7 +12,7 @@
          </a>
       </div>
       <div class="col-3 p-3">
-         <a class=" text-decoration-none {{ (request()->is('service_seeker/jobs')) ? 'theme-color' : '' }} text-muted" href="{{route('service_seeker_jobs')}}" onclick="toggle_animation(true);">  <i class="fas  fs-2  fa-briefcase mb-1"></i><br>
+         <a class=" text-decoration-none {{ (request()->is('service_seeker/jobs/history')) ? 'theme-color' : '' }} text-muted" href="{{route('service_seeker_jobs')}}" onclick="toggle_animation(true);">  <i class="fas  fs-2  fa-briefcase mb-1"></i><br>
          Jobs
          </a>
       </div>

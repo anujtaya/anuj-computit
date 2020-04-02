@@ -95,6 +95,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/service_provider/jobs/job/{id}', 'ServiceProviderJobController@show_job')->name('service_provider_job');
   Route::post('/service_provider/jobs/job/offer', 'ServiceProviderJobController@make_offer')->name('service_provider_job_make_offer');
   Route::post('/service_provider/jobs/job/offer/duplicate', 'ServiceProviderJobController@check_offer_exists')->name('service_provider_offer_exists');
+  Route::post('/service_provider/jobs/filter', 'ServiceProviderJobController@filter_jobs')->name('service_provider_jobs_filter');
   //service provider navigate to job route
   Route::post('/service_provider/jobs/job/update/ontrip', 'ServiceProviderJobController@update_status_ontrip')->name('service_provider_job_update_status_ontrip');
   Route::post('/service_provider/jobs/job/update/cancelontrip', 'ServiceProviderJobController@update_status_cancelontrip')->name('service_provider_job_update_status_cancelontrip');

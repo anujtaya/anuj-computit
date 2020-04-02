@@ -14,7 +14,6 @@
             </div>
          </div>
       </div>
-
       <div class="col-lg-12 pl-3 pr-3 mt-3 border-d">
          <div class="d-flex  bd-highlight">
             <div class="fs1 p-1 bd-highlight">
@@ -22,11 +21,11 @@
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                 <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="PENDING" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Pending</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="APPROVED" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="IN-PROGRESS" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="COMPLETED" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ONTRIP" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="APPROVED" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="STARTED" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="COMPLETED" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">
@@ -36,9 +35,6 @@
             </div>
          </div>
       </div>
-
-   
-
       <div class="col-lg-12 pl-2 pr-2 mt-2 border-d">
          @include('service_seeker.jobs.jobs_templates.jobs_templates_list')
       </div>
@@ -48,42 +44,6 @@
 <script>
 var service_seeker_jobs_filter_url = "{{route('service_seeker_jobs_filter')}}";
 
-   function fetch_jobs(type) {
-      switch(type) {
-         case 'PENDING':
-            // code block
-
-            $("#btn_pending").addClass("btn-info");
-            $("#btn_pending").removeClass("border");
-            $("#btn_approved").removeClass("btn-info");
-            $("#btn_approved").addClass("border");
-            $("#btn_inprogress").removeClass("btn-info");
-            $("#btn_inprogress").addClass("border");
-            console.log('Pending selected');
-            break;
-         case 'APPROVED':
-            $("#btn_approved").addClass("btn-info");
-            $("#btn_approved").removeClass("border");
-            $("#btn_pending").removeClass("btn-info");
-            $("#btn_pending").addClass("border");
-            $("#btn_inprogress").removeClass("btn-info");
-            $("#btn_inprogress").addClass("border");
-            console.log('Approved selected');
-         // code block
-            break;
-         case 'INPROGRESS':
-            $("#btn_inprogress").addClass("btn-info");
-            $("#btn_inprogress").removeClass("border");
-            $("#btn_pending").removeClass("btn-info");
-            $("#btn_pending").addClass("border");
-            $("#btn_approved").removeClass("btn-info");
-            $("#btn_approved").addClass("border");
-            console.log('In-progress selected');
-            break;
-         default:
-            // code block
-         }
-   }
 
    function filter_service_seeker_jobs(data){
      toggle_animation(true);

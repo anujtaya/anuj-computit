@@ -76,13 +76,13 @@ class ServiceProviderController extends Controller
         //$service_provider_jobs = Job::where('service_seeker_id', Auth::id())->where('status', '!=', 'OPEN')->where('status', '!=', 'COMPLETED')->where('status', '!=', 'CANCELED')->get();
         
         // $convos = Conversation::where('service_provider_id', Auth::id())->get();
-        $service_provider_jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
+        $jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
                                 ->where('conversations.service_provider_id', Auth::id())
                                 ->where('jobs.status','!=' , 'DRAFT')
                                 ->where('jobs.status','!=' , 'COMPLETED')
                                 ->get();
         //dd($service_provider_jobs);
-        return View::make("service_provider.jobs.history")->with('service_provider_jobs', $service_provider_jobs);
+        return View::make("service_provider.jobs.history")->with('jobs', $jobs);
     }
 
 

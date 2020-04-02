@@ -354,13 +354,10 @@ class ServiceProviderJobController extends Controller
 			//clacualte the local2local service fee price
 			$service_fee_percentage = 12.00;
 			$service_fee_price = round(round((($service_fee_percentage/100)*$service_fee_without_extras),2),2);    
-			
 			$is_gst_applicable = true;
 			$gst_fee_value = round(($final_price/11),2);
 			$payable_job_final_value = $final_price + $gst_fee_value;
 			$service_provider_payment_amount_total = $payable_job_final_value - $service_fee_price;   
-
-
 			$new_charge = new JobPayment();
 			$new_charge->job_id = $job->id;
 			$new_charge->payment_reference_number = 'NA';
@@ -460,7 +457,28 @@ class ServiceProviderJobController extends Controller
         }
 		Session::put('status', 'An email has been sent.');
 		return redirect()->back();
-    }
+	}
+	
+	//service provider job filter
+	protected function filter_jobs(){
+		$filter_action = $_POST['filter_action'];
+		$user_id = Auth::id();
+		if($filter_action == "ALL"){
+			$jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
+					->where('conversations.service_provider_id', Auth::id())
+					->orderBy('jobs.job_date_time', 'asc')
+					->get();
+		}else{
+			$jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
+					->where('conversations.service_provider_id', Auth::id())
+					->where('jobs.status',$filter_action)
+					->orderBy('jobs.job_date_time', 'asc')
+					->get();
+		}
+		//render the html page.
+		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_templates_list', compact('jobs'))->render();
+		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
+	}
 
 
 }

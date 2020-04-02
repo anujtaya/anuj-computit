@@ -17,66 +17,59 @@
       <div class="col-lg-12 pl-3 pr-3 mt-3 border-d">
          <div class="d-flex  bd-highlight">
             <div class="fs--1 p-1 bd-highlight">
-               <a class="btn theme-color btn-sm  border fs--1 bg-white shadow-sm" style="border-radius:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <a class="btn theme-color btn-sm  border fs--1 bg-white shadow-sm" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#"><i class="far fa-circle text-primary"></i> Pending</a>
-                  <a class="dropdown-item" href="#"><i class="far fa-circle text-success"></i> Approved</a>
-                  <a class="dropdown-item" href="#"><i class="far fa-circle text-warning"></i> In-Progress</a>
-                  <a class="dropdown-item" href="#"><i class="far fa-circle text-dark"></i> Completed</a>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ONTRIP" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="APPROVED" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="STARTED" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="COMPLETED" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">
                <a class="btn theme-color btn-sm  border fs--1 bg-white shadow-sm" style="border-radius:20px;" href="{{route('service_provider_jobs_full_history')}}" onclick="toggle_animation(true);">
-                  <i class="fas fa-history"></i> Full History
+                  <i class="fas fa-history"></i> All History
                </a>
             </div>
          </div>
       </div>
       <div class="col-lg-12 pl-2 pr-2 mt-2 border-d">
-         <ul class="list-group fs--1" style="overflow:scroll; height:640px;">
-           @foreach($service_provider_jobs as $job)
-            <li class="list-group-item mt-2 mb-2 ml-2 mr-2 shadow-sm border-light" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
-               <div class="d-flex bd-highlight">
-                  <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
-               </div>
-               <div class="d-flex bd-highlight">
-                  <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt"></i> {{$job->city}}, {{$job->postcode}}</div>
-                  <div class="p-0 flex-shrink-1 bd-highlight text-secondary">
-                     @if($job->status == 'OPEN')
-                     <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Open</span>
-                     @elseif($job->status == 'APPROVED')
-                        <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Approved</span>
-                     @elseif($job->status == 'ONTRIP')
-                        <span class="badge  badge-warning  p-2 fs--2 font-weight-normal animated rubberBand delay-1s " style="border-radius:20px!important;">On-Trip</span>
-                     @elseif($job->status == 'ARRIVED')
-                        <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Arrived</span>
-                     @elseif($job->status == 'STARTED')
-                        <span class="badge  badge-warning  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">In-Progress</span>
-                     @endif 
-                  </div>
-               </div>
-               <div class="d-flex bd-highlight">
-                  <div class="p-0 w-100 bd-highlight"><i class="far fa-calendar-alt"></i> {{date('d/m/Y h:i a', strtotime($job->job_date_time))}}</div>
-               </div>
-            </li>
-            @endforeach
-            @if(count($service_provider_jobs) == 0) 
-            <div class="text-center p-3">
-               <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;"  class="img-fluid" alt="Responsive image">
-               <br>
-               <br>
-               <span>Looks like you haven't offered any quote to Service Seeker recently. Please come back later.</span>
-               <br><br>
-            </div>
-            @endif
+         @include('service_provider.jobs.jobs_templates.jobs_templates_list')
       </div>
    </div>
 </div>
+@include('service_provider.bottom_navigation_bar')
 
 <script>
 var app_url = "{{URL::to('/')}}";
+var service_provider_jobs_filter_url = "{{route('service_provider_jobs_filter')}}";
+
+   function filter_service_provider_jobs(data){
+     toggle_animation(true);
+     $.ajax({
+          type: "POST",
+          url: service_provider_jobs_filter_url,
+          data: {
+            "_token": csrf_token,
+            "filter_action": data.attr('data-value'),
+          },
+          success: function(results){
+            var myUl = $("#service_provider_filter_ul_list");
+            if(results['jobs'].length == 0){
+              myUl.html("<p class='m-2 p-2 text-warning'>No jobs found</p>");
+            }else{
+              myUl.html(results['html']);
+            }
+            toggle_animation(false);
+			var filterAnchorTag = document.getElementById('sp_jobs_filter');
+			filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.text().trim()+")</small>";
+          },
+          error: function(results, status, err) {
+              console.log(err);
+          }
+      });
+   }
 </script>
-@include('service_provider.bottom_navigation_bar')
 @endsection
