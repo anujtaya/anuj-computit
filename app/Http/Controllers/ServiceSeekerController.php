@@ -147,10 +147,10 @@ class ServiceSeekerController extends Controller
     function service_seeker_jobs_full_history(){
       $service_seeker_jobs = Job::where('service_seeker_id', Auth::id())
                               ->where('status','!=' , 'DRAFT')
-                              ->where('status','!=' , 'COMPLETED')
+                              ->where('status','!=' , 'OPEN')
                               ->orderby('job_date_time', 'asc')
                               ->get();
       //dd($service_seeker_jobs);
-      return View::make("service_seeker.jobs.history")->with('service_seeker_jobs', $service_seeker_jobs);
+      return View::make("service_seeker.jobs.full_history")->with('service_seeker_jobs', $service_seeker_jobs);
     }
 }

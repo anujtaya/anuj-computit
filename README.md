@@ -1,3 +1,3 @@
 <p>
-LocaL2LocaL Redesign Projec.
+LocaL2LocaL Redesign Project.
 </p>
