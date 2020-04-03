@@ -29,16 +29,16 @@
    </head>
    <body>
       <div id="app">
-         <main class="py-0 d-lg-none">
+         <main class="py-0 d-lg-none-d">
             @yield('content')
          </main>
 
       </div>
 
-      <div class="d-none d-xl-block  container text-danger p-3 mt-5 text-center">
+      <!-- <div class="d-none d-xl-block  container text-danger p-3 mt-5 text-center">
             <i class="fas fa-desktop display-1"></i> <br><br>
             Desktop version not suported. Please switch to mobile or tablet view to see the content.
-         </div>
+         </div> -->
       <div id="anim-1" style="background:rgba(255, 252, 252, 0.68);position:fixed;top:0;left:0;z-index:10000!important;height:100%;width:100%;display:none!important;">
          <div class="text-center" style="margin-top:250px;">
             <img src="{{asset('images/svg/eclipse_loader.svg')}}?v=12" height="60" width="60" alt="">

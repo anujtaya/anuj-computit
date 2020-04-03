@@ -11,13 +11,17 @@ use App\ConversationMessage;
 use Auth;
 use Response;
 use Carbon\Carbon;
+use Session;
 
 class ServiceSeekerJobController extends Controller
 {
     
 
     protected function show_jobs(){
-        $seeker_jobs = Job::where('service_seeker_id', Auth::id())->where('status', '!=', 'DRAFT')->orderBy('job_date_time', 'asc')->get();
+      $seeker_jobs = Job::where('service_seeker_id', Auth::id())
+                      ->where('status', '!=', 'DRAFT')
+                      ->where('status', '!=', 'COMPLETED')
+                      ->orderBy('job_date_time', 'asc')->get();
       return View::make("service_seeker.jobs.jobs")->with('jobs', $seeker_jobs);
     }
 

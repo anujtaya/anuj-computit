@@ -5,10 +5,10 @@
 @endpush
 <style>
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #fff!important;
-    background-color: #2c7be5;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+   color: #fff!important;
+   background-color: #2c7be5;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 .modal-backdrop {
    position:;
@@ -30,7 +30,7 @@
             <div class="col-4">  <a href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">#JB-{{$job->id}}</span></div>
             <div class="col-4 text-right">
-                @if($job->status == 'OPEN')
+               @if($job->status == 'OPEN')
                    <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Open</span>
                @elseif($job->status == 'APPROVED')
                   <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Approved</span>

@@ -31,7 +31,7 @@
           @if($job->status == 'APPROVED'|| $job->status == 'ARRIVED' || $job->status == 'STARTED')
             {{$job->street_number}} {{$job->street_name}} <br>
          @endif
-      {{$job->city}}<br>{{$job->state}} {{$job->postcode}}
+      {{$job->city}}<br>{{$job->state}}, {{$job->postcode}}
       </span>
       <br>
       <div class="">

@@ -9,7 +9,7 @@
    <!-- <span id="uploaded_image"></span> -->
    <div >
       @if($job->status != 'COMPLETED')
-      <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-upload"></i> Add Photo </button>
+      <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
       @else
       <span class="d-none" id="trigger_image"></span>
       @endif
@@ -56,7 +56,6 @@
    var current_selected_image = null;
    var app_job_image_url = "{{url('/')}}";
    
-   
    $('#image-container').on('slid.bs.carousel', function (e) {
       var src = $('.active').find('img').attr('src');
       current_selected_image = src;
@@ -65,28 +64,27 @@
    
    $(document).ready(function(){
      load_images(job_id);
-   
      $('#upload_form').on('submit', function(event){
          event.preventDefault();
          $.ajax({
-               url:"{{ route('imageservice_images_upload') }}",
-               method:"POST",
-               data:new FormData(this),
-               dataType:'JSON',
-               contentType: false,
-               cache: false,
-               processData: false,
-               success:function(data)
-               {
-                 console.log(data);
-                 $('#message').css('display', 'block');
-                 $('#message').html(data.message);
-                 $('#message').addClass(data.class_name);
-                 // $('#uploaded_image').html(data.uploaded_image);
-                 if(data.uploaded_image != "") {
-                   load_images(job_id);
-                 }
+            url:"{{ route('imageservice_images_upload') }}",
+            method:"POST",
+            data:new FormData(this),
+            dataType:'JSON',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success:function(data)
+            {
+               console.log(data);
+               $('#message').css('display', 'block');
+               $('#message').html(data.message);
+               $('#message').addClass(data.class_name);
+               // $('#uploaded_image').html(data.uploaded_image);
+               if(data.uploaded_image != "") {
+                  load_images(job_id);
                }
+            }
          })
      });
    });
@@ -110,85 +108,82 @@
      //console.log('Loading images...')
      //console.log(job_id);
      $.ajax({
-           url: "{{route('imageservice_images_fetch')}}",
-           type: 'POST',
-           data: {_token: CSRF_TOKEN, job_id:job_id},
-           dataType: 'JSON',
-           success: function (data) {
-             //console.log(data);
-             var element = document.getElementById("image-container");
-             var element2 = document.getElementById("model-container");
-             element.innerHTML = "";
-             element2.innerHTML = "";
-   
-             if( data.length != 0 ) {
-               $('.carousel').carousel('pause');
-               element.innerHTML = "";
-               element2.innerHTML = "";
-               for(var i=0;i<data.length;i++) {
-                  var col = document.createElement('div');
-                  col.classList = "col-xm-3 bd-highlight";
-                  var img  = document.createElement('img')
-                  img.src = app_job_image_url +  '/storage/job_attachments/' + data[i]['path'];
-                  img.classList = "pb-0 ml-1 mt-1 p-1   shadow-sm float-center";
-                  img.style.height = "90px";
-                  img.style.width = "90px";
-                  img.id = 'img-' + data[i]['id'];
-   
-                  img.addEventListener('click', function (e) {
-                  display_image_model(this.id);
-                  });
-                  col.appendChild(img);
-                  element.appendChild(col);
-                  //prepare images to be pused into model
-                  var slide1 = document.createElement('div');
-                  slide1.id = 'sid' + data[i]['id'];
-                  if(i == 0) {
-                     slide1.classList = "carousel-item p-2";
-                  } else {
-                     slide1.classList = "carousel-item p-2";
-                  }
-                  var img2  = document.createElement('img')
-                  img2.src =  app_job_image_url + '/storage/job_attachments/' + data[i]['path'];
-                  img2.classList = "img-fluid p-2 border border-light";
-                  //img2.style.width = "220px";
-                  var btn = document.createElement('button')
-                  btn.classList ="fs--1 btn btn-sm btn-white text-danger card-1 btn-block mb-2";
-                  btn.id = 'imgdel-' + data[i]['id'];
-                  btn.addEventListener('click', function (e) {
-                     image_remove(this.id);
-                  });
-                  btn.innerHTML= "Delete Image";
-                  slide1.appendChild(btn);
-                  slide1.appendChild(img2);
-                
-                  element2.appendChild(slide1);
+         url: "{{route('imageservice_images_fetch')}}",
+         type: 'POST',
+         data: {_token: CSRF_TOKEN, job_id:job_id},
+         dataType: 'JSON',
+         success: function (data) {
+            //console.log(data);
+            var element = document.getElementById("image-container");
+            var element2 = document.getElementById("model-container");
+            element.innerHTML = "";
+            element2.innerHTML = "";
+            if( data.length != 0 ) {
+            $('.carousel').carousel('pause');
+            element.innerHTML = "";
+            element2.innerHTML = "";
+            for(var i=0;i<data.length;i++) {
+               var col = document.createElement('div');
+               col.classList = "col-xm-3 bd-highlight";
+               var img  = document.createElement('img')
+               img.src = app_job_image_url +  '/storage/job_attachments/' + data[i]['path'];
+               img.classList = "pb-0 ml-1 mt-1 p-1   shadow-sm float-center";
+               img.style.height = "90px";
+               img.style.width = "90px";
+               img.id = 'img-' + data[i]['id'];
+               img.addEventListener('click', function (e) {
+               display_image_model(this.id);
+               });
+               col.appendChild(img);
+               element.appendChild(col);
+               //prepare images to be pused into model
+               var slide1 = document.createElement('div');
+               slide1.id = 'sid' + data[i]['id'];
+               if(i == 0) {
+                  slide1.classList = "carousel-item p-2";
+               } else {
+                  slide1.classList = "carousel-item p-2";
                }
-             }else{
-               $("#message").css("display", "none");
-             }
-           }
-       });
+               var img2  = document.createElement('img')
+               img2.src =  app_job_image_url + '/storage/job_attachments/' + data[i]['path'];
+               img2.classList = "img-fluid p-2 border border-light";
+               //img2.style.width = "220px";
+               var btn = document.createElement('button')
+               btn.classList ="fs--1 btn btn-sm btn-white text-danger card-1 btn-block mb-2";
+               btn.id = 'imgdel-' + data[i]['id'];
+               btn.addEventListener('click', function (e) {
+                  image_remove(this.id);
+               });
+               btn.innerHTML= "Delete Image";
+               slide1.appendChild(btn);
+               slide1.appendChild(img2);
+               element2.appendChild(slide1);
+            }
+            }else{
+            $("#message").css("display", "none");
+            }
+         }
+      });
    }
    
    function image_remove(id){
       $.ajax({
-           url: "{{route('imageservice_images_delete')}}",
-           type: 'POST',
-           data: {_token: CSRF_TOKEN, job_attachment_id:id.substr(7)},
-           dataType: 'JSON',
-           success: function (data) {
-             if(data == true) {
-               $('#imagePreviewModal').modal('hide');
-               $("#img-error-display").html('');
-               load_images(job_id);
-             } else {
-               $("#img-error-display").html('Unable to delete image.');
-             }
-           },
-            error: function(results, status, err) {
-               $("#img-error-display").html('Unable to delete image due to server error.');
+         url: "{{route('imageservice_images_delete')}}",
+         type: 'POST',
+         data: {_token: CSRF_TOKEN, job_attachment_id:id.substr(7)},
+         dataType: 'JSON',
+         success: function (data) {
+            if(data == true) {
+            $('#imagePreviewModal').modal('hide');
+            $("#img-error-display").html('');
+            load_images(job_id);
+            } else {
+            $("#img-error-display").html('Unable to delete image.');
             }
-         });
+         },
+         error: function(results, status, err) {
+            $("#img-error-display").html('Unable to delete image due to server error.');
+         }
+      });
    }
 </script>

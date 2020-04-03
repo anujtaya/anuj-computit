@@ -101,29 +101,22 @@ class ServiceSeekerController extends Controller
     protected function service_seeker_job_details_update(Request $request){
       $input = $request->all();
       $validation = Validator::make($request->all(), [
-        'job_id' => 'required'
+        'update_job_id' => 'required',
+        'update_job_title' => 'required'
        ]);
        if($validation->passes()){
-         $job = Job::find($input['job_id']);
+         $job = Job::find($input['update_job_id']);
          if($job){
-           if($job->service_seeker_id == Auth::id()){
-             $job->title = $input['job_title'];
-             $job->description = $input['job_description'];
-             $job->job_date_time = $input['job_date_time'];
-             $response = $job->save();
-             if($response){
-               Session::put('status', 'Your profile has been successfully updated.');
-               return redirect()->back();
-             }else{
-               Session::put('error', 'Unable to update your profile');
-             }
-           }else{
-             abort(401,"");
+           if($job->service_seeker_id == Auth::id() && $job->status == 'OPEN'){
+             $job->title = $input['update_job_title'];
+             $job->description = $input['update_job_description'];
+             $job->job_date_time = $input['update_job_datetime'];
+             $job->save();
+            Session::put('status', 'Your profile has been successfully updated.');
            }
          }
-       }else{
-         // code for failed validation
        }
+      Session::put('current_tab', 'jobdetail');
       return redirect()->back();
     }
 
