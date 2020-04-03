@@ -21,11 +21,11 @@
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ONTRIP" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="APPROVED" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="STARTED" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="COMPLETED" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="ONTRIP" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="APPROVED" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="STARTED" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs($(this));" data-value="COMPLETED" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">

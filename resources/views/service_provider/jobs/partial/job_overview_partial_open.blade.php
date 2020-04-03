@@ -14,7 +14,7 @@
    <div class="" id="service_provider_list_view" style="overflow:scroll; height:600px;scroll-behavior: smooth;">
       @if($conversation != null)
           <div class="text-center m-1">
-            <img src="{{asset('images/svg/l2l_mail_sent.svg')}}" alt="" style="opacity:0.4;"  width="250px" class="img-fluid" alt="Responsive image">
+            <img src="{{asset('images/svg/l2l_mail_sent.svg')}}" alt="" style="opacity:0.4;max-width:60%!important;"  width="250px" class="img-fluid" alt="Responsive image">
             <br>
             <br>
             <div class="text-left mb-2">We have succesfully delivered your offering price of ${{$conversation->json['offer']}} to the Service Seeker. Please wait while we get a response from Service Seeker directly. Look for SMS, Push notificcation  or Email alerts sent by us.</div>
@@ -26,7 +26,7 @@
                </div>
                <div class="p-2 bd-highlight">
                   <span class="theme-color" style="font-size: 0.8rem;">{{$conversation->first}} {{$conversation->last}}</span> <br>
-                  <span class="text-warning"><i class="fas fa-star mt-1"></i> <i class="fas fa-star mt-"></i> <i class="fas fa-star mt-"></i>  <i class="fas fa-star-half-alt"></i> </span>
+                  <span class="text-warning">   <i class="fas fa-star-half-alt"></i> </span>
                </div>
                <div class="ml-auto p-0 bd-highlight">
                   <span class="text-success fs-1">${{$conversation->json['offer']}}</span> <br>
@@ -39,7 +39,7 @@
          </li>
       @else 
       <div class="text-center p-3">
-         <img src="{{asset('images/svg/sp_messages_2.svg')}}" alt="" style="opacity:0.4;"  class="img-fluid" alt="Responsive image">
+         <img src="{{asset('images/svg/sp_messages_2.svg')}}" alt="" style="opacity:0.4;" class="img-fluid" alt="Responsive image">
          <br>
          <br>
          <span>You can send you price quote by clicking below.</span>

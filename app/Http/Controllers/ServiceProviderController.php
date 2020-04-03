@@ -25,12 +25,40 @@ class ServiceProviderController extends Controller
         return view('service_provider.registration_completed');
     }
 
+    function calcualte_user_job_stats($user_id){
+        $jobs = Job::where('service_provider_id', $user_id)
+            ->where('status','=' , 'CANCELLED')
+            ->orwhere('status','=' , 'COMPLETED')
+            ->take(200)
+            ->get();
+        $rating_records = $jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
+        $rating_prefix = 5;
+        $rating_count = 1 + count($rating_records);
+        $rating_sum = intval($rating_records->sum('service_seeker_rating'));
+        $rating_prefix += $rating_sum;
+        $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
+        $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
+        $stats = new \stdClass();
+        $stats->percentage = 100 - $percentage;
+        $stats->rating = $rating_user;
+        //save a rating in user profile
+        $user = User::find($user_id);
+        $user->rating = $rating_user;
+        $user->save();
+        return $stats;
+    }
+
     function service_provider_profile_nested(){
         $certificates = Auth::user()->certificates;
         $languages =  Auth::user()->languages;
         $user_services = Auth::user()->service_provider_services;
-        dd($user_services);
-        return View::make("service_provider.profile.nested.index")->with('certificates', $certificates)->with('current_languages', $languages);
+        $stats = $this->calcualte_user_job_stats(Auth::id());
+        //find a way to store cached user rating
+        return View::make("service_provider.profile.nested.index")
+            ->with('certificates', $certificates)
+            ->with('current_languages', $languages)
+            ->with('user_services', $user_services)
+            ->with('stats', $stats);
     }
 
     function service_provider_profile_edit(){

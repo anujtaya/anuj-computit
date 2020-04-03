@@ -15,16 +15,19 @@
    <!-- completion rate info  -->
    <div class="d-flex bd-highlight rounded m-2 shadow-sm">
       <div class="p-3 bd-highlight">
-         <span class="fs-2">98%</span> <br>
+         <span class="fs-2">{{$stats->percentage}}%</span> <br>
          Completion Rate
       </div>
       <div class="p-3 bd-highlight">
-         <span class="text-warning"><i class="fas fa-star mt-2"></i> <i class="fas fa-star mt-2"></i> <i class="fas fa-star mt-2"></i>  <i class="fas fa-star-half-alt"></i> </span>
+         <span class="fs-2">{{$stats->rating}}   <i class="fas fa-star fs--2 text-warning mt-0"></i> </span> <br>
+         Your Ratings
+         <!-- <span class="text-warning">
+           @for($i=0;$i<intval($stats->rating);$i++)
+               <i class="fas fa-star mt-0"></i> 
+           @endfor
+         </span> -->
       </div>
    </div>
-
-
-
    <!-- add sevvidce module -->
    <div class="m-2 p-2 rounded shadow-sm">
       <div class="d-flex bd-highlight rounded">
@@ -34,20 +37,14 @@
          <div class="p-1 ml-auto bd-highlight">
             <a href="{{route('service_provider_profile_update_service_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle card-2 theme-color fs-1"></i></a>
          </div>
-      </div>    
+      </div>  
+      @foreach($user_services as $user_service)
       <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  >
-      Boats and Jetski - Cleaning
+            {{$user_service->service_sub_cat->service_category->service_name}} - {{$user_service->service_sub_cat->service_subname}}
       </span>
-      <span class="btn btn-sm theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  >
-      Car - Cleaning
-      </span>
-      <span class="btn btn-sm theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  >
-      Car - Washing
-      </span>
+      @endforeach  
    </div>
    <!-- end add services module -->
-
-
    <!-- add certificates module -->
    <div class="m-2 p-2 shadow-sm rounded">
        <div class="d-flex bd-highlight rounded">
@@ -70,8 +67,6 @@
       @endforeach
    </div>
    <!-- end add certificates module -->
-
-
    <!-- add langugaes module -->
    <div class="m-2 p-2 shadow-sm rounded">
        <div class="d-flex bd-highlight rounded">
@@ -89,5 +84,4 @@
       </div>
    </div>
    <!-- end add languages module -->
-   
 </div>

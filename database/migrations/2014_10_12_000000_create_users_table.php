@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->boolean('is_verified')->default(0);
             $table->string('verification_code')->nullable();
+            $table->char('rating', 10)->nullable();
             $table->json('properties')->nullable();
             $table->rememberToken();
             $table->timestamps();

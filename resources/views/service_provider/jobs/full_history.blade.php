@@ -14,13 +14,21 @@
            @foreach($service_provider_jobs as $job)
             <li class="list-group-item mt-2 mb-2 ml-2 mr-2 shadow-sm border-light" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
                <div class="d-flex bd-highlight">
-                  <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
+                  <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{ucfirst($job->title)}}</div>
                </div>
                <div class="d-flex bd-highlight">
                   <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt"></i> {{$job->city}}, {{$job->postcode}}</div>
                   <div class="p-0 flex-shrink-1 bd-highlight text-secondary">
-                     @if($job->status == 'COMPLETED')
-                        <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Completed</span>
+                     @if($job->status == 'APPROVED')
+                     <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Approved</span>
+                     @elseif($job->status == 'ONTRIP')
+                     <span class="badge  badge-warning  p-2 fs--2 font-weight-normal animated rubberBand delay-1s " style="border-radius:20px!important;">On-Trip</span>
+                     @elseif($job->status == 'ARRIVED')
+                     <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Arrived</span>
+                     @elseif($job->status == 'STARTED')
+                     <span class="badge  badge-warning  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">In-Progress</span>
+                     @elseif($job->status == 'COMPLETED')
+                     <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Completed</span>
                      @endif 
                   </div>
                </div>
