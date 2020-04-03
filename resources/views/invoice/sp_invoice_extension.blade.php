@@ -102,7 +102,7 @@
                   </div>
                   <div class="w3-row">
                      <div class="w3-col s6">
-                        Less LocaL2LocaL Engagement Fee ({{number_format($job_payment->service_fee_percentage,2)}}):
+                        Less LocaL2LocaL Engagement Fee ({{number_format($job_payment->service_fee_percentage,2)}}%):
                      </div>
                      <div class="w3-col s6">
                         -${{number_format($job_payment->service_fee_price,2)}}

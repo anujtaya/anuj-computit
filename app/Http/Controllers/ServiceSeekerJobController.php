@@ -233,7 +233,7 @@ class ServiceSeekerJobController extends Controller
           $is_first_msg = ConversationMessage::where('conversation_id', $conversation->id)->where('user_id', Auth::id())->get();
           if(count($is_first_msg) == 1){
             $job = Job::find($conversation->job_id);
-            $job->status = 'PENDING';
+            $job->status = 'OPEN';
             $job->save();
           }
         }

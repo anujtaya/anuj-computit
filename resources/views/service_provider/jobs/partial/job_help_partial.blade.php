@@ -1,7 +1,7 @@
 <div class="pl-3 pr-3">
     <p>
-        As Service Provider you may be eligible to recieve a cancellation fee 
-        if a Service Provider cancel a job booking after 10 minutes of accepting the job offer. 
+        As a Service Provider you may be eligible to recieve a cancellation fee 
+        if a Service Seeker cancel a job booking after 10 minutes of accepting the job offer. 
         This applies to all services offered at LocaL2LocaL platform. 
     </p>
     <p>

@@ -1,9 +1,9 @@
-<div class="pl-2 pr-3 fs--1">
+<div class="p-0 fs--1">
    <!-- service provider list and map toggle controller switch  -->
    <div class="d-flex bd-highlight">
       <div class=" flex-grow-1 bd-highlight">
          <div class="dropleft">
-            <a class="btn theme-color shadow-sm border fs--1 bg-white text-muted" style="border-radius:20px;" href="#" role="button" id="ss_job_filter_offer_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn theme-color card-1 border-d fs--1 bg-white text-muted" href="#" role="button" id="ss_job_filter_offer_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="ss_job_filter_offer_dropdown">

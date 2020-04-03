@@ -12,7 +12,7 @@
    <!-- notice section display -->
    <div class="fs--2 p-2 alert alert-warning border-0 card-1">
       Please note that the details of this job can only be changed when the job status is Open.
-      Once the job is approved you will not bea able to change the details of the job.
+      Once the job is approved you will not be able to change the details of the job.
       You will need to cancel the job if you wish to change the detail of the job once its approved.
    </div>
    <!-- end notice section display -->

@@ -26,9 +26,16 @@ class ServiceProviderJobController extends Controller
 	protected function show_job($id){
 	    $job = Job::find($id);
 		if($job != null){
+			//do not show the job to other service provider if the job is not open and service provider id is already assigned.
+			if($job->status != 'OPEN' && $job->service_provider_id != null) {
+				if($job->service_provider_id != Auth::id()) {
+					return redirect()->route('service_provider_jobs_history');
+				}
+			}
 		  	$conversation = Conversation::where('job_id', $job->id)
 		          ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
-	              ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+				  ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+				  ->where('users.id', Auth::id())
 				  ->first();
 			//find the sevrice seeker of this job and send info to blade view.
 			$service_seeker_profile = User::find($job->service_seeker_id);

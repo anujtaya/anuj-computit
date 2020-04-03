@@ -11,6 +11,11 @@ class Job extends Model
       return $this->hasMany('App\Conversation', 'job_id', 'id');
     }
 
+    public function service_seeker_profile(){
+      return $this->hasOne('App\User', 'id', 'service_seeker_id');
+    }
+
+
     public function attachments(){
       return $this->hasMany('App\JobAttachment');
     }
