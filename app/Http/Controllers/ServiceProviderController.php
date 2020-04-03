@@ -8,6 +8,7 @@ use App\Job;
 use App\Bid;
 use App\Conversation;
 use App\ConversationMessage;
+use App\User;
 use Auth;
 use Response;
 
@@ -39,7 +40,7 @@ class ServiceProviderController extends Controller
         $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
         $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
         $stats = new \stdClass();
-        $stats->percentage = 100 - $percentage;
+        $stats->percentage = $percentage;
         $stats->rating = $rating_user;
         //save a rating in user profile
         $user = User::find($user_id);
@@ -53,6 +54,7 @@ class ServiceProviderController extends Controller
         $languages =  Auth::user()->languages;
         $user_services = Auth::user()->service_provider_services;
         $stats = $this->calcualte_user_job_stats(Auth::id());
+        //dd($stats);
         //find a way to store cached user rating
         return View::make("service_provider.profile.nested.index")
             ->with('certificates', $certificates)

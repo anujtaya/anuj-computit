@@ -28,9 +28,7 @@ class ServiceSeekerController extends Controller
   }
 
   function service_seeker_profile(){
-    //ratings needs to be implement on appropiate pages.
-      $rating = Rating::where('user_id', Auth::id());
-      return View::make("service_seeker.profile.index")->with('rating', $rating);
+      return View::make("service_seeker.profile.index");
   }
 
   function service_seeker_more(){

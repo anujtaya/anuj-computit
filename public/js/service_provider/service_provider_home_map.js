@@ -161,7 +161,11 @@ function initMap() {
             position: new google.maps.LatLng(-27.4698, 153.0251), //client's co-ordinates
             map: map,
             zIndex: 1,
-            icon: icons,
+            //icon: icons,
+            icon:{
+                url: '/images/map/service_provider_job_icon_black.svg',
+                scaledSize: new google.maps.Size(40, 40),
+            }
             // draggable: true,
         });
 
@@ -247,7 +251,9 @@ function viewAll(lat, lng, radius) {
                 serviceMarker = new google.maps.Marker({
                     position: new google.maps.LatLng(results[i]['lat'], results[i]['lng']),
                     icon: {
-                        url: './images/dot.svg',
+                        //url: './images/dot.svg',
+                        url: '/images/map/service_provider_job_icon.svg',
+                        scaledSize: new google.maps.Size(40, 40),
                     },
                 });
                 markers.push(serviceMarker);
@@ -296,4 +302,9 @@ function utcToLocalTime(utcTimeString){
     var localTime = moment(theTime).format('YYYY-MM-DD HH:mm'); //format the moment time object to string
 
     return localTime;
+}
+
+function reset_map_position(){
+    map.setCenter(currentUserMarker.position);
+    map.setZoom(14);
 }

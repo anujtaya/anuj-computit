@@ -1,8 +1,8 @@
 @extends('layouts.service_provider_master')
 @section('content')
 @stack('header-script')
-<script src="{{asset('js/service_provider/service_provider_home.js')}}?v={{rand(1,100)}}""></script>
-<script src="{{asset('/js/service_provider/service_provider_home_map.js')}}?v={{rand(1,100)}}"></script>
+<script src="{{asset('js/service_provider/service_provider_home.js')}}?v={{rand(1,1000)}}"></script>
+<script src="{{asset('/js/service_provider/service_provider_home_map.js')}}?v={{rand(1,1000)}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 @stack('header-style')
 <link rel="stylesheet" href="{{asset('css/common/preloader.css')}}"/>
@@ -58,19 +58,25 @@
    <!-- job list view window -->
    <div class="col-lg-12 p-0" style="margin-top:60px!important;">
       <div class="row mb-0  border-bottom">
-         <div class="col-8 pl-3 pt-3 pb-2">
-            <a  id="job_filter_btn" class="btn theme-color btn-sm  border fs--1 bg-white text-muted" style="border-radius:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <div class="col-6 pl-3 pt-3 pb-2">
+            <a  id="job_filter_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" style="border-radius:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                <a class="dropdown-item theme-color" href="#"> Distance</a>
                <a class="dropdown-item theme-color" href="#"> Date</a>
             </div>
-            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--1 bg-white text-muted" onclick="fetch_all_jobs(false);" style="border-radius:20px; cursor: pointer" >
+            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="fetch_all_jobs(false);" style="border-radius:20px; cursor: pointer" >
             <i class="fas fa-redo-alt"></i> Refresh
             </a>
          </div>
-         <div class=" col-4 fs--2 text-right text-muted" style="padding-top:1.3rem;"><span id="update_refresh_counter_el">0</span> seconds ago.</div>
+         <div class=" col-6 fs--2 pt-3 pb-2 pr-3 text-right text-muted">
+        
+         <span id="update_refresh_counter_el">0</span> seconds ago.
+         <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();"  style="border-radius:20px;" >
+            <i class="fas fa-crosshairs"></i> Reset
+            </button>
+         </div>
       </div>
       <!-- preloader container display  -->
       <ul class="list-group fs--1" id="preloader_display">
@@ -138,8 +144,8 @@
       </ul>
    </div>
 </div>
-<div id="map_view_display" style="display:none;">
-   <div id="map" class="text-center " style="min-width:100%!important; min-height:100%!important; position: relative;overflow: hidden;">
+<div id="map_view_display" class="" style="display:none;">
+   <div id="map" class="text-center " style="min-width:100%!important; min-height:100%!important; overflow: hidden;">
    </div>
 </div>
 <!-- bootstrap job model -->

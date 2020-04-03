@@ -5,7 +5,7 @@
       <div class="col-lg-12 sticky-top shadow-sm bg-white p-3  border-d">
       <div class="row">
             <div class="col-4">  <a href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left theme-color fs-1" ></i> </a> </div>
-            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">My Profile <br><span class="fs--2 text-muted font-weight-normal">Full History</span></div>
+            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job History <br><span class="fs--2 text-muted font-weight-normal">Full History</span></div>
             <div class="col-4 text-right"></div>
          </div>
       </div>
