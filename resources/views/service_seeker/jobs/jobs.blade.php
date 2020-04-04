@@ -14,10 +14,10 @@
             </div>
          </div>
       </div>
-      <div class="col-lg-12 pl-3 pr-3 mt-3 border-d">
+      <div class="col-lg-12 pl-2 mt-2 border-d">
          <div class="d-flex  bd-highlight">
             <div class="fs1 p-1 bd-highlight">
-               <a class="btn theme-color btn-sm  border fs1 bg-white shadow-sm text-muted" style="border-radius:20px;" href="#" role="button" id="ss_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <a class="btn theme-color btn-sm  border-0 fs1 bg-white card-1 text-muted"  href="#" role="button" id="ss_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -30,7 +30,7 @@
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">
-               <a class="btn theme-color btn-sm  border fs--1 bg-white shadow-sm" style="border-radius:20px;" href="{{route('service_seeker_jobs_full_history')}}" onclick="toggle_animation(true);">
+               <a class="btn theme-color btn-sm  border-0 fs--1 bg-white card-1" href="{{route('service_seeker_jobs_full_history')}}" onclick="toggle_animation(true);">
                   <i class="fas fa-history"></i> Full History
                </a>
             </div>

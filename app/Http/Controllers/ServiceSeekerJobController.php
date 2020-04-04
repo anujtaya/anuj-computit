@@ -288,6 +288,7 @@ class ServiceSeekerJobController extends Controller
             $conversation_message->user_id = Auth::id();
             $conversation_message->text = 'Accpeted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
             $conversation_message->conversation_id = $conversation_id;
+            $conversation_message->msg_created_at = Carbon::now();
             $conversation_message->json = ["type" => "ACTION", "status"=> "ACCEPTED"];
             $response_r = $conversation_message->save();
             if($response_r) {
@@ -320,6 +321,7 @@ class ServiceSeekerJobController extends Controller
           $conversation_message->conversation_id = $conversation_id;
           $conversation_message->text = 'Rejected the offer for '.$conversation->json['offer'].'.';
           $conversation_message->json = ["type" => "ACTION", "status"=> "REJECTED"];
+          $conversation_message->msg_created_at = Carbon::now();
           $response = $conversation_message->save();
 
           if($response){

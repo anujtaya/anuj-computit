@@ -20,7 +20,6 @@ Route::post('app/user/register_user', 'UserController@user_update_account_detail
 //service seeker routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/home',  'ServiceSeekerController@service_seeker_home')->name('service_seeker_home');
-  Route::get('/jobs/service_provider/profile/1',  'ServiceSeekerController@service_seeker_service_provider_profile')->name('service_seeker_service_provider_profile');
   Route::get('/service_seeker/profile/',  'ServiceSeekerController@service_seeker_profile')->name('service_seeker_profile');
   Route::get('/service_seeker/more/',  'ServiceSeekerController@service_seeker_more')->name('service_seeker_more');
   Route::get('/service_seeker/more/faqs',  'ServiceSeekerController@service_seeker_more_faqs')->name('service_seeker_more_faqs');
@@ -40,6 +39,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/serivce_seeker/messages/offer/{id}', 'ServiceSeekerController@show_message_offer')->name('service_seeker_message_offer');
   //Route::post('/serivce_seeker/jobs/job/{id}/filter', 'ServiceSeekerJobController@filter_job_offer')->name('service_seeker_job_offer_filter');
   //Conversation routes
+  Route::get('service_seeker/jobs/service_provider/profile/1',  'ServiceSeekerController@service_seeker_service_provider_profile')->name('service_seeker_service_provider_profile');
   Route::get('service_seeker/jobs/job/conversation/{job_id}/{service_provider_id}/', 'ServiceSeekerJobController@show_job_conversation' )->name('service_seeker_job_conversation');
   Route::post('service_seeker/jobs/job/conversation/send_message', 'ServiceSeekerJobController@send_message')->name('service_seeker_job_conversation_message_send');
   Route::post('/service_seeker/jobs/job/conversation/check_new_messages', 'ServiceSeekerJobController@check_new_messages')->name('service_seeker_check_new_messages');
