@@ -7,17 +7,13 @@
       <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
          <div class="row">
             <div class="col-2">
-              @if($source == 'JFO')
-                <a href="{{route('service_seeker_job',1)}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left fs-1" style="color:#399BDB!important"></i> </a>
-              @elseif($source == 'MJFO')
-                <a href="{{route('service_seeker_messages')}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left fs-1" style="color:#399BDB!important"></i> </a>
-              @endif
+                <a href="{{route('service_seeker_job',$job->id)}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left fs-1" style="color:#399BDB!important"></i> </a>
             </div>
             <div class="col-8 font-size-bolder text-center font-weight-bold theme-color">{{Auth::user()->first}} {{Auth::user()->last}} <br><span class="fs--2 text-muted font-weight-normal"> Active Conversation</span> </div>
             <div class="col-2 text-right">
               <a href="{{url('/jobs/service_provider/profile/1')}}"> <img src="https://i.pravatar.cc/{{rand(300,400)}}" height="30" style="border-radius:50%;" width="30" alt=""> </a>
             </div>
-            @if($job->status == 'OPEN' || $job->status == 'PENDING')
+            @if($job->status == 'OPEN')
               <button type="button" class="btn btn-danger" style="color: white!important; width: 50%;" data-target="#jobConversationRejectOfferModal" data-toggle="modal">Reject Offer</button>
               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#jobConversationAcceptOfferModal" style="color: white!important; width: 50%">Accept Offer</button>
             @endif

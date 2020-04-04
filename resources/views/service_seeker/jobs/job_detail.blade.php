@@ -70,9 +70,21 @@ $currentUserTab = 'joboverview';
       </div>
    </div>
    <div class="p-0" style="margin-top:135px">
-         <div class="tab-content pl-3 pr-3 mt-3" id="myTabContent">
+         <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab">
-                  @include('service_seeker.jobs.job_overview_partial')
+               @if($job->status == 'OPEN')
+                  @include('service_seeker.jobs.partial.job_overview_partial_open')
+               @elseif($job->status == 'APPROVED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_aprroved')
+               @elseif($job->status == 'ONTRIP')
+                  @include('service_seeker.jobs.partial.job_overview_partial_ontrip')
+               @elseif($job->status == 'ARRIVED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_arrived')
+               @elseif($job->status == 'STARTED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_started')
+               @elseif($job->status == 'COMPLETED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_completed')
+               @endif
             </div>
             <div class="tab-pane fade @if($currentUserTab  == 'jobdetail')show active @endif fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">
                @include('service_seeker.jobs.job_description_partial')

@@ -200,7 +200,7 @@ class ServiceSeekerJobController extends Controller
     }
 
 
-    protected function show_job_conversation($job_id, $service_provider_id, $source){
+    protected function show_job_conversation($job_id, $service_provider_id){
       //make sure the messages are in right order
       $job = Job::find($job_id);
       $conversation = Conversation::where('job_id', $job_id)
@@ -211,7 +211,7 @@ class ServiceSeekerJobController extends Controller
                             ->join('users', 'users.id', 'conversation_messages.user_id')
                             ->orderBy('conversation_messages.msg_created_at', 'ASC')
                             ->get();
-      return View::make("service_seeker.jobs.job_converstation")->with('msgs',$conversation_messages)->with('conversation',$conversation)->with('job', $job)->with('source',$source);
+      return View::make("service_seeker.jobs.job_converstation")->with('msgs',$conversation_messages)->with('conversation',$conversation)->with('job', $job);
     }
 
     protected function send_message(){

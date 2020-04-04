@@ -15,7 +15,6 @@ class Job extends Model
       return $this->hasOne('App\User', 'id', 'service_seeker_id');
     }
 
-
     public function attachments(){
       return $this->hasMany('App\JobAttachment');
     }

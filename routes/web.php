@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/serivce_seeker/messages/offer/{id}', 'ServiceSeekerController@show_message_offer')->name('service_seeker_message_offer');
   //Route::post('/serivce_seeker/jobs/job/{id}/filter', 'ServiceSeekerJobController@filter_job_offer')->name('service_seeker_job_offer_filter');
   //Conversation routes
-  Route::get('service_seeker/jobs/job/conversation/{job_id}/{service_provider_id}/{source}', 'ServiceSeekerJobController@show_job_conversation' )->name('service_seeker_job_conversation');
+  Route::get('service_seeker/jobs/job/conversation/{job_id}/{service_provider_id}/', 'ServiceSeekerJobController@show_job_conversation' )->name('service_seeker_job_conversation');
   Route::post('service_seeker/jobs/job/conversation/send_message', 'ServiceSeekerJobController@send_message')->name('service_seeker_job_conversation_message_send');
   Route::post('/service_seeker/jobs/job/conversation/check_new_messages', 'ServiceSeekerJobController@check_new_messages')->name('service_seeker_check_new_messages');
   Route::post('/service_seeker/jobs/job/{job_id}/{conversation_id}/offer/accept', 'ServiceSeekerJobController@accept_offer')->name('service_seeker_accept_job');

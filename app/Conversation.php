@@ -23,4 +23,8 @@ class Conversation extends Model
       return $this->hasMany('App\ConversationMessage', 'conversation_id', 'id');
     }
 
+    public function service_provider_profile(){
+      return $this->hasOne('App\User', 'id', 'service_provider_id');
+    }
+
 }

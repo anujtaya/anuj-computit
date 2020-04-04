@@ -35,50 +35,6 @@
     @endif
 
    @endforeach
-   <!-- offer recieved message
-   <div class="media w-50 mb-3">
-      <div class="media-body ml-2">
-         <img src="https://i.pravatar.cc/301" height="25" class="rounded-circle mb-1" width="25" alt="">
-         <div class="bg-light text-dark  py-2 px-3 mb-2" style="border-radius:20px">
-            <p class="text-small mb-0 "> I can do this job for $45 on 12/02/2020 at 10:00AM. </p>
-            <div class="row mt-3">
-               <div class="col-6">
-                  <button class="btn btn-sm text-success bg-white shadow-sm border fs--2 bg-white " style="border-radius:20px;" id="map_btn" onclick="alert('Message sent!');">
-                  Acceept
-                  </button>
-               </div>
-               <div class="col-6">
-                  <button class="btn btn-sm text-danger bg-white  shadow-sm border fs--2 bg-white " style="border-radius:20px;" id="map_btn" onclick="alert('Message sent!');">
-                  Reject
-                  </button>
-               </div>
-            </div>
-         </div>
-         <p class="small text-muted">12:00 PM | Aug 13</p>
-      </div>
-   </div> -->
-   <!-- end offer recieved message -->
-   <!-- offer recieved message -->
-   <!--
-   <div class="media w-100 ml-auto mb-3">
-      <div class="media-body text-center ml-2">
-
-         <div class="border  text-white py-2 px-3 mb-2" style="border-radius:20px">
-            <p class="text-small mb-0 text-success text-break">Offer accepted.</p>
-         </div>
-         <p class="small text-muted">12:00 PM | Aug 13</p>
-      </div>
-   </div>
-   <div class="media w-100 ml-auto mb-3">
-      <div class="media-body text-center ml-2">
-         <div class="border  py-2 px-3 mb-2" style="border-radius:20px">
-            <p class="text-small mb-0 text-danger  text-break">Last offer rejected.</p>
-         </div>
-         <p class="small text-muted">12:00 PM | Aug 13</p>
-      </div>
-   </div>
- -->
-</div>
 <div class="p-2 sticky-bottom  bg-white border-top">
    <div class="d-flex bd-highlight mb-2">
       <div class="p-2 flex-grow-1 bd-highlight">  <label for="">Reply</label></div>
