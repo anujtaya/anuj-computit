@@ -9,9 +9,9 @@
    <!-- <span id="uploaded_image"></span> -->
    <div >
       @if($job->status != 'COMPLETED')
-      <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
-      @else
-      <span class="d-none" id="trigger_image"></span>
+         @if($job->status != 'CANCELLED')
+            <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
+         @endif
       @endif
       <div class="row  m-1 text-center" id="image-container">
       </div>

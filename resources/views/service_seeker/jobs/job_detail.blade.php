@@ -50,6 +50,8 @@ $currentUserTab = 'joboverview';
                   <span class="badge  badge-warning  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">In-Progress</span>
                @elseif($job->status == 'COMPLETED')
                   <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal animated headShake delay-1s" style="border-radius:20px!important;">COMPLETED</span>
+               @elseif($job->status == 'CANCELLED')
+                  <span class="badge  badge-danger  p-2 fs--2 font-weight-normal animated headShake delay-1s" style="border-radius:20px!important;">CANCELLED</span>
                @endif   
             </div>
          </div>
@@ -84,6 +86,8 @@ $currentUserTab = 'joboverview';
                   @include('service_seeker.jobs.partial.job_overview_partial_started')
                @elseif($job->status == 'COMPLETED')
                   @include('service_seeker.jobs.partial.job_overview_partial_completed')
+               @elseif($job->status == 'CANCELLED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_cancelled')
                @endif
             </div>
             <div class="tab-pane fade @if($currentUserTab  == 'jobdetail')show active @endif fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">

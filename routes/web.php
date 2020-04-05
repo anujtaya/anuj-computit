@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/jobs/job/email_invoice/{id}', 'ServiceSeekerJobController@service_seeker_email_invoice' )->name('service_seeker_job_email_invoice');
   //service seeker rating update
   Route::post('/service_seeker/jobs/job/update/rating', 'ServiceSeekerJobController@update_rating')->name('service_seeker_job_update_rating');
+  //job cancel route
+  Route::post('/service_seeker/jobs/job/cancel', 'ServiceSeekerJobController@service_seeker_job_cancel')->name('service_seeker_job_cancel');
   //ajax call routes
   Route::post('/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');

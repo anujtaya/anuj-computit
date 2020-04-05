@@ -45,7 +45,11 @@
          <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2">{{$job->description}}</textarea>
       </div>
       <div class="form-group">
-         <button class="btn btn-info btn-sm fs--1 font-weight-normal" type="submit">Save Changes</button>
+         @if($job->status != 'COMPLETED')
+            @if($job->status != 'CANCELLED')
+               <button class="btn btn-info btn-sm fs--1 font-weight-normal" type="submit">Save Changes</button>
+            @endif
+         @endif
       </div>
    </form>
    <!-- <div class="fixed-bottom p-2 fs--1 text-center bg-white border-top">Scroll for more <i class="fas fa-angle-double-down fs--2 mt-1"></i></div> -->

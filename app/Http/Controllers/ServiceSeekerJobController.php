@@ -42,7 +42,7 @@ class ServiceSeekerJobController extends Controller
         $conversations = null;
         $job_extras = $job->extras->where('status', 'ACTIVE');
         $job_price = 0.00;
-        if($job->status == 'OPEN') {
+        if($job->status == 'OPEN' || $job->status == 'CANCELLED' ) {
           $conversations = Conversation::where('job_id', $job->id)
                 ->join('users', 'conversations.service_provider_id', '=', 'users.id')
                 ->get();
@@ -470,7 +470,19 @@ class ServiceSeekerJobController extends Controller
         }
 		Session::put('status', 'An email has been sent.');
 		return redirect()->back();
-	}
-
+  }
   
+  //service seeker cancel job handler
+  function service_seeker_job_cancel(Request $request) {
+    $data =  (object) Input::all(); 
+    $job = Job::find($data->ss_job_cancel_id);
+    if($job != null) {
+      //charge any cancellation fee if applicable
+      $job->status = 'CANCELLED';
+      $job->save();
+    }
+    return redirect()->back();
+  }
+
+
 }
