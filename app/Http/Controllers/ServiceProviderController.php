@@ -32,13 +32,17 @@ class ServiceProviderController extends Controller
             ->orwhere('status','=' , 'COMPLETED')
             ->take(200)
             ->get();
+        $percentage = 100;
+        if(count($jobs) > 0) {
+            $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
+        }
         $rating_records = $jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
         $rating_prefix = 5;
         $rating_count = 1 + count($rating_records);
         $rating_sum = intval($rating_records->sum('service_seeker_rating'));
         $rating_prefix += $rating_sum;
         $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
-        $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
+      
         $stats = new \stdClass();
         $stats->percentage = $percentage;
         $stats->rating = $rating_user;

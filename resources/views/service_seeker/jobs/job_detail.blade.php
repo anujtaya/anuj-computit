@@ -36,7 +36,7 @@ $currentUserTab = 'joboverview';
       <div class="col-lg-12 shadow-sm-none bg-white p-0 border-d fixed-top">
          <div class="row p-3">
             <div class="col-4">  <a href="{{route('service_seeker_jobs')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
-            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">#345678</span></div>
+            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">#JB-{{$job->id}}</span></div>
             <div class="col-4 text-right">
                @if($job->status == 'OPEN')
                    <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Open</span>
@@ -75,7 +75,7 @@ $currentUserTab = 'joboverview';
                @if($job->status == 'OPEN')
                   @include('service_seeker.jobs.partial.job_overview_partial_open')
                @elseif($job->status == 'APPROVED')
-                  @include('service_seeker.jobs.partial.job_overview_partial_aprroved')
+                  @include('service_seeker.jobs.partial.job_overview_partial_approved')
                @elseif($job->status == 'ONTRIP')
                   @include('service_seeker.jobs.partial.job_overview_partial_ontrip')
                @elseif($job->status == 'ARRIVED')

@@ -23,10 +23,6 @@ class ServiceSeekerController extends Controller
       return View::make("service_seeker.service_seeker_home_1")->with('categories', $categories);
   }
 
-  function service_seeker_service_provider_profile(){
-      return View::make("service_seeker.jobs.job_service_provider_profile");
-  }
-
   function service_seeker_profile(){
       return View::make("service_seeker.profile.index");
   }

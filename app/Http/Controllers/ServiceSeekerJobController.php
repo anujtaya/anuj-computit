@@ -8,6 +8,7 @@ use App\Job;
 use App\Bid;
 use App\Conversation;
 use App\ConversationMessage;
+use App\User;
 use Auth;
 use Response;
 use Carbon\Carbon;
@@ -31,13 +32,20 @@ class ServiceSeekerJobController extends Controller
       $job = Job::find($id);
       if($job){
         //get bids related to this job
-        $conversations = Conversation::where('job_id', $job->id)
+        $conversation_current = null;
+        $conversations = null;
+        if($job->status == 'OPEN') {
+          $conversations = Conversation::where('job_id', $job->id)
                 ->join('users', 'conversations.service_provider_id', '=', 'users.id')
                 ->get();
+        } else {
+          $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
+          $conversation_current->service_provider_information = $conversation_current->service_provider_profile;
+        }
         $job_attachments = $job->attachments;
-        return View::make("service_seeker.jobs.job_detail")->with('job',$job)->with('conversations',$conversations)->with('job_attachments', $job_attachments);
+        return View::make("service_seeker.jobs.job_detail")->with('job',$job)->with('conversations',$conversations)->with('conversation_current',$conversation_current)->with('job_attachments', $job_attachments);
       }else{
-  			abort(404);
+  			return redirect()->back();
   		}
     }
 
@@ -337,7 +345,53 @@ class ServiceSeekerJobController extends Controller
 
   protected function timer(){
     return view('service_seeker.timer');
-	}
+  }
+  
+  
+  //service provider profile display without editing option (for service seeker's only)
+  function service_seeker_service_provider_profile($service_provider_id){
+    $user = User::find($service_provider_id);
+    $certificates = $user->certificates;
+    $languages = $user->languages;
+    $user_services = $user->service_provider_services;
+    $stats = $this->calcualte_user_job_stats(Auth::id());
+    //dd($stats);
+    //find a way to store cached user rating
+    return View::make("service_seeker.jobs.partial.job_service_provider_profile")
+          ->with('certificates', $certificates)
+          ->with('current_languages', $languages)
+          ->with('user_services', $user_services)
+          ->with('user', $user)
+          ->with('stats', $stats);
+  }
+
+
+  //calcualte job stats for service provider
+  function calcualte_user_job_stats($user_id){
+    $jobs = Job::where('service_provider_id', $user_id)
+        ->where('status','=' , 'CANCELLED')
+        ->orwhere('status','=' , 'COMPLETED')
+        ->take(200)
+        ->get();
+    $percentage = 100;
+    if(count($jobs) > 0) {
+        $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
+    }
+    $rating_records = $jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
+    $rating_prefix = 5;
+    $rating_count = 1 + count($rating_records);
+    $rating_sum = intval($rating_records->sum('service_seeker_rating'));
+    $rating_prefix += $rating_sum;
+    $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
+    $stats = new \stdClass();
+    $stats->percentage = $percentage;
+    $stats->rating = $rating_user;
+    //save a rating in user profile
+    $user = User::find($user_id);
+    $user->rating = $rating_user;
+    $user->save();
+    return $stats;
+}
 
   
 }
