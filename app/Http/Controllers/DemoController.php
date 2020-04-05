@@ -51,5 +51,9 @@ class DemoController extends Controller
         return view('invoice.sp_invoice_template')->with('job_id', $id);
     }
 
+    function test_ss_invoice_template_design($id) {
+        return view('invoice.ss_invoice_template')->with('job_id', $id);
+    }
+
     
 }

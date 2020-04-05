@@ -13,6 +13,12 @@ use Auth;
 use Response;
 use Carbon\Carbon;
 use Session;
+use Validator;
+use Input;
+use Notification;
+use App\Notifications\ServiceSeekerEmailInvoice;
+use PDF;
+
 
 class ServiceSeekerJobController extends Controller
 {
@@ -34,6 +40,8 @@ class ServiceSeekerJobController extends Controller
         //get bids related to this job
         $conversation_current = null;
         $conversations = null;
+        $job_extras = $job->extras->where('status', 'ACTIVE');
+        $job_price = 0.00;
         if($job->status == 'OPEN') {
           $conversations = Conversation::where('job_id', $job->id)
                 ->join('users', 'conversations.service_provider_id', '=', 'users.id')
@@ -41,12 +49,35 @@ class ServiceSeekerJobController extends Controller
         } else {
           $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
           $conversation_current->service_provider_information = $conversation_current->service_provider_profile;
+          if($conversation_current!=null){
+            $job_price = $this->calculate_job_price($job_extras, $conversation_current);
+          }
         }
+       
         $job_attachments = $job->attachments;
-        return View::make("service_seeker.jobs.job_detail")->with('job',$job)->with('conversations',$conversations)->with('conversation_current',$conversation_current)->with('job_attachments', $job_attachments);
+        return View::make("service_seeker.jobs.job_detail")
+              ->with('job',$job)
+              ->with('conversations',$conversations)
+              ->with('conversation_current',$conversation_current)
+              ->with('job_attachments', $job_attachments)
+              ->with('job_extras', $job_extras)
+					    ->with('job_price', $job_price);
       }else{
   			return redirect()->back();
   		}
+    }
+
+
+    //calcualtes job final job total when job extras and conversation with a offer value is provided. Please pass the correct data to this function to avoid any calculation errors.
+    protected function calculate_job_price($extras, $conversation){
+      $final_price = 0.00;
+      $offer_price = floatval($conversation->json['offer']);
+      foreach($extras as $extra) {
+        $final_price += $extra->quantity * $extra->price;
+      }
+
+      $final_price = $final_price + $offer_price;
+      return $final_price;
     }
 
 
@@ -391,7 +422,55 @@ class ServiceSeekerJobController extends Controller
     $user->rating = $rating_user;
     $user->save();
     return $stats;
-}
+  }
+
+  //update service seeker rating
+	function update_rating(Request $request){
+		$validator =  Validator::make($request->all(), [
+			'rating_job_id' => 'required',
+			'ss_rating_start_value' => 'required'
+		]);
+		if ($validator->fails()) {
+			return redirect()
+					->back()
+					->withErrors($validator)
+					->withInput();
+		} else {
+			$data =  (object) Input::all();
+			$job = Job::find($data->rating_job_id);
+            if($job ->status == 'COMPLETED') {
+				$job->service_seeker_rating = $data->ss_rating_start_value;
+				$job->service_seeker_comment = $data->ss_rating_description_value;
+				$job->save();
+			} 
+			return redirect()->back()->withInput()->withErrors($validator);
+		}	
+  }
+  
+
+  //send an invocie to service provider account with onclick action
+	function service_seeker_email_invoice($id){
+		$job = Job::find($id);
+		$job_extras = $job->extras->where('status', 'ACTIVE');
+		$conversation = Conversation::where('job_id', $job->id)
+		          ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
+	              ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+				  ->first();
+		$pdf = PDF::loadView('invoice.ss_invoice_template' , array('job_id' => $id));
+		$temp_name = 'invoice_'.rand(1,1000).'.pdf';
+		$dest_path = public_path().'/temp_invoice/'.$temp_name;
+		$pdf->save($dest_path);
+		//create a email notification object
+		$temp = new \stdClass();
+		$temp->file_name = $dest_path;
+		$user = User::find($job->service_provider_id);
+		$user->notify(new ServiceSeekerEmailInvoice($temp));
+		if(file_exists($dest_path)){
+            unlink($dest_path);
+        }
+		Session::put('status', 'An email has been sent.');
+		return redirect()->back();
+	}
 
   
 }

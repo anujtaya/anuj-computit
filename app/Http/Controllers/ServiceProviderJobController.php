@@ -437,7 +437,7 @@ class ServiceProviderJobController extends Controller
 		}	
 	}
 
-	 //send an invocie to service provider account with onclick action
+	//send an invocie to service provider account with onclick action
 	function service_provider_email_invoice($id){
 		$job = Job::find($id);
 		$job_extras = $job->extras->where('status', 'ACTIVE');
@@ -445,15 +445,10 @@ class ServiceProviderJobController extends Controller
 		          ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
 	              ->join('users', 'conversations.service_provider_id', '=', 'users.id')
 				  ->first();
-		
-
 		$pdf = PDF::loadView('invoice.sp_invoice_template' , array('job_id' => $id));
 		$temp_name = 'invoice_'.rand(1,1000).'.pdf';
 		$dest_path = public_path().'/temp_invoice/'.$temp_name;
 		$pdf->save($dest_path);
-
-
-	
 		//create a email notification object
 		$temp = new \stdClass();
 		$temp->file_name = $dest_path;

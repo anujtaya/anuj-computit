@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/job/request/draft', 'ServiceSeekerJobController@request_job_draft')->name('service_seeker_job_request_draft');
   Route::post('/service_seeker/job/clear/draft', 'ServiceSeekerJobController@clear_job_draft')->name('service_seeker_job_clear_draft');
   Route::post('/service_seeker/job/request/submit', 'ServiceSeekerJobController@request_job')->name('service_seeker_job_request_submit');
+  Route::get('/service_seeker/jobs/job/email_invoice/{id}', 'ServiceSeekerJobController@service_seeker_email_invoice' )->name('service_seeker_job_email_invoice');
+  //service seeker rating update
+  Route::post('/service_seeker/jobs/job/update/rating', 'ServiceSeekerJobController@update_rating')->name('service_seeker_job_update_rating');
   //ajax call routes
   Route::post('/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');
@@ -141,7 +144,7 @@ Route::get('/demo/car_map_demo', 'DemoController@car_map_demo')->name('demo_car_
 Route::get('/demo/test2', 'DemoController@test2');
 Route::get('/demo/create_demo_jobs', 'DemoController@create_demo_jobs');
 Route::get('/demo/test_sp_invoice_template_design/{id}', 'DemoController@test_sp_invoice_template_design');
-
+Route::get('/demo/test_ss_invoice_template_design/{id}', 'DemoController@test_ss_invoice_template_design');
 
 
 

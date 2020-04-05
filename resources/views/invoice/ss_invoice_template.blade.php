@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- tdis is tde main landing page for LocalI application -->
 <html>
    <head>
       <title>Document - Tax Invoice</title>
@@ -14,20 +13,36 @@
          }
       </style>
    </head>
-   <body class="container">
-
-  
+   <body class="container-block">
+      <?php
+         $job = \App\Job::find($job_id);
+         $service_seeker = \App\User::find($job->service_seeker_id);
+         $service_provider = \App\User::find($job->service_provider_id);
+         $service_provider_business = $service_provider->business_info;
+         $extras = $job->extras->where('status', 'ACTIVE');
+         $job_payment = $job->job_payment;
+         //calculate job total and other variables
+         $conversation = \App\Conversation::where('job_id', $job->id)
+            ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
+            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+            ->first();
+         $abn = '';
+         if($service_provider_business != null) {
+            $abn = $service_provider_business->abn;
+         }
+         if(strlen($abn) == 11) {
+            $abn_formatted =    (string)$abn;
+            $abn_formatted =    substr($abn_formatted,0,2).'-'.substr($abn_formatted,2,3).'-'.substr($abn_formatted,5,3).'-'.substr($abn_formatted,8,3);
+         }
+         else {
+            $abn_formatted = 'NA';
+         }
+         //dd($extras);
+         ?>
       <div class=" w3-center">
-         <h3>Tax Invoice</h3>
+         <h3>Remittance</h3>
       </div>
-   
-   
-
-
-
-
-
-
+      @include('invoice.ss_invoice_extension')
       <div  class="w3-padding w3-margin-top  w3-border w3-border-light-grey w3-text-dark-grey w3-tiny ">
          <div class="w3-row">
             <p>All prices are in Austalian Dollars. GST is incuded in the final payable amount.</p>
@@ -48,7 +63,7 @@
                <p>ABN: 67-625-654-613</p>
             </div>
             <div class="w3-col s9 pl-2">
-               <img src="{{public_path('images/brand/logo-min.png')}}?v=1" onerror="this.src='{{asset('/images/brand/logo.png')}}'" height=70" width="70">
+               <img src="{{public_path('images/brand/logo.png')}}?v=1" onerror="this.src='{{asset('/images/brand/logo.png')}}'" height=70" width="70">
             </div>
          </div>
       </div>
