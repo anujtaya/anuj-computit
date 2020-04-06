@@ -15,16 +15,25 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1040;
+    z-index: 10;
     background-color:transparent!important;
 }
-
+.pac-container {
+    background-color: #FFF;
+    z-index: 20;
+    position: fixed;
+    display: inline-block;
+    float: left;
+}
+.modal{
+    z-index: 20;   
+}
 </style>
 <div class="container ">
    <div class="row  justify-content-center" >
-      <div class="col-lg-12 theme-background-color border-bottom shadow-sms fixed-top bg-white pl-3 pr-3 border-d">
+      <div class="col-lg-12 theme-background-color card-1 shadow-sms fixed-top bg-white pl-3 pr-3 border-d" style="z-index:19!important;">
          <div class="row">
-            <div class="col-8 p-3">
+            <div class="col-8 pl-2 pt-3 pb-3">
                <div class="p-0 bd-highlight">
                   <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="map_btn" onclick="switch_view_mode('MAP')">
                   <i class="fas fa-globe-asia"></i> Map View
@@ -58,7 +67,25 @@
    <!-- job list view window -->
    <div class="col-lg-12 p-0" style="margin-top:60px!important;">
       <div class="row mb-0  border-bottom">
-         <div class="col-6 pl-3 pt-3 pb-2">
+         <!-- location update  -->
+         <div class="col-12 p-0 border-bottom">
+            <div class="d-flex fs--2 bd-highlight">
+               <div class="p-2 bd-highlight" id="user_current_saved_location">
+                  @if(Auth::user()->user_city != null)
+                  Location set to: <span class="theme-color">{{Auth::user()->user_city}}, {{Auth::user()->user_state}}</span> 
+                  @else
+                   <span class="text-danger">Please update your service location.</span>
+                  @endif      
+               </div>
+               <div class="ml-auto p-2 bd-highlight"> 
+                  <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="update_sp_location();"  style="border-radius:20px;" >
+                     <i class="fas fa-redo-alt"></i> Update
+                  </button>
+               </div>
+            </div>
+         </div>
+         <!-- end location update div -->
+         <div class="col-6 pl-2 pt-2 pb-2">
             <a  id="job_filter_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" style="border-radius:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
@@ -67,14 +94,13 @@
                <a class="dropdown-item theme-color" href="#"> Date</a>
             </div>
             <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="fetch_all_jobs(false);" style="border-radius:20px; cursor: pointer" >
-            <i class="fas fa-redo-alt"></i> Refresh
+               <i class="fas fa-redo-alt"></i> Refresh
             </a>
          </div>
-         <div class=" col-6 fs--2 pt-3 pb-2 pr-3 text-right text-muted">
-        
-         <span id="update_refresh_counter_el">0</span> seconds ago.
-         <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();"  style="border-radius:20px;" >
-            <i class="fas fa-crosshairs"></i> Reset
+         <div class=" col-6 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
+            <span id="update_refresh_counter_el">0</span> seconds ago.
+            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();"  style="border-radius:20px;" >
+               <i class="fas fa-crosshairs"></i> Reset
             </button>
          </div>
       </div>
@@ -149,6 +175,7 @@
    </div>
 </div>
 <!-- bootstrap job model -->
+
 <!-- Modal -->
 <div class="modal fade" id="map_job_detail_model_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
@@ -179,9 +206,29 @@
    </div>
 </div>
 <!-- end model -->
+
+<!-- Modal -->
+<div class="modal fade" id="user_location_modal_manual_popup" tabindex="-1" role="dialog" aria-labelledby="user_location_modal_manual_popup_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centereds" role="document">
+      <div class="modal-content border-0 shadow-lg">
+         <div class="modal-body text-center">
+            <i class="fas fa-exclamation-triangle display-1 text-warning"></i>
+            <br><br>
+            <p class="fs--2">Unable to update location automatically, please type in your address below.</p>
+            <input type="text" class="form form-control" id="user_location_modal_manual_popup_input" onkeyup="initAutocomplete()">
+
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end model -->
+
+
+
 <script>
    var app_url = "{{URL::to('/')}}";
-   var service_provider_jobs_fetch_url = "{{route('service_provider_jobs_fetch_all')}}"
+   var service_provider_location_update_url = "{{route('service_provider_services_location_update')}}";
+   var service_provider_jobs_fetch_url = "{{route('service_provider_jobs_fetch_all')}}";
    var jobs = [];
    var CSRF_TOKEN = "{{csrf_token()}}"
    var preloader_container =  document.getElementById("preloader_display");
@@ -189,11 +236,16 @@
    var update_refresh_count = 0;
    var update_interval;
    var is_view_update_required = true;
+   var current_suburb = "{{Auth::user()->user_city}}";
 
    window.onload = function() {
       //update_interval =  setInterval(fetch_all_jobs, 25000);
       //setInterval(update_refresh_count_display, 5000);
       fetch_all_jobs();
+      //initialize the service provider location setup
+      if(current_suburb == '') {
+         update_sp_location();
+      }
    }
 
    var filter_settings = {

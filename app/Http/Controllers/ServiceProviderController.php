@@ -125,5 +125,20 @@ class ServiceProviderController extends Controller
         return View::make("service_provider.jobs.full_history")->with('service_provider_jobs', $service_provider_jobs);
     }
 
+
+    //service provider location update
+    function services_location_update(){
+        $user = User::find(Auth::id());
+        $user->user_lat = $_POST['lat'];
+        $user->user_lng = $_POST['lng'];
+        $user->user_city = $_POST['suburb'];
+        $user->user_state = $_POST['state'];
+        if($user->save()){
+            return Response::json(true);
+        } else {
+            return Response::json(false);
+        }
+    }
+
     
 }

@@ -93,7 +93,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/service_provider/more/faqs',  'ServiceProviderController@service_provider_more_faqs')->name('service_provider_more_faqs');
   Route::get('/service_provider/more/wallet',  'ServiceProviderController@service_provider_more_wallet')->name('service_provider_more_wallet');
   Route::get('/service_provider/more/help',  'ServiceProviderController@service_provider_more_help')->name('service_provider_more_help');
-  //Anuj Service Provider Home Jobs Routes
+  //service provider extra services
+  Route::post('/service_provider/services/location/update',  'ServiceProviderController@services_location_update')->name('service_provider_services_location_update');
   Route::post('/service_provider/jobs/fetch/all', 'ServiceProviderJobController@fetch_all_jobs')->name('service_provider_jobs_fetch_all');
   //Route::post('/service_provider/home/jobs/filter','ServiceProviderJobController@home_job_filter')->name('service_provider_home_filter_jobs');
   //Service Provider Job Routes

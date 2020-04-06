@@ -28,6 +28,12 @@ class CreateUsersTable extends Migration
             $table->string('verification_code')->nullable();
             $table->char('rating', 10)->nullable();
             $table->json('properties')->nullable();
+            //user location properties
+            $table->decimal("user_lat", 9,6)->nullable();
+            $table->decimal("user_lng", 9,6)->nullable();
+            $table->string('user_state')->nullable();
+            $table->string('user_city')->nullable();
+            $table->string('user_postcode')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

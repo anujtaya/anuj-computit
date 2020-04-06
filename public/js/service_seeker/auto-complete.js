@@ -30,19 +30,19 @@ function resetPosition() {
     }
 }
 function geocodePosition(pos) {
-   // var geocoder = new google.maps.Geocoder();
-   //  geocoder.geocode({
-   //      latLng: pos
-   //  }, function(responses) {
-   //      if (responses && responses.length > 0) {
-   //          // update_current_location(responses[0].geometry.location);
-   //          $("#service_location_full_address").val(responses[0].formatted_address);
-   //          current_job_lat = pos.lat;
-   //          current_job_lng = pos.lng;
-   //          // current_suburb = responses[0]['address_components'][2]['long_name'];
-   //          // $("#suburb").html(current_suburb)
-   //      }
-   //  });
+   var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+        latLng: pos
+    }, function(responses) {
+        if (responses && responses.length > 0) {
+            // update_current_location(responses[0].geometry.location);
+            $("#service_location_full_address").val(responses[0].formatted_address);
+            current_job_lat = pos.lat;
+            current_job_lng = pos.lng;
+            // current_suburb = responses[0]['address_components'][2]['long_name'];
+            // $("#suburb").html(current_suburb)
+        }
+    });
    current_job_lat = -27.491633099999998;
    current_job_lng = 153.00209949999999;
 }

@@ -180,6 +180,9 @@ function initMap() {
 
 
 
+
+
+
 function display_job_markers() {
     setMapOnAll(null);
     for (var i = 0; i < jobs.length; i++) {
@@ -307,4 +310,113 @@ function utcToLocalTime(utcTimeString){
 function reset_map_position(){
     map.setCenter(currentUserMarker.position);
     map.setZoom(14);
+}
+
+
+//user location update functions 
+
+
+function update_sp_location(){
+   //check if the location can be updated using navigator
+    if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(update_location_using_navigator, update_location_without_navigator);
+    } else {
+        handle_automatc_loc_update_failure();
+    }
+}
+
+function update_location_using_navigator(position) {
+    pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+        latLng: pos
+    }, function(responses) {
+        if (responses && responses.length > 0) {
+            suburb = responses[0]['address_components'][1]['long_name'];
+            state = responses[0]['address_components'][3]['short_name'];
+            update_user_final_location(pos.lat,pos.lng,suburb, state);
+        }
+    });
+}
+
+function update_location_without_navigator(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log('NAVIGATOR: Permission Denied')
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log('NAVIGATOR: Position Unavailable')
+            break;
+        case error.TIMEOUT:
+            console.log('NAVIGATOR: Timeout')
+
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log('NAVIGATOR: Unkown Error')
+            break;
+    }
+    handle_automatc_loc_update_failure();
+}
+
+function handle_automatc_loc_update_failure(){
+    $('#user_location_modal_manual_popup').modal('show');
+}
+
+function update_user_final_location(lat,lng,suburb,state) {
+    $.ajax({
+        type: "POST",
+        url: service_provider_location_update_url,
+        data: {
+          "_token": csrf_token,
+          "lat": lat,
+          'lng':lng,
+          'suburb':suburb,
+          'state': state
+        },
+        success: function(results){
+          if(results) {
+            $("#user_current_saved_location").html('Location set to: <span class="theme-color">' + suburb + ',' + state + "</span>");
+          } else {
+            console.log('Location update notification should not be sent.');
+          }
+        },
+        error: function(results, status, err) {
+            console.log(err);
+        }
+    });
+    //console.log('Location final updated to ' + suburb + ',' + state);
+}
+
+
+
+//intit autocomplete for manual location update
+function initAutocomplete() {
+    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('user_location_modal_manual_popup_input'), {
+        types: ['geocode'],
+        componentRestrictions: {country: 'au'}
+    });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {  
+        place = autocomplete.getPlace();
+        console.log(place);
+        place_lat = place.geometry.location.lat();
+        place_lng = place.geometry.location.lng();
+
+        for (var i = 0; i < place.address_components.length; i++) {
+            if(addressType == "localit"){
+              fullAddress[0] = val;
+            }else if(addressType == "administrative_area_level_"){
+              fullAddress[0] += " " +val;
+            }
+        }
+
+        suburb = place['address_components'][2]['long_name'];
+        state = place['address_components'][3]['short_name'];
+        update_user_final_location(place_lat,place_lng,suburb, state);
+        $('#user_location_modal_manual_popup').modal('hide');
+    });
 }
