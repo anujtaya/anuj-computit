@@ -41,7 +41,6 @@ class CreateActiveJobsTable extends Migration
             $table->string("user_update")->nullable();
             //new field for payment response messages
             $table->boolean("payment_error")->nullable();
-
             $table->foreign('service_provider_id')->references('id')->on('users');
             $table->foreign('service_seeker_id')->references('id')->on('users');
             $table->timestamps();

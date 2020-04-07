@@ -18,6 +18,7 @@ use Input;
 use Validator;
 use PDF;
 use Session;
+use DB;
 
 class ServiceProviderJobController extends Controller
 {
@@ -88,7 +89,8 @@ class ServiceProviderJobController extends Controller
 		}
 	}
 
-
+	
+	//make a job offer to service seeker job request. The job status must be OPEN.
 	protected function make_offer(Request $request){
 		$input = $request->all();
 		$job_id = $input['job_id'];
@@ -113,8 +115,9 @@ class ServiceProviderJobController extends Controller
 					}
 				}else{
 					$conversation_exists->json = ["offer" => $job_offer, 'offer_description'=> $job_offer_description];
+					$conversation_exists->status = 'OPEN';
 					if($conversation_exists->save()){
-						//$job->status = 'PENDING';
+						//$job->status = 'OPEN';
 						$job->save();
 					}
 				}
@@ -124,6 +127,7 @@ class ServiceProviderJobController extends Controller
 	}
 
 
+    //check if the job offer exits for the logged in Service Provider
 	protected function check_offer_exists(){
 		$job_id = $_POST['job_id'];
 		$response = false;
@@ -481,6 +485,33 @@ class ServiceProviderJobController extends Controller
 		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_templates_list', compact('jobs'))->render();
 		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
 	}
+
+	//service provider cancel job handler
+	function service_provider_job_cancel(Request $request) {
+		$data =  (object) Input::all(); 
+		$job = Job::find($data->sp_job_cancel_id);
+		
+		if($job != null) {
+		  //charge any cancellation fee if applicable
+		  $job->status = 'OPEN';
+		  $job->service_provider_id = null;
+		  $job->save();
+		  //mark conversation between service provider and service seeker for this job as closed.
+		  $conversation = Conversation::where('job_id', $job->id)->where('service_provider_id', Auth::id())->first();
+		  $conversation->status = 'CLOSED';
+		  $conversation->save();
+
+		  //add a service provider cancellation record
+		  $check_existing  = DB::table('service_provider_job_cancellations')->where('service_provider_id', Auth::id())->where('job_id', $job->id)->get();
+		  if(count($check_existing) == 0) {
+			DB::table('service_provider_job_cancellations')->insert(
+				['job_id' => $job->id, 'service_provider_id' => Auth::id(), 'reason' => $data->reason]
+			);
+		  }
+		
+		}
+		return redirect()->route('service_provider_home');
+	  }
 
 
 }

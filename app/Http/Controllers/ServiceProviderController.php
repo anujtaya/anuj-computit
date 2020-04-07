@@ -11,6 +11,7 @@ use App\ConversationMessage;
 use App\User;
 use Auth;
 use Response;
+use DB;
 
 class ServiceProviderController extends Controller
 {
@@ -28,16 +29,19 @@ class ServiceProviderController extends Controller
 
     //calcualte job stats for service provider. Also exists in Service Seeker Job Controller
     function calcualte_user_job_stats($user_id){
-        $jobs = Job::where('service_provider_id', $user_id)
-            ->where('status','=' , 'CANCELLED')
+        $completed_jobs = Job::where('service_provider_id', $user_id)
             ->orwhere('status','=' , 'COMPLETED')
             ->take(200)
             ->get();
+        $cancelled_jobs = count(DB::table('service_provider_job_cancellations')->take(200)->get());
+        $completed_jobs_count = count($completed_jobs->where('status', 'COMPLETED' ));
+        $total_jobs = $cancelled_jobs + $completed_jobs_count;
+        
         $percentage = 0;
-        if(count($jobs) > 0) {
-            $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
+        if($completed_jobs_count > 0) {
+            $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;
         }
-        $rating_records = $jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
+        $rating_records = $completed_jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
         $rating_prefix = 5;
         $rating_count = 1 + count($rating_records);
         $rating_sum = intval($rating_records->sum('service_seeker_rating'));

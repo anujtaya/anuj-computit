@@ -45,6 +45,7 @@ class ServiceSeekerJobController extends Controller
         if($job->status == 'OPEN' || $job->status == 'CANCELLED' ) {
           $conversations = Conversation::where('job_id', $job->id)
                 ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+                ->where('conversations.status', 'OPEN')
                 ->get();
         } else {
           $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
@@ -399,14 +400,17 @@ class ServiceSeekerJobController extends Controller
 
   //calcualte job stats for service provider. Also exists in Service Provider Controller
   function calcualte_user_job_stats($user_id){
-    $jobs = Job::where('service_provider_id', $user_id)
-        ->where('status','=' , 'CANCELLED')
-        ->orwhere('status','=' , 'COMPLETED')
-        ->take(200)
-        ->get();
+    $completed_jobs = Job::where('service_provider_id', $user_id)
+    ->orwhere('status','=' , 'COMPLETED')
+    ->take(200)
+    ->get();
+    $cancelled_jobs = 1;
+    $completed_jobs_count = count($completed_jobs->where('status', 'COMPLETED' ));
+    $total_jobs = $cancelled_jobs + $completed_jobs_count;
+
     $percentage = 0;
-    if(count($jobs) > 0) {
-        $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
+    if($completed_jobs_count > 0) {
+        $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;
     }
     $rating_records = $jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
     $rating_prefix = 5;

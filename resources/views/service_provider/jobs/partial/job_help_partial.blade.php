@@ -13,13 +13,33 @@
     </p>
     @if($job->status == 'OPEN')
     @elseif($job->status == 'APPROVED')
-    <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+            @csrf
+            <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+            <textarea name="reason" id="" cols="" rows="3"  class="form-control form-control-sm" placeholder="Please tell us why you are cancelling this job.." required></textarea><br>
+            <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        </form>
     @elseif($job->status == 'ONTRIP')
-    <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+            @csrf
+            <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+            <textarea name="reason" id="" cols="" rows="3"  class="form-control form-control-sm" placeholder="Please tell us why you are cancelling this job.." required></textarea><br>
+            <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        </form>
     @elseif($job->status == 'ARRIVED')
-    <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+            @csrf
+            <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+            <textarea name="reason" id="" cols="" rows="3"  class="form-control form-control-sm" placeholder="Please tell us why you are cancelling this job.." required></textarea><br>
+            <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        </form>
     @elseif($job->status == 'STARTED')
-    <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+            @csrf
+            <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+            <textarea name="reason" id="" cols="" rows="3"  class="form-control form-control-sm" placeholder="Please tell us why you are cancelling this job.." required></textarea><br>
+            <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+        </form>
     @elseif($job->status == 'COMPLETED')
     @endif
 </div>

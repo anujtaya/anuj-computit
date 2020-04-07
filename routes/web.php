@@ -119,6 +119,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::post('/service_provider/jobs/job/conversation/check_new_messages', 'ServiceProviderJobController@check_new_messages')->name('service_provider_check_new_messages');
   //invocie routes
   Route::get('/service_provider/jobs/job/email_invoice/{id}', 'ServiceProviderJobController@service_provider_email_invoice' )->name('service_provider_job_email_invoice');
+  //job cancel route
+  Route::post('/service_provider/jobs/job/cancel', 'ServiceProviderJobController@service_provider_job_cancel')->name('service_provider_job_cancel');
 });
 
 Route::group(['middleware' => 'auth' ], function () {
