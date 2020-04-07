@@ -32,7 +32,7 @@ class ServiceProviderController extends Controller
             ->orwhere('status','=' , 'COMPLETED')
             ->take(200)
             ->get();
-        $percentage = 100;
+        $percentage = 0;
         if(count($jobs) > 0) {
             $percentage = ( count($jobs->where('status', 'COMPLETED' )) / count($jobs) ) * 100;
         }

@@ -14,7 +14,7 @@
                <a href="{{route('service_provider_profile_nested')}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left theme-color fs-1" ></i> </a>
             </div>
             <div class="col-8 font-size-bolder text-center font-weight-bold theme-color">
-               Add Certificates
+               Add Languages
             </div>
             <div class="col-2 text-right">
             </div>

@@ -237,6 +237,8 @@
    var update_interval;
    var is_view_update_required = true;
    var current_suburb = "{{Auth::user()->user_city}}";
+   var current_lat = "{{Auth::user()->user_lat}}";
+   var current_lng = "{{Auth::user()->user_lng}}";
 
    window.onload = function() {
       //update_interval =  setInterval(fetch_all_jobs, 25000);

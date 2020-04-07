@@ -16,7 +16,10 @@ Route::get('/register_2', 'RegisterHomeController@register_step_2')->name('regis
 Route::get('/register_3', 'RegisterHomeController@register_step_3')->name('register_3');
 Route::get('/register_4', 'RegisterHomeController@register_step_4')->name('register_4');
 //user account update routes
-Route::post('app/user/register_user', 'UserController@user_update_account_details')->name('app_user_update_account_details');
+Route::post('app/user/update_account_information', 'UserController@user_update_account_details')->name('app_user_update_account_information');
+Route::post('app/user/update_password_information', 'UserController@update_account_password')->name('app_user_update_password_information');
+
+
 //service seeker routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/home',  'ServiceSeekerController@service_seeker_home')->name('service_seeker_home');

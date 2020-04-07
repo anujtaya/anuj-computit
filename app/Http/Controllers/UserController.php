@@ -56,7 +56,50 @@ class UserController extends Controller
 
     //update the basic account detail for all user types including service seeker and service providers - Anuj 20/03/2020
     function user_update_account_details(Request $request){
-         dd($request);
+        $validator =  Validator::make($request->all(), [
+            'user_first_name' => 'required|min:3|max:255',
+            'user_last_name' => 'required|min:3|max:255',
+            'user_phone' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $data =  (object) Input::all();
+            $user = User::find(Auth::id());
+            $user->first = $data->user_first_name;
+            $user->last = $data->user_last_name;
+            $user->phone = $data->user_phone;
+            if($user->save()) {
+                Session::put('status' ,  'Your password updated succesfully.');
+            }
+            return redirect()->back();
+          }
+    }
+
+    //update the basic account detail for all user types including service seeker and service providers - Anuj 20/03/2020
+    function update_account_password(Request $request){
+        $validator =  Validator::make($request->all(), [
+            'password' => 'required|min:8|confirmed',
+        ]);
+        if ($validator->fails()) {
+            Session::put('current_tab', 'usersecurity');
+            return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $data =  (object) Input::all();
+            $user = User::find(Auth::id());
+            $user->password = Hash::make($data->password);
+            if($user->save()) {
+                Session::put('status' ,  'Your password updated succesfully.');
+            }
+            $user->save();
+            return redirect()->back();
+          }
     }
 
 

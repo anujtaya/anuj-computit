@@ -12,7 +12,7 @@ function initMap() {
     //service provider current location
     map = new google.maps.Map(document.getElementById('map'), {
 
-            zoom: 12,
+            zoom: 15,
             clickableIcons: false,
             // disableDefaultUI: true,
             gestureHandling: 'greedy',
@@ -158,7 +158,6 @@ function initMap() {
         }),
 
         currentUserMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(-27.4698, 153.0251), //client's co-ordinates
             map: map,
             zIndex: 1,
             //icon: icons,
@@ -171,10 +170,15 @@ function initMap() {
 
     currentUserMarker.addListener('click', function() {
         map.panTo(currentUserMarker.position);
-        map.setZoom(16);
+        map.setZoom(15);
     });
 
-    map.setCenter(new google.maps.LatLng(-27.4698, 153.0251));
+    if(current_lat != null) {
+        map.setCenter(new google.maps.LatLng(current_lat,current_lng));
+        currentUserMarker.setPosition(new google.maps.LatLng(current_lat,current_lng));
+    }
+
+    
 }
 
 
@@ -225,7 +229,7 @@ function setMapOnAll(map) {
 function resetLocation() {
     map.setCenter(currentUserMarker.position);
     map.panTo(currentUserMarker.position);
-    map.setZoom(11);
+    map.setZoom(15);
 }
 
 function find_nearby(pos) {
@@ -381,6 +385,10 @@ function update_user_final_location(lat,lng,suburb,state) {
         success: function(results){
           if(results) {
             $("#user_current_saved_location").html('Location set to: <span class="theme-color">' + suburb + ',' + state + "</span>");
+            current_lat = lat;
+            current_lng = lng;
+            map.setCenter(new google.maps.LatLng(current_lat,current_lng));
+            currentUserMarker.setPosition(new google.maps.LatLng(current_lat,current_lng));
           } else {
             console.log('Location update notification should not be sent.');
           }
@@ -407,15 +415,13 @@ function initAutocomplete() {
         place_lng = place.geometry.location.lng();
 
         for (var i = 0; i < place.address_components.length; i++) {
-            if(addressType == "localit"){
-              fullAddress[0] = val;
-            }else if(addressType == "administrative_area_level_"){
-              fullAddress[0] += " " +val;
+            var addressType = place.address_components[i].types[0];
+            if(addressType == "locality"){
+                suburb  = place.address_components[i]['long_name'];
+            }else if(addressType == "administrative_area_level_1"){
+                state =  place.address_components[i]['short_name'];
             }
         }
-
-        suburb = place['address_components'][2]['long_name'];
-        state = place['address_components'][3]['short_name'];
         update_user_final_location(place_lat,place_lng,suburb, state);
         $('#user_location_modal_manual_popup').modal('hide');
     });

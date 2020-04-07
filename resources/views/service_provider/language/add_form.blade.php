@@ -4,7 +4,7 @@
    <div class="form-group  mt-0 row">
    
       <div class="col-md-12 mb-3">
-         <select class="form-control p-2" name="language_name" id="language-select" onchange="this.form.submit();toggle_animation(true);">
+         <select class="form-control p-2" style="padding-left:8px;padding-right:8px;" name="language_name" id="language-select" onchange="this.form.submit();toggle_animation(true);">
             <option value="" disabled selected>Please select one..</option>
             <option value="Afrikaans">Afrikaans</option>
             <option value="Albanian">Albanian</option>

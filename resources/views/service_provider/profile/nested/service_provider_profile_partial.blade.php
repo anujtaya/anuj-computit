@@ -81,6 +81,7 @@
          @foreach($current_languages as $language)
             <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  > {{$language->language_name}} </span>
          @endforeach    
+            <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  > English (Default) </span>
       </div>
    </div>
    <!-- end add languages module -->
