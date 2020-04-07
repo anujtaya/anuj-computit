@@ -26,6 +26,7 @@ class ServiceProviderController extends Controller
         return view('service_provider.registration_completed');
     }
 
+    //calcualte job stats for service provider. Also exists in Service Seeker Job Controller
     function calcualte_user_job_stats($user_id){
         $jobs = Job::where('service_provider_id', $user_id)
             ->where('status','=' , 'CANCELLED')
