@@ -23,9 +23,9 @@
          $job_payment = $job->job_payment;
          //calculate job total and other variables
          $conversation = \App\Conversation::where('job_id', $job->id)
-            ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
-            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            ->first();
+         ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
+         ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+         ->first();
          $abn = '';
          if($service_provider_business != null) {
             $abn = $service_provider_business->abn;
@@ -40,9 +40,9 @@
          //dd($extras);
          ?>
       <div class=" w3-center">
-         <h3>Remittance</h3>
+         <h3>Tax Invoice</h3>
       </div>
-      @include('invoice.ss_invoice_extension')
+      @include('invoice.sp_invoice_extension')
       <div  class="w3-padding w3-margin-top  w3-border w3-border-light-grey w3-text-dark-grey w3-tiny ">
          <div class="w3-row">
             <p>All prices are in Austalian Dollars. GST is incuded in the final payable amount.</p>
@@ -62,7 +62,7 @@
                <p>Australia</p>
                <p>ABN: 67-625-654-613</p>
             </div>
-            <div class="w3-col s9 pl-2">=
+            <div class="w3-col s9 pl-2">
             </div>
          </div>
       </div>
