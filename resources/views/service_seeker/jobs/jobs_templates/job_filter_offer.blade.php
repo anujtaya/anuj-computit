@@ -10,11 +10,11 @@
             <span class=""> @if($conversation->service_provider_profile_rating != null) {{number_format($conversation->service_provider_profile->rating,2)}} @else 5.00 @endif <i class="fas fa-star fs--2 text-warning"></i> </span>
          </div>
          <div class="ml-auto p-0 bd-highlight">
-            <span class="text-success fs-1">${{number_format($conversation->json['offer'],2)}}</span> <br>
+            <span class="text-success fs-1"><span class="fs--1">$</span>{{number_format($conversation->json['offer'],2)}}</span> <br>
          </div>
       </div>
       <div class="text-muted bg-light p-2 mb-1 fs--2 rounded">
-         {{$conversation->json['offer_description']}}
+         <i>{{$conversation->json['offer_description']}}</i>
       </div>
       <span class="text-muted font-weight-normal fs--2 p-1">{{count($conversation->conversation_messages)}} messages</span>
    </li>

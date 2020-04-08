@@ -45,9 +45,11 @@ class ServiceSeekerJobController extends Controller
         $job_price = 0.00;
         if($job->status == 'OPEN' || $job->status == 'CANCELLED' ) {
           $conversations = Conversation::where('job_id', $job->id)
+                ->select('conversations.*')
                 ->join('users', 'conversations.service_provider_id', '=', 'users.id')
                 ->where('conversations.status', 'OPEN')
                 ->get();
+                //dd($conversations);
         } else {
           $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
           $conversation_current->service_provider_information = $conversation_current->service_provider_profile;
