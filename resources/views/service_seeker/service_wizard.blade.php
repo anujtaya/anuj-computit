@@ -28,7 +28,9 @@
       <div class=" border-top bg-white sticky-bottom justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <i class="fas fa-arrow-left text-muted  fs-2"></i>
+               <a href="" class="text-white " onclick="wizard_exit(); event.preventDefault();">
+               <i class="fas fs-1 fa-times theme-color"></i>
+               </a>
             </div>
             <div class=" bd-highlight pt-3 pr-4 pb-3">
                <a href="" onclick="wizard_switch('wizard_view_2');event.preventDefault();">

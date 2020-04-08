@@ -36,7 +36,6 @@ class ServiceProviderController extends Controller
         $cancelled_jobs = count(DB::table('service_provider_job_cancellations')->take(200)->get());
         $completed_jobs_count = count($completed_jobs->where('status', 'COMPLETED' ));
         $total_jobs = $cancelled_jobs + $completed_jobs_count;
-        
         $percentage = 0;
         if($completed_jobs_count > 0) {
             $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;

@@ -18,6 +18,7 @@ use Input;
 use Notification;
 use App\Notifications\ServiceSeekerEmailInvoice;
 use PDF;
+use DB;
 
 
 class ServiceSeekerJobController extends Controller
@@ -401,13 +402,12 @@ class ServiceSeekerJobController extends Controller
   //calcualte job stats for service provider. Also exists in Service Provider Controller
   function calcualte_user_job_stats($user_id){
     $completed_jobs = Job::where('service_provider_id', $user_id)
-    ->orwhere('status','=' , 'COMPLETED')
-    ->take(200)
-    ->get();
-    $cancelled_jobs = 1;
+            ->orwhere('status','=' , 'COMPLETED')
+            ->take(200)
+            ->get();
+    $cancelled_jobs = count(DB::table('service_provider_job_cancellations')->take(200)->get());
     $completed_jobs_count = count($completed_jobs->where('status', 'COMPLETED' ));
     $total_jobs = $cancelled_jobs + $completed_jobs_count;
-
     $percentage = 0;
     if($completed_jobs_count > 0) {
         $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;
