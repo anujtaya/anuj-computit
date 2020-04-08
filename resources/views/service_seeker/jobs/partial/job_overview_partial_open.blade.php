@@ -62,14 +62,10 @@ var service_seeker_job_offer_filter_url = "{{route('service_seeker_job_offer_fil
           },
           success: function(results){
             var myUl = $("#service_seeker_job_filter_offer_ul");
-            if(results['conversations'].length == 0){
-              myUl.html("No conversations found");
-            }else{
               myUl.html(results['html']);
-            }
             toggle_animation(false);
-			var filterAnchorTag = document.getElementById('ss_job_filter_offer_dropdown');
-			filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.text()+")</small>";
+            var filterAnchorTag = document.getElementById('ss_job_filter_offer_dropdown');
+            filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.text()+")</small>";
           },
           error: function(results, status, err) {
               console.log(err);

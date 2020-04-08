@@ -17,7 +17,10 @@
             <img src="{{asset('images/svg/l2l_mail_sent.svg')}}" alt="" style="opacity:0.4;max-width:60%!important;"  width="250px" class="img-fluid" alt="Responsive image">
             <br>
             <br>
-            <div class="text-left mb-2">We have succesfully delivered your offering price of ${{$conversation->json['offer']}} to the Service Seeker. Please wait while we get a response from Service Seeker directly. Look for SMS, Push notificcation  or Email alerts sent by us.</div>
+            <div class="text-left mb-2">
+               We have succesfully delivered your offering price of ${{$conversation->json['offer']}} to the Service Seeker.
+                Please wait while we get a response from Service Seeker directly. Look for SMS, Push notification or Email alerts sent by us.
+            </div>
          </div>
          <li class="list-group-item m-1 border-0 card-1 fs--2" @if($conversation_reply_count != 0)  onclick="location.href= '{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}';toggle_animation(true);" @endif>
             <div class="d-flex bd-highlight mb-2">
