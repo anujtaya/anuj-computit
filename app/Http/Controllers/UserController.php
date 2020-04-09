@@ -73,7 +73,7 @@ class UserController extends Controller
             $user->last = $data->user_last_name;
             $user->phone = $data->user_phone;
             if($user->save()) {
-                Session::put('status' ,  'Your password updated succesfully.');
+                Session::put('status' ,  'Your account updated succesfully.');
             }
             return redirect()->back();
           }
