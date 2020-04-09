@@ -114,7 +114,7 @@
       <div class="col-12 fs--1 p-2 p-3" >
          <div class="form-group">
             <label for="exampleInputEmail1">Preferred Date and Time</label>
-            <input  type='datetime-local' onchange="create_seeker_job_draft();" class="form-control form-control-sm"  id="service_job_datetime" value="2020-06-13T13:00">
+            <input  type='datetime-local' onchange="create_seeker_job_draft();" class="form-control form-control-sm"  id="service_job_datetime" value="{{\Carbon\Carbon::now()->format('Y-m-d\TH:i:s')}}">
             <small class="form-text text-muted">Please use plain english text.</small>
          </div>
 
