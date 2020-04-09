@@ -47,9 +47,9 @@ class JobAttachmentController extends Controller
          else
          {
           return response()->json([
-           'message'   => $validation->errors()->all(),
-           'uploaded_image' => '',
-           'class_name'  => 'alert-danger'
+          //  'message'   => $validation->errors()->all(),
+          //  'uploaded_image' => '',
+          //  'class_name'  => 'alert-danger'
           ]);
          }
   }
