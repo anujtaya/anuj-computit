@@ -62,7 +62,7 @@ class ServiceSubCatSeeder extends Seeder
         ]);
         App\ServiceSubCategory::create([
           'service_subname' => 'Other - Boat and Jetski',
-          'service_cat_id' => 2,
+          'service_cat_id' => 1,
           'is_active' => true,
           'created_at' => date('Y-m-d h:m:s'),
         ]);

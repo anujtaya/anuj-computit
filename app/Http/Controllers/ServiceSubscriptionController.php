@@ -30,7 +30,7 @@ class ServiceSubscriptionController extends Controller
                     ->join('service_subcategories', 'service_subcategories.service_cat_id', '=', 'service_categories.id')
                     ->where('service_subcategories.service_subname', 'LIKE' ,  '%'.$input.'%')
                     ->orWhere('service_categories.service_name', 'LIKE' ,  '%'.$input.'%')
-                    ->orderBy('service_name', 'asc')
+                    ->orderBy('service_subname', 'asc')
                     ->get();
 
 
