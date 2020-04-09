@@ -116,6 +116,17 @@ class ServiceSeekerJobController extends Controller
       return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
     }
 
+
+    //provides the function to retrieve job offer details/ service provider information/ data for modal view display
+    protected function map_data_job_offer($job_id){
+      $map_data =  Conversation::where('job_id', $job_id)
+        ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path' )
+        ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+        ->where('conversations.status', 'OPEN')
+        ->get();
+      return Response::json($map_data);
+    }
+
     protected function request_job_draft(){
       $draft_obj = json_decode($_POST['draft_obj']);
       $seeker_id = Auth::user()->id;

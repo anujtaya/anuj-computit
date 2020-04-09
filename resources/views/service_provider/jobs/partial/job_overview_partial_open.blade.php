@@ -32,7 +32,7 @@
                   <span class="text-warning">  @if($service_seeker_profile->rating == null) 5 @else {{$service_seeker_profile->rating}} @endif <i class="fas fa-star"></i></span>
                </div>
                <div class="ml-auto p-0 bd-highlight">
-                  <span class="text-success fs-1">${{$conversation->json['offer']}}</span> <br>
+                  <span class="text-success fs-1"><span class="fs--2">$</span>{{number_format($conversation->json['offer'],2)}}</span> <br>
                </div>
             </div>
             <div class="text-muted bg-light p-2 mb-1 rounded">
@@ -49,7 +49,7 @@
          <br><br>
          <a class="btn theme-color shadow-sm border fs--1 bg-white text-muted" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
             @if($conversation == null) Send Offer @else Revise Offer @endif
-            </a>
+         </a>
       </div>
       @endif
    </div>
