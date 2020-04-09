@@ -31,7 +31,10 @@
          <div class="mr-auto p-0 bd-highlight"></div>
          <div class="p-0 bd-highlight">
             <button   class="btn theme-color btn-sm  card-1 border-0 ml-2 fs--1 bg-white text-muted" onclick="set_display_bounds();">
-               <i class="fas fa-border-all"></i> Overview
+               <i class="fas fa-globe"></i> Overview
+            </button>
+            <button   class="btn theme-color btn-sm  card-1 border-0 ml-2 fs--1 bg-white text-muted" onclick="find_closest_marker();">
+               <i class="fas fa-arrows-alt-h"></i> Closest
             </button>
             <button   class="btn theme-color btn-sm  card-1 border-0 ml-2 fs--1 bg-white text-muted" onclick="reset_map_position();">
                <i class="fas fa-crosshairs"></i> Reset
@@ -40,7 +43,7 @@
       </div>
      
       </div>
-      <div id="map" class="text-center card-1" style="min-width:900px important; min-height:550px!important; position: relative;overflow: hidden;">
+      <div id="map" class="text-center border border-light" style="min-width:900px important; min-height:550px!important; position: relative;overflow: hidden;">
       </div>
       <!-- end map div  -->
    </div>
@@ -120,4 +123,4 @@ function load_conversation_map_data(){
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <script src="{{asset('/js/service_seeker/service_seeker_job_open_map.js')}}?v={{rand(1,100)}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=geometry&callback=initMap" async defer></script>

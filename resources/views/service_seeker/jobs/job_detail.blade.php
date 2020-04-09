@@ -34,7 +34,7 @@ $currentUserTab = 'joboverview';
 <div class="container ">
    <div class="row justify-content-center" >
       <div class="col-lg-12 shadow-sm-none bg-white p-0 border-d fixed-top">
-         <div class="row p-3">
+         <div class="row pl-2 pr-2 pb-1 pt-3">
             <div class="col-4">  <a href="{{route('service_seeker_jobs')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">#JB-{{$job->id}}</span></div>
             <div class="col-4 text-right">
@@ -55,7 +55,7 @@ $currentUserTab = 'joboverview';
                @endif   
             </div>
          </div>
-         <ul class="nav nav-pills shadow-sm p-2 nav-fill m-0 fs--1" id="myTab" role="tablist">
+         <ul class="nav nav-pills shadow-sm pl-2 pr-2 pb-1 nav-fill m-0 fs--1" id="myTab" role="tablist">
             <li class="nav-item ">
                <a class="nav-link @if($currentUserTab  == 'joboverview') active @endif" id="joboverview-tab" data-toggle="tab" href="#joboverview" role="tab" aria-controls="joboverview" aria-selected="true">Overview</a>
             </li>
@@ -71,7 +71,7 @@ $currentUserTab = 'joboverview';
          </ul>
       </div>
    </div>
-   <div class="p-0" style="margin-top:135px">
+   <div class="p-0" style="margin-top:110px;">
          <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab">
                @if($job->status == 'OPEN')
