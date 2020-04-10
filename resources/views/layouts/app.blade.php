@@ -11,9 +11,11 @@
       <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> -->
       <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
       @stack('header-style')
-      <script src="https://kit.fontawesome.com/bcffd7c145.js" crossorigin="anonymous"></script>
+      <script src="{{asset('lib/fa/js/all.js')}}"></script>
       <!-- theme css -->
       <link rel="stylesheet" href="{{asset('css/backend/main.css')}}?v={{rand(10,10000)}}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+      <!-- scripts  -->
       <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
       @stack('header-script')
       <style>
@@ -36,10 +38,6 @@
 
       <script>
          @yield('customjavascripts')
-
-
-
-
 
 
          function main_btn_status(btn_id) {

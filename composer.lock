@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.134.0",
+            "version": "3.134.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "480d4df4b7974666fa7c5e3df564d01f4f29663f"
+                "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/480d4df4b7974666fa7c5e3df564d01f4f29663f",
-                "reference": "480d4df4b7974666fa7c5e3df564d01f4f29663f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3ebf1d8b24dc38339d93d943971d7d3e1102327b",
+                "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-31T18:12:13+00:00"
+            "time": "2020-04-08T18:27:07+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1009,6 +1009,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -1055,6 +1056,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -4298,16 +4300,16 @@
         },
         {
             "name": "twilio/sdk",
-            "version": "6.1.0",
+            "version": "6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twilio/twilio-php.git",
-                "reference": "eb38f4c6f0d02456d4cbcd7cf88570df9750cda3"
+                "reference": "a891817d30c31d86e89b5fbfe46a8ef6b692be12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/eb38f4c6f0d02456d4cbcd7cf88570df9750cda3",
-                "reference": "eb38f4c6f0d02456d4cbcd7cf88570df9750cda3",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/a891817d30c31d86e89b5fbfe46a8ef6b692be12",
+                "reference": "a891817d30c31d86e89b5fbfe46a8ef6b692be12",
                 "shasum": ""
             },
             "require": {
@@ -4344,7 +4346,7 @@
                 "sms",
                 "twilio"
             ],
-            "time": "2020-03-18T19:42:16+00:00"
+            "time": "2020-04-01T19:52:37+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
