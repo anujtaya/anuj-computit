@@ -11,7 +11,7 @@ function initMap() {
         // anchor: new google.maps.Point(0, 0) // anchor
     };
     map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 14,
+            zoom: 12,
             clickableIcons: false,
             gestureHandling: 'greedy',
             disableDefaultUI: true,
@@ -213,47 +213,43 @@ function populate_conversation_map_data(data) {
 
 }
 
-
-var bounds, zoomLevel;
 function set_display_bounds() {
-    bounds = new google.maps.LatLngBounds();
-    bounds.extend(current_job_marker.position);
+    var bounds = new google.maps.LatLngBounds();
     for (i = 0; i < markers.length; i++) {
-        bounds.extend(markers[i].position)
+        position = new google.maps.LatLng(markers[i].getPosition().lat(), markers[i].getPosition().lat());
+        bounds.extend(position)
     }
     map.fitBounds(bounds);
-    zoomLevel = map.getZoom();
-    console.log(zoomLevel);
-    map.setCenter(current_job_marker.position);
-    zoomLevel = zoomLevel - 1;
-    map.setZoom(zoomLevel);
-    console.log('Map zoom updated to: ' + zoomLevel);
+    map.setCenter(current_job_marker.getPosition());
 }
-
-
 
 function reset_map_position() {
     map.setCenter(current_job_marker.position);
     map.setZoom(14);
 }
 
-
 function find_closest_marker() {
     lat1 = current_job_marker.getPosition().lat();
+
     lon1 = current_job_marker.getPosition().lng();
     var pi = Math.PI;
     var R = 6371; //equatorial radius
     var distances = [];
     var closest = -1;
+
     for (i = 0; i < markers.length; i++) {
         var lat2 = markers[i].position.lat();
         var lon2 = markers[i].position.lng();
+
         var chLat = lat2 - lat1;
         var chLon = lon2 - lon1;
+
         var dLat = chLat * (pi / 180);
         var dLon = chLon * (pi / 180);
+
         var rLat1 = lat1 * (pi / 180);
         var rLat2 = lat2 * (pi / 180);
+
         var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(rLat1) * Math.cos(rLat2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
@@ -264,9 +260,10 @@ function find_closest_marker() {
             closest = i;
         }
     }
+
     // (debug) The closest marker is:
     map.panTo(markers[closest].position);
-    map.setZoom(17)
+    map.setZoom(14);
     console.log(markers[closest]);
 }
 
@@ -286,4 +283,5 @@ function populate_map_con_detail_modal_popup(a){
     $('#map_con_modal_popup').modal('show');   
     $('#map_con_modal_popup_conversation_link').attr("href", app_url + '/service_seeker/jobs/job/conversation/' + a.job_id + '/' + a.service_provider_id);
     $('#map_con_modal_popup_image').attr("src",app_url + "/storage/images/profile/" + a.profile_image_path);
+    
 }

@@ -120,7 +120,7 @@ class ServiceSeekerJobController extends Controller
     //provides the function to retrieve job offer details/ service provider information/ data for modal view display
     protected function map_data_job_offer($job_id){
       $map_data =  Conversation::where('job_id', $job_id)
-        ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path' )
+        ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path','users.first' ,'users.last','users.rating' )
         ->join('users', 'conversations.service_provider_id', '=', 'users.id')
         ->where('conversations.status', 'OPEN')
         ->get();
