@@ -154,6 +154,7 @@ Route::get('/demo/test2', 'DemoController@test2');
 Route::get('/demo/create_demo_jobs', 'DemoController@create_demo_jobs');
 Route::get('/demo/test_sp_invoice_template_design/{id}', 'DemoController@test_sp_invoice_template_design');
 Route::get('/demo/test_ss_invoice_template_design/{id}', 'DemoController@test_ss_invoice_template_design');
+Route::get('/test_notification', 'JobNotificationController@test_template');
 
 
 

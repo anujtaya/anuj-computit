@@ -250,6 +250,7 @@ class ServiceProviderJobController extends Controller
 			if($conversation != null) {
 				$job->status = 'ONTRIP';
 				if($job->save()) {
+					app('App\Http\Controllers\JobNotificationController')->send_job_status_update_notification_to_service_seeker($job);
 					$response = true;
 				}
 			}

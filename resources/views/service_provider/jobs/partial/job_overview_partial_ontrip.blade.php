@@ -15,7 +15,7 @@
          <br>
          <br>
          <span>You are now on your way to Service Seeker location. Please be there on time. <br> <br>
-         {{$job->street_number}} {{$job->street_name}}  ,{{$job->city}} ,{{$job->state}} {{$job->postcode}}
+            <span class="text-monospace-d">{{$job->street_number}} {{$job->street_name}}  ,{{$job->city}} ,{{$job->state}} {{$job->postcode}}</span>  
           </span> <br> <br>
          <button class="btn btn-sm text-danger border-0 card-1  fs--1 bg-white  delay-2s mr-2" onclick="job_cancel_ontrip();">Cancel Trip <i class="fas fa-ban fs--2"></i></butotn>
          <button class="btn btn-sm text-success border-0 card-1  fs--1 bg-white  delay-2s" onclick="job_mark_arrived();">Mark Arrived <i class="far fa-check-circle"></i></button> <br> <br>
@@ -33,7 +33,7 @@
          @elseif($iPad)
          <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})"><i class="far fa-location-arrow fs--1"></i> Get Directions</button>
          @else
-         <button class="btn btn-sm fs--1 text-dark bg-white card-1" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
+         <button class="btn btn-sm fs--1 theme-color bg-white card-1" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
          @endif
          @endif
       </div>
