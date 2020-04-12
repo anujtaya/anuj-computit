@@ -1,8 +1,16 @@
 @push('header-script')
-<script src="{{asset('/js/service_seeker/service_seeker_home.js')}}?v={{rand(1,100)}}"></script>
-<script src="{{asset('/js/service_seeker/service_seeker_home_map.js')}}?v={{rand(1,100)}}"></script>
+<script src="{{asset('/js/service_seeker/service_seeker_job_ontrip_map.js')}}?v={{rand(1,1000)}}"></script>
 @endpush
 @if($conversation_current != null)
+
+<style>
+#map_info_window {
+   color:blue;
+   padding:10px!important;
+}
+
+</style>
+
 <div class="fs--1">
    <div class="mt-3 border-0  rounded shadow-sm-none" >
       <div class="d-flex bd-highlight">
@@ -31,7 +39,7 @@
       <div class="d-flex bd-highlight mb-3">
          <div class="p-0 bd-highlight">
             <span class="badge border-0 text-danger fs--1 card-1"><i class="fas fa-circle animated infinite fadeIn fs--2 "></i> Live</span></div>
-         <div class="ml-auto p-0 bd-highlight">   <span class="badge theme-color fs--1 card-1">ETA: 13 mins - 2.4 kms</span>   </div>
+         <div class="ml-auto p-0 bd-highlight">   <span class="badge theme-color fs--1 card-1" id="service_provider_eta">----</span>   </div>
       </div>
       <!-- map div -->
       <div id="map" class="text-center m-0 rounded card-1" style="min-width:900px important; min-height:400px!important; position: relative;overflow: hidden;"></div>
@@ -40,9 +48,40 @@
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
 <script>
-   //update the job status to tracking if user click on the start navigation button.`
-   var CSRF_TOKEN = "{{csrf_token()}}";
-   //tracking service code goes here
+   var service_seeker_job_tracking_url = "{{route('service_seeker_job_tracking_info', $job->service_provider_id)}}";
+   var app_url = "{{URL::to('/')}}";
+   var job_lat = "{{$job->job_lat}}";
+   var job_lng = "{{$job->job_lng}}";
+   var service_provider_lat = "{{$conversation_current->service_provider_information->user_lat}}";
+   var service_provider_lng = "{{$conversation_current->service_provider_information->user_lng}}";
+   var service_provider_loc_update_interval = null;
+
+   window.onload = function() {
+      //window onload functions
+      service_provider_loc_update_interval = setInterval(load_service_provider_cordinates, 20000);
+      load_service_provider_cordinates();
+   }
+  
+   function load_service_provider_cordinates(){
+      $.ajax({
+            type: "POST",
+            url: service_seeker_job_tracking_url,
+            data: {
+               "_token": CSRF_TOKEN,
+            },
+            success: function(results){
+               //console.log(results);
+               if(results != false) {
+                  update_service_provider_location(results);
+               }
+            },
+            error: function(results, status, err) {
+               console.log(err);
+            }
+      });
+   }
+
+
 
 </script>
 @else

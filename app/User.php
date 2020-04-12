@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function certificates(){
         return $this->hasMany('App\Certificate');
     }
+
+    public function current_location(){
+        return $this->hasOne('App\UserCurrentLocation');
+    }
 }

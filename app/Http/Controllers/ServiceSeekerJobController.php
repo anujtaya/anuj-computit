@@ -74,6 +74,16 @@ class ServiceSeekerJobController extends Controller
   		}
     }
 
+    //service provider job cordinates job tracking information
+    protected function job_tracking_info($sp_id){
+      $user = User::find($sp_id);
+      if($user != null ) {
+        return Response::json($user->current_location);
+      } else {
+        return Response::json(false);
+      }
+    }
+
 
     //calcualtes job final job total when job extras and conversation with a offer value is provided. Please pass the correct data to this function to avoid any calculation errors.
     protected function calculate_job_price($extras, $conversation){

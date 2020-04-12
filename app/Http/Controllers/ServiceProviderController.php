@@ -8,6 +8,7 @@ use App\Job;
 use App\Bid;
 use App\Conversation;
 use App\ConversationMessage;
+use App\UserCurrentLocation;
 use App\User;
 use Auth;
 use Response;
@@ -138,6 +139,18 @@ class ServiceProviderController extends Controller
         $user->user_city = $_POST['suburb'];
         $user->user_state = $_POST['state'];
         if($user->save()){
+            $current_location = $user->current_location;
+            if($current_location != null) {
+                $current_location->lat = $user->user_lat;
+                $current_location->lng = $user->user_lng;
+                $current_location->save();
+            } else {
+                $current_location = new UserCurrentLocation();
+                $current_location->lat = $user->user_lat;
+                $current_location->lng = $user->user_lng;
+                $current_location->user_id = $user->id;
+                $current_location->save();
+            }
             return Response::json(true);
         } else {
             return Response::json(false);

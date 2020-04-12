@@ -10,7 +10,7 @@
 @endcomponent
 
 
-@component('mail::button', ['url' => url('/').'/service_seeker/jobs/job/2'])
+@component('mail::button', ['url' => url('/').'/service_seeker/jobs/job/'.$job->id])
 View Job
 @endcomponent
 
