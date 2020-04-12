@@ -156,6 +156,7 @@ Route::get('/demo/test_sp_invoice_template_design/{id}', 'DemoController@test_sp
 Route::get('/demo/test_ss_invoice_template_design/{id}', 'DemoController@test_ss_invoice_template_design');
 Route::get('/test_notification', 'JobNotificationController@test_template');
 
-
+//helpdesk routes
+Route::post('app/services/support/send_support_email', 'HelpdeskController@send_support_email')->name('app_services_support_send_support_email')->middleware('auth');
 
 

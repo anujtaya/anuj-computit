@@ -25,7 +25,7 @@ class JobNotificationController extends Controller
 {
     function send_job_status_update_notification_to_service_seeker($job){
         //sms channel
-        //push notification channel
+        //push notification channelgit
         //email notification
         $user = User::find($job->service_seeker_id);
         $user->notify(new JobStatusUpdate($job));

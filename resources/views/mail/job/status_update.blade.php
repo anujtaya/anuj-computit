@@ -9,6 +9,12 @@
 | {{$job->id}}     |  {{$job->service_category_name}} - {{$job->service_subcategory_name}}      |  {{$job->status}}      |
 @endcomponent
 
+
+@component('mail::button', ['url' => url('/').'/service_seeker/jobs/job/2'])
+View Job
+@endcomponent
+
+
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

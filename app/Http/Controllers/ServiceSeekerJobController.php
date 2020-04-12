@@ -38,6 +38,9 @@ class ServiceSeekerJobController extends Controller
       //get job details
       $job = Job::find($id);
       if($job){
+        if($job->service_seeker_id != Auth::id()) {
+          abort(403, 'You are not authrised to access this resource.');
+        }
         //get bids related to this job
         $conversation_current = null;
         $conversations = null;
