@@ -159,5 +159,5 @@ Route::get('/test_notification', 'JobNotificationController@test_template');
 
 //helpdesk routes
 Route::post('app/services/support/send_support_email', 'HelpdeskController@send_support_email')->name('app_services_support_send_support_email')->middleware('auth');
-
+Route::get('/app/services/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account')->middleware('auth');
 
