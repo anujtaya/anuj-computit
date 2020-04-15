@@ -228,12 +228,12 @@ class ServiceProviderJobController extends Controller
 	}
 
 	protected function fetch_all_jobs(){
-		if(Auth::user()){
-			$jobs = Job::where('status', '=', 'OPEN')->get();
-		}else{
-			abort(403);
-		}
-		return Response::json($jobs);
+		$filter_action = $_POST['filter_action'];
+		$user_id = Auth::id();
+		$jobs  = Job::where('status', 'OPEN')->get();
+		//render the html page.
+		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_homepgae_template_list', compact('jobs'))->render();
+		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
 	}
 
 

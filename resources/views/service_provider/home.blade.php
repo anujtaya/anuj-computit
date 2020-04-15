@@ -1,7 +1,8 @@
 @extends('layouts.service_provider_master')
 @section('content')
 @stack('header-script')
-<script src="{{asset('js/service_provider/service_provider_home.js')}}?v={{rand(1,1000)}}"></script>
+<!-- <script src="{{asset('js/service_provider/service_provider_home.js')}}?v={{rand(1,1000)}}"></script> -->
+<script src="{{asset('/js/service_provider/service_provider_home_renderer.js')}}?v={{rand(1,1000)}}"></script>
 <script src="{{asset('/js/service_provider/service_provider_home_map.js')}}?v={{rand(1,1000)}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 @stack('header-style')
@@ -85,20 +86,20 @@
             </div>
          </div>
          <!-- end location update div -->
-         <div class="col-6 pl-2 pt-2 pb-2">
-            <a  id="job_filter_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" style="border-radius:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-sort-amount-up-alt"></i> Filter
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-               <a class="dropdown-item theme-color" href="#"> Distance</a>
-               <a class="dropdown-item theme-color" href="#"> Date</a>
-            </div>
-            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="fetch_all_jobs(false);" style="border-radius:20px; cursor: pointer" >
+         <div class="col-7 pl-2 pt-2 pb-2">
+            <a class="btn theme-color btn-sm  border fs--2 bg-white" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fas fa-sort-amount-up-alt"></i> Filter
+               </a>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="Rating" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Rating</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="Distance" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Distance</span>
+               </div>
+            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="filter_service_provider_jobs(null);" style="border-radius:20px; cursor: pointer" >
                <i class="fas fa-redo-alt"></i> Refresh
             </a>
          </div>
-         <div class=" col-6 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
-            <span id="update_refresh_counter_el">0</span> seconds ago.
+         <div class=" col-5 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
+            <span id="update_refresh_counter_el">0</span> sec ago.
             <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();"  style="border-radius:20px;" >
                <i class="fas fa-crosshairs"></i> Reset
             </button>
@@ -243,7 +244,7 @@
    window.onload = function() {
       //update_interval =  setInterval(fetch_all_jobs, 25000);
       //setInterval(update_refresh_count_display, 5000);
-      fetch_all_jobs();
+      filter_service_provider_jobs(null);
       //initialize the service provider location setup
       if(current_suburb == '') {
          update_sp_location();
@@ -256,27 +257,7 @@
       'date_filter' : true
    }
 
-   function switch_view_mode(str) {
-          if(str == 'MAP'){
-              $("#job_list_display").hide();
-              $("#map_view_display").show();
-              $("#job_filter_btn").hide();
-              $("#map_btn").hide();
-              $("#list_btn").fadeIn();
-              $("#list_btn").addClass('animated zoomIn');
-              setTimeout(function(){  $("#list_btn").removeClass('animated zoomIn '); }, 1000);
-              is_view_update_required = false;
-          } else if (str == 'LIST'){
-              $("#job_list_display").show();
-              $("#map_view_display").hide();
-              $("#job_filter_btn").show();
-              $("#list_btn").hide();
-              $("#map_btn").fadeIn();
-              $("#map_btn").addClass('animated zoomIn');
-              setTimeout(function(){  $("#map_btn").removeClass('animated zoomIn '); }, 1000);
-              is_view_update_required = true;
-          }
-      }
+   
 
 </script>
 @include('service_provider.bottom_navigation_bar')
