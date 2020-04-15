@@ -24,6 +24,7 @@ class CreateJobsTable extends Migration
             $table->string('street_number')->nullable();
             $table->string('street_name')->nullable();
             $table->string('state')->nullable();
+            $table->string('suburb')->nullable();
             $table->string('city')->nullable();
             $table->string('postcode')->nullable();
             //to enable job pin confirmation

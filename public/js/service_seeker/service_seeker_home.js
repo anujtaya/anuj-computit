@@ -333,6 +333,9 @@ function initAutocomplete() {
       // Get the place details from the autocomplete object.
       place = autocomplete.getPlace();
       current_address_string = place['address_components'];
+
+      //console.log(current_address_string);
+
       current_job_lat = place.geometry.location.lat();
       current_job_lng = place.geometry.location.lng();
 

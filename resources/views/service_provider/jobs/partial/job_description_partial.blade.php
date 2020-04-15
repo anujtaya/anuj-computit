@@ -12,6 +12,7 @@
                   class="p-2" height="300" width="300" alt="Service Seeker Profile Image 100*100"> <br> <br>
                <span class="theme-color" style="font-size: 0.8rem;">{{$service_seeker_profile->first}} {{$service_seeker_profile->last}}</span> <br>
                <span class="text-warning"><i class="fas fa-star mt-1"></i> <i class="fas fa-star mt-"></i> <i class="fas fa-star mt-"></i>  <i class="fas fa-star-half-alt"></i> </span>
+
             </div>
          </div>
          <div class="p-2 bd-highlight">
@@ -23,7 +24,7 @@
    <div class="form-group">
       <label class="font-weight-bold" for="exampleInputEmail1">Job Date & Time</label>
       <br>
-      {{ date('h:ia d/m/Y', strtotime($job->job_datetime)) }}
+      {{ date('h:ia d/m/Y', strtotime($job->job_date_time)) }}
    </div>
    <div class="form-group">
       <label  class="font-weight-bold" for="exampleInputEmail1">Location</label> <br>
@@ -31,7 +32,7 @@
           @if($job->status == 'APPROVED'|| $job->status == 'ARRIVED' || $job->status == 'STARTED')
             {{$job->street_number}} {{$job->street_name}} <br>
          @endif
-      {{$job->city}}<br>{{$job->state}}, {{$job->postcode}}
+         {{$job->suburb}}, {{$job->city}}<br>{{$job->state}}, {{$job->postcode}}
       </span>
       <br>
       <div class="">

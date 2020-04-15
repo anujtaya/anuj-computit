@@ -230,6 +230,7 @@ class ServiceSeekerJobController extends Controller
           $job->state = $job_obj->current_address_string[4]->long_name;
           $job->postcode = $job_obj->current_address_string[6]->long_name;
           $job->city = $job_obj->current_address_string[3]->long_name;
+          $job->suburb = $job_obj->current_address_string[2]->long_name;
           $job->service_category_id = $job_obj->service_category_id;
           $job->service_category_name = $job_obj->service_category_name;
           $job->service_subcategory_name = $job_obj->service_subcategory_name;
@@ -253,6 +254,7 @@ class ServiceSeekerJobController extends Controller
         $job->state = $job_obj->current_address_string[4]['long_name'];
         $job->postcode = $job_obj->current_address_string[6]['long_name'];
         $job->city = $job_obj->current_address_string[3]['long_name'];
+        $job->suburb = $job_obj->current_address_string[2]['long_name'];
         $job->service_category_id = $job_obj->service_category_id;
         $job->service_category_name = $job_obj->service_category_name;
         $job->service_subcategory_name = $job_obj->service_subcategory_name;

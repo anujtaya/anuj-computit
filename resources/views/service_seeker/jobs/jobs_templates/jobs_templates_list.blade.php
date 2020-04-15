@@ -5,7 +5,7 @@
       <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{ucfirst($job->title)}}</div>
     </div>
     <div class="d-flex bd-highlight">
-      <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt"></i> {{$job->city}}, {{$job->postcode}}</div>
+      <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt mr-1"></i>{{$job->suburb}}, {{$job->city}} {{$job->postcode}}</div>
       <div class="p-0 flex-shrink-1 bd-highlight text-secondary">
           @if($job->status == 'OPEN')
           <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated rubberBand delay-1s" style="border-radius:20px!important;">Open</span>
