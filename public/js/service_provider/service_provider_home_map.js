@@ -4,11 +4,6 @@ var map, infoWindow, pos, serviceMarker, currentUserMarker, user1, tempuserlat, 
 var radius = 50;
 
 function initMap() {
-    // Try HTML5 geolocation.
-    var icons = {
-        url: '/images/map/pulse_marker.svg',
-        scaledSize: new google.maps.Size(60, 60),
-    };
     //service provider current location
     map = new google.maps.Map(document.getElementById('map'), {
 
@@ -188,6 +183,7 @@ function initMap() {
 
 
 function display_job_markers() {
+    markers = [];
     setMapOnAll(null);
     for (var i = 0; i < jobs.length; i++) {
         var serviceMarker = new google.maps.Marker({
@@ -205,7 +201,6 @@ function display_job_markers() {
     var markerCluster = new MarkerClusterer(map, markers, {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
-
     setMapOnAll(map);
 }
 
@@ -224,6 +219,8 @@ function setMapOnAll(map) {
         });
         markers[i].setMap(map);
     }
+    //adjust the map view to include all marker and center the marker based on Service Provider location.
+    set_display_bounds();
 }
 
 function resetLocation() {
@@ -231,51 +228,6 @@ function resetLocation() {
     map.panTo(currentUserMarker.position);
     map.setZoom(15);
 }
-
-function find_nearby(pos) {
-    viewAll(pos.lat(), pos.lng(), radius);
-}
-
-
-
-function viewAll(lat, lng, radius) {
-    setMapOnAll(null);
-    markers = [];
-    $.ajax({
-
-        type: "POST",
-        url: "./api/heatmap_fetch",
-        data: {
-            'lat': lat,
-            'lng': lng,
-            'radius': radius
-        },
-        success: function(results) {
-            console.log('Map Resutls Refreshed.')
-            setMapOnAll(null);
-            markers = [];
-            for (var i = 0; i < results.length; i++) {
-                serviceMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(results[i]['lat'], results[i]['lng']),
-                    icon: {
-                        //url: './images/dot.svg',
-                        url: '/images/map/service_provider_job_icon.svg',
-                        scaledSize: new google.maps.Size(40, 40),
-                    },
-                });
-                markers.push(serviceMarker);
-                setMapOnAll(map);
-
-            }
-            console.log(results);
-        },
-        error: function(result, status, err) {
-            markers = [];
-        }
-    });
-
-}
-
 
 //populates the text values in map job detail modal
 function populate_map_job_detail_model_popup(a){
@@ -323,7 +275,7 @@ function reset_map_position(){
 function update_sp_location(){
    //check if the location can be updated using navigator
     if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(update_location_using_navigator, update_location_without_navigator);
+        navigator.geolocation.getCurrentPosition(update_location_using_navigator, update_location_without_navigator);
     } else {
         handle_automatc_loc_update_failure();
     }
@@ -389,6 +341,7 @@ function update_user_final_location(lat,lng,suburb,state) {
             current_lng = lng;
             map.setCenter(new google.maps.LatLng(current_lat,current_lng));
             currentUserMarker.setPosition(new google.maps.LatLng(current_lat,current_lng));
+            filter_service_provider_jobs(null);
           } else {
             console.log('Location update notification should not be sent.');
           }
@@ -425,4 +378,53 @@ function initAutocomplete() {
         update_user_final_location(place_lat,place_lng,suburb, state);
         $('#user_location_modal_manual_popup').modal('hide');
     });
+}
+
+function find_closest_marker() {
+    lat1 = currentUserMarker.getPosition().lat();
+    lon1 = currentUserMarker.getPosition().lng();
+    var pi = Math.PI;
+    var R = 6371; //equatorial radius
+    var distances = [];
+    var closest = -1;
+    for (i = 0; i < markers.length; i++) {
+        var lat2 = markers[i].position.lat();
+        var lon2 = markers[i].position.lng();
+        var chLat = lat2 - lat1;
+        var chLon = lon2 - lon1;
+        var dLat = chLat * (pi / 180);
+        var dLon = chLon * (pi / 180);
+        var rLat1 = lat1 * (pi / 180);
+        var rLat2 = lat2 * (pi / 180);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(rLat1) * Math.cos(rLat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+
+        distances[i] = d;
+        if (closest == -1 || d < distances[closest]) {
+            closest = i;
+        }
+    }
+    // (debug) The closest marker is:
+    map.panTo(markers[closest].position);
+    map.setZoom(17)
+    console.log(markers[closest]);
+}
+
+
+var bounds, zoomLevel;
+function set_display_bounds() {
+    bounds = new google.maps.LatLngBounds();
+    bounds.extend(currentUserMarker.position);
+    for (i = 0; i < markers.length; i++) {
+        bounds.extend(markers[i].position)
+    }
+    map.fitBounds(bounds);
+    zoomLevel = map.getZoom();
+    console.log(zoomLevel);
+    map.setCenter(currentUserMarker.position);
+    zoomLevel = zoomLevel - 1;
+    map.setZoom(zoomLevel);
+    console.log('Map zoom updated to: ' + zoomLevel);
 }

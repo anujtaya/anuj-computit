@@ -17,8 +17,9 @@
 </li>
 @endforeach
 @if(count($jobs) == 0) 
-<div class="text-center p-3">
-      <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;"  class="img-fluid" alt="Responsive image">
+<div class="text-center p-3 fs--1">
+      <!-- <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;width:200px"  class="img-fluid" alt="Responsive image"> -->
+      <i class="fas fa-circle-notch fs-2 theme-color fa-spin"></i>
       <br>
       <br>
       <span>We are still looking for Job that matches your profile. Please stay tuned..</span>

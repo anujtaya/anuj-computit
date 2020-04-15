@@ -18,6 +18,9 @@ function filter_service_provider_jobs(data) {
 
 function make_filter_ajax_request(data) {
    //toggle_animation(true);
+   job_list_container.style.display = "none";
+   preloader_container.style.display = 'block';
+   
    $.ajax({
        type: "POST",
        url: service_provider_jobs_fetch_url,
@@ -26,26 +29,26 @@ function make_filter_ajax_request(data) {
            "filter_action": data,
        },
        success: function(results) {
-           var myUl = $("#job_list_display");
-           console.log(results);
-           if (results['jobs'].length == 0) {
-               myUl.html("<p class='m-2 p-2 text-warning'>No jobs found</p>");
-           } else {
-               if (is_view_update_required == true) {
-                   preloader_container.style.display = "none";
-                   job_list_container.style.display = "block";
-               }
-               myUl.html(results['html']);
-           }
-           //toggle_animation(false);
-           if (data != null) {
-               var filterAnchorTag = document.getElementById('sp_jobs_filter');
-               filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.trim() + ")</small>";
-           }
+            job_list_container.style.display = "block";
+            preloader_container.style.display = 'none';    
+            var myUl = $("#job_list_display");
+            update_refresh_count = 0;    
+            update_refresh_count_display();
+            //console.log(results);      
+            myUl.html(results['html']);
+            jobs = results['jobs'];
+            display_job_markers();
+            //toggle_animation(false);
+            if (data != null)
+            {
+                var filterAnchorTag = document.getElementById('sp_jobs_filter');
+                filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.trim() + ")</small>";
+            }
        },
        error: function(results, status, err) {
            console.log(err);
-           //toggle_animation(false);
+           job_list_container.style.display = "block";
+           preloader_container.style.display = 'none';    
        }
 
 
