@@ -17,7 +17,7 @@
          </div>
          <div class="p-2 bd-highlight">
             <span class="theme-color" style="font-size: 0.8rem;">{{$service_seeker_profile->first}} {{$service_seeker_profile->last}}</span> <br>
-            <span class="text-warning"><i class="fas fa-star mt-1"></i> <i class="fas fa-star mt-"></i> <i class="fas fa-star mt-"></i>  <i class="fas fa-star-half-alt"></i> </span>
+            <span class="fs-1"> @if($service_seeker_profile->rating != null) {{$service_seeker_profile->rating}} @else 5 @endif<i class="fas fa-star fs--2 text-warning mt-0"></i> </span> <br>
          </div>
       </div>
    </div>
