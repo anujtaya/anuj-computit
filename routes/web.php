@@ -161,3 +161,6 @@ Route::get('/test_notification', 'JobNotificationController@test_template');
 Route::post('app/services/support/send_support_email', 'HelpdeskController@send_support_email')->name('app_services_support_send_support_email')->middleware('auth');
 Route::get('/app/services/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account')->middleware('auth');
 
+//provider portal routes
+Route::get('/app/portal/driver/home', 'ProviderPortalController@display_home')->name('app_portal_driver_home')->middleware('auth');
+
