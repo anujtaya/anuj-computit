@@ -17,7 +17,7 @@ class RegisterHomeController extends Controller
          if($input == 'sp'){
             Session::put('is_sp_registration_required', true);
         }
-        return View::make("auth.register.register_1");
+        return View::make("auth.register.register");
       }
     
 }

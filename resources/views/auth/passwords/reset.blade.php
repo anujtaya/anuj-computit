@@ -54,7 +54,7 @@
                   <input id="password-confirm" type="password" class="form-control form-control-sm" name="password_confirmation" required autocomplete="new-password">
                </div>
                <div class="form-group row mb-0">
-                  <button type="submit" class="btn  btn-success btn-sm fs--1 text-white shadow-none   m-3 mb-1">
+                  <button type="submit" class="btn theme-background-color btn-sm fs--1 text-white shadow-none   m-3 mb-1">
                   {{ __('Send Password Reset Link') }}
                   </button>
                </div>

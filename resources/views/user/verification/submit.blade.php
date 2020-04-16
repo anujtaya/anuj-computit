@@ -9,13 +9,15 @@
                <div class="card bg-white p-4 shadow-none">
                   <!-- page main title -->
                   <div class="text-center mt-4">
-                     <h1 class="fs-1">Enter the PIN sent to</h1>
-                     <p class="fs-1 mt-4">{{Auth::user()->phone}} <br><span><a class="text-danger fs--1" href="{{ route('user_verify_phone_send')}}" onclick="toggle_animation(true);">(Change)</a></span> </p>
+                     <h1 class="fs-1">Enter the PIN sent to: <br> <br>
+                     <span class="fs--1">+{{Auth::user()->phone}}  <a class="text-danger fs--1" href="{{ route('user_verify_phone_send')}}" onclick="toggle_animation(true);">(Change)</a></span></h1>
+                    
+                     <br>
                      @if(Session::has('status'))
-                     <div class="alert  text-success fs--1 mt-2"> {{Session::pull('status')}}</div>
+                     <div class="alert alert-success fs--1 mt-2"> {{Session::pull('status')}}</div>
                      @endif
                      @if(Session::has('error'))
-                     <div class="alert alert-danger fs--1 mt-3"> {{Session::pull('error')}}</div>
+                     <div class="alert alert-success fs--1 mt-3"> {{Session::pull('error')}}</div>
                      @endif
                   </div>
                   <!-- start page illustrator -->
@@ -32,10 +34,10 @@
                      </div>
                      <!-- start page footer -->
                      <div class="text-center mt-4">
-                        <button type="submit" class="btn rounded-3 mt-3 btn-success text-white fs--1" width="221px" height="47px" id="">
+                        <button type="submit" class="btn rounded-3 mt-3 theme-background-color text-white fs--1 card-1" width="221px" height="47px" id="">
                         {{ __('Verify') }}
                         </button>
-                        <a href="#" onclick="generate_request_code();" class="btn mt-3 btn-warning text-white fs--1">Resend Code</a>
+                        <a href="#" onclick="generate_request_code();" class="btn mt-3 btn-warning text-white fs--1 card-1">Resend Code</a>
                      </div>
                   </form>
                </div>
@@ -67,7 +69,8 @@
           document.getElementById("request-code-form").submit();
    
       } else {
-          alert(response);
+         $("#verification_code").addClass("is-invalid");
+         //alert(response);
       }
    }
    
@@ -122,7 +125,7 @@
    }
 </script>
 <div class="progress fixed-top rounded-0" style="height: 10px;">
-   <div class="progress-bar  bg-success" role="progressbar" style="width:50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+   <div class="progress-bar theme-background-color" role="progressbar" style="width:50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 <script>
    $(".progress-bar").animate({
