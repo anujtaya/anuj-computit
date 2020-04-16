@@ -89,10 +89,10 @@
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="Rating" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Rating</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="Distance" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Distance</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this),true);" data-value="Rating" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Rating</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this),true);" data-value="Distance" style="cursor: pointer"><i class="far fa-circle text-primary"></i> Distance</span>
                </div>
-            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="filter_service_provider_jobs(null);" style="border-radius:20px; cursor: pointer" >
+            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer" >
                <i class="fas fa-redo-alt"></i> Refresh
             </a>
          </div>
@@ -133,8 +133,8 @@
       </ul>
    </div>
 </div>
-<div id="map_view_display" class="" style="display:none;">
-   <div id="map" class="text-center " style="min-width:100%!important; min-height:100%!important; overflow: hidden;">
+<div id="map_view_display" class="" style="display:none;margin-bottom:60px">
+   <div id="map" class="text-center " style="min-width:100%!important; min-height:75%!important; overflow: hidden;">
    </div>
 </div>
 <!-- bootstrap job model -->
@@ -178,8 +178,7 @@
             <i class="fas fa-exclamation-triangle display-1 text-warning"></i>
             <br><br>
             <p class="fs--2">Unable to update location automatically, please type in your address below.</p>
-            <input type="text" class="form form-control" id="user_location_modal_manual_popup_input" onkeyup="initAutocomplete()">
-
+            <input type="text" class="form form-control" id="user_location_modal_manual_popup_input" onkeyup="initAutocomplete()"/>
          </div>
       </div>
    </div>
@@ -198,7 +197,6 @@
    var job_list_container = document.getElementById("job_list_display");
    var update_refresh_count = 0;
    var update_interval;
-   var is_view_update_required = true;
    var current_suburb = "{{Auth::user()->user_city}}";
    var current_lat = "{{Auth::user()->user_lat}}";
    var current_lng = "{{Auth::user()->user_lng}}";
@@ -210,7 +208,7 @@
       if(current_suburb == '') {
          update_sp_location();
       } else {
-         filter_service_provider_jobs(null);
+         filter_service_provider_jobs(null,true);
       }
    }
 

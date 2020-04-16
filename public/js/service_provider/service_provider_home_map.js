@@ -1,7 +1,8 @@
 var markers = [];
-var map, infoWindow, pos, serviceMarker, currentUserMarker, user1, tempuserlat, tempuserlng,
+var map, infoWindow, pos, serviceMarker, current_sp_marker, user1, tempuserlat, tempuserlng,
     servicelatlng, userlatlng, source, destination, cityCircle;
 var radius = 50;
+var bounds, zoomLevel;
 
 function initMap() {
     //service provider current location
@@ -152,35 +153,29 @@ function initMap() {
             ],
         }),
 
-        currentUserMarker = new google.maps.Marker({
+        current_sp_marker = new google.maps.Marker({
             map: map,
             zIndex: 1,
             //icon: icons,
             icon:{
                 url: '/images/map/service_provider_job_icon_black.svg',
-                scaledSize: new google.maps.Size(40, 40),
+                scaledSize: new google.maps.Size(30, 30),
             }
             // draggable: true,
         });
 
-    currentUserMarker.addListener('click', function() {
-        map.panTo(currentUserMarker.position);
+    current_sp_marker.addListener('click', function() {
+        map.panTo(current_sp_marker.position);
         map.setZoom(15);
     });
 
     if(current_lat != null) {
         map.setCenter(new google.maps.LatLng(current_lat,current_lng));
-        currentUserMarker.setPosition(new google.maps.LatLng(current_lat,current_lng));
+        current_sp_marker.setPosition(new google.maps.LatLng(current_lat,current_lng));
     }
 
     
 }
-
-
-
-
-
-
 
 function display_job_markers() {
     markers = [];
@@ -190,9 +185,14 @@ function display_job_markers() {
             position: new google.maps.LatLng(jobs[i]['job_lat'], jobs[i]['job_lng']),
             icon: {
                 url: '/images/map/service_provider_job_icon.svg',
-                scaledSize: new google.maps.Size(40, 40),
+                scaledSize: new google.maps.Size(30, 30),
 
             },
+            // icon: {
+            //     //url: './images/dot.svg',
+            //     url: app_url + '/images/map/service_seeker_job_icon.svg',
+            //     scaledSize: new google.maps.Size(30, 30),
+            // },
             customMarkerJobId: jobs[i]['id']
         });
         markers.push(serviceMarker);
@@ -203,7 +203,6 @@ function display_job_markers() {
     });
     setMapOnAll(map);
 }
-
 
 
 function setMapOnAll(map) {
@@ -220,12 +219,11 @@ function setMapOnAll(map) {
         markers[i].setMap(map);
     }
     //adjust the map view to include all marker and center the marker based on Service Provider location.
-    set_display_bounds();
 }
 
 function resetLocation() {
-    map.setCenter(currentUserMarker.position);
-    map.panTo(currentUserMarker.position);
+    map.setCenter(current_sp_marker.position);
+    map.panTo(current_sp_marker.position);
     map.setZoom(15);
 }
 
@@ -264,7 +262,7 @@ function utcToLocalTime(utcTimeString){
 }
 
 function reset_map_position(){
-    map.setCenter(currentUserMarker.position);
+    map.setCenter(current_sp_marker.position);
     map.setZoom(14);
 }
 
@@ -340,8 +338,8 @@ function update_user_final_location(lat,lng,suburb,state) {
             current_lat = lat;
             current_lng = lng;
             map.setCenter(new google.maps.LatLng(current_lat,current_lng));
-            currentUserMarker.setPosition(new google.maps.LatLng(current_lat,current_lng));
-            filter_service_provider_jobs(null);
+            current_sp_marker.setPosition(new google.maps.LatLng(current_lat,current_lng));
+            filter_service_provider_jobs(null,false);
           } else {
             console.log('Location update notification should not be sent.');
           }
@@ -381,8 +379,8 @@ function initAutocomplete() {
 }
 
 function find_closest_marker() {
-    lat1 = currentUserMarker.getPosition().lat();
-    lon1 = currentUserMarker.getPosition().lng();
+    lat1 = current_sp_marker.getPosition().lat();
+    lon1 = current_sp_marker.getPosition().lng();
     var pi = Math.PI;
     var R = 6371; //equatorial radius
     var distances = [];
@@ -407,23 +405,32 @@ function find_closest_marker() {
         }
     }
     // (debug) The closest marker is:
-    map.panTo(markers[closest].position);
-    map.setZoom(17)
-    console.log(markers[closest]);
+    if(markers[closest] != null) {
+        //set the nice zoom between current sp provider marker and closest marker to service provider location.
+        bounds = new google.maps.LatLngBounds();
+        bounds.extend(current_sp_marker.position);
+        bounds.extend(markers[closest].position);
+        map.fitBounds(bounds);
+        zoomLevel = map.getZoom();
+        console.log(zoomLevel);
+        map.setCenter(current_sp_marker.position);
+        zoomLevel = zoomLevel - 1;
+        map.setZoom(zoomLevel);
+    }
 }
 
 
-var bounds, zoomLevel;
+
 function set_display_bounds() {
     bounds = new google.maps.LatLngBounds();
-    bounds.extend(currentUserMarker.position);
+    bounds.extend(current_sp_marker.position);
     for (i = 0; i < markers.length; i++) {
         bounds.extend(markers[i].position)
     }
     map.fitBounds(bounds);
     zoomLevel = map.getZoom();
     console.log(zoomLevel);
-    map.setCenter(currentUserMarker.position);
+    map.setCenter(current_sp_marker.position);
     zoomLevel = zoomLevel - 1;
     map.setZoom(zoomLevel);
     console.log('Map zoom updated to: ' + zoomLevel);
