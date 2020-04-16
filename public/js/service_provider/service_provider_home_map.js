@@ -368,21 +368,31 @@ function initAutocomplete() {
 
 function fillInAddress() {
     var place = autocomplete.getPlace();
-    //console.log(place);
+    console.log(place);
     place_lat = place.geometry.location.lat();
     place_lng = place.geometry.location.lng();
 
-    for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        if(addressType == "locality"){
-            suburb  = place.address_components[i]['long_name'];
-        }else if(addressType == "administrative_area_level_1"){
-            state =  place.address_components[i]['short_name'];
+    if(place.address_components.length < 4) {
+        for (var i = 0; i < place.address_components.length; i++) {
+            suburb  = place.address_components[0]['long_name'];
+            state =  place.address_components[1]['short_name'];
         }
+        update_user_final_location(place_lat,place_lng,suburb, state);
+        $('#user_location_modal_manual_popup').modal('hide');
     }
-    update_user_final_location(place_lat,place_lng,suburb, state);
-    $('#user_location_modal_manual_popup').modal('hide');
-
+    if(place.address_components.length > 4) {
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if(addressType == "locality"){
+                suburb  = place.address_components[i]['long_name'];
+            } 
+            if(addressType == "administrative_area_level_1"){
+                state =  place.address_components[i]['short_name'];
+            }
+        }
+        update_user_final_location(place_lat,place_lng,suburb, state);
+        $('#user_location_modal_manual_popup').modal('hide');
+    }
 }
 //end in it autocomplete code
 

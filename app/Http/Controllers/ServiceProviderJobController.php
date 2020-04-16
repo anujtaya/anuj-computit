@@ -233,7 +233,7 @@ class ServiceProviderJobController extends Controller
 		$filter_action = $_POST['filter_action'];
 		$user_id = Auth::id();
 		
-		
+		//based on user 
 		//based on user distance from current location
 		$jobs = DB::table("jobs")
 			->select("jobs.*" , "jobs.id as job_id"
@@ -243,7 +243,7 @@ class ServiceProviderJobController extends Controller
 				+ sin(radians(" .$_POST['current_lat']. ")) 
 				* sin(radians(jobs.job_lat))) AS distance"))
 				->where("jobs.status", "OPEN")
-				->having('distance', '<=', 2000)
+				->having('distance', '<=', 200)
 				->groupBy("job_id")
 				->orderBy('distance', 'asc')
 				->get();
