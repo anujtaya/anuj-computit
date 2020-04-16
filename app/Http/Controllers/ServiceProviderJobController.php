@@ -227,10 +227,29 @@ class ServiceProviderJobController extends Controller
 		return Response::json(['html'=>$viewRendered, 'jobs' => $jobs]);
 	}
 
+
+	//important function to retrive service provider home job board page based on multiple parameters. Please care for sql bottleneck.
 	protected function fetch_all_jobs(){
 		$filter_action = $_POST['filter_action'];
 		$user_id = Auth::id();
-		$jobs  = Job::where('status', 'OPEN')->get();
+		
+		
+		//based on user distance from current location
+		$jobs = DB::table("jobs")
+			->select("jobs.*" , "jobs.id as job_id"
+				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+				* cos(radians(jobs.job_lat)) 
+				* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+				+ sin(radians(" .$_POST['current_lat']. ")) 
+				* sin(radians(jobs.job_lat))) AS distance"))
+				->where("jobs.status", "OPEN")
+				->having('distance', '<=', 2000)
+				->groupBy("job_id")
+				->orderBy('distance', 'asc')
+				->get();
+
+
+		//$jobs  = Job::where('status', 'OPEN')->get();
 		//render the html page.
 		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_homepgae_template_list', compact('jobs'))->render();
 		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);

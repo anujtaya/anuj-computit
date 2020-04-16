@@ -6,9 +6,7 @@
     <div class="d-flex bd-highlight">
         <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt mr-1"></i>{{$job->suburb}} {{$job->city}} {{$job->postcode}}</div>
         <div class="p-0 flex-shrink-1 bd-highlight text-secondary">
-            @if($job->status == 'OPEN')
-            <span class="badge  badge-success  p-2 fs--2 font-weight-normal animated zoomIn" style="border-radius:20px!important;">Open</span>
-            @endif 
+            <span class="badge bg-white theme-color  p-2 fs--2 font-weight-normal animated zoomIn card-1 font-weight-bolder" style="border-radius:20px!important;">{{ number_format($job->distance,2)}} kms</span>
         </div>
     </div>
     <div class="d-flex bd-highlight">

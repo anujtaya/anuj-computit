@@ -28,9 +28,12 @@ function make_filter_ajax_request(data , isViewUpdateRequired) {
         data: {
             "_token": csrf_token,
             "filter_action": data,
+            "current_lat" : current_lat,
+            "current_lng" : current_lng
         },
         success: function(results) {
-                if(isViewUpdateRequired) {
+                console.log(results['jobs']);    
+            if(isViewUpdateRequired) {
                     job_list_container.style.display = "block";
                     preloader_container.style.display = 'none';    
                 }

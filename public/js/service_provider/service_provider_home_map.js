@@ -340,7 +340,7 @@ function update_user_final_location(lat,lng,suburb,state) {
             current_lng = lng;
             map.setCenter(new google.maps.LatLng(current_lat,current_lng));
             current_sp_marker.setPosition(new google.maps.LatLng(current_lat,current_lng));
-            filter_service_provider_jobs(null,false);
+            filter_service_provider_jobs(null,true);
           } else {
             console.log('Location update notification should not be sent.');
           }
@@ -353,29 +353,39 @@ function update_user_final_location(lat,lng,suburb,state) {
 }
 
 //intit autocomplete for manual location update
-function initAutocomplete() {
-    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('user_location_modal_manual_popup_input'), {
+var placeSearch, autocomplete;
+
+var options = {
         types: ['geocode'],
         componentRestrictions: {country: 'au'}
-    });
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {  
-        place = autocomplete.getPlace();
-        console.log(place);
-        place_lat = place.geometry.location.lat();
-        place_lng = place.geometry.location.lng();
-
-        for (var i = 0; i < place.address_components.length; i++) {
-            var addressType = place.address_components[i].types[0];
-            if(addressType == "locality"){
-                suburb  = place.address_components[i]['long_name'];
-            }else if(addressType == "administrative_area_level_1"){
-                state =  place.address_components[i]['short_name'];
-            }
-        }
-        update_user_final_location(place_lat,place_lng,suburb, state);
-        $('#user_location_modal_manual_popup').modal('hide');
-    });
+        };
+function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type  {!HTMLInputElement} */(document.getElementById('user_location_modal_manual_popup_input')),
+        options);
+    autocomplete.addListener('place_changed', fillInAddress);
 }
+
+function fillInAddress() {
+    var place = autocomplete.getPlace();
+    //console.log(place);
+    place_lat = place.geometry.location.lat();
+    place_lng = place.geometry.location.lng();
+
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if(addressType == "locality"){
+            suburb  = place.address_components[i]['long_name'];
+        }else if(addressType == "administrative_area_level_1"){
+            state =  place.address_components[i]['short_name'];
+        }
+    }
+    update_user_final_location(place_lat,place_lng,suburb, state);
+    $('#user_location_modal_manual_popup').modal('hide');
+
+}
+//end in it autocomplete code
+
 
 function find_closest_marker() {
     lat1 = current_sp_marker.getPosition().lat();
