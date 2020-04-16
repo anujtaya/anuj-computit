@@ -98,7 +98,7 @@
          </div>
          <div class=" col-5 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
             <span id="update_refresh_counter_el">0</span> sec ago.
-            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();"  style="border-radius:20px;" >
+            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;display:none;" >
             <i class="fas fa-crosshairs"></i> Reset
             </button>
          </div>

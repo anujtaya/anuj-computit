@@ -58,8 +58,6 @@ function make_filter_ajax_request(data , isViewUpdateRequired) {
                 preloader_container.style.display = 'none';    
             }  
         }
-
-
     });
 }
 
@@ -75,6 +73,7 @@ function switch_view_mode(str) {
    if (str == 'MAP') {
        $("#job_list_display").hide();
        $("#map_view_display").show();
+       $("#map_reset_btn").show();
        $("#sp_jobs_filter").hide();
        $("#map_btn").hide();
        $("#list_btn").fadeIn();
@@ -88,6 +87,7 @@ function switch_view_mode(str) {
        $("#map_view_display").hide();
        $("#sp_jobs_filter").show();
        $("#list_btn").hide();
+       $("#map_reset_btn").hide();
        $("#map_btn").fadeIn();
        $("#map_btn").addClass('animated zoomIn');
        setTimeout(function() {
