@@ -29,6 +29,7 @@ class ServiceSeekerJobController extends Controller
       $seeker_jobs = Job::where('service_seeker_id', Auth::id())
                       ->where('status', '!=', 'DRAFT')
                       ->where('status', '!=', 'COMPLETED')
+                      ->where('status', '!=', 'CANCELLED')
                       ->orderBy('job_date_time', 'asc')->get();
       return View::make("service_seeker.jobs.jobs")->with('jobs', $seeker_jobs);
     }
