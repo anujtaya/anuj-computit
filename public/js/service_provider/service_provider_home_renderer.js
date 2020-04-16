@@ -62,7 +62,7 @@ function make_filter_ajax_request(data , isViewUpdateRequired) {
 
 
 function update_refresh_count_display() {
-   console.log('Event: Refresh Time Counter Updated.')
+   //console.log('Event: Refresh Time Counter Updated.')
    update_refresh_count = update_refresh_count + 5;
    $("#update_refresh_counter_el").html(update_refresh_count)
 }

@@ -202,6 +202,7 @@ function display_job_markers() {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
     setMapOnAll(map);
+    find_closest_marker();
 }
 
 
@@ -213,7 +214,7 @@ function setMapOnAll(map) {
             map.panTo(this.position);
             map.setZoom(15);
          
-            populate_map_job_detail_model_popup(this.customMarkerJobId);
+            populate_map_job_detail_modal_popup(this.customMarkerJobId);
             
         });
         markers[i].setMap(map);
@@ -228,7 +229,7 @@ function resetLocation() {
 }
 
 //populates the text values in map job detail modal
-function populate_map_job_detail_model_popup(a){
+function populate_map_job_detail_modal_popup(a){
     console.log(a);
     var temp_object = null;
     for(var i=0;i < jobs.length;i++) {
@@ -238,25 +239,25 @@ function populate_map_job_detail_model_popup(a){
     }
     if(temp_object != null) {
         console.log(temp_object);
-        $('#map_job_detail_model_title').html(temp_object['title']);
-        $('#map_job_detail_model_description').html(temp_object['description']);
-        $('#map_job_detail_model_category').html(temp_object['description']);
+        $('#map_job_detail_modal_title').html(temp_object['title']);
+        $('#map_job_detail_modal_description').html(temp_object['description']);
+        $('#map_job_detail_modal_category').html(temp_object['description']);
         var temp_date = utcToLocalTime(temp_object['job_date_time']);
-        $('#map_job_detail_model_datetime').html(temp_date);
-        $('#map_job_detail_model_location').html('Toowong');
-        $('#map_job_detail_model_title').html(temp_object['title']);
-
-        $('#map_job_detail_model_popup').modal('show');
+        $('#map_job_detail_modal_datetime').html(temp_date);
+        $('#map_job_detail_modal_location').html(temp_object['suburb'] + ' ' + temp_object['city'] + ', ' + temp_object['postcode']);
+        $('#map_job_detail_modal_title').html(temp_object['title']);
+        $('#map_job_detail_modal_link').attr("href", app_url + "/service_provider/jobs/job/" + temp_object['id']);
+        $('#map_job_detail_modal_popup').modal('show');
     } else {
         console.log('No Job found');
-        $('#map_job_detail_model_popup').modal('hide');
+        $('#map_job_detail_modal_popup').modal('hide');
     }
     
 }
 
 function utcToLocalTime(utcTimeString){
     var theTime  = moment.utc(utcTimeString).toDate(); // moment date object in local time
-    var localTime = moment(theTime).format('YYYY-MM-DD HH:mm'); //format the moment time object to string
+    var localTime = moment(theTime).format('DD/MM//YYYY hh:mm a'); //format the moment time object to string
 
     return localTime;
 }
@@ -351,8 +352,6 @@ function update_user_final_location(lat,lng,suburb,state) {
     //console.log('Location final updated to ' + suburb + ',' + state);
 }
 
-
-
 //intit autocomplete for manual location update
 function initAutocomplete() {
     var autocomplete = new google.maps.places.Autocomplete(document.getElementById('user_location_modal_manual_popup_input'), {
@@ -412,14 +411,11 @@ function find_closest_marker() {
         bounds.extend(markers[closest].position);
         map.fitBounds(bounds);
         zoomLevel = map.getZoom();
-        console.log(zoomLevel);
         map.setCenter(current_sp_marker.position);
         zoomLevel = zoomLevel - 1;
         map.setZoom(zoomLevel);
     }
 }
-
-
 
 function set_display_bounds() {
     bounds = new google.maps.LatLngBounds();
@@ -429,7 +425,6 @@ function set_display_bounds() {
     }
     map.fitBounds(bounds);
     zoomLevel = map.getZoom();
-    console.log(zoomLevel);
     map.setCenter(current_sp_marker.position);
     zoomLevel = zoomLevel - 1;
     map.setZoom(zoomLevel);
