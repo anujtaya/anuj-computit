@@ -11,10 +11,6 @@ Route::get('/root', 'GuestController@mobile_landing_page')->name('guest_mobile_l
 Route::post('/register_user', 'UserController@register_user')->name('register_user');
 //register home controller routes
 Route::post('/register', 'RegisterHomeController@register')->name('register');
-Route::get('/register_1', 'RegisterHomeController@register_step_1')->name('register_1');
-Route::get('/register_2', 'RegisterHomeController@register_step_2')->name('register_2');
-Route::get('/register_3', 'RegisterHomeController@register_step_3')->name('register_3');
-Route::get('/register_4', 'RegisterHomeController@register_step_4')->name('register_4');
 //user account update routes
 Route::post('app/user/update_account_information', 'UserController@user_update_account_details')->name('app_user_update_account_information');
 Route::post('app/user/update_password_information', 'UserController@update_account_password')->name('app_user_update_password_information');
@@ -101,21 +97,20 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   //service provider extra services
   Route::post('/service_provider/services/location/update',  'ServiceProviderController@services_location_update')->name('service_provider_services_location_update');
   Route::post('/service_provider/jobs/fetch/all', 'ServiceProviderJobController@fetch_all_jobs')->name('service_provider_jobs_fetch_all');
-  //Route::post('/service_provider/home/jobs/filter','ServiceProviderJobController@home_job_filter')->name('service_provider_home_filter_jobs');
   //Service Provider Job Routes
   Route::get('/service_provider/jobs/job/{id}', 'ServiceProviderJobController@show_job')->name('service_provider_job');
   Route::post('/service_provider/jobs/job/offer', 'ServiceProviderJobController@make_offer')->name('service_provider_job_make_offer');
   Route::post('/service_provider/jobs/job/offer/duplicate', 'ServiceProviderJobController@check_offer_exists')->name('service_provider_offer_exists');
   Route::post('/service_provider/jobs/filter', 'ServiceProviderJobController@filter_jobs')->name('service_provider_jobs_filter');
-  //service provider navigate to job route
+  //Service provider navigate to job route
   Route::post('/service_provider/jobs/job/update/ontrip', 'ServiceProviderJobController@update_status_ontrip')->name('service_provider_job_update_status_ontrip');
   Route::post('/service_provider/jobs/job/update/cancelontrip', 'ServiceProviderJobController@update_status_cancelontrip')->name('service_provider_job_update_status_cancelontrip');
   Route::post('/service_provider/jobs/job/update/mark_arrived', 'ServiceProviderJobController@update_status_mark_arrived')->name('service_provider_job_update_status_mark_arrived');
   Route::post('/service_provider/jobs/job/update/mark_started', 'ServiceProviderJobController@update_status_mark_started')->name('service_provider_job_update_status_mark_started');
   Route::post('/service_provider/jobs/job/update/mark_completed', 'ServiceProviderJobController@update_status_mark_completed')->name('service_provider_job_update_status_mark_completed');
-  //service provider rating update
+  //Service provider rating update
   Route::post('/service_provider/jobs/job/update/rating', 'ServiceProviderJobController@update_rating')->name('service_provider_job_update_rating');
-  // Route::get('/service_provider/jobs/job/conversation/{job_id}/{service_provider_id}', 'ServiceProviderJobController@show_job_detail_pending' )->name('service_provider_job_detail');
+  //Route::get('/service_provider/jobs/job/conversation/{job_id}/{service_provider_id}', 'ServiceProviderJobController@show_job_detail_pending' )->name('service_provider_job_detail');
   Route::get('/service_provider/jobs/job/conversation/{job_id}/{service_provider_id}', 'ServiceProviderJobController@show_job_conversation' )->name('service_provider_job_conversation');
   Route::post('/service_provider/jobs/job/conversation/send_message', 'ServiceProviderJobController@send_message')->name('service_seeker_job_conversation_message_send');
   Route::post('/service_provider/jobs/job/conversation/check_new_messages', 'ServiceProviderJobController@check_new_messages')->name('service_provider_check_new_messages');
