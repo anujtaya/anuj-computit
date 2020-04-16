@@ -20,10 +20,12 @@
          @enderror
       </div>
       <div class="col-md-12 text-left p-3">
-         <button class="btn  btn-success fs--1 text-white" styles="border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:10px;padding-top:15px;padding-bottom:15px;"><i class="fas fa-lock"></i> Login </button>
+         <button class="btn theme-background-color fs--1 text-white" styles="border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:10px;padding-top:15px;padding-bottom:15px;"><i class="fas fa-lock"></i> Login </button>
          <br><br>
-         <a href="{{route('password.request')}}" class="text-decoration-none text-dark  ml-1" onclick="toggle_animation(true);"> Forgot Password</a> |
-         <a class="text-dark" style="cursor:pointer" data-toggle="modal" data-target="#exampleModalCenter">
+         <a href="{{route('password.request')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);"> Forgot Password</a>
+         <br>
+         <span class="text-dark">Don't have an account?</span>   
+         <a class="theme-color" style="cursor:pointer" data-toggle="modal" data-target="#exampleModalCenter">
          Sign up
          </a>
       </div>
