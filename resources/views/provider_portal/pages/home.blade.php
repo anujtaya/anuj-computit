@@ -1,4 +1,5 @@
 @extends('provider_portal.layout.provider_master')
+@section('title', 'Provider Portal Homepage')
 @section('content')
 <nav aria-label="breadcrumb" class="mb-3 p-0">
    <ol class="breadcrumb p-0 m-0">
@@ -11,13 +12,13 @@
          <div class="card-body">
             <h6 class="mb-3 fs-1">Performance Stats</h6>
           
-               <div class=" bd-highlight">
-                  <span class="fs-2">{{$stats->percentage}}%</span> <br>
+               <div class="fs--1 bd-highlight">
+                  <span class="fs-1">{{$stats->percentage}}%</span> <br>
                   Completion Rate
                </div>
                <hr>
-               <div class=" bd-highlight">
-                  <span class="fs-2">{{$stats->rating}} </span> <br>
+               <div class="fs--1 bd-highlight">
+                  <span class="fs-1">{{$stats->rating}} </span> <br>
                   <span class="text-warning">
                   @for($i=0;$i<intval($stats->rating);$i++)
                         <i class="fas fa-star mt-0"></i> 

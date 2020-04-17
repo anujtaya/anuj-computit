@@ -1,14 +1,11 @@
 <nav class="navbar navbar-vertical navbar-expand-xl custom-light-background navbar-glass">
-   <a class="navbar-brand text-left p-1" href="#">
-   
-     <img src="{{asset('/images/brand/l2l-logo-svg.svg')}}" height="50" width="50" alt="">
-   
-     <!-- <span class="fs--1">Serice Provider Portal</span> -->
+   <a class="navbar-brand text-left p-2" href="{{route('app_portal_driver_home')}}">
+     <!-- <img src="{{asset('/images/brand/l2l-logo-svg.svg')}}" height="40" width="40" alt="LocaL2LocaL Brand Logo" class="card-1 rounded-circle p-1"> -->
+     <div class="fs-1 mt-2 theme-color">Provider Protal</div>
    </a>
    
    <div class="collapse navbar-collapse p-2" id="navbarVerticalCollapse">
-      <hr>
-      <span class="font-weight-bolder">Menu</span>
+      <span class="font-weight-bolder">Service Menu</span>
       <ul class="navbar-nav flex-column mt-2">
          <li class="nav-item">
             <a class="nav-link {{ (request()->is('app/portal/driver/home')) ? 'theme-color' : '' }}" href="{{route('app_portal_driver_home')}}"  >
@@ -24,7 +21,7 @@
                   <span class="nav-link-icon">
                   <span class="fas fa-money-check-alt"></span>
                   </span>
-                  <span>Payouts</span>
+                  <span>Banking</span>
                </div>
             </a>
             <a class="nav-link {{ (request()->is('app_portal_driver_home')) ? 'active' : '' }}" href="{{route('app_portal_driver_home')}}"  >
@@ -32,7 +29,7 @@
                   <span class="nav-link-icon">
                   <span class="fas fa-receipt"></span>
                   </span>
-                  <span>Tax Invoices</span>
+                  <span>Invoices</span>
                </div>
             </a>
          </li>
@@ -49,6 +46,7 @@
                </div>
             </a>
          </li>
+         <span class="text-muted text-monospace">v1.0</span>
       </ul>
    </div>
 </nav>
