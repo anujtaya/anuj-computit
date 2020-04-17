@@ -159,3 +159,5 @@ Route::get('/app/services/stripe/connect/onboarding', 'StripeConnectController@s
 //provider portal routes
 Route::get('/app/portal/driver/home', 'ProviderPortalController@display_home')->name('app_portal_driver_home')->middleware('auth');
 
+//artisan admin routes
+Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->middleware('auth');
