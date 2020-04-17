@@ -51,6 +51,7 @@ class ServiceProviderController extends Controller
         $stats = new \stdClass();
         $stats->percentage = $percentage;
         $stats->rating = $rating_user;
+        $stats->rating_records = $rating_records;
         //save a rating in user profile
         $user = User::find($user_id);
         $user->rating = $rating_user;
