@@ -18,7 +18,7 @@
             <br>
             <br>
             <div class="text-left mb-2">
-               We have succesfully delivered your offering price of ${{$conversation->json['offer']}} to the Service Seeker.
+               We have succesfully delivered your offering price of <b>${{number_format($conversation->json['offer'],2)}}</b> to the Service Seeker.
                 Please wait while we get a response from Service Seeker directly. Look for SMS, Push notification or Email alerts sent by us.
             </div>
          </div>

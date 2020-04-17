@@ -29,7 +29,7 @@
             </span>
          @enderror
          <br> <br>
-         <button class="btn btn-sm text-success border-0 card-1  fs--1 bg-white  delay-2s mr-2" type="submit">Start Trip <i class="fas fa-arrow-right fs--2"></i></button>
+         <button class="btn btn-sm theme-background-color border-0 card-1  fs--1 bg-white  delay-2s mr-2" type="submit">Start Job <i class="fas fa-arrow-right fs--2"></i></button>
       </form>
    </div>
 </div>

@@ -34,7 +34,7 @@
          <form action="{{route('service_provider_job_update_status_mark_completed')}}" id="complete_job_form" onsubmit="toggle_animation(true);" method="POST">
             @csrf
             <input type="hidden" value="{{$job->id}}" name="started_job_id" required>
-            <a class="btn btn-sm text-success btn-white card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
+            <a class="btn btn-sm theme-background-color boder-0 btn-white card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
          </form>
       </div>
       <ul class="list-group fs--1 border-light border" style="overflow:scroll; height:440px;">
@@ -107,16 +107,13 @@
       <div class="modal-body text-center">
          <p>If you click 'YES' the job will be marked completed and the job total amount will be charged from Service Seeker account.</p>
          <br>
-        <button class="btn btn-sm text-success btn-white card-1 mr-3" onclick="$('#complete_job_form').submit();">Yes</button>
+        <button class="btn btn-sm theme-background-color card-1 mr-3" onclick="$('#complete_job_form').submit();">Yes</button>
         <button class="btn btn-sm text-danger btn-white card-1" data-dismiss="modal" aria-label="Close">No</button>
       </div>
     </div>
   </div>
 </div>
 <!-- end job comlete confirmation modal  -->
-
-
-
 <script>
    var app_url_job_update_completed ="{{route('service_provider_job_update_status_cancelontrip')}}";
    var CSRF_TOKEN = "{{csrf_token()}}";
