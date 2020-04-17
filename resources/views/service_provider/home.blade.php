@@ -56,6 +56,7 @@
                         <a class="dropdown-item theme-color" href="{{route('service_provider_more_help')}}"  onclick="toggle_animation(true);">Notifications</a>
                         <a class="dropdown-item theme-color"  href="{{route('service_provider_jobs_history')}}"  onclick="toggle_animation(true);">Job History</a>
                         <a class="dropdown-item theme-color" href="{{route('service_provider_more_help')}}" onclick="toggle_animation(true);">Help</a>
+                        <a class="dropdown-item text-danger" href="{{ url('logout')}}" onclick="toggle_animation(true);">Logout</a>
                      </div>
                   </div>
                </div>

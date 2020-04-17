@@ -7,8 +7,6 @@
       </div>
    </div>
 </div>
-
-
 <!-- end service selector -->
 @include('service_provider.bottom_navigation_bar')
 @endsection
