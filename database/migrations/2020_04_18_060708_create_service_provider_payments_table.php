@@ -18,8 +18,8 @@ class CreateServiceProviderPaymentsTable extends Migration
             $table->string('stripe_account_id')->nullable();
             $table->string('account_status')->nullable();
             $table->string('notes')->nullable();
-            $table->bigInteger("service_provider_id")->unsigned();
-            $table->foreign('service_provider_id')->references('id')->on('users');
+            $table->bigInteger("user_id")->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

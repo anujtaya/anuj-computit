@@ -154,10 +154,19 @@ Route::get('/test_notification', 'JobNotificationController@test_template');
 
 //helpdesk routes
 Route::post('app/services/support/send_support_email', 'HelpdeskController@send_support_email')->name('app_services_support_send_support_email')->middleware('auth');
-Route::get('/app/services/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account')->middleware('auth');
-
-//provider portal routes
-Route::get('/app/portal/driver/home', 'ProviderPortalController@display_home')->name('app_portal_driver_home')->middleware('auth');
 
 //artisan admin routes
 Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->middleware('auth');
+
+//Service Provider Portal routes
+Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] , function () {
+  Route::get('/app/portal/provider/home', 'ProviderPortalController@display_home')->name('app_portal_provider_home');
+  Route::get('/app/portal/provider/banking', 'ProviderPortalController@display_banking')->name('app_portal_provider_banking');
+  //short url for provider banking page
+  Route::get('/banking', 'ProviderPortalController@redirect_to_banking_page');
+  Route::get('/app/portal/provider/banking/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account');
+  Route::get('/app/portal/provider/banking/stripe/connect/single_sign_on_link', 'StripeConnectController@single_sign_on_link')->name('app_portal_provider_banking_single_on_link');
+  
+
+});
+

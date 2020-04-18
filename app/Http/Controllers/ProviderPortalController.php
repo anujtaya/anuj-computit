@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Job;
+use Stripe;
 use DB;
 use Auth;
 
@@ -46,4 +47,24 @@ class ProviderPortalController extends Controller
         return $stats;
     }
 
+    protected function display_banking(Request $request){    
+        if($request->has('full_stripe_info'))  {
+            $payment_source = Auth::user()->service_provider_payment;
+            if($payment_source != null) {
+                \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
+                $response = \Stripe\Account::retrieve(
+                    $payment_source->stripe_account_id
+                );
+                return view('provider_portal.pages.banking')->with('stripe_record', $response);
+            }
+        }     
+        return view('provider_portal.pages.banking');
+    }
+
+    protected function redirect_to_banking_page(){
+        return redirect()->route('app_portal_provider_banking');
+    }
+
+
+    
 }
