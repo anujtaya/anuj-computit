@@ -58,4 +58,8 @@ class User extends Authenticatable
     public function current_location(){
         return $this->hasOne('App\UserCurrentLocation');
     }
+
+    public function service_provider_payment(){
+        return $this->hasOne('App\ServiceProviderPayment');
+    }
 }

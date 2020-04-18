@@ -11,7 +11,6 @@
       <div class="card shadow-none border h-100" >
          <div class="card-body">
             <h6 class="mb-3 fs-1">Performance Stats</h6>
-          
                <div class="fs--1 bd-highlight">
                   <span class="fs-1">{{$stats->percentage}}%</span> <br>
                   Completion Rate
@@ -25,7 +24,6 @@
                   @endfor
                   </span>
                </div>
-          
          </div>
       </div>
    </div>
