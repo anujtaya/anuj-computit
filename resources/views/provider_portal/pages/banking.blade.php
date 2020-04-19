@@ -16,6 +16,7 @@
             <h6 class=" fs--1 text-white">About Your Stripe Account</h6>
          </div>
          <div class="card-body fs--1">
+            <i class="fas fa-check-circle display-4 text-success"></i> <br> <br>
             Your have succesfully connected your Stripe account with LocaL2LocaL. You should recieve payouts for your work. If we need more information from you in future, we will let you know. To know full
             information about Stripe Account, please <a href="{{route('app_portal_provider_banking')}}?full_stripe_info=true">click here</a>.
          </div>
