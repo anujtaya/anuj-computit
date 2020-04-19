@@ -3,17 +3,12 @@
       background:#f7f7f9!important;
   }
 </style>
-<!-- map div -->
 <div id="map" class="text-center " style="min-width:900px important; min-height:270px!important; position: relative;overflow: hidden; @if(Auth::user()->properties['map_status'] == false) display:none @endif">
 </div>
-<!-- end map div  -->
-<!-- service selector -->
 <div class="border-top p-2">
-   <!-- hide show map control -->
    <div class="text-center text-muted p-1" onclick="map_display_control();">
       <i class="fas fa-grip-lines"></i>
    </div>
-   <!-- end control  -->
    <div class="input-group mt-2 mb-3">
       <div class="input-group-prepend   fs--1">
          <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
@@ -36,26 +31,16 @@
             </div>
          </div>
         @endforeach
-
       </div>
    </div>
-
-
-</div>
-
-
-<div class="borders">
-<!-- service seeker recent jobs view -->
 </div>
 
 <script>
-
 var seeker_services_fetch_url = "{{route('service_seeker_services_filter')}}"
 var seeker_services_filter_array = null;
 var sort_unselected_class = "btn btn-white rounded-capsules border fs--1";
-var sort_selected_class = "btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--1";
+var sort_selected_class = "btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2";
 var app_url = "{{URL::to('/')}}";
-
 
 function populate_seeker_services(){
     var search_term = $('#seeker_services_filter_input').val();
@@ -97,7 +82,6 @@ function display_updated_seeker_service_list(data) {
       div_2.appendChild(text);
 
     }
-
 }
 
 function seeker_services_sort(type){
@@ -108,7 +92,6 @@ function seeker_services_sort(type){
     $("#services-sort-az").addClass(sort_selected_class)
     $("#services-sort-popularity").removeClass();
     $("#services-sort-popularity").addClass(sort_unselected_class)
-
     var key = 'service_name';
     var result = seeker_services_filter_array.sort(function(a,b){
       var x = a[key]; var y = b[key];
@@ -127,6 +110,4 @@ function seeker_services_sort(type){
 }
 </script>
 
-
-<!-- end service selector -->
 @include('service_seeker.bottom_navigation_bar')
