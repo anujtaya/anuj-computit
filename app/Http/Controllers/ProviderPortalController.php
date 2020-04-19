@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Job;
+use App\Conversation;
 use Stripe;
 use DB;
 use Auth;
+use PDF;
 
 class ProviderPortalController extends Controller
 {
@@ -82,6 +84,29 @@ class ProviderPortalController extends Controller
         return $response;
     }
 
+    //invoices function routes 
+    protected function display_invoices(){
+        $jobs = Job::where('status', 'COMPLETED')->where('service_provider_id', Auth::id())->get();
+        return view('provider_portal.pages.invoices')
+                ->with('jobs', $jobs);
+    }
 
-    
+    protected function download_invoice($id) {
+        $job = Job::find($id);
+        if($job != null) {
+            if($job->service_provider_id == Auth::id()) {
+                $job_extras = $job->extras->where('status', 'ACTIVE');
+                $conversation = Conversation::where('job_id', $job->id)
+                          ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
+                          ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+                          ->first();
+                $pdf = PDF::loadView('invoice.sp_invoice_template' , array('job_id' => $id));
+                return $pdf->download('invoice_jb_'.$job->id.'.pdf');
+            } else {
+                abort(403, 'You do not have access this resource. Please contact website administrator.');
+            }
+        } else {
+            abort(404);
+        }
+    }  
 }

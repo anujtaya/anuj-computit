@@ -163,6 +163,8 @@ Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->mi
 Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] , function () {
   Route::get('/app/portal/provider/home', 'ProviderPortalController@display_home')->name('app_portal_provider_home');
   Route::get('/app/portal/provider/banking', 'ProviderPortalController@display_banking')->name('app_portal_provider_banking');
+  Route::get('/app/portal/provider/invoices', 'ProviderPortalController@display_invoices')->name('app_portal_provider_inovices');
+  Route::get('/app/portal/provider/invoice/download/{id}', 'ProviderPortalController@download_invoice')->name('app_portal_provider_inovice_download');
   //short url for provider banking page
   Route::get('/banking', 'ProviderPortalController@redirect_to_banking_page');
   Route::get('/app/portal/provider/banking/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account');

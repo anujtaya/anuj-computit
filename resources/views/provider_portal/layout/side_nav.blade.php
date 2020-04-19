@@ -17,7 +17,7 @@
                   <span>Dashboard</span>
                </div>
             </a>
-            <a class="nav-link {{ (request()->is('app/portal/provider/banking')) ? 'active' : '' }}" href="{{route('app_portal_provider_banking')}}"  >
+            <a class="nav-link {{ (request()->is('app/portal/provider/banking')) ? 'theme-color' : '' }}" href="{{route('app_portal_provider_banking')}}"  >
                <div class="d-flex align-items-center">
                   <span class="nav-link-icon">
                   <i class="fas fa-arrow-right"></i>
@@ -25,7 +25,7 @@
                   <span>Banking</span>
                </div>
             </a>
-            <a class="nav-link {{(request()->is('app/portal/provider/invoices')) ? 'active' : '' }}" href="#"  >
+            <a class="nav-link {{(request()->is('app/portal/provider/invoices')) ? 'theme-color' : '' }}" href="{{route('app_portal_provider_inovices')}}"  >
                <div class="d-flex align-items-center">
                   <span class="nav-link-icon">
                   <i class="fas fa-arrow-right"></i>
