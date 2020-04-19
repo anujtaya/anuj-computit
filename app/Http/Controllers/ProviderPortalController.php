@@ -52,10 +52,12 @@ class ProviderPortalController extends Controller
             $payment_source = Auth::user()->service_provider_payment;
             if($payment_source != null) {
                 \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
-                $response = \Stripe\Account::retrieve(
-                    $payment_source->stripe_account_id
-                );
-                return view('provider_portal.pages.banking')->with('stripe_record', $response);
+                $account = $this->fetch_account($payment_source->stripe_account_id);
+                $balance = $this->fetch_balance($payment_source->stripe_account_id);
+                //dd($balance->available[0]->amount);
+                return view('provider_portal.pages.banking')
+                    ->with('stripe_balance', $balance)
+                    ->with('stripe_record', $account);
             }
         }     
         return view('provider_portal.pages.banking');
@@ -63,6 +65,21 @@ class ProviderPortalController extends Controller
 
     protected function redirect_to_banking_page(){
         return redirect()->route('app_portal_provider_banking');
+    }
+
+
+    protected function fetch_account($account_id){
+        $response = \Stripe\Account::retrieve(
+            $account_id
+        );
+        return $response;
+    }
+
+    protected function fetch_balance($account_id){
+        $response =\Stripe\Balance::retrieve(
+            ['stripe_account' => $account_id]
+        );
+        return $response;
     }
 
 

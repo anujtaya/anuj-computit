@@ -10,7 +10,7 @@
    </div>
    @endif
    @if(Auth::user()->service_provider_payment != null)
-   <div class="col-lg-12 pl-2 pr-2 pt-2">
+   <div class="col-lg-4 pl-2 pr-2 pt-2">
       <div class="card shadow-none border h-100" >
          <div class="card-header bg-secondary  rounded-0">
             <h6 class=" fs--1 text-white">About Your Stripe Account</h6>
@@ -22,7 +22,7 @@
       </div>
    </div>
    @if(isset($stripe_record))
-   <div class="col-lg-6 pl-2 pr-2 pt-2">
+   <div class="col-lg-4 pl-2 pr-2 pt-2">
       <div class="card shadow-none border h-100" >
          <div class="card-header bg-secondary  rounded-0">
             <h6 class=" fs--1 text-white">Stripe Account Summary</h6>
@@ -30,10 +30,6 @@
          <div class="card-body fs--1">
             <table class="table table-striped table-sm fs--1">
                <tbody>
-                  <tr>
-                     <th>Account ID</th>
-                     <td>{{$stripe_record->id}}</td>
-                  </tr>
                   <tr>
                      <th>Email</th>
                      <td>{{$stripe_record->email}}</td>
@@ -52,9 +48,29 @@
                      <th>Account Type</th>
                      <td class="text-uppercase">{{$stripe_record->type}}</td>
                   </tr>
-                  <tr>
+                   <tr>
+                     <th>Available Balance</th>
+                     <td class="">
+                        {{$stripe_balance->available[0]->amount}} 
+                        <span class="text-uppercase">
+                        
+                         {{$stripe_balance->available[0]->currency}}
+                         </span>
+                     </td>
+                  </tr>
+                   <tr>
+                     <th>Pending Balance</th>
+                     <td class="">
+                        {{$stripe_balance->pending[0]->amount}} 
+                        <span class="text-uppercase">
+                        
+                         {{$stripe_balance->pending[0]->currency}}
+                         </span>
+                     </td>
+                  </tr>
+                   <tr>
                      <th>Stripe Single Sign on</th>
-                     <td class="text-uppercase">
+                     <td class="">
                         <a href="{{route('app_portal_provider_banking_single_on_link')}}" target="_blank">
                            Login to Dashboard
                         </a>
@@ -67,7 +83,7 @@
    </div>
    @endif
    @else 
-   <div class="col-lg-6 pl-2 pr-2 pt-2">
+   <div class="col-lg-4 pl-2 pr-2 pt-2">
       <div class="card border h-100" >
          <div class="card-header bg-secondary  rounded-0">
             <h6 class=" fs--1 text-white">Connect to using Stripe Express</h6>
