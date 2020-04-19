@@ -1,19 +1,8 @@
 <style>
- /* #services-sort-az{
-   animation-name: test;
-   animation-duration: 3s;
-   animation-fill-mode: forwards;
- }
- @@keyframes test {
-   from {left: 0%;}
-   to {left: 100%;}
- } */
-
   body {
       background:#f7f7f9!important;
   }
 </style>
-
 <!-- map div -->
 <div id="map" class="text-center " style="min-width:900px important; min-height:270px!important; position: relative;overflow: hidden; @if(Auth::user()->properties['map_status'] == false) display:none @endif">
 </div>
@@ -21,11 +10,11 @@
 <!-- service selector -->
 <div class="border-top p-2">
    <!-- hide show map control -->
-   <div class="text-center text-muted p-2" onclick="map_display_control();">
+   <div class="text-center text-muted p-1" onclick="map_display_control();">
       <i class="fas fa-grip-lines"></i>
    </div>
    <!-- end control  -->
-   <div class="input-group mt-4 mb-3">
+   <div class="input-group mt-2 mb-3">
       <div class="input-group-prepend   fs--1">
          <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
       </div>
@@ -40,10 +29,10 @@
    <div style="overflow:scroll; height:500px;">
       <div id="seeker_services_list_container" class="row text-center fs--1 m-0" >
         @foreach($categories as $category)
-         <div id="seeker_services_list_display" class="col-6 p-1">
+         <div  class="col-6 p-1">
             <div class="rounded h-100 bg-white p-1 text-center shadow-sms card-1" id="sid-{{$category->id}}" onclick="user_service_selection(this.id);" data-catname="{{$category->service_name}}">
-               <img src="{{asset('images/service_icons/' . $category->service_name . '.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:50px;" alt="">
-               {{$category->service_name}}
+               <img src="{{asset('images/service_icons/'.str_replace(' ', '',$category->service_name).'.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:50px;" alt="">
+               <span>{{$category->service_name}}</span>
             </div>
          </div>
         @endforeach
@@ -97,7 +86,7 @@ function display_updated_seeker_service_list(data) {
       div_2.addEventListener('click', function(){
         user_service_selection(this.id);
       });
-      img.src = app_url + "/images/service_icons/"+ data[i]['service_name'] + ".svg";
+      img.src = app_url + "/images/service_icons/"+ trim(data[i]['service_name']) + ".svg";
       img.classList = "rounded mx-auto d-block";
       img.style = "height: 60px; width: 50px;";
       var text = document.createTextNode(data[i]['service_name']);

@@ -1,6 +1,6 @@
 <!-- bottom nav -->
 <div class="fixed-bottom ">
-   <div class="row border-top pt-2 bg-white sticky-bottom  fs--1 text-center m-0">
+   <div class="row border-tops pt-2 bg-white sticky-bottom  fs--1 text-center m-0">
       <div class="col-3 p-3">
          <a class="{{ (request()->is('service_seeker/home')) ? 'theme-color' : '' }}  text-decoration-none text-muted" href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
          Home</a>
