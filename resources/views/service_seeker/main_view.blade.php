@@ -9,9 +9,9 @@
    to {left: 100%;}
  } */
 
- body {
-            background:#f7f7f9!important;
-         }
+  body {
+      background:#f7f7f9!important;
+  }
 </style>
 
 <!-- map div -->
