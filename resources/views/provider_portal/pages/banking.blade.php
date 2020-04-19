@@ -54,7 +54,6 @@
                      <td class="">
                         {{number_format($stripe_balance->available[0]->amount/100,2)}} 
                         <span class="text-uppercase">
-                        
                          {{$stripe_balance->available[0]->currency}}
                          </span>
                      </td>
