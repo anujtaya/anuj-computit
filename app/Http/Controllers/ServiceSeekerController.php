@@ -18,6 +18,10 @@ use Session;
 
 class ServiceSeekerController extends Controller
 {
+  function registration_completed(){
+    return View::make("service_seeker.registration_completed");
+  }
+  
   function service_seeker_home(){
       $categories = ServiceCategory::all();
       return View::make("service_seeker.service_seeker_home_1")->with('categories', $categories);

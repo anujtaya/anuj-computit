@@ -18,6 +18,7 @@ Route::post('app/user/update_password_information', 'UserController@update_accou
 
 //service seeker routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
+  Route::get('/service_seeker/registration_completed',  'ServiceSeekerController@registration_completed')->name('service_seeker_registration_completed');
   Route::get('/service_seeker/home',  'ServiceSeekerController@service_seeker_home')->name('service_seeker_home');
   Route::get('/service_seeker/profile/',  'ServiceSeekerController@service_seeker_profile')->name('service_seeker_profile');
   Route::get('/service_seeker/more/',  'ServiceSeekerController@service_seeker_more')->name('service_seeker_more');

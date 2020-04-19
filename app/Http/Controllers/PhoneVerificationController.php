@@ -103,7 +103,7 @@ class PhoneVerificationController extends Controller
                 if(Session::has('is_sp_registration_required')) {
                     return redirect()->route('service_provider_register_business');
                 } else {
-                    return redirect()->route('service_seeker_home');
+                    return redirect()->route('service_seeker_registration_completed');
                 }
             }
         }
