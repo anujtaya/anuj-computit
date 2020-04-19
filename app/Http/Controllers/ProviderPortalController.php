@@ -56,7 +56,7 @@ class ProviderPortalController extends Controller
                 \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
                 $account = $this->fetch_account($payment_source->stripe_account_id);
                 $balance = $this->fetch_balance($payment_source->stripe_account_id);
-                //dd($balance->available[0]->amount);
+                //dd($balance);
                 return view('provider_portal.pages.banking')
                     ->with('stripe_balance', $balance)
                     ->with('stripe_record', $account);

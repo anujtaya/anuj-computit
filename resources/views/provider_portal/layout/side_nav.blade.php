@@ -1,7 +1,7 @@
 <nav class="navbar navbar-vertical navbar-expand-xl custom-light-background navbar-glass">
    <a class="navbar-brand text-left p-2" href="{{route('app_portal_provider_home')}}">
      <!-- <img src="{{asset('/images/brand/l2l-logo-svg.svg')}}" height="40" width="40" alt="LocaL2LocaL Brand Logo" class="card-1 rounded-circle p-1"> -->
-     <div class="fs-1 mt-2 theme-color">Provider Protal</div>
+     <div class="fs-1 mt-2 theme-color">Provider Portal</div>
      <span class="text-muted text-monospace fs--2">v1.0</span>
    </a>
    

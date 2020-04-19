@@ -52,7 +52,7 @@
                    <tr>
                      <th>Available Balance</th>
                      <td class="">
-                        {{$stripe_balance->available[0]->amount}} 
+                        {{number_format($stripe_balance->available[0]->amount/100,2)}} 
                         <span class="text-uppercase">
                         
                          {{$stripe_balance->available[0]->currency}}
