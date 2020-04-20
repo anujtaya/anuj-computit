@@ -207,7 +207,8 @@ function update_location_using_navigator(position) {
         if (responses && responses.length > 0) {
             suburb = responses[0]['address_components'][1]['long_name'];
             state = responses[0]['address_components'][3]['short_name'];
-            update_user_final_location(pos.lat, pos.lng, suburb, state);
+            full_address = responses[0].formatted_address;
+            update_user_final_location(pos.lat, pos.lng, suburb, state, full_address);
         }
     });
 }
@@ -289,6 +290,7 @@ function fillInAddress() {
     place_lat = place.geometry.location.lat();
     place_lng = place.geometry.location.lng();
     full_address = place.formatted_address;
+    console.log(place);
     map.setZoom(16);
     //console.log(full_address);
     if (place.address_components.length < 4) {

@@ -75,7 +75,7 @@ var current_lat = "{{Auth::user()->user_lat}}";
 var current_lng = "{{Auth::user()->user_lng}}";
 //user service provider location update url to update user current address
 var seeker_update_current_location = "{{route('service_seeker_services_location_update')}}";
-var update_location_on_load = true;
+var update_location_on_load = false;
 
 window.onload = function() {
    if(current_lat == '' || update_location_on_load) {
