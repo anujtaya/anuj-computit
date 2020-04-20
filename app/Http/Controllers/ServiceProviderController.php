@@ -107,9 +107,18 @@ class ServiceProviderController extends Controller
     }
 
     function service_provider_more_wallet(){
-        return View::make("service_provider.more.wallet");
+        
+        $payment_source = Auth::user()->service_provider_payment;
+        $balance = null;
+        if($payment_source != null) {
+            \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
+            $balance =\Stripe\Balance::retrieve(
+                ['stripe_account' => Auth::user()->service_provider_payment->stripe_account_id]
+            );
+        }  
+        return View::make("service_provider.more.wallet")
+                ->with('stripe_balance', $balance);
     }
-
 
     function service_provider_jobs_history(){
         //need to be changed to service_provider_id
