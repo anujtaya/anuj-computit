@@ -60,6 +60,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');
   Route::post('/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
   Route::get('/service_seeker/timer', 'ServiceSeekerJobController@timer')->name('service_provider_timer');
+  //services
+  Route::post('/service_seeker/services/location/update',  'ServiceSeekerController@services_location_update')->name('service_seeker_services_location_update');
+
+  
 });
 
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {

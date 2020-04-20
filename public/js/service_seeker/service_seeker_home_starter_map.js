@@ -1,14 +1,15 @@
 var markers = [];
-var map, infoWindow, pos, serviceMarker, current_sp_marker, user1, tempuserlat, tempuserlng,
-    servicelatlng, userlatlng, source, destination, cityCircle;
+var map, infoWindow, pos, current_user_marker, geocoder;
 var radius = 50;
 var bounds, zoomLevel;
 
+
 function initMap() {
     //service provider current location
+    geocoder = new google.maps.Geocoder();
     map = new google.maps.Map(document.getElementById('map'), {
 
-            zoom: 15,
+            zoom: 12,
             clickableIcons: false,
             // disableDefaultUI: true,
             gestureHandling: 'greedy',
@@ -153,123 +154,36 @@ function initMap() {
             ],
         }),
 
-        current_sp_marker = new google.maps.Marker({
+        current_user_marker = new google.maps.Marker({
             map: map,
             zIndex: 1,
             //icon: icons,
             icon: {
-                url: '/images/map/service_provider_job_icon_black.svg',
-                scaledSize: new google.maps.Size(30, 30),
-            }
-            // draggable: true,
+                url: '/images/map/marker.svg',
+                scaledSize: new google.maps.Size(40, 40), // scaled size
+            },
+            draggable: true,
         });
 
-    current_sp_marker.addListener('click', function() {
-        map.panTo(current_sp_marker.position);
-        map.setZoom(15);
+    current_user_marker.addListener('click', function() {
+        map.panTo(current_user_marker.position);
+        map.setZoom(18);
+    });
+
+    //set new current location on marker drag
+    google.maps.event.addListener(current_user_marker, 'dragend', function(evt) {
+        geocodePosition(current_user_marker.getPosition());
     });
 
     if (current_lat != null) {
         map.setCenter(new google.maps.LatLng(current_lat, current_lng));
-        current_sp_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
+        current_user_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
     }
-
-
-}
-
-function display_job_markers() {
-    markers = [];
-    setMapOnAll(null);
-    for (var i = 0; i < jobs.length; i++) {
-        var serviceMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(jobs[i]['job_lat'], jobs[i]['job_lng']),
-            icon: {
-                url: '/images/map/service_provider_job_icon.svg',
-                scaledSize: new google.maps.Size(30, 30),
-
-            },
-            // icon: {
-            //     //url: './images/dot.svg',
-            //     url: app_url + '/images/map/service_seeker_job_icon.svg',
-            //     scaledSize: new google.maps.Size(30, 30),
-            // },
-            customMarkerJobId: jobs[i]['id']
-        });
-        markers.push(serviceMarker);
-
-    }
-    var markerCluster = new MarkerClusterer(map, markers, {
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-    });
-    setMapOnAll(map);
-    find_closest_marker();
-}
-
-
-function setMapOnAll(map) {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i];
-        infowindow = new google.maps.InfoWindow({});
-        markers[i].addListener('click', function() {
-            map.panTo(this.position);
-            map.setZoom(15);
-
-            populate_map_job_detail_modal_popup(this.customMarkerJobId);
-
-        });
-        markers[i].setMap(map);
-    }
-    //adjust the map view to include all marker and center the marker based on Service Provider location.
-}
-
-function resetLocation() {
-    map.setCenter(current_sp_marker.position);
-    map.panTo(current_sp_marker.position);
-    map.setZoom(15);
-}
-
-//populates the text values in map job detail modal
-function populate_map_job_detail_modal_popup(a) {
-    console.log(a);
-    var temp_object = null;
-    for (var i = 0; i < jobs.length; i++) {
-        if (jobs[i]['id'] === a) {
-            temp_object = jobs[i];
-        }
-    }
-    if (temp_object != null) {
-        console.log(temp_object);
-        $('#map_job_detail_modal_title').html(temp_object['title']);
-        $('#map_job_detail_modal_description').html(temp_object['description']);
-        $('#map_job_detail_modal_category').html(temp_object['description']);
-        var temp_date = utcToLocalTime(temp_object['job_date_time']);
-        $('#map_job_detail_modal_datetime').html(temp_date);
-        $('#map_job_detail_modal_location').html(temp_object['suburb'] + ' ' + temp_object['city'] + ', ' + temp_object['postcode']);
-        $('#map_job_detail_modal_title').html(temp_object['title']);
-        $('#map_job_detail_modal_link').attr("href", app_url + "/service_provider/jobs/job/" + temp_object['id']);
-        $('#map_job_detail_modal_popup').modal('show');
-    } else {
-        console.log('No Job found');
-        $('#map_job_detail_modal_popup').modal('hide');
-    }
-
-}
-
-function utcToLocalTime(utcTimeString) {
-    var theTime = moment.utc(utcTimeString).toDate(); // moment date object in local time
-    var localTime = moment(theTime).format('DD/MM//YYYY hh:mm a'); //format the moment time object to string
-
-    return localTime;
-}
-
-function reset_map_position() {
-    map.setCenter(current_sp_marker.position);
-    map.setZoom(14);
 }
 
 
 //user location update functions 
-function update_sp_location() {
+function update_user_location() {
     //check if the location can be updated using navigator
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(update_location_using_navigator, update_location_without_navigator);
@@ -277,6 +191,7 @@ function update_sp_location() {
         handle_automatc_loc_update_failure();
     }
 }
+
 
 function update_location_using_navigator(position) {
     pos = {
@@ -297,6 +212,7 @@ function update_location_using_navigator(position) {
     });
 }
 
+
 function update_location_without_navigator(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
@@ -316,29 +232,31 @@ function update_location_without_navigator(error) {
     handle_automatc_loc_update_failure();
 }
 
+
 function handle_automatc_loc_update_failure() {
     $('#user_location_modal_manual_popup').modal('show');
 }
 
-function update_user_final_location(lat, lng, suburb, state) {
+
+function update_user_final_location(lat, lng, suburb, state, full_address) {
     $.ajax({
         type: "POST",
-        url: service_provider_location_update_url,
+        url: seeker_update_current_location,
         data: {
             "_token": csrf_token,
             "lat": lat,
             'lng': lng,
             'suburb': suburb,
-            'state': state
+            'state': state,
+            'full_address': full_address
         },
         success: function(results) {
             if (results) {
-                $("#user_current_saved_location").html('Location set to: <span class="theme-color">' + suburb + ',' + state + "</span>");
+                $("#user_current_saved_location").html(full_address);
                 current_lat = lat;
                 current_lng = lng;
                 map.setCenter(new google.maps.LatLng(current_lat, current_lng));
-                current_sp_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
-                filter_service_provider_jobs(null, true);
+                current_user_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
             } else {
                 console.log('Location update notification should not be sent.');
             }
@@ -347,7 +265,6 @@ function update_user_final_location(lat, lng, suburb, state) {
             console.log(err);
         }
     });
-    //console.log('Location final updated to ' + suburb + ',' + state);
 }
 
 //intit autocomplete for manual location update
@@ -371,13 +288,15 @@ function fillInAddress() {
     console.log(place);
     place_lat = place.geometry.location.lat();
     place_lng = place.geometry.location.lng();
-
+    full_address = place.formatted_address;
+    map.setZoom(16);
+    //console.log(full_address);
     if (place.address_components.length < 4) {
         for (var i = 0; i < place.address_components.length; i++) {
             suburb = place.address_components[0]['long_name'];
             state = place.address_components[1]['short_name'];
         }
-        update_user_final_location(place_lat, place_lng, suburb, state);
+        update_user_final_location(place_lat, place_lng, suburb, state, full_address);
         $('#user_location_modal_manual_popup').modal('hide');
     }
     if (place.address_components.length > 4) {
@@ -390,63 +309,43 @@ function fillInAddress() {
                 state = place.address_components[i]['short_name'];
             }
         }
-        update_user_final_location(place_lat, place_lng, suburb, state);
+        update_user_final_location(place_lat, place_lng, suburb, state, full_address);
         $('#user_location_modal_manual_popup').modal('hide');
     }
 }
 //end in it autocomplete code
 
 
-function find_closest_marker() {
-    lat1 = current_sp_marker.getPosition().lat();
-    lon1 = current_sp_marker.getPosition().lng();
-    var pi = Math.PI;
-    var R = 6371; //equatorial radius
-    var distances = [];
-    var closest = -1;
-    for (i = 0; i < markers.length; i++) {
-        var lat2 = markers[i].position.lat();
-        var lon2 = markers[i].position.lng();
-        var chLat = lat2 - lat1;
-        var chLon = lon2 - lon1;
-        var dLat = chLat * (pi / 180);
-        var dLon = chLon * (pi / 180);
-        var rLat1 = lat1 * (pi / 180);
-        var rLat2 = lat2 * (pi / 180);
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(rLat1) * Math.cos(rLat2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-
-        distances[i] = d;
-        if (closest == -1 || d < distances[closest]) {
-            closest = i;
+//reverse geocoding
+//Pan the map based on user location and notify user of new location details
+function geocodePosition(pos) {
+    geocoder.geocode({
+        latLng: pos
+    }, function(responses) {
+        if (responses && responses.length > 0) {
+            place_lat = responses[0].geometry.location.lat();
+            place_lng = responses[0].geometry.location.lng();
+            map.setCenter(responses[0].geometry.location);
+            full_address = responses[0].formatted_address;
+            if (responses[0].address_components.length < 4) {
+                for (var i = 0; i < responses[0].address_components.length; i++) {
+                    suburb = responses[0].address_components[0]['long_name'];
+                    state = responses[0].address_components[1]['short_name'];
+                }
+                update_user_final_location(place_lat, place_lng, suburb, state, full_address);
+            }
+            if (responses[0].address_components.length > 4) {
+                for (var i = 0; i < responses[0].address_components.length; i++) {
+                    var addressType = responses[0].address_components[i].types[0];
+                    if (addressType == "locality") {
+                        suburb = responses[0].address_components[i]['long_name'];
+                    }
+                    if (addressType == "administrative_area_level_1") {
+                        state = responses[0].address_components[i]['short_name'];
+                    }
+                }
+                update_user_final_location(place_lat, place_lng, suburb, state, full_address);
+            }
         }
-    }
-    // (debug) The closest marker is:
-    if (markers[closest] != null) {
-        //set the nice zoom between current sp provider marker and closest marker to service provider location.
-        bounds = new google.maps.LatLngBounds();
-        bounds.extend(current_sp_marker.position);
-        bounds.extend(markers[closest].position);
-        map.fitBounds(bounds);
-        zoomLevel = map.getZoom();
-        map.setCenter(current_sp_marker.position);
-        zoomLevel = zoomLevel - 1;
-        map.setZoom(zoomLevel);
-    }
-}
-
-function set_display_bounds() {
-    bounds = new google.maps.LatLngBounds();
-    bounds.extend(current_sp_marker.position);
-    for (i = 0; i < markers.length; i++) {
-        bounds.extend(markers[i].position)
-    }
-    map.fitBounds(bounds);
-    zoomLevel = map.getZoom();
-    map.setCenter(current_sp_marker.position);
-    zoomLevel = zoomLevel - 1;
-    map.setZoom(zoomLevel);
-    console.log('Map zoom updated to: ' + zoomLevel);
+    });
 }

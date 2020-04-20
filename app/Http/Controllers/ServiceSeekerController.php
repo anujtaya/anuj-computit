@@ -144,4 +144,18 @@ class ServiceSeekerController extends Controller
       //dd($service_seeker_jobs);
       return View::make("service_seeker.jobs.full_history")->with('service_seeker_jobs', $service_seeker_jobs);
     }
+
+    function services_location_update(){
+      $user = User::find(Auth::id());
+        $user->user_lat = $_POST['lat'];
+        $user->user_lng = $_POST['lng'];
+        $user->user_city = $_POST['suburb'];
+        $user->user_state = $_POST['state'];
+        $user->user_full_address = $_POST['full_address'];
+        if($user->save()){
+            return Response::json(true);
+        } else {
+            return Response::json(false);
+        }
+    }
 }

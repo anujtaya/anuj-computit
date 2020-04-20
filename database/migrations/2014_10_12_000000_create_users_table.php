@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('user_state')->nullable();
             $table->string('user_city')->nullable();
             $table->string('user_postcode')->nullable();
+            $table->string('user_full_address')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
