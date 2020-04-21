@@ -71,7 +71,7 @@ function display_updated_seeker_service_list(data) {
       div_2.addEventListener('click', function(){
         user_service_selection(this.id);
       });
-      img.src = app_url + "/images/service_icons/"+ trim(data[i]['service_name']) + ".svg";
+      img.src = app_url + "/images/service_icons/"+ data[i]['service_name'].trim() + ".svg";
       img.classList = "rounded mx-auto d-block";
       img.style = "height: 60px; width: 50px;";
       var text = document.createTextNode(data[i]['service_name']);

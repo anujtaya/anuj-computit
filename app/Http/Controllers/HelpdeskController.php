@@ -40,7 +40,7 @@ class HelpdeskController extends Controller
         } else {
             return redirect()
             ->back()
-            ->withErrors($validator)
+            ->withErrors($validation)
             ->withInput();
         }
     }

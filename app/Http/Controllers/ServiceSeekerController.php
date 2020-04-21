@@ -22,9 +22,16 @@ class ServiceSeekerController extends Controller
     return View::make("service_seeker.registration_completed");
   }
   
-  function service_seeker_home(){
-      $categories = ServiceCategory::all();
-      return View::make("service_seeker.service_seeker_home_1")->with('categories', $categories);
+  function service_seeker_home(Request $request){
+      if($request->has('showBooking')){
+        $categories = ServiceCategory::all();
+        return view("service_seeker.service_seeker_home_2")->with('categories', $categories);
+      } else {
+        $jobs = Job::where('service_seeker_id', Auth::id())->whereIn('status', ['OPEN', 'INPROGRESS', 'STARTED', 'ARRIVED', 'ONTRIP'])->get();
+        return view("service_seeker.service_seeker_home_1")
+               ->with('jobs', $jobs);
+      }
+    
   }
 
   function service_seeker_profile(){

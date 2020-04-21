@@ -13,7 +13,8 @@
    background: #eee;
    }
    #wrapper { position: relative; }
-   #over_map { position: absolute; bottom: 10%; left: 0px; z-index: 99;min-width:100%;padding:20px; }
+   #over_map_bottom { position: absolute; bottom: 10%; left: 0px; z-index: 99;min-width:100%;padding:10px; }
+   #over_map_top { position: absolute; top: 2%; left: 0px; z-index: 99;min-width:100%;padding:10px; }
    .modal-backdrop {
    position: fixed;
    top: 0;
@@ -39,9 +40,16 @@
 
 <div class="wrapper">
    <div id="map"  style="min-width:100%!important;"></div>
-   <div id="over_map" class="text-center">
-      <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:30px;">{{Auth::user()->user_full_address}}</span><br>
-      <a class="btn btn-block btn-sm theme-background-color btn-lg fs-1 card-2 mt-2" style="border-radius:30px;" href="">I want work done</a>
+   <div id="over_map_bottom" class="text-center">
+      <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:20px;">{{Auth::user()->user_full_address}}</span><br>
+      <a class="btn btn-block btn-sm theme-background-color btn-lg fs-1 card-2 mt-2" style="border-radius:20px;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
+   </div>
+   <div id="over_map_top" >
+      @if(count($jobs) > 0)
+         <div class="bg-white fs--1 card-1 theme-color p-3" style="border-radius:20px;">
+            <a href="{{route('service_seeker_jobs')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);">You currently have jobs pending on your job board. Tap here to go to jobs tab <i class="fas fa-arrow-right"></i></a> 
+         </div>
+      @endif
    </div>
 </div>
 
