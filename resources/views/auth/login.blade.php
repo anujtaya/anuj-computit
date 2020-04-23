@@ -39,15 +39,15 @@
             </div>
             <div class="modal-body ">
                <p class="mb-4">What would you like to do on LocaL2LocaL?</p>
-               <form id="register_option" action="{{route('register')}}" method="post" class="m-0">
+               <form id="register_option" action="{{route('guest_register')}}" method="post" class="m-0">
                   @csrf
                   <div class="radio">
-                     <input id="radio-1" name="registration_type" type="radio" value="ss" checked="">
-                     <label for="radio-1" class="radio-label  " style="   font-size:16px;">I want work done.</label>
+                     <input id="radio-1" name="demo_type" type="radio" value="ss" checked="">
+                     <label for="radio-1" class="radio-label  " style="font-size:16px;">I want work done.</label>
                   </div>
                   <div class="radio">
-                     <input id="radio-2" name="registration_type" value="sp" type="radio">
-                     <label for="radio-2" class="radio-label" style="    font-size:16px;">I want to work.</label>
+                     <input id="radio-2" name="demo_type" value="sp" type="radio">
+                     <label for="radio-2" class="radio-label" style="font-size:16px;">I want to work.</label>
                   </div>
                   <div class="mt-4">
                      <button type="submit" class="btn theme-background-color fs--1 text-white" styles="border-radius:20px;padding-left:10px;padding-top:10px;padding-bottom:10px;" width="221px" height="47px" onclick="toggle_animation(true);">Continue</button>

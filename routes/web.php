@@ -8,6 +8,16 @@ Route::get('app/',  'GuestController@handle_landing_request')->name('handle_land
 Route::get('/links',  'GuestController@links')->name('links');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/root', 'GuestController@mobile_landing_page')->name('guest_mobile_landing_page');
+Route::post('/guest/guest_register', 'GuestController@handle_guest_register_request')->name('guest_register');
+
+
+
+
+
+
+
+
+
 Route::post('/register_user', 'UserController@register_user')->name('register_user');
 //register home controller routes
 Route::post('/register', 'RegisterHomeController@register')->name('register');
@@ -16,6 +26,7 @@ Route::post('app/user/update_account_information', 'UserController@user_update_a
 Route::post('app/user/update_password_information', 'UserController@update_account_password')->name('app_user_update_password_information');
 
 
+//logges in user main application routes
 //service seeker routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/registration_completed',  'ServiceSeekerController@registration_completed')->name('service_seeker_registration_completed');

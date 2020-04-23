@@ -14,10 +14,11 @@ class RegisterHomeController extends Controller
     //common for both service provider and service seeker registation. Includes primary account registration and phone verification
     function register(Request $request){
         $input = $request->all()['registration_type'];
-         if($input == 'sp'){
-            Session::put('is_sp_registration_required', true);
+        if($input == 'sp'){
+           
+
         }
-        return View::make("auth.register.register");
+    
       }
     
 }
