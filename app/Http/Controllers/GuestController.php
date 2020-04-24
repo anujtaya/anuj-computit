@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use View;
 use App\User;
 use App\ServiceCategory;
+use App\SessionDraftJob;
+use App\SessionDraftJobAttachment;
 use Auth;
 use Session;
 
@@ -50,6 +52,27 @@ class GuestController extends Controller
         $service_categories = $categories->pluck('service_name');
         return view("service_seeker.demo.home_1")->with('categories', $service_categories);
       }
+    }
+
+    
+    //create session draft job
+    protected function create_draft_job(Request $request){
+      $session_id =  Session::getId();
+      
+      dd($session_id);
+    }
+
+
+    protected function retrieve_draft_job(Request $request) {
+
+    }
+
+    protected function store_draft_job_attachment(Request $request) {
+
+    }
+
+    protected function retrieve_draft_job_attachments(Request $request) {
+
     }
 
 }

@@ -11,9 +11,10 @@ Route::post('/guest/register', 'GuestController@handle_guest_register_request')-
 Route::get('/guest/register', 'RegisterHomeController@register')->name('guest_register');
 Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')->name('guest_service_seeker_home');
 Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
-Route::post('/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
-Route::post('/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
-
+Route::post('/guest/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
+Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
+//manage service seeker draft job
+Route::get('/guest/service_seeker/session/create_draft_job', 'GuestController@create_draft_job')->name('guest_service_seeker_session_create_draft_job');
 
 
 
