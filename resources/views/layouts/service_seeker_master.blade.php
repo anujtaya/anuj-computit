@@ -1,7 +1,7 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
       <meta name="description" content="">
       <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
       <meta name="generator" content="Jekyll v3.8.5">
@@ -34,7 +34,7 @@
             @yield('content')
          </main>
       </div>
-      <div class="d-none d-xl-block  container text-danger p-3 mt-5 text-center">
+      <div class="d-none d-xl-block container text-danger p-3 mt-5 text-center">
             <i class="fas fa-desktop display-1"></i> <br><br>
             Desktop version not suported. Please switch to mobile or tablet view to see the content.
          </div>

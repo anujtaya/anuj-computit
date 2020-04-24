@@ -5,20 +5,18 @@ Auth::routes();
 //guest routess
 Route::get('/',  'GuestController@handle_landing_request')->name('handle_landing_request');
 Route::get('app/',  'GuestController@handle_landing_request')->name('handle_landing_request');
-Route::get('/links',  'GuestController@links')->name('links');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/root', 'GuestController@mobile_landing_page')->name('guest_mobile_landing_page');
-Route::post('/guest/guest_register', 'GuestController@handle_guest_register_request')->name('guest_register');
+Route::post('/guest/register', 'GuestController@handle_guest_register_request')->name('guest_register');
+Route::get('/guest/register', 'RegisterHomeController@register')->name('guest_register');
+Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')->name('guest_service_seeker_home');
+Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
+Route::post('/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
+Route::post('/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
 
 
 
 
-
-
-
-
-
-Route::post('/register_user', 'UserController@register_user')->name('register_user');
 //register home controller routes
 Route::post('/register', 'RegisterHomeController@register')->name('register');
 //user account update routes
@@ -67,9 +65,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   //job cancel route
   Route::post('/service_seeker/jobs/job/cancel', 'ServiceSeekerJobController@service_seeker_job_cancel')->name('service_seeker_job_cancel');
   //ajax call routes
-  Route::post('/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
+ 
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');
-  Route::post('/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
   Route::get('/service_seeker/timer', 'ServiceSeekerJobController@timer')->name('service_provider_timer');
   //services
   Route::post('/service_seeker/services/location/update',  'ServiceSeekerController@services_location_update')->name('service_seeker_services_location_update');

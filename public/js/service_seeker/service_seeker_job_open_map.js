@@ -155,12 +155,12 @@ function initMap() {
             ],
         }),
 
-    current_job_marker = new google.maps.Marker({
-        position: new google.maps.LatLng(job_lat, job_lng), //client's co-ordinates
-        map: map,
-        zIndex: 1,
-        icon: icons,
-    });
+        current_job_marker = new google.maps.Marker({
+            position: new google.maps.LatLng(job_lat, job_lng), //client's co-ordinates
+            map: map,
+            zIndex: 1,
+            icon: icons,
+        });
     current_job_marker.addListener('click', function() {
         map.panTo(current_job_marker.position);
         map.setZoom(14);
@@ -174,7 +174,7 @@ function setMapOnAll(map) {
         markers[i];
         infowindow = new google.maps.InfoWindow({});
         markers[i].addListener('click', function() {
-          populate_map_con_detail_modal_popup(this.custom_data);
+            populate_map_con_detail_modal_popup(this.custom_data);
         });
         markers[i].setMap(map);
     }
@@ -208,13 +208,11 @@ function populate_conversation_map_data(data) {
         set_display_bounds();
 
     }
-
-
-
 }
 
 
 var bounds, zoomLevel;
+
 function set_display_bounds() {
     bounds = new google.maps.LatLngBounds();
     bounds.extend(current_job_marker.position);
@@ -273,17 +271,17 @@ function find_closest_marker() {
 
 //populate map conversation modal popup
 //populates the text values in map job detail modal
-function populate_map_con_detail_modal_popup(a){
+function populate_map_con_detail_modal_popup(a) {
     console.log(a);
     $("#map_con_modal_popup_name").html(a.first + ' ' + a.last);
-    if(a.rating == null) {
+    if (a.rating == null) {
         $("#map_con_modal_popup_rating").html('5.00');
     } else {
         $("#map_con_modal_popup_rating").html(a.rating);
     }
     $("#map_con_modal_popup_offer_price").html(a.json.offer);
     $("#map_con_modal_popup_offer_description").html(a.json.offer_description);
-    $('#map_con_modal_popup').modal('show');   
+    $('#map_con_modal_popup').modal('show');
     $('#map_con_modal_popup_conversation_link').attr("href", app_url + '/service_seeker/jobs/job/conversation/' + a.job_id + '/' + a.service_provider_id);
-    $('#map_con_modal_popup_image').attr("src",app_url + "/storage/images/profile/" + a.profile_image_path);
+    $('#map_con_modal_popup_image').attr("src", app_url + "/storage/images/profile/" + a.profile_image_path);
 }

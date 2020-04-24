@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('register_user') }}" onsubmit="toggle_animation(true);">
+<form method="POST" action="{{ route('guest_register_user') }}" onsubmit="toggle_animation(true);">
    @csrf
    <div class="form-group mt-3 row">
       <div class="col-md-12 mb-2 text-canter">

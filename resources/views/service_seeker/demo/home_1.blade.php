@@ -1,9 +1,8 @@
 @extends('layouts.service_seeker_master')
 @section('content')
 @push('header-script')
-<script src="{{asset('/js/service_seeker/service_seeker_home_starter_map.js')}}?v={{rand(1,100)}}"></script>
+<script src="{{asset('/js/service_seeker/service_seeker_home_starter_map_demo.js')}}?v={{rand(1,1000)}}"></script>
 @endpush
-
 <!-- page specific styles -->
 <style>
    #map {
@@ -22,7 +21,7 @@
    bottom: 0;
    left: 0;
    z-index: 10;
-   background-color:transparent!important;
+   /* background-color:transparent!important; */
    }
    .pac-container {
    background-color: #FFF;
@@ -36,24 +35,13 @@
    }
 </style>
 <!-- end style  -->
-
-
 <div class="wrapper">
    <div id="map"  style="min-width:100%!important;"></div>
    <div id="over_map_bottom" class="text-center">
-      <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:20px;">{{Auth::user()->user_full_address}}</span><br>
-      <a class="btn btn-block btn-sm theme-background-color btn-lg fs-1 card-2 mt-2" style="border-radius:20px;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
-   </div>
-   <div id="over_map_top" >
-      @if(count($jobs) > 0)
-         <div class="bg-white fs--1 card-1 theme-color p-3" style="border-radius:20px;">
-            <a href="{{route('service_seeker_jobs')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);">You currently have jobs pending on your job board. Tap here to go to jobs tab <i class="fas fa-arrow-right"></i></a> 
-         </div>
-      @endif
+      <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:20px;"></span><br>
+      <a class="btn btn-block btn-sm theme-background-color btn-lg fs-1  mt-2" style="border-radius:20px;" href="{{route('guest_service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
    </div>
 </div>
-
-
 <!-- Modal -->
 <div class="modal fade" id="user_location_modal_manual_popup" tabindex="-1" role="dialog" aria-labelledby="user_location_modal_manual_popup_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
@@ -70,33 +58,25 @@
    </div>
 </div>
 <!-- end modal -->
-
-
-
-
-
-
-
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
-
-
 <!-- script to control the map function -->
 <script>
 var app_url = "{{URL::to('/')}}";
-var current_suburb = "{{Auth::user()->user_city}}";
-var current_lat = "{{Auth::user()->user_lat}}";
-var current_lng = "{{Auth::user()->user_lng}}";
+var current_suburb = null;
+var current_lat = null;
+var current_lng = null;
 //user service provider location update url to update user current address
-var seeker_update_current_location = "{{route('service_seeker_services_location_update')}}";
-var update_location_on_load = false;
+var update_location_on_load = true;
+var enable_geocoder = false;
+var service_categories = @json($categories);
+
 
 window.onload = function() {
-   if(current_lat == '' || update_location_on_load) {
+  if(update_location_on_load) {
       update_user_location();
    }
 }
 </script>
 <!-- end map control script  -->
-
 @endsection
-@include('service_seeker.bottom_navigation_bar')
+@include('service_seeker.demo.bottom_navigation_bar')
