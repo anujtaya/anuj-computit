@@ -65,9 +65,7 @@ var app_url = "{{URL::to('/')}}";
 var current_suburb = null;
 var current_lat = null;
 var current_lng = null;
-//user service provider location update url to update user current address
 var update_location_on_load = true;
-var enable_geocoder = false;
 var service_categories = @json($categories);
 
 

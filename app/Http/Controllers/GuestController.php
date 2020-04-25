@@ -7,9 +7,11 @@ use App\User;
 use App\ServiceCategory;
 use App\SessionDraftJob;
 use App\SessionDraftJobAttachment;
+use App\Job;
 use Auth;
 use Session;
 use Response;
+use DB;
 
 class GuestController extends Controller
 {
@@ -39,6 +41,55 @@ class GuestController extends Controller
       } else{
         return View::make("service_seeker.demo.tutorial");
       }
+    }
+
+
+    //service provider demo routes
+    protected function service_provider_home(Request $request){
+      $jobs = Job::where('status', '!=', 'DRAFT')->get();
+      return view("service_provider.demo.home")->with('jobs', $jobs);
+    }
+
+    
+    //load all job based on user loction in demo mode
+    protected function service_provider_fetch_all_jobs(){
+      $filter_action = $_POST['filter_action'];
+      //based on user distance from current location
+      $jobs = DB::table("jobs")
+        ->select("jobs.*" , "jobs.id as job_id"
+          ,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+          * cos(radians(jobs.job_lat)) 
+          * cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+          + sin(radians(" .$_POST['current_lat']. ")) 
+          * sin(radians(jobs.job_lat))) AS distance"))
+          ->where("jobs.status", "OPEN")
+          ->having('distance', '<=', 200)
+          ->groupBy("job_id")
+          ->orderBy('distance', 'asc')
+          ->get();
+		//render the html page.
+		$viewRendered = view('service_provider.demo.jobs.jobs_templates.jobs_homepgae_template_list', compact('jobs'))->render();
+		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
+    }
+
+
+    protected function service_provider_show_job($id){
+        $job = Job::find($id);
+        if($job != null){
+          //do not show the job to other service provider if the job is not open and service provider id is already assigned.
+          if($job->status == 'OPEN') {
+            //find the sevrice seeker of this job and send info to blade view.
+            $service_seeker_profile = User::find($job->service_seeker_id);
+            //retrieve job extras 
+            $job_extras = $job->extras->where('status', 'ACTIVE');
+            $reply_count = 0;
+            $job_price = 0.00;
+            return View::make("service_provider.demo.jobs.job_detail")
+                ->with('job',$job)
+                ->with('service_seeker_profile', $service_seeker_profile);
+          }    
+        }
+        return redirect()->back();
     }
 
 

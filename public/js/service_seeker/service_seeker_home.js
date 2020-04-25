@@ -324,10 +324,11 @@ var componentForm = {
     administrative_area_level_1: 'short_name',
     postal_code: 'short_name'
 };
+var autocomplete
 
 function initAutocomplete() {
 
-    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('street_number'), {
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('street_number'), {
         types: ['geocode'],
         componentRestrictions: { country: 'au' }
     });

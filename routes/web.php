@@ -8,15 +8,20 @@ Route::get('app/',  'GuestController@handle_landing_request')->name('handle_land
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/root', 'GuestController@mobile_landing_page')->name('guest_mobile_landing_page');
 Route::post('/guest/register', 'GuestController@handle_guest_register_request')->name('guest_register');
-Route::get('/guest/register', 'RegisterHomeController@register')->name('guest_register');
+Route::get('/app/register', 'RegisterHomeController@register')->name('app_register');
 Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')->name('guest_service_seeker_home');
 Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
 Route::post('/guest/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
 Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
 //manage service seeker draft job
 Route::post('/guest/service_seeker/session/create_draft_job', 'GuestController@create_draft_job')->name('guest_service_seeker_session_create_draft_job');
-
-
+//service provider demo routes
+Route::get('/guest/service_provider/home', 'GuestController@service_provider_home')->name('guest_service_provider_home');
+Route::post('/guest/service_provider/jobs/fetch/all', 'GuestController@service_provider_fetch_all_jobs')->name('guest_service_provider_jobs_fetch_all');
+Route::get('/guest/service_provider/jobs/job/{id}', 'GuestController@service_provider_show_job')->name('guest_service_provider_job');
+Route::post('/guest/imageservice/images/fetch/', 'JobAttachmentController@retrive_job_images')->name('guest_imageservice_images_fetch');
+Route::get('/guest/storage/images/profile/{filename}', 'ImageStorageController@make_profile_image_link');
+Route::get('/guest/storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
 
 //register home controller routes
 Route::post('/register', 'RegisterHomeController@register')->name('register');
@@ -35,6 +40,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/more/faqs',  'ServiceSeekerController@service_seeker_more_faqs')->name('service_seeker_more_faqs');
   Route::get('/service_seeker/more/wallet',  'ServiceSeekerController@service_seeker_more_wallet')->name('service_seeker_more_wallet');
   Route::get('/service_seeker/more/help',  'ServiceSeekerController@service_seeker_more_help')->name('service_seeker_more_help');
+  Route::post('/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
+  Route::post('/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
   Route::get('/service_seeker/jobs/full_history',  'ServiceSeekerController@service_seeker_jobs_full_history')->name('service_seeker_jobs_full_history');
   Route::post('/service_seeker/job/details/update', 'ServiceSeekerController@service_seeker_job_details_update')->name('service_seeker_job_details_update');
   //jobs routes
@@ -110,12 +117,12 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/service_provider/more/help',  'ServiceProviderController@service_provider_more_help')->name('service_provider_more_help');
   //service provider extra services
   Route::post('/service_provider/services/location/update',  'ServiceProviderController@services_location_update')->name('service_provider_services_location_update');
-  Route::post('/service_provider/jobs/fetch/all', 'ServiceProviderJobController@fetch_all_jobs')->name('service_provider_jobs_fetch_all');
   //Service Provider Job Routes
   Route::get('/service_provider/jobs/job/{id}', 'ServiceProviderJobController@show_job')->name('service_provider_job');
   Route::post('/service_provider/jobs/job/offer', 'ServiceProviderJobController@make_offer')->name('service_provider_job_make_offer');
   Route::post('/service_provider/jobs/job/offer/duplicate', 'ServiceProviderJobController@check_offer_exists')->name('service_provider_offer_exists');
   Route::post('/service_provider/jobs/filter', 'ServiceProviderJobController@filter_jobs')->name('service_provider_jobs_filter');
+  Route::post('/service_provider/jobs/fetch/all', 'ServiceProviderJobController@fetch_all_jobs')->name('service_provider_jobs_fetch_all');
   //Service provider navigate to job route
   Route::post('/service_provider/jobs/job/update/ontrip', 'ServiceProviderJobController@update_status_ontrip')->name('service_provider_job_update_status_ontrip');
   Route::post('/service_provider/jobs/job/update/cancelontrip', 'ServiceProviderJobController@update_status_cancelontrip')->name('service_provider_job_update_status_cancelontrip');
