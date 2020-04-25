@@ -19,8 +19,9 @@ class CreateSessionDraftJobsTable extends Migration
             $table->text('user_agent')->nullable();
             //job information
             $table->string('title')->nullable();
-            $table->char('status', 12)->nullable(); //DRAFT
+            $table->char('status', 12)->nullable();//DRAFT
             $table->text('description')->nullable();
+            $table->datetime('job_date_time')->nullable();
             $table->decimal("job_lat", 9,6)->nullable();
             $table->decimal("job_lng", 9,6)->nullable();
             $table->string('street_number')->nullable();
@@ -29,9 +30,13 @@ class CreateSessionDraftJobsTable extends Migration
             $table->string('suburb')->nullable();
             $table->string('city')->nullable();
             $table->string('postcode')->nullable();
+            //to enable job pin confirmation
             $table->string('service_category_name')->nullable();
             $table->string('service_subcategory_name')->nullable();
             $table->bigInteger('service_category_id')->unsigned()->nullable();
+            $table->foreign('service_category_id')->references('id')->on('service_categories');
+            $table->bigInteger('service_subcategory_id')->unsigned()->nullable();
+            $table->foreign('service_subcategory_id')->references('id')->on('service_subcategories');
             $table->timestamps();
         });
     }

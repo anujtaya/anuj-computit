@@ -4,6 +4,12 @@
   }
 </style>
 <div class="border-top p-2">
+    @if($session_draft_job != null)
+    <div class="p-2 bg-whites card-1 rounded fs--1 bg-success text-white mb-3">
+       Welcome back! Would you like to use the draft you have created earlier?
+   </div>
+   @endif
+
    <div class="input-group mt-2 mb-3">
       <div class="input-group-prepend   fs--1">
          <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
@@ -36,6 +42,7 @@ var seeker_services_filter_array = null;
 var sort_unselected_class = "btn btn-white rounded-capsules border fs--1";
 var sort_selected_class = "btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2";
 var app_url = "{{URL::to('/')}}";
+var current_session_id = "{{Session::getId()}}";
 
 function populate_seeker_services(){
     var search_term = $('#seeker_services_filter_input').val();

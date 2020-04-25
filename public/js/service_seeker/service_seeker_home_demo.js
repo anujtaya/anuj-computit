@@ -1,24 +1,7 @@
-function map_display_control() {
-    if ($("#map").is(":visible")) {
-        $("#map:visible").fadeOut()
-    } else {
-        $("#map:hidden").fadeIn()
-    }
-}
-
-
 var current_service_id = null;
 var current_service_node_id = null;
 var current_job_lat = null;
 var current_job_lng = null;
-var draft_obj = {
-    title: $("#service_job_title").val(),
-    description: $("#service_job_description").val(),
-    job_date_time: $("#service_job_datetime").val(),
-    service_subcategory_id: current_service_node_id,
-    job_lat: current_job_lat,
-    job_lng: current_job_lng,
-}
 
 function user_service_selection(service_id) {
     var service_name = $("#" + service_id).data("catname");
@@ -32,8 +15,6 @@ function user_service_selection(service_id) {
     //display service wizard
     $("#view_box_2").fadeIn();
 }
-
-
 
 function wizard_exit() {
     wizard_switch_2('wizard_view_1');
@@ -68,7 +49,7 @@ function wizard_switch(id) {
         wizard_switch_1(id);
     }
     if (id == 'wizard_view_4') {
-        resetPosition();
+        //resetPosition();
         wizard_switch_4(id);
     }
 }
@@ -142,7 +123,7 @@ function retrieve_sub_categories(service_cat_id) {
 
     $.ajax({
         type: "POST",
-        url: app_url + '/service_seeker/services/subcategories/fetch',
+        url: app_url + '/guest/service_seeker/services/subcategories/fetch',
         data: {
             "_token": csrf_token,
             "service_cat_id": service_cat_id,
@@ -187,9 +168,6 @@ function render_service_node_list(data) {
     }
     toggle_animation(false);
 }
-
-
-
 
 var placeSearch;
 var componentForm = {
@@ -248,14 +226,10 @@ function initAutocomplete() {
     });
 }
 
-
-
-
-
-
-
 //draft job create routes
 var draft_obj = null;
+var current_address_string = null;
+var current_job_status = 'DRAFT';
 
 function create_draft_job() {
     // if(current_job_draft_id == null){
@@ -268,8 +242,45 @@ function create_draft_job() {
         service_subcategory_id: current_service_node_id,
         job_lat: current_job_lat,
         job_lng: current_job_lng,
+        session_id: current_session_id,
+        service_category_name: $("#service_selection_name_display").text(),
+        service_subcategory_name: $("#nid_" + current_service_node_id).text(),
+        current_address_string: current_address_string,
+        status: current_job_status
+    }
+    manage_draft_job(draft_obj);
+    //console.log(draft_obj);
+}
 
+function manage_draft_job(payload) {
+    //console.log('making draft job manage request');
+    $.ajax({
+        type: "POST",
+        url: app_url + '/guest/service_seeker/session/create_draft_job',
+        data: {
+            "_token": csrf_token,
+            "payload": JSON.stringify(payload),
+        },
+        success: function(results) {
+            //console.log('manage draft job results here...')
+            console.log(results);
+            toggle_animation(false);
+        },
+        error: function(results, status, err) {
+            console.log(err);
+            toggle_animation(false);
+        }
+    });
+}
+
+function process_sessio_draft_job_booking() {
+    //set the job status to READY
+    current_job_status = 'READY';
+    if (current_address_string == '' || current_address_string == null) {
+        $("#street_number").addClass('animated shake is-invalid');
+        setTimeout(function() { $("#street_number").removeClass('animated shake'); }, 5000);
+    } else {
+        create_draft_job();
     }
 
-    console.log(draft_obj);
 }

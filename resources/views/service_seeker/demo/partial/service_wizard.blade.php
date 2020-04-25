@@ -79,12 +79,12 @@
       <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <a href="" onclick="wizard_switch('wizard_view_1');event.preventDefault();">
+               <a href="#" onclick="wizard_switch('wizard_view_1');event.preventDefault();">
                <i class="fas fa-arrow-left theme-color fs-2"></i>
                </a>
             </div>
             <div class=" bd-highlight pt-3 pr-4 pb-3">
-               <a href="" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
+               <a href="#" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
                <i class="fas fa-arrow-right theme-color fs-2"></i>
                </a>
             </div>
@@ -103,7 +103,7 @@
                <span class="text-white mt-1" >Step 3 of 4</span>
             </div>
             <div class=" bd-highlight p-2">
-               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i class="fas fs-1 fa-times"></i></a>
+               <a href="#" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i class="fas fs-1 fa-times"></i></a>
             </div>
          </div>
          <div class="text-center mt-4">
@@ -128,12 +128,12 @@
       <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <a href="" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
+               <a href="#" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
                <i class="fas fa-arrow-left theme-color fs-2"></i>
                </a>
             </div>
             <div class=" bd-highlight pt-3 pr-4 pb-3">
-               <a href="" onclick="wizard_switch('wizard_view_4');event.preventDefault();">
+               <a href="#" onclick="wizard_switch('wizard_view_4');event.preventDefault();">
                <i class="fas fa-arrow-right theme-color fs-2"></i>
                </a>
             </div>
@@ -161,7 +161,7 @@
       </div>
       <!-- confirm user location -->
       <div class="col-12 fs--1 p-2 p-3" >
-        @include('service_seeker.location_confirmation')
+        @include('service_seeker.demo.partial.location_confirmation')
       </div>
       <!-- end confirm user location view -->
    </div>
@@ -175,7 +175,7 @@
                </a>
             </div>
             <div class=" bd-highlight   pt-3 pr-4 pb-3">
-               <a class="theme-color fs-1" onclick="book_job();">
+               <a class="theme-color fs-1" onclick="process_sessio_draft_job_booking();">
                 Done
                </a>
             </div>
