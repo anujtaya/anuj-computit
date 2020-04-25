@@ -72,6 +72,11 @@ class UserController extends Controller
             $user->first = $data->user_first_name;
             $user->last = $data->user_last_name;
             $user->phone = $data->user_phone;
+            if(isset($data->user_job_radius)) {
+                if($data->user_job_radius > 19 && $data->user_job_radius < 200) {
+                    $user->work_radius = $data->user_job_radius;     
+                }    
+            }
             if($user->save()) {
                 Session::put('status' ,  'Your account updated succesfully.');
             }

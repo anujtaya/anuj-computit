@@ -231,8 +231,7 @@ class ServiceProviderJobController extends Controller
 	//important function to retrive service provider home job board page based on multiple parameters. Please care for sql bottleneck.
 	protected function fetch_all_jobs(){
 		$filter_action = $_POST['filter_action'];
-		$user_id = Auth::id();
-		
+		$user = Auth::user();	
 		//based on user 
 		//based on user distance from current location
 		$jobs = DB::table("jobs")
@@ -243,12 +242,10 @@ class ServiceProviderJobController extends Controller
 				+ sin(radians(" .$_POST['current_lat']. ")) 
 				* sin(radians(jobs.job_lat))) AS distance"))
 				->where("jobs.status", "OPEN")
-				->having('distance', '<=', 200)
+				->having('distance', '<=', $user->work_radius)
 				->groupBy("job_id")
 				->orderBy('distance', 'asc')
 				->get();
-
-
 		//$jobs  = Job::where('status', 'OPEN')->get();
 		//render the html page.
 		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_homepgae_template_list', compact('jobs'))->render();

@@ -33,7 +33,7 @@
    </form>
    <br>
    @if(Session::has('status'))
-      <div class="fs--1 ml-2 border-0 card-1 mr-2 alert alert-info">{{Session::pull('status')}}</div>
+      <div class="fs--1 ml-2 border-0 mr-2 alert alert-info">{{Session::pull('status')}}</div>
    @endif
    <div class="d-flex theme-background-color-n bg-white rounded   bd-highlight ml-2 mr-2 mt-1 shadow-sm">
       <div class="p-3 bd-highlight" id="image_container">
@@ -81,6 +81,15 @@
             <div class="form-group">
                <label for="user_email">Email</label>
                <input type="email" class="form-control form-control-sm"  id="user_email"  value="{{Auth::user()->email}}" readonly>
+            </div>
+            <div class="form-group">
+               <label for="user_job_radius">Job Radius</label>
+               <input type="number" class="form-control form-control-sm"  id="user_job_radius" name="user_job_radius" value="{{Auth::user()->work_radius}}" required>
+               @error('user_job_radius')
+               <span class="invalid-feedback" role="alert">
+               <strong>{{ $message }}</strong>
+               </span>
+               @enderror
             </div>
             <div class="form-group">
                <button type="submit" class="btn theme-background-color btn-sm fs--1 font-weight-normal card-1">Save Changes</button>
