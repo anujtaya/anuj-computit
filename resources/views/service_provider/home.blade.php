@@ -33,14 +33,27 @@
       <div class="col-lg-12 theme-background-color card-1 shadow-sms fixed-top bg-white pl-3 pr-3 border-d" style="z-index:19!important;">
          <div class="row">
             <div class="col-8 pl-2 pt-3 pb-3">
-               <div class="p-0 bd-highlight">
+                  <!-- online/offline controls -->
+                  <form action="{{route('service_provider_services_update_availablity_status')}}" method="POST" onsubmit="toggle_animation(true);" id="update_availablity_form" style="display:none;">
+                     @csrf
+                     <input type="hidden" value="@if(Auth::user()->is_online) offline @else online @endif" name="target_status" required>
+                  </form>
+                  @if(Auth::user()->is_online)
+                     <button class="btn text-success shadow-sm border-0 fs--1 bg-white" style="border-radius:20px;" onclick="$('#update_availablity_form').submit();">
+                        <i class="fas fa-circle animated infinite fadeIn fs--2 "></i>  Go Offline
+                     </button>
+                  @else
+                     <button class="btn text-danger shadow-sm border-0 fs--1 bg-white" style="border-radius:20px;" onclick="$('#update_availablity_form').submit();">     
+                        <i class="fas fa-circle fs--2 "></i>  Go Online
+                     </button>
+                  @endif
+                  <!-- map view controls -->
                   <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="map_btn" onclick="switch_view_mode('MAP')">
                   <i class="fas fa-globe-asia"></i> Map View
                   </button>
                   <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="list_btn" onclick="switch_view_mode('LIST')">
                   <i class="fas fa-list-ol"></i> List View
-                  </button>
-               </div>
+                  </button>          
             </div>
             <div class="col-4 text-right">
                <div class="nav-item dropdown">

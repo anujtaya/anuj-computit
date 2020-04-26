@@ -13,6 +13,8 @@ use App\User;
 use Auth;
 use Response;
 use DB;
+use Validator;
+use Input;
 
 class ServiceProviderController extends Controller
 {
@@ -164,6 +166,28 @@ class ServiceProviderController extends Controller
             return Response::json(true);
         } else {
             return Response::json(false);
+        }
+    }
+
+    function services_update_availablity_status(Request $request) {
+        $validator =  Validator::make($request->all(), [
+            'target_status' => 'required|'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $data =  (object) Input::all();
+            $user = Auth::user();
+            if($data->target_status == "online") {
+                $user->is_online = true;
+            } else {
+                $user->is_online = false;
+            }
+            $user->save();
+            return redirect()->back();
         }
     }
 

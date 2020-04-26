@@ -115,7 +115,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/service_provider/more/faqs',  'ServiceProviderController@service_provider_more_faqs')->name('service_provider_more_faqs');
   Route::get('/service_provider/more/wallet',  'ServiceProviderController@service_provider_more_wallet')->name('service_provider_more_wallet');
   Route::get('/service_provider/more/help',  'ServiceProviderController@service_provider_more_help')->name('service_provider_more_help');
-  //service provider extra services
+  //online status controller
+  Route::post('/service_provider/services/update_availablity_status', 'ServiceProviderController@services_update_availablity_status')->name('service_provider_services_update_availablity_status');
   Route::post('/service_provider/services/location/update',  'ServiceProviderController@services_location_update')->name('service_provider_services_location_update');
   //Service Provider Job Routes
   Route::get('/service_provider/jobs/job/{id}', 'ServiceProviderJobController@show_job')->name('service_provider_job');
