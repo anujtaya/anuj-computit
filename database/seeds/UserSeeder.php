@@ -28,8 +28,8 @@ class UserSeeder extends Seeder
 
         //Provider account
         App\User::create([
-          'first' => 'John',
-          'last' => 'Doe',
+          'first' => 'Anuj',
+          'last' => 'Taya',
           'email' => 'tayaanuj@gmail.com',
           'password' => $password,
           'user_type' => 2,
