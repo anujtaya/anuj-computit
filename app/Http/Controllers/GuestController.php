@@ -8,6 +8,7 @@ use App\ServiceCategory;
 use App\SessionDraftJob;
 use App\SessionDraftJobAttachment;
 use App\Job;
+use Validator;
 use Auth;
 use Session;
 use Response;
@@ -177,16 +178,45 @@ class GuestController extends Controller
     }
 
 
-    protected function retrieve_draft_job(Request $request) {
-
+    //session draft job attachment controller funtions
+    //store session draft job image 
+    protected function store_session_draft_job_attachment(Request $request) {
+        $validation = Validator::make($request->all(), [
+          'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:100000',
+          'current_session_id' => 'required'
+        ]);
+        if($validation->passes())
+        {
+          $image = $request->file('file');
+          $new_name = rand() . '.' . $image->getClientOriginalExtension();
+          $image->move(storage_path('/public/job_attachments/'), $new_name);
+          $new_image_attachment = new SessionDraftJobAttachment();
+          $new_image_attachment->path = $new_name;
+          $new_image_attachment->name = 'Job Image';
+          $new_image_attachment->session_draft_job_id   = $request->all()['current_session_id'];
+          $new_image_attachment->save();
+          return response()->json([
+            'message'   => 'Image Upload Successfully',
+            'uploaded_image' => '<img src="/storage/job_attachments/'.$new_name.'" class="img-thumbnail" width="300" />',
+            'class_name'  => 'alert-success'
+          ]);
+        }
+        else
+        {
+          return response()->json([
+          //  'message'   => $validation->errors()->all(),
+          //  'uploaded_image' => '',
+          //  'class_name'  => 'alert-danger'
+          ]);
+        }
     }
 
-    protected function store_draft_job_attachment(Request $request) {
-
+    //retrieve all draft job images
+    protected function retrieve_session_draft_job_attachment(){
+        $current_session_id = $_POST['current_session_id'];
+        $images = SessionDraftJob::find($current_session_id)->session_draft_job_attachments;
+        return Response::json($images);
     }
-
-    protected function retrieve_draft_job_attachments(Request $request) {
-
-    }
+    
 
 }

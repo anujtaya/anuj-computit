@@ -118,7 +118,7 @@
             <small class="form-text text-muted">Please use plain english text.</small>
          </div>
 
-         @include('service_seeker.partial.image_upload_grid')
+         @include('service_seeker.demo.partial.image_upload_grid')
 
       </div>
       <!-- end view -->

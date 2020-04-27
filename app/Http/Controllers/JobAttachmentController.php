@@ -25,19 +25,13 @@ class JobAttachmentController extends Controller
          {
           $image = $request->file('file');
           $new_name = rand() . '.' . $image->getClientOriginalExtension();
-
-
-
           $image->move(storage_path('/public/job_attachments'), $new_name);
-
           $new_image_attachment = new JobAttachment();
           $new_image_attachment->path = $new_name;
           $new_image_attachment->name = 'Job Image';
           $new_image_attachment->upload_user_id   = Auth::id();
           $new_image_attachment->job_id   = $request->all()['current_job_id'];
           $new_image_attachment->save();
-
-
           return response()->json([
            'message'   => 'Image Upload Successfully',
            'uploaded_image' => '<img src="/storage/job_attachments/'.$new_name.'" class="img-thumbnail" width="300" />',

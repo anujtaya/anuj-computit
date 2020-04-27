@@ -22,6 +22,10 @@ Route::get('/guest/service_provider/jobs/job/{id}', 'GuestController@service_pro
 Route::post('/guest/imageservice/images/fetch/', 'JobAttachmentController@retrive_job_images')->name('guest_imageservice_images_fetch');
 Route::get('/guest/storage/images/profile/{filename}', 'ImageStorageController@make_profile_image_link');
 Route::get('/guest/storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
+//session draft job attachment storage routes
+Route::post('guest/imageservice/images/image_upload', 'GuestController@store_session_draft_job_attachment')->name('guest_imageservice_images_upload');
+Route::post('guest/imageservice/images/fetch/', 'GuestController@retrieve_session_draft_job_attachment')->name('guest_imageservice_images_fetch');
+Route::get('guest/storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
 
 //register home controller routes
 Route::post('/register', 'RegisterHomeController@register')->name('register');

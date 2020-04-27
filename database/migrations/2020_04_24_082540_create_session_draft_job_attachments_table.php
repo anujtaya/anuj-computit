@@ -17,8 +17,8 @@ class CreateSessionDraftJobAttachmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('path')->nullable();
             $table->string('name')->nullable();
-            $table->string('session_id')->nullable();
-            $table->foreign('session_id')->references('id')->on('session_draft_jobs');
+            $table->string('session_draft_job_id')->nullable();
+            $table->foreign('session_draft_job_id')->references('id')->on('session_draft_jobs');
             $table->timestamps();
         });
     }
