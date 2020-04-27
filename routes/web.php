@@ -188,7 +188,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/app/portal/provider/invoice/download/{id}', 'ProviderPortalController@download_invoice')->name('app_portal_provider_inovice_download');
   //short url for provider banking page
   Route::get('/banking', 'ProviderPortalController@redirect_to_banking_page');
-  Route::get('/app/portal/provider/banking/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account');
+  Route::get('/app/portal/provider/banking/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account')->name('app_portal_provider_banking_stripe_onboarding');
   Route::get('/app/portal/provider/banking/stripe/connect/single_sign_on_link', 'StripeConnectController@single_sign_on_link')->name('app_portal_provider_banking_single_on_link');
   
 
