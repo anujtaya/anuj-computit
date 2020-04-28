@@ -9,11 +9,11 @@
             <p>
                 If you have more questions about this job, please free to email us at help@local2local.com.au or you can visit <a href="{{route('service_seeker_more_help')}}" onclick="toggle_animation(true);" class="theme-color font-weight-bolder">help section</a> of this app to message us directly from app. 
             </p>
-            <form action="{{route('service_seeker_job_cancel')}}" method="POST" onclick="toggle_animation(true);">
+            <!-- <form action="{{route('service_seeker_job_cancel')}}" method="POST" onclick="toggle_animation(true);">
                 @csrf
                 <input type="hidden" name="ss_job_cancel_id" value="{{$job->id}}" required>
                 <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
-            </form>
+            </form> -->
         @endif
     @else 
     <p>

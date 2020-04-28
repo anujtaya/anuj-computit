@@ -77,7 +77,8 @@
 		<br><br>
 		<p class="fs--1">We are waiting for Service Providers to respond with price quote. We let you know when the quotes are available.</p>
 		<br>
-      	<span class="loader"><span class="loader-inner"></span></span>
+      	<!-- <span class="loader"><span class="loader-inner"></span></span> -->
+         <img src="{{secure_url('/images/brand/l2l-logo-svg.svg')}}" class="fa-spin spin" height="50" width="50">
    </div>
    @endif
 </ul>

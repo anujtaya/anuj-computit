@@ -10,11 +10,11 @@
    </div>
    @endif 
    <!-- notice section display -->
-   <div class="fs--2 p-2 alert alert-warning border-0 card-1">
+   <!-- <div class="fs--2 p-2 alert alert-warning border-0 card-1">
       Please note that the details of this job can only be changed when the job status is Open.
       Once the job is approved you will not be able to change the details of the job.
       You will need to cancel the job if you wish to change the detail of the job once its approved.
-   </div>
+   </div> -->
    <!-- end notice section display -->
    <form action="{{route('service_seeker_job_details_update')}}" method="post" onsubmit="toggle_animation(true);">
       @csrf
@@ -45,11 +45,16 @@
          <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2">{{$job->description}}</textarea>
       </div>
       <div class="form-group">
-         @if($job->status != 'COMPLETED')
-            @if($job->status != 'CANCELLED')
+            @if($job->status == 'OPEN')
                <button class="btn btn-info btn-sm fs--1 font-weight-normal" type="submit">Save Changes</button>
             @endif
-         @endif
+            @if($job->status == 'APPROVED' || $job->status == 'INPROGRESS' || $job->status == 'ONTRIP' || $job->status == 'STARTED')
+            <form action="{{route('service_seeker_job_cancel')}}" method="POST" onclick="toggle_animation(true);">
+                @csrf
+                <input type="hidden" name="ss_job_cancel_id" value="{{$job->id}}" required>
+                <button class="btn btn-danger text-white btn-sm fs--1">Cancel Job</button>
+            </form>
+            @endif
       </div>
    </form>
    <!-- <div class="fixed-bottom p-2 fs--1 text-center bg-white border-top">Scroll for more <i class="fas fa-angle-double-down fs--2 mt-1"></i></div> -->

@@ -6,7 +6,7 @@
 <div class="border-top p-2">
     @if($session_draft_job != null)
     <div class="p-2 bg-whites card-1 rounded fs--1 bg-success text-white mb-3">
-       Welcome back! Would you like to use the draft you have created earlier?
+       Welcome back! We have pre-filled some section for the draft job from your previous visit.
    </div>
    @endif
 

@@ -21,14 +21,14 @@
                         </ol>
                         <div class="carousel-inner">
                            <div class="carousel-item active p-3">
-                              <img src="{{asset('/images/svg/l2l_user_laptop.svg')}}" style="width:250;" class="img-fluid m-4" alt="">
+                              <img src="{{asset('/images/svg/l2l_ss_relaxing_at_home.svg')}}" style="width:250;min-height:260px!important;" class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Select a Service</h5>
                               <p class="fs--1 mt-2">                      
                                  Pick from over 200 categories, describe your job, set a time and we'll connect.
                               </p>
                            </div>
                            <div class="carousel-item  p-3">
-                              <img src="{{asset('/images/svg/l2l_service_provider.svg')}}" style="width:250;" class="img-fluid m-4" alt="">
+                              <img src="{{asset('/images/svg/l2l_ss_meeting.svg')}}" style="width:250;min-height:260px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Pick a Service Provider</h5>
                               <p class="fs--1 mt-2">
                                  Now that your job has been requested, Service Providers will be notified instantly and are able to accpet or decline the job depending on their
@@ -36,7 +36,7 @@
                               </p>
                            </div>
                            <div class="carousel-item p-3">
-                              <img src="{{asset('/images/svg/l2l_user_clock.svg')}}" style="width:250;" class="img-fluid m-4" alt="">
+                              <img src="{{asset('/images/svg/l2l_ss_time_management.svg')}}" style="width:250;min-height:260px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Set your time and date</h5>
                               <p class="fs--1 mt-2">
                                  Once accepted, we hoe to have your job completed ASAP. You can scheule the time for immediately or sometime in the future. Our in app messaging
@@ -44,7 +44,7 @@
                               </p>
                            </div>
                            <div class="carousel-item p-3">
-                              <img src="{{asset('/images/svg/l2l_girl_phone.svg')}}" style="width:250;" class="img-fluid m-4" alt="">
+                              <img src="{{asset('/images/svg/l2l_ss_location_tracking.svg')}}" style="width:250;min-height:260px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Live Tracking</h5>
                               <p class="fs--1 mt-2">
                                  Our live tracking feature allows you to tune in live and watch your provider exact location adn ETA.

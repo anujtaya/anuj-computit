@@ -40,6 +40,8 @@
    <div id="over_map_bottom" class="text-center">
       <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:20px;"></span><br>
       <a class="btn btn-block btn-sm theme-background-color btn-lg fs-1  mt-2" style="border-radius:20px;" href="{{route('guest_service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
+      
+      <a class="btn btn-block btn-sm btn-lg fs-1  mt-2" style="border-radius:20px;background:#5D29BA!important;color:white!important;" href="{{route('guest_service_provider_home')}}?showBooking=on" onclick="toggle_animation(true);">I want to work.</a>
    </div>
 </div>
 <!-- Modal -->
@@ -67,7 +69,7 @@ var current_lat = null;
 var current_lng = null;
 var update_location_on_load = true;
 var service_categories = @json($categories);
-
+var enable_geocoder = false;
 
 window.onload = function() {
   if(update_location_on_load) {

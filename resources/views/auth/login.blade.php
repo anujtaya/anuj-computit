@@ -20,7 +20,7 @@
    <div class="row  justify-content-center" >
       <div class="col-lg-4    col-md-12 p-0" style="">
          <div class="p-4  theme-color rounded shadows m-4" style="border-radisus:55px; margin-top: 0px;">
-            <div class="mb-4 text-dark fs-1">Welcome to Local2LocaL</div>
+            <div class="mb-4 text-dark fs-1">Welcome to LocaL2LocaL</div>
             @include('auth.forms.login-form')
          </div>
       </div>

@@ -15,9 +15,10 @@
       <div class="p-4 bd-highlight">
          <span class="font-weight-bold">{{Auth::user()->first}} {{Auth::user()->last}}</span> <br>
          <span class="fs--1 ">{{Auth::user()->email}}</span> <br>
-         @if(Auth::user()->is_verified)
+       {{--  @if(Auth::user()->is_verified)
             <span class="badge border-0 card-1 text-success mt-1 p-2" style="border-radius:20px!important;"><i class="far fa-check-circle"></i> Verified</span>
          @endif
+         --}}
       </div>
    </div>
    <div class="row m-1" style="overflow:scroll; height:630px;" >
@@ -43,7 +44,7 @@
                @enderror
             </div>
             <div class="form-group">
-               <label for="user_phone">Mobile No.</label>
+               <label for="user_phone">Mobile No.   @if(Auth::user()->is_verified) <span class="badge badge-success fs--2">Verified</span> @endif</label>
                <input type="tel" class="form-control form-control-sm"  id="user_phone" name="user_phone" value="{{Auth::user()->phone}}" required>
                @error('user_phone')
                <span class="invalid-feedback" role="alert">

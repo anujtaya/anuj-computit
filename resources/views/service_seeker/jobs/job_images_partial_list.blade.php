@@ -65,6 +65,7 @@
    $(document).ready(function(){
      load_images(job_id);
      $('#upload_form').on('submit', function(event){
+         toggle_animation(true);
          event.preventDefault();
          $.ajax({
             url:"{{ route('imageservice_images_upload') }}",
@@ -84,7 +85,10 @@
                if(data.uploaded_image != "") {
                   load_images(job_id);
                }
-            }
+               toggle_animation(false);
+            }, error: function(results, status, err) {
+               toggle_animation(false);
+         }
          })
      });
    });
