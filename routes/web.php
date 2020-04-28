@@ -75,7 +75,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   //service seeker rating update
   Route::post('/service_seeker/jobs/job/update/rating', 'ServiceSeekerJobController@update_rating')->name('service_seeker_job_update_rating');
   //job cancel route
-  Route::post('/service_seeker/jobs/job/cancel', 'ServiceSeekerJobController@service_seeker_job_cancel')->name('service_seeker_job_cancel');
+  Route::post('/service_seeker/jobs/action/cancel', 'ServiceSeekerJobController@service_seeker_job_cancel')->name('service_seeker_job_cancel');
   //ajax call routes
  
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');
