@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Getting Started')
 @section('content')
 <div class="container ">
    <div class="row mt-4s justify-content-center">
