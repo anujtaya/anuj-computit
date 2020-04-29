@@ -29,8 +29,8 @@
         @foreach($categories as $category)
          <div  class="col-6 p-1">
             <div class="rounded h-100 bg-white p-1 text-center shadow-sms card-1" id="sid-{{$category->id}}" onclick="user_service_selection(this.id);" data-catname="{{$category->service_name}}">
-               <img src="{{asset('images/service_icons/'.str_replace(' ', '',$category->service_name).'.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:50px;" alt="">
-               <span>{{$category->service_name}}</span>
+              <img src="{{asset('images/service_icons/'.strtolower(str_replace(' ', '',$category->service_name)).'.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:50px;" alt="">
+              <span>{{$category->service_name}}</span>
             </div>
          </div>
         @endforeach
@@ -75,7 +75,7 @@ function display_updated_seeker_service_list(data) {
       div_2.addEventListener('click', function(){
         user_service_selection(this.id);
       });
-      img.src = app_url + "/images/service_icons/"+ data[i]['service_name'].replace(/ /g,'') + ".svg";
+      img.src = app_url + "/images/service_icons/"+ data[i]['service_name'].replace(/ /g,'').toLowerCase() + ".svg";
       img.classList = "rounded mx-auto d-block";
       img.style = "height: 60px; width: 50px;";
       var text = document.createTextNode(data[i]['service_name']);
