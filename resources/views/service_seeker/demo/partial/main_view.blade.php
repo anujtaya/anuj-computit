@@ -98,7 +98,7 @@ function seeker_services_sort(type){
     var result = seeker_services_filter_array.sort(function(a,b){
       var x = a[key]; var y = b[key];
       return ((x < y) ? -1 : ((x > y) ? 1 : 0));  });
-    console.log(result);
+    //console.log(result);
   }
   else if(type == 2){
     // sort by popularity

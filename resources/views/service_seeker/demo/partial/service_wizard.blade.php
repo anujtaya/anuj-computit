@@ -63,12 +63,12 @@
       <div class="col-12 fs--1 p-2 p-3" >
          <div class="form-group">
             <label for="exampleInputEmail1">Write your job title</label>
-            <input type="email" class="form-control form-control-sm" onchange="create_draft_job();"  id="service_job_title" placeholder="Please enter your job title" value="Sample job title">
+            <input type="email" class="form-control form-control-sm" onchange="create_draft_job();"  id="service_job_title" placeholder="Please enter your job title" value="@if($session_draft_job != null){{$session_draft_job->title}}@endif">
             <small id="emailHelp" class="form-text text-muted">Please use plain english text.</small>
          </div>
          <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
-            <textarea type="text" class="form-control form-control-sm" onchange="create_draft_job();" rows="12" id="service_job_description" placeholder="Please enter your job description">Sample job description</textarea>
+            <textarea type="text" class="form-control form-control-sm" onchange="create_draft_job();" rows="12" id="service_job_description" placeholder="Please enter your job description">@if($session_draft_job != null){{$session_draft_job->description}}@endif</textarea>
             <small id="emailHelp" class="form-text text-muted">Provide as much as details you can.</small>
          </div>
       </div>
@@ -114,7 +114,7 @@
       <div class="col-12 fs--1 p-2 p-3" >
          <div class="form-group">
             <label for="exampleInputEmail1">Preferred Date and Time</label>
-            <input  type='datetime-local' onchange="create_draft_job();" class="form-control form-control-sm"  id="service_job_datetime" value="{{\Carbon\Carbon::now()->format('Y-m-d\TH:i:s')}}">
+            <input  type='datetime-local' onchange="create_draft_job();" class="form-control form-control-sm"  id="service_job_datetime" value="@if($session_draft_job != null){{\Carbon\Carbon::parse($session_draft_job->job_date_time)->format('Y-m-d\TH:i:s')}}@else{{\Carbon\Carbon::now()->format('Y-m-d\TH:i:s')}}@endif">
             <small class="form-text text-muted">Please use plain english text.</small>
          </div>
 
@@ -185,6 +185,3 @@
    <!-- en bottom nav  -->
 </div>
 <!-- end wizard 4 -->
-<script>
-var seeker_jobs_url = '{{route("service_seeker_jobs")}}';
-</script>

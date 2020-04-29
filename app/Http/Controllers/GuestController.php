@@ -98,11 +98,17 @@ class GuestController extends Controller
     protected function service_seeker_home(Request $request) {
       $categories = ServiceCategory::all();
       $session_draft_job = SessionDraftJob::where('id', Session::getID())->first();
-      if($request->has('showBooking')){
-        //if the request has show booking paramenter than display the job booking page.
+
+      if($request->has('showSPSView')){
+        dd(true);
         return view("service_seeker.demo.home_2")->with('categories', $categories)->with('session_draft_job', $session_draft_job);
-      } else {
-        //show the default guest homepage for service seeker.
+      }
+
+      if($request->has('showBooking')){
+        return view("service_seeker.demo.home_2")->with('categories', $categories)->with('session_draft_job', $session_draft_job);
+      } 
+      else
+      {
         $service_categories = $categories->pluck('service_name');
         return view("service_seeker.demo.home_1")->with('categories', $service_categories)->with('session_draft_job', $session_draft_job);
       }
@@ -175,6 +181,12 @@ class GuestController extends Controller
       }
       //return the default false response if the any of the logic above doesn't work
        return Response::json(false);;
+    }
+
+    
+    protected  function retrieve_draft_job(){
+      $session_draft_job = SessionDraftJob::where('id', Session::getId())->first();
+      return Response::json($session_draft_job);
     }
 
 

@@ -145,7 +145,7 @@ function render_service_node_list(data) {
     if (data != null) {
         var ul = document.getElementById('wizard_service_node_list');
         ul.innerHTML = '';
-        console.log(data);
+        //console.log(data);
         if (data.length == 0) {
             ul.innerHTML = "<span class='text-danger'>No services currently available. Check back later.</span>";
         }
@@ -262,8 +262,11 @@ function manage_draft_job(payload) {
             "payload": JSON.stringify(payload),
         },
         success: function(results) {
-            //console.log('manage draft job results here...')
-            console.log(results);
+            //redirect user to service selector demo homepage only if the job status is marked ready
+            if (results['status'] == 'READY') {
+                toggle_animation(true);
+                window.location.href = app_url + '/guest/service_seeker/home?showSPSView=on';
+            }
             toggle_animation(false);
         },
         error: function(results, status, err) {
@@ -283,4 +286,31 @@ function process_sessio_draft_job_booking() {
         create_draft_job();
     }
 
+}
+
+
+
+
+function prefill_session_job_details() {
+    $.ajax({
+        type: "POST",
+        url: app_url + '/guest/service_seeker/session/retrieve_session_draft_job',
+        data: {
+            "_token": csrf_token,
+        },
+        success: function(results) {
+            if (results['status'] == 'DRAFT') {
+                //prefill_draft_job_input_fields(results);
+            }
+        },
+        error: function(results, status, err) {
+            console.log(err);
+        }
+    });
+}
+
+function prefill_draft_job_input_fields(data) {
+    console.log(data);
+    $("#service_job_title").val(data['title']);
+    $("#service_job_description").val(data['description']);
 }

@@ -11,7 +11,7 @@
          <div class="row   " >
             <div class="col-md-12 h-100  " >
                <div class="card bg-white p-0 text-center shadow-none">
-                  <div class="mt-4 borders  bg-darks text-center">
+                  <div class="borders  bg-darks text-center">
                      <div id="carouselExampleIndicators" class="carousel slide" style="min-height:500px!important;" data-ride="carousel">
                      <ol class="carousel-indicators mt-5">
                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
