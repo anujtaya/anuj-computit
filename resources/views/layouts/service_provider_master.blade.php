@@ -40,6 +40,7 @@
             Desktop version not suported. Please switch to mobile or tablet view to see the content.
          </div> -->
       <div id="anim-1" style="background:rgba(255, 252, 252, 0.68);position:fixed;top:0;left:0;z-index:10000!important;height:100%;width:100%;display:none!important;">
+         <button class="btn fs-2 float-right m-2 text-danger" onclick="toggle_animation(false);"><i class="fas fa-times"></i></button>
          <div class="text-center" style="margin-top:250px;">
             <img src="{{secure_url('/images/brand/l2l-logo-svg.svg')}}" class="fa-spin spin" height="60" width="60">
          </div>
