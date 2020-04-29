@@ -3,25 +3,22 @@
       background:#f7f7f9!important;
   }
 </style>
-<div id="map" class="text-center " style="min-width:900px important; min-height:270px!important; position: relative;overflow: hidden; @if(Auth::user()->properties['map_status'] == false) display:none @endif">
-</div>
 <div class="border-top p-2">
-   <div class="text-center text-muted p-1" onclick="map_display_control();">
-      <i class="fas fa-grip-lines"></i>
-   </div>
-   <div class="input-group mt-2 mb-3">
-      <div class="input-group-prepend   fs--1">
-         <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
-      </div>
-      <input id="seeker_services_filter_input" type="text" class="form-control p-3 fs--1" onkeyup="populate_seeker_services();" placeholder="Enter keywords.." aria-label="Username" aria-describedby="basic-addon1" >
-   </div>
-   <div class="text-center mb-3">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" id="services-sort-az" class="btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2" onclick="seeker_services_sort(1);">Sort A-Z</button>
-        <button type="button" id="services-sort-popularity" class="btn btn-white rounded-capsules border fs--2" onclick="seeker_services_sort(2);">Sort Popular</button>
-      </div>
-   </div>
-   <div style="overflow:scroll; height:500px;">
+   <div class="sticky-top pb-2" style="background:#f7f7f9!important;">
+    <div class="input-group mt-2 mb-3 ">
+        <div class="input-group-prepend   fs--1">
+          <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
+        </div>
+        <input id="seeker_services_filter_input" type="text" class="form-control p-4 fs--1" onkeyup="populate_seeker_services();" placeholder="Enter keywords.." aria-label="Username" aria-describedby="basic-addon1" >
+    </div>
+    <div class="text-center mb-3">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" id="services-sort-az" class="btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2" onclick="seeker_services_sort(1);">Sort A-Z</button>
+          <button type="button" id="services-sort-popularity" class="btn btn-white rounded-capsules border fs--2" onclick="seeker_services_sort(2);">Sort Popular</button>
+        </div>
+    </div>
+  </div>
+   <div style="margin-bottom:20%;">
       <div id="seeker_services_list_container" class="row text-center fs--1 m-0" >
         @foreach($categories as $category)
          <div  class="col-6 p-1">

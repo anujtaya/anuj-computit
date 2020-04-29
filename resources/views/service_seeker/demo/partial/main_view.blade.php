@@ -4,25 +4,27 @@
   }
 </style>
 <div class="border-top p-2">
-    @if($session_draft_job != null)
+   @if($session_draft_job != null)
     <div class="p-2 bg-whites card-1 rounded fs--1 bg-success text-white mb-3">
        Welcome back! We have pre-filled some section for the draft job from your previous visit.
    </div>
    @endif
-
-   <div class="input-group mt-2 mb-3">
-      <div class="input-group-prepend   fs--1">
-         <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
-      </div>
-      <input id="seeker_services_filter_input" type="text" class="form-control p-4 fs--1" onkeyup="populate_seeker_services();" placeholder="Enter keywords.." aria-label="Username" aria-describedby="basic-addon1" >
-   </div>
-   <div class="text-center mb-3">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" id="services-sort-az" class="btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2" onclick="seeker_services_sort(1);">Sort A-Z</button>
-        <button type="button" id="services-sort-popularity" class="btn btn-white rounded-capsules border fs--2" onclick="seeker_services_sort(2);">Sort Popular</button>
-      </div>
-   </div>
-   <div style="overflow:scroll; height:530px;">
+  
+  <div class="sticky-top pb-2" style="background:#f7f7f9!important;">
+    <div class="input-group mt-2 mb-3 ">
+        <div class="input-group-prepend   fs--1">
+          <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
+        </div>
+        <input id="seeker_services_filter_input" type="text" class="form-control p-4 fs--1" onkeyup="populate_seeker_services();" placeholder="Enter keywords.." aria-label="Username" aria-describedby="basic-addon1" >
+    </div>
+    <div class="text-center mb-3">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" id="services-sort-az" class="btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2" onclick="seeker_services_sort(1);">Sort A-Z</button>
+          <button type="button" id="services-sort-popularity" class="btn btn-white rounded-capsules border fs--2" onclick="seeker_services_sort(2);">Sort Popular</button>
+        </div>
+    </div>
+  </div>
+   <div style="margin-bottom:20%;">
       <div id="seeker_services_list_container" class="row text-center fs--1 m-0" >
         @foreach($categories as $category)
          <div  class="col-6 p-1">
@@ -37,7 +39,7 @@
 </div>
 
 <script>
-var seeker_services_fetch_url = "{{route('service_seeker_services_filter')}}"
+var seeker_services_fetch_url = "{{route('guest_service_seeker_services_filter')}}"
 var seeker_services_filter_array = null;
 var sort_unselected_class = "btn btn-white rounded-capsules border fs--1";
 var sort_selected_class = "btn theme-button-color border-theme-color text-white rounded-capsules btn-sm border fs--2";
