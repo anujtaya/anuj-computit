@@ -36,8 +36,6 @@
    }
 </style>
 <!-- end style  -->
-
-
 <div class="wrapper">
    <div id="map"  style="min-width:100%!important;"></div>
    <div id="over_map_bottom" class="text-center">
@@ -53,8 +51,6 @@
       @endif
    </div>
 </div>
-
-
 <!-- Modal -->
 <div class="modal fade" id="user_location_modal_manual_popup" tabindex="-1" role="dialog" aria-labelledby="user_location_modal_manual_popup_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
@@ -71,16 +67,7 @@
    </div>
 </div>
 <!-- end modal -->
-
-
-
-
-
-
-
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
-
-
 <!-- script to control the map function -->
 <script>
 var app_url = "{{URL::to('/')}}";
@@ -98,6 +85,5 @@ window.onload = function() {
 }
 </script>
 <!-- end map control script  -->
-
 @endsection
 @include('service_seeker.bottom_navigation_bar')

@@ -131,6 +131,7 @@ class ServiceProviderController extends Controller
                                 ->where('conversations.service_provider_id', Auth::id())
                                 ->where('jobs.status','!=' , 'DRAFT')
                                 ->where('jobs.status','!=' , 'COMPLETED')
+                                ->where('jobs.status','!=' , 'CANCELLED')
                                 ->get();
         //dd($service_provider_jobs);
         return View::make("service_provider.jobs.history")->with('jobs', $jobs);

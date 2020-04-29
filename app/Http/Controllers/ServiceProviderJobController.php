@@ -489,6 +489,7 @@ class ServiceProviderJobController extends Controller
 		if($filter_action == "ALL"){
 			$jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
 					->where('conversations.service_provider_id', Auth::id())
+					->where('jobs.status','!=', 'CANCELLED')
 					->orderBy('jobs.job_date_time', 'asc')
 					->get();
 		}else{
