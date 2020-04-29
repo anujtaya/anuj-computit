@@ -50,7 +50,7 @@
   @endforeach
   @if(count($jobs) == 0) 
   <div class="text-center p-3">
-      <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;"  class="img-fluid" alt="Responsive image">
+      <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;height:150px;" class="img-fluid" alt="Service provider empty jobs image art">
       <br>
       <br>
       <span>Looks like you haven't offered any quote to Service Seeker recently. Please come back later.</span>
