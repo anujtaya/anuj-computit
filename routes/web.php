@@ -16,6 +16,8 @@ Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@se
 //manage service seeker draft job
 Route::post('/guest/service_seeker/session/create_draft_job', 'GuestController@create_draft_job')->name('guest_service_seeker_session_create_draft_job');
 Route::post('/guest/service_seeker/session/retrieve_session_draft_job', 'GuestController@retrieve_draft_job')->name('guest_service_seeker_session_retrieve_session_draft_job');
+Route::post('/guest/service_seeker/session/retrieve_session_draft_sp_list', 'GuestController@retrieve_session_draft_sp_list')->name('guest_service_seeker_session_retrieve_session_draft_sp_list');
+
 
 //service provider demo routes
 Route::get('/guest/service_provider/home', 'GuestController@service_provider_home')->name('guest_service_provider_home');

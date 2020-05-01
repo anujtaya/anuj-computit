@@ -98,10 +98,9 @@ class GuestController extends Controller
     protected function service_seeker_home(Request $request) {
       $categories = ServiceCategory::all();
       $session_draft_job = SessionDraftJob::where('id', Session::getID())->first();
-
+  
       if($request->has('showSPSView')){
-        dd(true);
-        return view("service_seeker.demo.home_2")->with('categories', $categories)->with('session_draft_job', $session_draft_job);
+        return view("service_seeker.demo.home_3")->with('session_draft_job', $session_draft_job);
       }
 
       if($request->has('showBooking')){
@@ -187,6 +186,29 @@ class GuestController extends Controller
     protected  function retrieve_draft_job(){
       $session_draft_job = SessionDraftJob::where('id', Session::getId())->first();
       return Response::json($session_draft_job);
+    }
+
+
+    protected function retrieve_session_draft_sp_list(){
+       $session_draft_job = SessionDraftJob::where('id', Session::getId())->first();
+       if($session_draft_job != null) {
+          $service_providers = DB::table("users")
+          ->select("users.*" , "users.id as user_id"
+            ,DB::raw("6371 * acos(cos(radians(" . $session_draft_job->job_lat . ")) 
+            * cos(radians(users.user_lat)) 
+            * cos(radians(users.user_lng) - radians(" . $session_draft_job->job_lng . ")) 
+            + sin(radians(" .$session_draft_job->job_lat. ")) 
+            * sin(radians(users.user_lat))) AS distance"))
+            ->where("users.is_online", true)
+            ->where("users.is_verified", true)
+            ->having('distance', '<=', 200)
+            ->groupBy("user_id")
+            ->orderBy('distance', 'asc')
+            ->get();
+            return Response::json($service_providers);
+       } else {
+         return Response::json(array());
+       }
     }
 
 
