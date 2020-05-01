@@ -226,8 +226,12 @@ class GuestController extends Controller
     //retrieve all draft job images
     protected function retrieve_session_draft_job_attachment(){
         $current_session_id = $_POST['current_session_id'];
-        $images = SessionDraftJob::find($current_session_id)->session_draft_job_attachments;
-        return Response::json($images);
+        $session_draft_job = SessionDraftJob::find($current_session_id);
+        if($session_draft_job != null) {
+          return Response::json($session_draft_job->session_draft_job_attachments);
+        } else {
+          return Response::json(array());
+        }
     }
     
 
