@@ -19,10 +19,10 @@
    right: 0;
    bottom: 0;
    left: 0;
-   z-index: 10;
+   z-index: 8;
    }
    .modal{
-   z-index: 20;   
+   z-index: 200;   
    }
 </style>
 <div class="bg-white p-3 card-1" style="height:20%;">
