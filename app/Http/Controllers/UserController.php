@@ -17,6 +17,8 @@ use Auth;
 use App\User;
 use Session;
 use Illuminate\Support\Facades\Hash;
+use Image;
+use Storage;
 
 class UserController extends Controller
 {
@@ -114,28 +116,45 @@ class UserController extends Controller
             'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:100000',
            ]);
         if($validation->passes()) {
-            $image = $request->file('file');
-            $new_name = Auth::id().''.rand() .'.' .$image->getClientOriginalExtension();
-            $image->move(storage_path('/public/images/profile'), $new_name);
-
             //find the current logged in user
             $user = User::find(Auth::id());
-
-            //delete the previously stored file if exists
-            if($user->profile_image_path != null) { 
-                if(file_exists(storage_path('/public/images/profile/'.$user->profile_image_path))){
-                    unlink(storage_path('/public/images/profile/'.$user->profile_image_path));
+            $old_file_delete_path = $user->profile_image_path;
+            //prepate image to be stored
+            $img      = $request->file('file');
+            $img_ext  = $img->getClientOriginalExtension();
+            $img_name = Auth::id().''.time().'.' .$img->getClientOriginalExtension();
+            $image_resize = Image::make($img->getRealPath());
+            $image_resize->orientate();
+            $image_resize->fit(200);
+            $filePath = '';
+            $response = false;
+            if(app()->isLocal()) {
+                $filePath = '/public/images/profile/'.$img_name;
+                $resource = $image_resize->stream()->detach();
+                $response = Storage::disk('local')->put($filePath, $resource);
+                if($response) {
+                    $delete_response = Storage::disk('local')->delete('/public/images/profile/'.$old_file_delete_path);
                 }
+            } else{
+                //for production
             }
 
-            $user->profile_image_path = $new_name;
-            $user->save();
-
-            return response()->json([
-                'message'   => 'Image Uploaded Successfully',
-                'uploaded_image' => '<img src="'.url('/').'/storage/images/profile/'.$new_name.'" class="border-white card-2" height="60" width="60" alt="User profile image display" id="trigger_image" style="border-radius:50%;"/>',
-                'class_name'  => 'alert-success'
-            ]);
+            if($response) {
+                $user->profile_image_path = $img_name;
+                $user->save();
+                return response()->json([
+                    'message'   => 'Image Uploaded Successfully',
+                    'uploaded_image' => '<img src="'.url('/').'/storage/images/profile/'.$img_name.'" class="border-white card-2" height="60" width="60" alt="User profile image display" id="trigger_image" style="border-radius:50%;"/>',
+                    'class_name'  => 'alert-success'
+                ]);
+            }else {
+                return response()->json([
+                    'message'   => $validation->errors()->all(),
+                    'uploaded_image' => '',
+                    'class_name'  => 'alert-danger'
+                ]);
+            }
+            
         }
         else {
         return response()->json([

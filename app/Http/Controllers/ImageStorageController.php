@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Response;
 use Intervention\Image\Exception\NotReadableException;
+use Storage;
+
 
 class ImageStorageController extends Controller
 {
     function make_profile_image_link($filename) {
-        return \Image::make(storage_path('public/images/profile/' . $filename))->response();
+        if(app()->isLocal()) {
+            return \Image::make(Storage::disk('local')->get('public/images/profile/' . $filename))->response();
+
+        } else {
+            return \Image::make(Storage::disk('local')->get('public/images/profile/' . $filename))->response();
+        }
+        
     }
 
     function make_job_attachment_image_link($filename) {
