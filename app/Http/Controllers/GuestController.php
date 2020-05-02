@@ -193,7 +193,8 @@ class GuestController extends Controller
        $session_draft_job = SessionDraftJob::where('id', Session::getId())->first();
        if($session_draft_job != null) {
           $service_providers = DB::table("users")
-          ->select("users.*" , "users.id as user_id"
+            ->join('service_provider_services', 'users.id', '=', 'service_provider_services.user_id')
+            ->select("users.*" , "users.id as user_id"
             ,DB::raw("6371 * acos(cos(radians(" . $session_draft_job->job_lat . ")) 
             * cos(radians(users.user_lat)) 
             * cos(radians(users.user_lng) - radians(" . $session_draft_job->job_lng . ")) 
@@ -201,6 +202,7 @@ class GuestController extends Controller
             * sin(radians(users.user_lat))) AS distance"))
             ->where("users.is_online", true)
             ->where("users.is_verified", true)
+            ->where("service_provider_services.service_cat_id",$session_draft_job->service_subcategory_id)
             ->having('distance', '<=', 200)
             ->groupBy("user_id")
             ->orderBy('distance', 'asc')
@@ -210,6 +212,60 @@ class GuestController extends Controller
          return Response::json(array());
        }
     }
+
+    
+    //rendered view for service provider display for map selector
+    protected function retrieve_session_draft_sp_info(){
+      $user_id = $_POST['user_id'];
+      $user = User::find($user_id);
+      if($user != null) {
+        $certificates = $user->certificates;
+        $languages = $user->languages;
+        $user_services = $user->service_provider_services;
+        $stats = $this->calcualte_user_job_stats($user_id);
+        $rendered_view = view('service_seeker.demo.partial.service_provider_info')
+                        ->with('certificates', $certificates)
+                        ->with('current_languages', $languages)
+                        ->with('user_services', $user_services)
+                        ->with('user', $user)
+                        ->with('stats', $stats)
+                        ->render();
+        return Response::json($rendered_view);
+      } else {
+        return Response::json(false);
+      }
+     
+    }
+
+
+    //calcualte job stats for service provider. Also exists in Service Provider Controller
+  function calcualte_user_job_stats($user_id){
+    $completed_jobs = Job::where('service_provider_id', $user_id)
+            ->orwhere('status','=' , 'COMPLETED')
+            ->take(200)
+            ->get();
+    $cancelled_jobs = count(DB::table('service_provider_job_cancellations')->take(200)->get());
+    $completed_jobs_count = count($completed_jobs->where('status', 'COMPLETED' ));
+    $total_jobs = $cancelled_jobs + $completed_jobs_count;
+    $percentage = 0;
+    if($completed_jobs_count > 0) {
+        $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;
+    }
+    $rating_records = $completed_jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
+    $rating_prefix = 5;
+    $rating_count = 1 + count($rating_records);
+    $rating_sum = intval($rating_records->sum('service_seeker_rating'));
+    $rating_prefix += $rating_sum;
+    $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
+    $stats = new \stdClass();
+    $stats->percentage = $percentage;
+    $stats->rating = $rating_user;
+    //save a rating in user profile
+    $user = User::find($user_id);
+    $user->rating = $rating_user;
+    $user->save();
+    return $stats;
+  }
 
 
     //session draft job attachment controller funtions

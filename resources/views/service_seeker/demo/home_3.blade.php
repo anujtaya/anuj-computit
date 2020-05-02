@@ -48,6 +48,7 @@
 <script>
 var app_url = "{{URL::to('/')}}";
 var guest_service_seeker_draft_job_proider_list_url = "{{route('guest_service_seeker_session_retrieve_session_draft_sp_list')}}";
+var guest_service_seeker_draft_job_proider_info_url = "{{route('guest_service_seeker_session_retrieve_session_draft_sp_info')}}";
 var current_job_lat = "{{$session_draft_job->job_lat}}";
 var current_job_lng = "{{$session_draft_job->job_lng}}";
 
@@ -90,6 +91,17 @@ window.onload = function() {
                You are browsing LocaL2LocaL in guest mode with limited feature. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.
             </p>
             <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Signup</a>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal -->
+<!-- Service provider profile information details modal -->
+<div class="modal fade" id="service_provider_account_information_modal" tabindex="-1" role="dialog" aria-labelledby="service_provider_account_information_modal_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered-d" role="document">
+      <div class="modal-content border-0 card-1">
+         <div class="modal-body fs--1" id="service_provider_info_container" style="min-height:300px;">
+           
          </div>
       </div>
    </div>

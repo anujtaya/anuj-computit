@@ -416,7 +416,7 @@ class ServiceSeekerJobController extends Controller
     $certificates = $user->certificates;
     $languages = $user->languages;
     $user_services = $user->service_provider_services;
-    $stats = $this->calcualte_user_job_stats(Auth::id());
+    $stats = $this->calcualte_user_job_stats($user->id);
     //dd($stats);
     //find a way to store cached user rating
     return View::make("service_seeker.jobs.partial.job_service_provider_profile")

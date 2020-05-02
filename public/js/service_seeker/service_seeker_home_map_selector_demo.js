@@ -236,5 +236,26 @@ function reset_map_position() {
 }
 
 function show_service_provider_info_modal(user_id) {
-    console.log('Showig information for user with id: ' + user_id);
+    $('#service_provider_info_container').html('Please wait while we do some maths.');
+    $.ajax({
+        type: "POST",
+        url: guest_service_seeker_draft_job_proider_info_url,
+        data: {
+            "_token": csrf_token,
+            "user_id": user_id
+        },
+        success: function(results) {
+            console.log(results);
+            if (results == false) {
+                $('#service_provider_info_container').html('An error occured. Please try again after some time.');
+            } else {
+                //populate modal with information and display if data is valid
+                $('#service_provider_info_container').html(results);
+                $('#service_provider_account_information_modal').modal('show');
+            }
+        },
+        error: function(results, status, err) {
+            console.log(err);
+        }
+    });
 }
