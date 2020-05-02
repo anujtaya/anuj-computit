@@ -13,21 +13,21 @@
                <div class="card bg-white p-0 text-center shadow-none">
                   <div class="borders  bg-darks text-center">
                      <div id="carouselExampleIndicators" class="carousel slide" style="min-height:500px!important;" data-ride="carousel">
-                     <ol class="carousel-indicators mt-5">
+                        <ol class="carousel-indicators">
                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                         </ol>
                         <div class="carousel-inner">
-                           <div class="carousel-item active p-3">
+                           <div class="carousel-item active p-2">
                               <img src="{{asset('/images/svg/l2l_ss_relaxing_at_home.svg')}}" style="width:250;min-height:260px!important;" class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Select a Service</h5>
                               <p class="fs--1 mt-2">                      
                                  Pick from over 200 categories, describe your job, set a time and we'll connect.
                               </p>
                            </div>
-                           <div class="carousel-item  p-3">
+                           <div class="carousel-item  p-2">
                               <img src="{{asset('/images/svg/l2l_ss_meeting.svg')}}" style="width:250;min-height:260px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Pick a Service Provider</h5>
                               <p class="fs--1 mt-2">
@@ -35,7 +35,7 @@
                                  preference.
                               </p>
                            </div>
-                           <div class="carousel-item p-3">
+                           <div class="carousel-item p-2">
                               <img src="{{asset('/images/svg/l2l_ss_time_management.svg')}}" style="width:250;min-height:260px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Set your time and date</h5>
                               <p class="fs--1 mt-2">
@@ -43,7 +43,7 @@
                                  also allows you to contact the selected provider to negotiate a time that suits you both.
                               </p>
                            </div>
-                           <div class="carousel-item p-3">
+                           <div class="carousel-item p-2">
                               <img src="{{asset('/images/svg/l2l_ss_location_tracking.svg')}}" style="width:250;min-height:260px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Live Tracking</h5>
                               <p class="fs--1 mt-2">

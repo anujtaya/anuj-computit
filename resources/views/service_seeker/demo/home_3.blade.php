@@ -40,12 +40,11 @@
    <div id="map"  style="min-width:100%!important;"></div>
    <div id="over_map_bottom" class="">
       <button class="float-right btn btn-sm bg-white fs--1 card-1" style="border-radius:20px;" onclick="reset_map_position();"><i class="fas fa-crosshairs"></i> Reset</button> <br>
-      <a class="btn btn-block btn-sm btn-lg theme-background-color card-1 mt-2" id="post_to_job_board_btn" style="border-radius:20px;" href="{{route('guest_service_provider_home')}}?showBooking=on" onclick="toggle_animation(true);">Post to Job Board Instead</a>
+      <a class="btn btn-block  theme-background-color card-1 mt-2" id="post_to_job_board_btn" style="border-radius:20px;" onclick="$('#seeker_login_to_post_job_modal').modal('show');" href="#">Post to Job Board Instead</a>
    </div>
 </div>
 
   
-
 <script>
 var app_url = "{{URL::to('/')}}";
 var guest_service_seeker_draft_job_proider_list_url = "{{route('guest_service_seeker_session_retrieve_session_draft_sp_list')}}";
@@ -55,11 +54,44 @@ var current_job_lng = "{{$session_draft_job->job_lng}}";
 window.onload = function() {
    fetch_service_providers();
 }
-
 </script>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
 @endsection
-
-
+<!-- seeker login to post job modal -->
+<div class="modal fade" id="seeker_login_to_post_job_modal" tabindex="-1" role="dialog" aria-labelledby="seeker_login_to_post_job_modal_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered-d" role="document">
+      <div class="modal-content border-0 card-1">
+         <div class="modal-body text-center" style="min-height:300px;">
+            <img src="{{asset('/images/svg/l2l_ss_post_online.svg')}}" class="img-fluid" style="width:150px;" alt="Service Seeker - post online">
+            <br>
+            <br>
+            <p class="text-left fs--1 mb-2">
+               Now you can post your job if couldn't find any Service Provider online. We will notify you when Service Provider respond to your job with price quote. Usually Service provider respond to job within an hour of posting the job on Job board.
+               <br><br>
+               To continue, you will need to login or register an account with us.
+            </p>
+            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Signup</a>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal -->
+<!-- No user account modal -->
+<div class="modal fade" id="user_no_account_message_modal" tabindex="-1" role="dialog" aria-labelledby="user_no_account_message_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered-d" role="document">
+      <div class="modal-content border-0 card-1">
+         <div class="modal-body text-center" style="min-height:300px;">
+            <img src="{{asset('/images/svg/l2l_add_user_ss.svg')}}" class="img-fluid" style="width:250px;" alt="Service Seeker - add user">
+            <br>
+            <br>
+            <p class="text-left fs--1 mb-2">
+               You are browsing LocaL2LocaL in guest mode with limited feature. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.
+            </p>
+            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Signup</a>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal -->
