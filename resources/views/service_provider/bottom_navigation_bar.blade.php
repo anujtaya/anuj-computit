@@ -1,6 +1,11 @@
 <!-- bottom nav -->
 <div class="fixed-bottom ">
    <div class="row border-top pt-2 bg-white sticky-bottom justify-content-center fs--1 text-center m-0">
+      @if(request()->is('service_provider/home'))
+         <div class="col-12 mb-2  p-2">
+            <a class="btn btn-block btn-sm text-white mt-2 card-1" style="border-radius:20px;background:#399BDB;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">Switch to Seeker - I want work done</a>
+         </div>
+      @endif
       <div class="col-3   p-2">
          <a class="{{ (request()->is('service_provider/home')) ? 'theme-color' : '' }}  text-decoration-none text-muted" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
          Home</a>   
@@ -23,5 +28,5 @@
          </a>
       </div>
    </div>
-   <!-- en bottom nav  -->
 </div>
+<!-- end bottom nav  -->

@@ -25,19 +25,19 @@
             <div class="text-danger p-2 text-center fs--2" id="img-error-display"></div>
             <div class="fixed-bottom p-2 border border-light text-center bg-white">
                <div class="row">
-                  <div class="col-4 text-left">
+                  <!-- <div class="col-4 text-left">
                      <a class="fs--1 btn btn-sm btn-white text-secondary card-1" href="#carouselExampleIndicators" onclick="$('#img-error-display').html('');" role="button" data-slide="prev">
                      <i class="fas fa-arrow-left fs-1"></i>
                      </a>   
+                  </div> -->
+                  <div class="col-12 text-center" id="img-delete-btn-container">
+                     <button class="fs--1 btn btn-sm theme-background-color card-1" type="button" class="close" data-dismiss="modal" aria-label="Close">Exit</button>
                   </div>
-                  <div class="col-4 text-center" id="img-delete-btn-container">
-                     <button class="fs--1 btn btn-sm btn-white text-secondary card-1" type="button" class="close" data-dismiss="modal" aria-label="Close">Exit</button>
-                  </div>
-                  <div class="col-4 text-right">
+                  <!-- <div class="col-4 text-right">
                      <a class="fs--1 btn btn-sm btn-white text-secondary card-1" onclick="$('#img-error-display').html('');" href="#carouselExampleIndicators" role="button" data-slide="next">
                      <i class="fas fa-arrow-right fs-1"></i>
                      </a>
-                  </div>
+                  </div> -->
                </div>
             </div>
             <div class="m-0">
@@ -55,6 +55,7 @@
    var job_id = "{{$job->id}}";
    var current_selected_image = null;
    var app_job_image_url = "{{url('/')}}";
+   var user_id = "{{Auth::id()}}"
    
    $('#image-container').on('slid.bs.carousel', function (e) {
       var src = $('.active').find('img').attr('src');
@@ -148,15 +149,17 @@
                img2.src =  app_job_image_url + '/storage/job_attachments/' + data[i]['path'];
                img2.classList = "img-fluid p-2 border border-light";
                //img2.style.width = "220px";
-               var btn = document.createElement('button')
-               btn.classList ="fs--1 btn btn-sm btn-white text-danger card-1 btn-block mb-2";
-               btn.id = 'imgdel-' + data[i]['id'];
-               btn.addEventListener('click', function (e) {
-                  image_remove(this.id);
-               });
-               btn.innerHTML= "Delete Image";
-               slide1.appendChild(btn);
                slide1.appendChild(img2);
+               if(data[i]['upload_user_id'] == user_id) {
+                  var btn = document.createElement('button')
+                  btn.classList ="fs--1 btn btn-sm btn-danger text-white card-1 btn-block mb-2";
+                  btn.id = 'imgdel-' + data[i]['id'];
+                  btn.addEventListener('click', function (e) {
+                     image_remove(this.id);
+                  });
+                  btn.innerHTML= "Delete Image";
+                  slide1.appendChild(btn);
+               }
                element2.appendChild(slide1);
             }
             }else{
