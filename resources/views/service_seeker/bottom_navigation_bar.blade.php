@@ -2,8 +2,8 @@
 <div class="fixed-bottom " style="height:10%;">
    <div class="row border-top pt-2 bg-white sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
       <div class="col-3 p-3">
-         <a class="{{ (request()->is('service_seeker/home')) ? 'theme-color' : '' }}  text-decoration-none text-muted" href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
-         Home</a>
+      <span class="{{ (request()->is('service_seeker/home')) ? 'theme-color' : '' }}  text-decoration-none"  onclick="update_user_location();">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
+         Home</span>
       </div>
       <div class="col-3 p-3">
          <a class="text-muted text-decoration-none {{ (request()->is('service_seeker/profile')) ? 'theme-color' : '' }} text-muted" href="{{route('service_seeker_profile')}}" onclick="toggle_animation(true);">
