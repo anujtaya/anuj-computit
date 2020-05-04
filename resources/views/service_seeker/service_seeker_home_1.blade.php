@@ -40,8 +40,8 @@
    <div id="map"  style="min-width:100%!important;"></div>
    <div id="over_map_bottom" class="text-center">
       <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:20px;">{{Auth::user()->user_full_address}}</span><br>
-      <a class="btn btn-block btn-sm theme-background-color btn-lg fs-1 mt-2" style="border-radius:20px;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
-      <a class="btn btn-block btn-sm btn-lg fs-1  mt-2" style="border-radius:20px;background:#5D29BA!important;color:white!important;" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">I want to work.</a>
+      <a class="btn btn-block btn-sm theme-background-color  mt-2" style="border-radius:20px;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
+      <a class="btn btn-block btn-sm   mt-2" style="border-radius:20px;background:#5D29BA!important;color:white!important;" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">Switch to Provider - I want to work</a>
    </div>
    <div id="over_map_top" >
       @if(count($jobs) > 0)
