@@ -136,7 +136,12 @@ class UserController extends Controller
                     $delete_response = Storage::disk('local')->delete('/public/images/profile/'.$old_file_delete_path);
                 }
             } else{
-                //for production
+                $filePath = '/public/images/profile/'.$img_name;
+                $resource = $image_resize->stream()->detach();
+                $response = Storage::disk('local')->put($filePath, $resource);
+                if($response) {
+                    $delete_response = Storage::disk('local')->delete('/public/images/profile/'.$old_file_delete_path);
+                }
             }
 
             if($response) {
