@@ -20,8 +20,12 @@
 <div class="container  text-white   mt-0 p-0">
    <div class="row  justify-content-center" >
       <div class="col-lg-4    col-md-12 p-0" style="">
-         <div class="p-4  theme-color rounded shadows m-4" style="border-radisus:55px; margin-top: 0px;">
-            <div class="mb-4 text-dark fs-1">Welcome to LocaL2LocaL</div>
+         <div class="p-2  theme-color rounded shadows m-4" style="border-radisus:55px; margin-top: 0px;">
+            <div class="mb-4">
+               <img src="{{asset('/images/brand/l2l-logo-registered.svg')}}" class="img-fluid animated flipTop" style="height:60px;width:60px;"  alt="LocaL2LocaL - Registered Mark SVG Image">
+            </div>
+            <h5 class="fs-1 mb-3">Welcome to LocaL2LocaL</h5>
+            <h5 class="fs-1 mb-3">Please login or Sign up</h5>
             @include('auth.forms.login-form')
          </div>
       </div>
