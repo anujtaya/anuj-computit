@@ -63,12 +63,12 @@
       <div class="col-12 fs--1 p-2 p-3" >
          <div class="form-group">
             <label for="exampleInputEmail1">Write your job title</label>
-            <input type="email" class="form-control form-control-sm" onchange="create_seeker_job_draft();"  id="service_job_title" placeholder="Please enter your job title" value="Sample job title">
+            <input type="email" class="form-control form-control-sm" onchange="create_seeker_job_draft();"  id="service_job_title" placeholder="Please enter your job title" value="">
             <small id="emailHelp" class="form-text text-muted">Please use plain english text.</small>
          </div>
          <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
-            <textarea type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();" rows="12" id="service_job_description" placeholder="Please enter your job description">Sample job description</textarea>
+            <textarea type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();" rows="12" id="service_job_description" placeholder="Please enter your job description"></textarea>
             <small id="emailHelp" class="form-text text-muted">Provide as much as details you can.</small>
          </div>
       </div>
