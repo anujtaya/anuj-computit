@@ -22,25 +22,31 @@
    $(document).ready(function(){
 
      $('#upload_form').on('submit', function(event){
+         toggle_animation(true);
          event.preventDefault();
          $.ajax({
-               url:"{{ route('imageservice_images_upload') }}",
-               method:"POST",
-               data:new FormData(this),
-               dataType:'JSON',
-               contentType: false,
-               cache: false,
-               processData: false,
-               success:function(data)
-               {
-                 //console.log(data);
-                 $('#message').css('display', 'block');
-                 $('#message').html(data.message);
-                 $('#message').addClass(data.class_name);
-                 if(data.uploaded_image != "") {
-                   load_images(1);
-                 }
-               }
+              url:"{{ route('imageservice_images_upload') }}",
+              method:"POST",
+              data:new FormData(this),
+              dataType:'JSON',
+              contentType: false,
+              cache: false,
+              processData: false,
+              success:function(data)
+              {
+                toggle_animation(false);
+                //console.log(data);
+                $('#message').css('display', 'block');
+                $('#message').html(data.message);
+                $('#message').addClass(data.class_name);
+                if(data.uploaded_image != "") {
+                  load_images(1);
+                }
+              },
+              error : function(request,error)
+              {
+                toggle_animation(false);
+              }
          })
      });
    });
