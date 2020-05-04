@@ -4,9 +4,13 @@
 <div class="container ">
    <div class="row mt-4s justify-content-center">
       <div class="col-md-4 borders">
-         <div class="card shadow-none p-3 text-center">
-            <h5 class="fs-1 mt-4 borders" style="margin-top:55px!important;">Start Connecting with Locals</h5>
-            <p class="fs--1 mt-4 ">   
+         <div class="card shadow-none p-1 text-center">
+            <div class="text-center mt-4">
+               <img src="{{asset('/images/brand/l2l-logo-registered.svg')}}" class="img-fluid animated flipTop" style="height:60px;width:60px;"  alt="LocaL2LocaL - Registered Mark SVG Image">
+               <h5 class="fs-1 mt-2" >LocaL2LocaL</h5>
+            </div>
+            <h5 class="fs-1">Start Connecting with Locals</h5>
+            <p class="fs--1 mt-4">   
                This is a great place to share you skills and talents, whilst giving back to 
                your local community.
             </p>
