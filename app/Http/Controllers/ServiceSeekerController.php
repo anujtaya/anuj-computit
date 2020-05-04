@@ -117,7 +117,7 @@ class ServiceSeekerController extends Controller
              $job->description = $input['update_job_description'];
              $job->job_date_time = $input['update_job_datetime'];
              $job->save();
-            Session::put('status', 'Your profile has been successfully updated.');
+            Session::put('status', 'The job info has been successfully updated.');
            }
          }
        }

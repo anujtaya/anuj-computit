@@ -16,6 +16,11 @@
    z-index: 0;
    background-color:transparent;
 }
+
+.modal {
+   z-index:9000;
+}
+
 .fade {
    transition: opacity .15s linear;
 }

@@ -84,7 +84,7 @@
                <input type="email" class="form-control form-control-sm"  id="user_email"  value="{{Auth::user()->email}}" readonly>
             </div>
             <div class="form-group">
-               <label for="user_job_radius">Job Radius</label>
+               <label for="user_job_radius">Job Radius(KM)</label>
                <input type="number" class="form-control form-control-sm"  id="user_job_radius" name="user_job_radius" value="{{Auth::user()->work_radius}}" required>
                @error('user_job_radius')
                <span class="invalid-feedback" role="alert">

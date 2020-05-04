@@ -77,10 +77,15 @@
                   var col = document.createElement('div');
                   col.classList = "col-xm-3 bd-highlight";
                   var img  = document.createElement('img')
-                  img.src =  app_url + '//storage/job_attachments/' + data[i]['path'];
+                  img.src =  app_url + '/storage/job_attachments/' + data[i]['path'];
                   img.classList = "pb-0 ml-1 mt-1 p-1 shadow-sm float-center";
                   img.style.height = "67px";
                   img.style.width = "67px";
+                  img.id = "imgguid-"+data[i]['id'];
+                  img.setAttribute('data-imagepath',img.src);
+                  img.addEventListener('click', function (e) {
+                    job_attachment_delete(this.id, this.getAttribute('data-imagepath'));
+                  });
                   col.appendChild(img);
                   element.appendChild(col);
                }
@@ -90,4 +95,9 @@
            }
        });
    }
+
+  function job_attachment_delete(global_image_id,global_image_path) {
+    console.log(global_image_id.substr(8));
+    console.log(global_image_path);
+  }
 </script>

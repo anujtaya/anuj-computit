@@ -143,7 +143,7 @@ class UserController extends Controller
                 $user->profile_image_path = $img_name;
                 $user->save();
                 return response()->json([
-                    'message'   => 'Image Uploaded Successfully',
+                    'message'   => 'Profile Photo uploaded Successfully.',
                     'uploaded_image' => '<img src="'.url('/').'/storage/images/profile/'.$img_name.'" class="border-white card-2" height="60" width="60" alt="User profile image display" id="trigger_image" style="border-radius:50%;"/>',
                     'class_name'  => 'alert-success'
                 ]);
