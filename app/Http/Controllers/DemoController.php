@@ -13,6 +13,7 @@ use View;
 use Input;
 use Validator;
 use Response;
+use DB;
 
 class DemoController extends Controller
 {
@@ -53,6 +54,73 @@ class DemoController extends Controller
 
     function test_ss_invoice_template_design($id) {
         return view('invoice.ss_invoice_template')->with('job_id', $id);
+    }
+
+
+    function dump_database(){
+        $get_all_table_query = "SHOW TABLES";
+       // $result = DB::select(DB::raw($get_all_table_query));
+
+
+        $result = DB::table("migrations")->get();
+
+
+        $tables = [];
+    
+        foreach($result as $r) {
+            $table_name = $this->string_between_two_string($r->migration, 'create_', '_table');
+            array_push($tables,  $table_name);  
+         
+  
+
+        }
+        $structure = '';
+        $data = '';
+        foreach ($tables as $table) {
+            $show_table_query = "SHOW CREATE TABLE " . $table . "";
+    
+            $show_table_result = DB::select(DB::raw($show_table_query));
+    
+            foreach ($show_table_result as $show_table_row) {
+                $show_table_row = (array)$show_table_row;
+                $structure .= "\n\n" . $show_table_row["Create Table"] . ";\n\n";
+            }
+            $select_query = "SELECT * FROM " . $table;
+            $records = DB::select(DB::raw($select_query));
+    
+            foreach ($records as $record) {
+                $record = (array)$record;
+                $table_column_array = array_keys($record);
+                foreach ($table_column_array as $key => $name) {
+                    $table_column_array[$key] = '`' . $table_column_array[$key] . '`';
+                }
+    
+                $table_value_array = array_values($record);
+                $data .= "\nINSERT INTO $table (";
+    
+                $data .= "" . implode(", ", $table_column_array) . ") VALUES \n";
+    
+                $data .= "('" . implode("','", $table_value_array) . "');\n";
+            }
+        }
+        $file_name = 'database_backup_on_' . date('y-m-d') . '.sql';
+        $file_handle = fopen($file_name, 'w + ');
+    
+        $output = $structure . $data;
+        fwrite($file_handle, $output);
+        fclose($file_handle);
+    }
+
+    function string_between_two_string($str, $starting_word, $ending_word) 
+    { 
+        $subtring_start = strpos($str, $starting_word); 
+        //Adding the strating index of the strating word to  
+        //its length would give its ending index 
+        $subtring_start += strlen($starting_word);   
+        //Length of our required sub string 
+        $size = strpos($str, $ending_word, $subtring_start) - $subtring_start;   
+        // Return the substring from the index substring_start of length size  
+        return substr($str, $subtring_start, $size);   
     }
 
     
