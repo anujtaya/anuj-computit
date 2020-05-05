@@ -6,7 +6,7 @@
             <span class="text-success fs-1">${{$conversation->json['offer']}}</span>
          </div>
          <div class="ml-auto p-2 bd-highlight">
-            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm btn-white theme-color card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="btn btn-sm theme-background-color text-white card-1 fs--1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
          </div>
       </div>
    </div>
@@ -29,7 +29,7 @@
             </span>
          @enderror
          <br> <br>
-         <button class="btn btn-sm theme-background-color border-0 card-1  fs--1 bg-white  delay-2s mr-2" type="submit">Start Job <i class="fas fa-arrow-right fs--2"></i></button>
+         <button class="btn btn-sm theme-background-color border-0 card-1  fs--1 text-white  delay-2s mr-2" type="submit">Start Job <i class="fas fa-arrow-right fs--2"></i></button>
       </form>
    </div>
 </div>

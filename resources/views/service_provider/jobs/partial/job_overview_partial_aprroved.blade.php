@@ -6,7 +6,7 @@
             <span class="text-success fs-1">${{$conversation->json['offer']}}</span>
          </div>
          <div class="ml-auto p-2 bd-highlight">
-            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm btn-white theme-color card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}"  class="btn btn-sm theme-background-color text-white card-1 fs--1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
          </div>
       </div>
    </div>
@@ -26,11 +26,11 @@
                $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
                ?>
             @if($iPhone)
-            <button class="btn theme-color card-1  fs--1 bg-white text-muted animated rubberBand delay-2s" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
+            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
             @elseif($iPad)
-            <button class="btn theme-color card-1  fs--1 bg-white text-muted animated rubberBand delay-2s" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
+            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
             @else
-            <button class="btn text-success card-1  fs--1 bg-white animated headShake slow infinite" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();">Start Trip <i class="fas fa-play fs--2"></i></button>
+            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();">Start Trip <i class="fas fa-play fs--2"></i></button>
             @endif
          @endif
       </div>

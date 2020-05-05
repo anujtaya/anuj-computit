@@ -1,30 +1,21 @@
 <style>
-
-
 /* Rating Star Widgets Style */
 .rating-stars ul {
   list-style-type:none;
   padding:0;
-  
   -moz-user-select:none;
   -webkit-user-select:none;
 }
 .rating-stars ul > li.star {
   display:inline-block;
-  
 }
-
-
 .hover {
    color:#FFCC36; 
 }
-
 .selected {
   color:#FF912C;
 }
-
 </style>
-
 
 <div class="fs--1">
    <div class="p-2">
@@ -36,7 +27,7 @@
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
          <div class="ml-auto p-0 bd-highlight"> 
-            <a href="{{route('service_provider_job_email_invoice', $job->id)}}" onclick="toggle_animation(true);" class="btn theme-color shadow-sm border fs--1 bg-white">
+            <a href="{{route('service_provider_job_email_invoice', $job->id)}}" onclick="toggle_animation(true);" class="btn btn-sm theme-background-color text-white card-1 fs--1">
                <i class="fas fa-paper-plane"></i> Email Invoice
             </a>
          </div>
@@ -98,14 +89,12 @@
             <label for="extra_description">Write Comments Below</label>
             <textarea class="form-control form-control-sm" id="extra_description" rows="3" name="sp_rating_description_value" placeholder="It was great helping you out.">{{$job->service_provider_comment}}</textarea>
          </div>
-         <button class="btn theme-color shadow-sm border fs--1 bg-white"><i class="fas fa-redo fs--2"></i> Update Rating</button>
+         <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Update Rating</button>
       </form>
    </div>
 </div>
 
 <script>
-
-
 $(document).ready(function(){ 
   /* 1. Visualizing things on Hover - See next part for action on click */
   $('#stars li').on('mouseover', function(){
@@ -146,6 +135,4 @@ function responseMessage(msg) {
   $('.success-box').fadeIn(200);  
   $('.success-box div.text-message').html("<span>" + msg + "</span>");
 }
-
-
 </script>

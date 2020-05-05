@@ -22,10 +22,10 @@
             <span class="text-success fs-1">${{number_format($job_price,2)}}</span>
          </div>
          <div class="ml-auto p-0 bd-highlight">
-            <button type="button" class="fs--1 btn btn-sm btn-white theme-color card-1" data-toggle="modal" data-target="#add_extra_job_modal">
+            <button type="button"  class="btn btn-sm theme-background-color border-0 fs--1 card-1" data-toggle="modal" data-target="#add_extra_job_modal">
             <i class="fas fa-plus fs--2"></i> Add Extra
             </button>
-            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm btn-white theme-color card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}"  class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
          </div>
       </div>
    </div>
@@ -34,7 +34,7 @@
          <form action="{{route('service_provider_job_update_status_mark_completed')}}" id="complete_job_form" onsubmit="toggle_animation(true);" method="POST">
             @csrf
             <input type="hidden" value="{{$job->id}}" name="started_job_id" required>
-            <a class="btn btn-sm theme-background-color boder-0 btn-white card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
+            <a class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
          </form>
       </div>
       <ul class="list-group fs--1 border-light border" style="overflow:scroll; height:440px;">
@@ -87,7 +87,7 @@
                   <label for="extra_description">Description <small>(Optional)</small></label>
                   <textarea class="form-control form-control-sm" id="extra_description" rows="3" name="extra_description">Sample Description {{rand(1,100)}}</textarea>
                </div>
-               <button class="btn btn-sm text-success btn-white card-1 btn-block"><i class="fas fa-check-double fs--2"></i> Submit</button>
+               <button class="btn btn-success btn-sm text-white card-1 btn-block"><i class="fas fa-check-double fs--2"></i> Submit</button>
             </form>
          </div>
       </div>
@@ -108,7 +108,7 @@
          <p>If you click 'YES' the job will be marked completed and the job total amount will be charged from Service Seeker account.</p>
          <br>
         <button class="btn btn-sm theme-background-color card-1 mr-3" onclick="$('#complete_job_form').submit();">Yes</button>
-        <button class="btn btn-sm text-danger btn-white card-1" data-dismiss="modal" aria-label="Close">No</button>
+        <button class="btn btn-sm btn-danger text-white card-1" data-dismiss="modal" aria-label="Close">No</button>
       </div>
     </div>
   </div>

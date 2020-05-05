@@ -6,7 +6,7 @@
             <span class="text-success fs-1">${{$conversation->json['offer']}}</span>
          </div>
          <div class="ml-auto p-2 bd-highlight">
-            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm btn-white theme-color card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="btn btn-sm theme-background-color text-white card-1 fs--1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
          </div>
       </div>
    </div>
@@ -17,8 +17,8 @@
          <span>You are now on your way to Service Seeker location. Please be there on time. <br> <br>
             <span class="text-monospace-d font-weight-bolder">{{$job->street_number}} {{$job->street_name}}  ,{{$job->city}} ,{{$job->state}} {{$job->postcode}}</span>  
           </span> <br> <br>
-         <button class="btn btn-sm text-danger border-0 card-1  fs--1 bg-white  delay-2s mr-2" onclick="job_cancel_ontrip();">Cancel Trip <i class="fas fa-ban fs--2"></i></butotn>
-         <button class="btn btn-sm text-success border-0 card-1  fs--1 bg-white  delay-2s" onclick="job_mark_arrived();">Mark Arrived <i class="far fa-check-circle"></i></button> <br> <br>
+         <button class="btn btn-sm btn-danger border-0 card-1 fs--1 text-white delay-2s mr-2" onclick="job_cancel_ontrip();">Cancel Trip <i class="fas fa-ban fs--2"></i></butotn>
+         <button class="btn btn-sm btn-success border-0 card-1 fs--1 text-white delay-2s" onclick="job_mark_arrived();">Mark Arrived <i class="far fa-check-circle"></i></button> <br> <br>
          @if($job->status != 'OPEN')
          <?php
             //detect user mobile agnet
@@ -33,7 +33,7 @@
          @elseif($iPad)
          <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})"><i class="far fa-location-arrow fs--1"></i> Get Directions</button>
          @else
-         <button class="btn btn-sm fs--1 theme-color bg-white card-1" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
+         <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
          @endif
          @endif
       </div>

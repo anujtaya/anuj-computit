@@ -3,7 +3,7 @@
       <div class=" flex-grow-1 bd-highlight">
          <div class="float-right">
             @if($job->status != "APPROVED")
-            <a class="btn theme-color shadow-sm border fs--1 bg-white text-muted" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
+            <a  class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
             @if($conversation == null) Send Offer @else Revise Offer @endif
             </a>
             @include('service_provider.jobs.modals.job_offer_modal')
@@ -47,7 +47,7 @@
          <br>
          <span>You can send you price quote by clicking below.</span>
          <br><br>
-         <a class="btn theme-color shadow-sm border fs--1 bg-white text-muted" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
+         <a  class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
             @if($conversation == null) Send Offer @else Revise Offer @endif
          </a>
       </div>
