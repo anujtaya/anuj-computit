@@ -1,5 +1,5 @@
 @foreach($jobs as $job)
-<li class="list-group-item m-1 card-1 border-0 fs--2" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
+<li class="list-group-item m-1 card-1 border-0 fs--2"  style="cursor:pointer;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
     <div class="d-flex bd-highlight">
         <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
     </div>

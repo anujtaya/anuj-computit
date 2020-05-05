@@ -32,7 +32,7 @@
          @enderror
       </div>
       <div class="col-md-12 text-centers mb-0">
-         <button type="submit" class="btn theme-background-color shadow-sm fs--1 font-weight-normal mt-0" width="221px" height="47px" id="" >
+         <button type="submit" class="btn theme-background-color fs--1 font-weight-normal mt-0 card-1"  id="" >
          <i class="fas fa-arrow-up"></i>  {{ __('Upload') }}
          </button>
       </div>

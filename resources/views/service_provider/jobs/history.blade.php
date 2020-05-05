@@ -17,7 +17,7 @@
       <div class="col-lg-12 pl-3 pr-3 mt-3 border-d">
          <div class="d-flex  bd-highlight">
             <div class="fs--1 p-1 bd-highlight">
-               <a class="btn theme-color btn-sm  border fs--1 bg-white shadow-sm" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <a class="btn btn-sm theme-background-color border-0 fs--1 card-1" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -30,7 +30,7 @@
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">
-               <a class="btn theme-color btn-sm  border fs--1 bg-white shadow-sm" style="border-radius:20px;" href="{{route('service_provider_jobs_full_history')}}" onclick="toggle_animation(true);">
+               <a class="btn btn-sm theme-background-color border-0 fs--1 card-1" style="border-radius:20px;" href="{{route('service_provider_jobs_full_history')}}" onclick="toggle_animation(true);">
                   <i class="fas fa-history"></i> All History
                </a>
             </div>

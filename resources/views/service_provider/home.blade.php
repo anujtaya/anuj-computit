@@ -91,7 +91,7 @@
                   @endif      
                </div>
                <div class="ml-auto p-2 bd-highlight"> 
-                  <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="update_sp_location();"  style="border-radius:20px;" >
+                  <button class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="update_sp_location();"  style="border-radius:20px;" >
                   <i class="fas fa-redo-alt"></i> Update
                   </button>
                </div>
@@ -99,20 +99,20 @@
          </div>
          <!-- end location update div -->
          <div class="col-7 pl-2 pt-2 pb-2">
-            <a class="btn theme-color btn-sm  border fs--2 bg-white" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-sm theme-background-color border-0 fs--2 card-1" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                <span class="dropdown-item" onclick="filter_service_provider_jobs($(this),true);" data-value="Rating" style="cursor: pointer">Rating</span>
                <span class="dropdown-item" onclick="filter_service_provider_jobs($(this),true);" data-value="Distance" style="cursor: pointer">Distance</span>
             </div>
-            <a  id="map_refresh_btn" class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer" >
+            <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer" >
             <i class="fas fa-redo-alt"></i> Refresh
             </a>
          </div>
          <div class=" col-5 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
             <span id="update_refresh_counter_el">0</span> sec ago.
-            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;display:none;" >
+            <button class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;display:none;" >
             <i class="fas fa-crosshairs"></i> Reset
             </button>
          </div>

@@ -2,7 +2,7 @@
   @foreach($jobs as $job)
     @if($job->service_provider_id != null)
         @if($job->service_provider_id == Auth::id())
-        <li class="list-group-item mt-2 mb-2 ml-2 mr-2 shadow-sm border-light" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
+        <li class="list-group-item mt-2 mb-2 ml-2 mr-2 card-1 border-light" style="cursor:pointer;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
             <div class="d-flex bd-highlight">
               <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
             </div>
@@ -30,7 +30,7 @@
         </li>
         @endif
       @else
-        <li class="list-group-item mt-2 mb-2 ml-2 mr-2 shadow-sm border-light" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
+        <li class="list-group-item mt-2 mb-2 ml-2 mr-2 card-1 border-light" style="cursor:pointer;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
               <div class="d-flex bd-highlight">
                 <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
               </div>
