@@ -31,7 +31,7 @@
          </div>
       </div>  
       @foreach($user_services as $user_service)
-      <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  >
+      <span class="btn btn-sm  theme-background-color m-1  fs--2 text-white " style="border-radius:20px;"  >
             {{$user_service->service_sub_cat->service_category->service_name}} - {{$user_service->service_sub_cat->service_subname}}
       </span>
       @endforeach  
@@ -61,9 +61,9 @@
       </div>   
       <div>
          @foreach($current_languages as $language)
-            <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  > {{$language->language_name}} </span>
+            <span class="btn btn-sm  theme-background-color m-1  fs--2 text-white " style="border-radius:20px;"  > {{$language->language_name}} </span>
          @endforeach  
-         <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white " style="border-radius:20px;"  > English (Default) </span>
+         <span class="btn btn-sm  theme-background-color m-1  fs--2 text-white " style="border-radius:20px;"  > English (Default) </span>
       </div>
    </div>
 </div>

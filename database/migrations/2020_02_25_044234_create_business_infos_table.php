@@ -13,7 +13,7 @@ class CreateBusinessInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('business_info', function (Blueprint $table) {
+        Schema::create('business_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('business_name')->nullable();
             $table->string('business_email')->nullable();
@@ -43,6 +43,6 @@ class CreateBusinessInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_info');
+        Schema::dropIfExists('business_infos');
     }
 }

@@ -10,11 +10,16 @@
    </div>
    @endif 
    <!-- notice section display -->
+   @if($job->status == 'OPEN')
    <div class="fs--2 p-2 alert alert-warning border-0">
-      Please note that the details of this job can only be changed when the job status is Open.
-      Once the job is approved you will not be able to change the details of the job.
-      You will need to cancel the job if you wish to change the detail of the job once its approved.
-      </div>
+      Please note that the details of this job can still be changed while the job status is Open. Once the job is approved you will not be able to change the details of the job.
+   </div>
+   @else
+   <div class="fs--2 p-2 alert alert-warning border-0">
+      Please note that this job is now approved and cannot be altered. If you need to change anything, you can cancel this job and create a new one.
+   </div>
+   @endif
+   
    <!-- end notice section display -->
    <form action="{{route('service_seeker_job_details_update')}}" method="post" onsubmit="toggle_animation(true);">
       @csrf

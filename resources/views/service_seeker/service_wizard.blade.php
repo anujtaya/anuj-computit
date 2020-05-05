@@ -175,7 +175,7 @@
                </a>
             </div>
             <div class=" bd-highlight   pt-3 pr-4 pb-3">
-               <a class="theme-color fs-1" onclick="book_job();">
+               <a href="" class="theme-color fs-1" onclick="book_job();event.preventDefault();">
                 Done
                </a>
             </div>

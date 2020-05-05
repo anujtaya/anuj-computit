@@ -10,7 +10,7 @@
    <div >
       @if($job->status != 'COMPLETED')
          @if($job->status != 'CANCELLED')
-            <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
+            <button class="btn theme-background-color btn-sm  border fs--1  m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
          @endif
       @endif
       <div class="row  m-1 text-center" id="image-container">
@@ -26,15 +26,15 @@
             <div class="fixed-bottom p-2 border border-light text-center bg-white">
                <div class="row">
                   <div class="col-4 text-left">
-                     <a class="fs--1 btn btn-sm btn-white text-secondary card-1" href="#carouselExampleIndicators" onclick="$('#img-error-display').html('');" role="button" data-slide="prev">
+                     <a class="fs--1 btn btn-sm theme-background-color card-1" href="#carouselExampleIndicators" onclick="$('#img-error-display').html('');" role="button" data-slide="prev">
                      <i class="fas fa-arrow-left fs-1"></i>
                      </a>   
                   </div>
                   <div class="col-4 text-center" id="img-delete-btn-container">
-                     <button class="fs--1 btn btn-sm btn-white text-secondary card-1" type="button" class="close" data-dismiss="modal" aria-label="Close">Exit</button>
+                     <button class="fs--1 btn btn-sm theme-background-color card-1" type="button" class="close" data-dismiss="modal" aria-label="Close">Exit</button>
                   </div>
                   <div class="col-4 text-right">
-                     <a class="fs--1 btn btn-sm btn-white text-secondary card-1" onclick="$('#img-error-display').html('');" href="#carouselExampleIndicators" role="button" data-slide="next">
+                     <a class="fs--1 btn btn-sm theme-background-color card-1" onclick="$('#img-error-display').html('');" href="#carouselExampleIndicators" role="button" data-slide="next">
                      <i class="fas fa-arrow-right fs-1"></i>
                      </a>
                   </div>
@@ -153,7 +153,7 @@
                img2.classList = "img-fluid p-2 border border-light";
                //img2.style.width = "220px";
                var btn = document.createElement('button')
-               btn.classList ="fs--1 btn btn-sm btn-white text-danger card-1 btn-block mb-2";
+               btn.classList ="fs--1 btn btn-sm btn-danger text-white card-1 btn-block mb-2";
                btn.id = 'imgdel-' + data[i]['id'];
                btn.addEventListener('click', function (e) {
                   image_remove(this.id);

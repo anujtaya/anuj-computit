@@ -3,7 +3,7 @@
    <div class="d-flex bd-highlight">
       <div class=" flex-grow-1 bd-highlight">
          <div class="dropleft">
-            <a class="btn theme-color card-1 border-d fs--1 bg-white text-muted" href="#" role="button" id="ss_job_filter_offer_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" href="#" role="button" id="ss_job_filter_offer_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="ss_job_filter_offer_dropdown">
@@ -13,10 +13,10 @@
          </div>
       </div>
       <div class="p-0 bd-highlight">
-         <button class="btn theme-color  card-1 border-0 fs--1 bg-white text-muted" id="map_btn" onclick="switch_view_mode('MAP')">
+         <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" id="map_btn" onclick="switch_view_mode('MAP')">
          <i class="fas fa-globe-asia"></i> Map View
          </button>
-         <button class="btn theme-color card-1 border-0 fs--1 bg-white text-muted" style="display:none;" id="list_btn" onclick="switch_view_mode('LIST')">
+         <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" style="display:none;" id="list_btn" onclick="switch_view_mode('LIST')">
          <i class="fas fa-list-ol"></i> List View
          </button>
       </div>
@@ -31,13 +31,13 @@
             <div class="mr-auto p-0 bd-highlight">
             </div>
             <div class="p-0 bd-highlight">
-               <button   class="btn theme-color btn-sm  card-1 border-0 ml-2 fs--1 bg-white text-muted" onclick="set_display_bounds();">
+               <button   class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" onclick="set_display_bounds();">
                <i class="fas fa-globe"></i> Overview
                </button>
-               <button   class="btn theme-color btn-sm  card-1 border-0 ml-2 fs--1 bg-white text-muted" onclick="find_closest_marker();">
+               <button   class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" onclick="find_closest_marker();">
                <i class="fas fa-arrows-alt-h"></i> Closest
                </button>
-               <button   class="btn theme-color btn-sm  card-1 border-0 ml-2 fs--1 bg-white text-muted" onclick="reset_map_position();">
+               <button   class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" onclick="reset_map_position();">
                <i class="fas fa-crosshairs"></i> Reset
                </button>
             </div>

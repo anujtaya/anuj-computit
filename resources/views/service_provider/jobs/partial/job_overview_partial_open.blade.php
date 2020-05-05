@@ -36,7 +36,7 @@
                </div>
             </div>
             <div class="text-muted bg-light p-2 mb-1 rounded">
-               <i>{{$conversation->json['offer_description']}}</i>
+               <i>{{$job->description}}</i>
             </div>
             <span class="text-muted font-weight-normal fs--3 p-1">{{$conversation_reply_count}} messages</span>
          </li>

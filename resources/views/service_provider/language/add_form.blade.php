@@ -20,7 +20,6 @@
             <option value="Czech">Czech</option>
             <option value="Danish">Danish</option>
             <option value="Dutch">Dutch</option>
-            <option value="English">English</option>
             <option value="Estonian">Estonian</option>
             <option value="Fiji">Fiji</option>
             <option value="Finnish">Finnish</option>

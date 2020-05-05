@@ -27,7 +27,7 @@
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
          <div class="ml-auto p-0 bd-highlight"> 
-            <a href="{{route('service_seeker_job_email_invoice', $job->id)}}" onclick="toggle_animation(true);" class="btn theme-color card-1 border-0 fs--1 bg-white">
+            <a href="{{route('service_seeker_job_email_invoice', $job->id)}}" onclick="toggle_animation(true);"  class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white">
                <i class="fas fa-paper-plane"></i> Email Invoice
             </a>
          </div>

@@ -13,9 +13,9 @@
             <div class="card shadow-none mb-2">
                <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                     <button class="btn btn-sm fs--1 theme-color" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                     <div class="fs--1 theme-color" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                      1.  Who is a Service Seeker?
-                     </button>
+                     </div>
                   </h2>
                </div>
                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -27,9 +27,9 @@
             <div class="card shadow-none mb-2">
                <div class="card-header" id="headingTwo">
                   <h2 class="mb-0">
-                     <button class="btn btn-sm fs--1 theme-color collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                     <div class="fs--1 theme-color collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                      2.  Who is a Service Provider?
-                     </button>
+                     </div>
                   </h2>
                </div>
                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -41,9 +41,9 @@
             <div class="card shadow-none mb-2">
                <div class="card-header" id="headingThree">
                   <h2 class="mb-0">
-                     <button class="btn btn-sm fs--1 theme-color collapsed"type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                     <div class="fs--1 theme-color collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                      3.  What is LocaL2LocaL?
-                     </button>
+                     </div>
                   </h2>
                </div>
                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">

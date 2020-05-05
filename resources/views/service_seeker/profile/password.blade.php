@@ -17,7 +17,7 @@
          <input type="password" class="form-control form-control-sm"  id="password_confirm" name="password_confirmation" value="">
       </div>
       <div class="form-group">
-         <button class="btn btn-info btn-sm fs--1 font-weight-normal">Save Changes</button>
+         <button class="btn theme-background-color text-white btn-sm fs--1 font-weight-normal card-1">Save Changes</button>
       </div>
     </form>
    </div>

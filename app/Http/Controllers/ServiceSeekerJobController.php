@@ -30,7 +30,7 @@ class ServiceSeekerJobController extends Controller
                       ->where('status', '!=', 'DRAFT')
                       ->where('status', '!=', 'COMPLETED')
                       ->where('status', '!=', 'CANCELLED')
-                      ->orderBy('job_date_time', 'asc')->get();
+                      ->orderBy('job_date_time', 'desc')->get();
       return View::make("service_seeker.jobs.jobs")->with('jobs', $seeker_jobs);
     }
 
@@ -103,9 +103,9 @@ class ServiceSeekerJobController extends Controller
       $filter_action = $_POST['filter_action'];
       $user_id = Auth::id();
       if($filter_action == "ALL"){
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', '!=', 'DRAFT')->orderBy('job_date_time', 'asc')->get();
+        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', '!=', 'DRAFT')->orderBy('job_date_time', 'desc')->get();
       }else{
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', $filter_action)->orderBy('job_date_time', 'asc')->get();
+        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', $filter_action)->orderBy('job_date_time', 'desc')->get();
       }
       //render the html page.
       $viewRendered = view('service_seeker.jobs.jobs_templates.jobs_templates_list', compact('jobs'))->render();

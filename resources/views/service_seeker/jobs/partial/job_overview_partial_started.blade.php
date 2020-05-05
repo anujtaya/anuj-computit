@@ -21,7 +21,7 @@
             <span class="text-success fs-1"><span class="fs--1">$</span>{{number_format($job_price,2)}}</span>
          </div>
          <div class="ml-auto p-0 bd-highlight">
-            <a href="{{route('service_seeker_job_conversation', [$conversation_current->job_id, $conversation_current->service_provider_id])}}" class="fs--1 btn btn-sm btn-white theme-color card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+            <a href="{{route('service_seeker_job_conversation', [$conversation_current->job_id, $conversation_current->service_provider_id])}}"  class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
          </div>
       </div>
    </div>
