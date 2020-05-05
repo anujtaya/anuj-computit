@@ -208,6 +208,8 @@
                btn.id="sid-"+ data['services'][i]['minor_cat_id'];
                btn.addEventListener("click", function() {
                    add_service(this.id);
+                   this.classList.add("theme-color");
+                   this.innerHTML = "<i class='fas fs-1 fa-check-square'></i>";
                    });
            }
          
