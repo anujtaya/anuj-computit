@@ -523,7 +523,7 @@ class ServiceProviderJobController extends Controller
 		  $check_existing  = DB::table('service_provider_job_cancellations')->where('service_provider_id', Auth::id())->where('job_id', $job->id)->get();
 		  if(count($check_existing) == 0) {
 			DB::table('service_provider_job_cancellations')->insert(
-				['job_id' => $job->id, 'service_provider_id' => Auth::id(), 'reason' => $data->reason]
+				['job_id' => $job->id, 'service_provider_id' => Auth::id(), 'reason' => 'Default']
 			);
 		  }
 		

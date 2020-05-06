@@ -44,6 +44,35 @@
                   <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal animated headShake delay-1s" style="border-radius:20px!important;">COMPLETED</span>
                @endif   
             </div>
+            <div class="col-12">
+            @if($job->status == 'OPEN')
+            @elseif($job->status == 'APPROVED')
+               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+                     @csrf
+                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
+               </form>
+            @elseif($job->status == 'ONTRIP')
+               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+                     @csrf
+                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
+               </form>
+            @elseif($job->status == 'ARRIVED')
+               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+                     @csrf
+                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
+               </form>
+            @elseif($job->status == 'STARTED')
+               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
+                     @csrf
+                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
+               </form>
+            @elseif($job->status == 'COMPLETED')
+            @endif
+            </div>
          </div>
          <ul class="nav nav-pills shadow-sm p-2 nav-fill m-0 fs--1 " id="myTab" role="tablist">
             <li class="nav-item ">
