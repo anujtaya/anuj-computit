@@ -85,6 +85,9 @@ class PhoneVerificationController extends Controller
                 if ($verification->valid) {
                     $user->is_verified =1;
                     $user->save();
+                    if(Session::has('mobile_number_changed')) {
+                        return redirect::to(Session::pull('mobile_number_changed'));
+                    }
                     if(Session::has('is_sp_registration_required')) {
                         return redirect()->route('service_provider_register_business');
                     } else {
@@ -100,6 +103,9 @@ class PhoneVerificationController extends Controller
             } else { 
                 $user->is_verified =1;
                 $user->save();
+                if(Session::has('mobile_number_changed')) {
+                    return redirect::to(Session::pull('mobile_number_changed'));
+                }
                 if(Session::has('is_sp_registration_required')) {
                     return redirect()->route('service_provider_register_business');
                 } else {

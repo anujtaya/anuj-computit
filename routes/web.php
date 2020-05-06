@@ -164,6 +164,7 @@ Route::group(['middleware' => 'auth' ], function () {
 
   //storage directory links
   Route::get('storage/images/profile/{filename}', 'ImageStorageController@make_profile_image_link');
+  Route::get('storage/images/profile/', 'ImageStorageController@make_profile_image_link_default');
   Route::get('storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
 });
 //rating routes
