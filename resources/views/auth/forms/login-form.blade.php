@@ -26,7 +26,7 @@
          <br>
          <span class="text-dark">Don't have an account?</span>   
          <a class="theme-color" style="cursor:pointer" data-toggle="modal" data-target="#registerDialog">
-         Sign up
+         Browse as a Guest or Sign up
          </a>
       </div>
       </span>

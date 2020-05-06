@@ -201,6 +201,9 @@
                 btn.id="sid-"+ data['services'][i]['minor_cat_id'];
                 btn.addEventListener("click", function() {
                     remove_service(this.id);
+                    this.innerHTML = "<i class='fas fs-1 fa-square'></i>";    
+                    this.classList.add("text-muted");
+                    this.classList.remove("theme-color");
                 });
            } else {
                 btn.innerHTML = "<i class='far fs-1 fa-square'></i>";
