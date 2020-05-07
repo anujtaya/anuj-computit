@@ -312,5 +312,21 @@ class GuestController extends Controller
         }
     }
     
+    // draft function
+    function remove_job_images(){
+      $id = $_POST['job_attachment_id'];
+      $attachment = SessionDraftJobAttachment::find($id);    
+      $response = false;
+      if($attachment != null){
+        if($attachment->path != null) { 
+          if(file_exists(storage_path('/public/job_attachments/'.$attachment->path))){
+              unlink(storage_path('/public/job_attachments/'.$attachment->path));
+              $attachment->delete();
+              $response = true;
+          }
+        }
+      } 
+      return Response::json(true);
+    }
 
 }

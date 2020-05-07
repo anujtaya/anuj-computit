@@ -29,6 +29,7 @@ Route::get('/guest/storage/job_attachments/{filename}', 'ImageStorageController@
 //session draft job attachment storage routes
 Route::post('guest/imageservice/images/image_upload', 'GuestController@store_session_draft_job_attachment')->name('guest_imageservice_images_upload');
 Route::post('guest/imageservice/images/fetch/', 'GuestController@retrieve_session_draft_job_attachment')->name('guest_imageservice_images_fetch');
+Route::post('guest/imageservice/images/delete/', 'GuestController@remove_job_images')->name('guest_imageservice_images_delete');
 Route::get('guest/storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
 
 //register home controller routes

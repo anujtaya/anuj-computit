@@ -49,7 +49,7 @@ function wizard_switch(id) {
         wizard_switch_1(id);
     }
     if (id == 'wizard_view_4') {
-        //resetPosition();
+        resetPosition();
         wizard_switch_4(id);
     }
 }
@@ -313,4 +313,52 @@ function prefill_draft_job_input_fields(data) {
     console.log(data);
     $("#service_job_title").val(data['title']);
     $("#service_job_description").val(data['description']);
+}
+
+
+function resetPosition() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+                pos = {
+                    lat: position.coords.latitude, //get current lattitude from device.
+                    lng: position.coords.longitude //get current longitude from device.
+                };
+                geocodePosition(pos);
+            },
+            function() {});
+    } else {
+        console.log('Unable to prefil location. Please enter location manually.');
+    }
+}
+
+function geocodePosition(pos) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+        latLng: pos
+    }, function(responses) {
+        if (responses && responses.length > 0) {
+            console.log(responses[0]);
+            current_address_string = responses[0].address_components;
+            current_job_lat = pos.lat;
+            current_job_lng = pos.lng;
+            var fullAddress = [];
+            for (var i = 0; i < responses[0].address_components.length; i++) {
+                var addressType = responses[0].address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = responses[0].address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+                if (addressType == "street_number") {
+                    fullAddress[0] = val;
+                } else if (addressType == "route") {
+                    fullAddress[0] += " " + val;
+                }
+            }
+            document.getElementById('street_number').value = fullAddress.join(" ");
+            if (document.getElementById('street_number').value !== "") {
+                document.getElementById('street_number').disabled = false;
+            }
+
+        }
+    });
 }
