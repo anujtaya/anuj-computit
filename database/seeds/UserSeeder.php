@@ -81,5 +81,16 @@ class UserSeeder extends Seeder
           'is_verified' => true,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
+         //Marketing Provider account
+         App\User::create([
+          'first' => 'Yasmine',
+          'last' => 'Williams',
+          'email' => 'marketing@local2local.com.au',
+          'password' => $password2 ,
+          'user_type' => 2,
+          'phone' => "0477647917",
+          'is_verified' => true,
+          'created_at' => date('Y-m-d h:m:s'),
+        ]);
     }
 }
