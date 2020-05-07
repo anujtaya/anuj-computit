@@ -5,7 +5,7 @@
        
       @else
          <div class="col-12 mb-2  p-2">
-            <a class="btn btn-block btn-sm text-white mt-2 card-1" style="border-radius:20px;background:#5D29BA!important;color:white!important;" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">Switch to Provider - I want work done</a>
+            <a class="btn btn-block btn-sm text-white mt-2 card-1" style="border-radius:20px;background:#5D29BA!important;color:white!important;" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">Switch to Provider - I want to done</a>
          </div>
       @endif
       <div class="col-3 p-2">

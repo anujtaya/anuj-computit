@@ -123,5 +123,7 @@ class DemoController extends Controller
         return substr($str, $subtring_start, $size);   
     }
 
-    
+    function button_demo(){
+        return view('demo.button_demo');
+    }
 }
