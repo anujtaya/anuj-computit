@@ -82,11 +82,22 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   //job cancel route
   Route::post('/service_seeker/jobs/action/cancel', 'ServiceSeekerJobController@service_seeker_job_cancel')->name('service_seeker_job_cancel');
   //ajax call routes
- 
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');
   Route::get('/service_seeker/timer', 'ServiceSeekerJobController@timer')->name('service_provider_timer');
   //services
   Route::post('/service_seeker/services/location/update',  'ServiceSeekerController@services_location_update')->name('service_seeker_services_location_update');
+  //payment controller sources
+  //stripe routes
+  Route::post('/service_seeker/more/wallet/stripe/create_customer',  'ServiceSeekerStripePaymentController@create_customer')->name('service_seeker_more_wallet_stripe_create_customer');
+  Route::post('/service_seeker/more/wallet/stripe/change_customer_default_card',  'ServiceSeekerStripePaymentController@change_customer_default_card')->name('service_seeker_more_wallet_stripe_change_customer_default_card');
+  Route::get('/service_seeker/more/wallet/stripe/delete_customer_card/{id}',  'ServiceSeekerStripePaymentController@delete_customer_card')->name('service_seeker_more_wallet_stripe_delete_customer_card');
+
+
+
+
+  
+
+  
 
   
 });

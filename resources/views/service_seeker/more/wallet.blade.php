@@ -9,18 +9,64 @@
          </div>
       </div>
       <div class="col-lg-12 fs--1 bg-white p-2 mt-2  border-d">
+         @if(Session::has('success'))
+            <div class="alert alert-success fs--1">
+              {{Session::pull('success')}}
+            </div>
+         @endif
+         @if(Session::has('error'))
+            <div class="alert alert-danger fs--1">
+              {{Session::pull('error')}}
+            </div>
+         @endif
          <div class="p-3 border rounded">
-            <span>Payment Methods</span> <br> <br>
-            <div class="d-flex bd-highlight mb-3">
-               <div class="p-2 bd-highlight"><i class="fab fa-cc-stripe fs-1 theme-color"></i></div>
-               <div class="p-2 bd-highlight">************1234</div>
-               <div class="p-2 ml-auto  bd-highlight">  <button class="btn btn-sm fs--2 border-0 bg-danger text-white">Delete</button>  </div>
+            <h6 class=" pb-2"><strong>Payment Source</strong></h6>
+            <div class="table-responsive">
+               <table class="table table-sm fs--1 table-bordered">
+                  <tr class="bg-light">
+                     <td>Brand</td>
+                     <td>Last 4</td>
+                     <td>Expiry</td>
+                     <td>Default</td>
+                     <td>Delete</td>
+                  </tr>
+                  @php
+                  $stripe_payment_source = Auth::user()->service_seeker_stripe_payment;
+                  $card_sources = [];
+                  if($stripe_payment_source != null) {
+                  $card_sources = $stripe_payment_source->sss_payment_sources;
+                  }
+                  @endphp
+                  @foreach($card_sources as $source)
+                  <tr>
+                     <td class="fs-1">@if($source->brand == 'Visa') <i class="fab fa-cc-visa"></i> @elseif($source->brand == 'MasterCard') <i class="fab fa-cc-mastercard"></i> @else <i class="far fa-credit-card"></i>@endif</td>
+                     <td>**{{$source->last_4}}</td>
+                     <td>{{date('m/Y', strtotime($source->expiry))}}</td>
+                     <td class="">
+                        @if($source->is_default)
+                        <span class="theme-color" ><i class="fas fs-1 fa-check-square"></i></span>
+                        @else
+                        <form action="{{route('service_seeker_more_wallet_stripe_change_customer_default_card')}}" id="form-{{$source->id}}"  method="POST">
+                           @csrf
+                           <input type="hidden" name="source_id" value="{{$source->id}}">
+                           <span class=""  onclick="$('#form-'+ {{$source->id}}).submit();toggle_animation(true);"><i class='far fs-1 fa-square'></i></span>
+                          
+                        </form>
+                        @endif
+                     </td>
+                     <td>
+                        @if(!$source->is_default)
+                        <a href="{{route('service_seeker_more_wallet_stripe_delete_customer_card', $source->id)}}" class="text-danger p-2" onclick="return confirm('Are you sure you want to remove this card?')"><i class="fas fa-trash-alt "></i></a>
+                        @endif
+                     </td>
+                  </tr>
+                  @endforeach
+               </table>
             </div>
          </div>
          <div class="p-3 border rounded mt-2">
-            <span>Payment Methods</span> <br> <br>
-            <p>No Payment method available, please enter your card information below.</p>
-            <form action="https://local2local.com.au/processCardPaymentSettings" class="my-form needs-validation "  method="post" id="payment-form">
+            <span>Add new Payment Source</span> <br> <br>
+            <form action="{{route('service_seeker_more_wallet_stripe_create_customer')}}" class="my-form needs-validation"  method="post" id="payment-form">
                @csrf
                <div id="card-element" class="h-100 mt-1  border rounded p-2">
                </div>
@@ -34,7 +80,7 @@
 </div>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-   var stripe_key = 'pk_test_S5iD0X5zJI2oplKwgMfHEIdE';
+   var stripe_key = 'pk_test_KzLzvd98slvJn3rAAg2O1gSj00dOddGE4U';
    var stripe = Stripe(stripe_key);
    var elements = stripe.elements();
    var style = {
@@ -59,7 +105,7 @@
    card.addEventListener('change', function(event) {
      var displayError = document.getElementById('card-errors');
      if (event.error) {
-       toggleAnim(false);
+      toggle_animation(false);
        displayError.textContent = event.error.message;
      } else {
        displayError.textContent = '';
@@ -68,15 +114,15 @@
    
    var form = document.getElementById('payment-form');
    form.addEventListener('submit', function(event) {
-     toggleAnim(true);
+     toggle_animation(true);
      event.preventDefault();
      stripe.createToken(card).then(function(result) {
        if (result.error) {
-         toggleAnim(false);
+        toggle_animation(false);
          var errorElement = document.getElementById('card-errors');
          errorElement.textContent = result.error.message;
        } else {
-         toggleAnim(true);
+         toggle_animation(true);
          stripeTokenHandler(result.token);
        }
      });
