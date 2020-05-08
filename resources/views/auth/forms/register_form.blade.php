@@ -15,7 +15,7 @@
       </div>
       <div class="col-md-12 mb-3">
          <label for="last">Last Name</label>
-         <input id="first" type="text" class="form-control   @error('last') is-invalid @enderror" name="last" value="{{ old('last') }}" required autocomplete="last" placeholder="" autofocus>
+         <input id="last" type="text" class="form-control   @error('last') is-invalid @enderror" name="last" value="{{ old('last') }}" required autocomplete="last" placeholder="" autofocus>
          @error('last')
          <span class="invalid-feedback" role="alert">
          <strong>{{ $message }}</strong>

@@ -1,4 +1,3 @@
-<!-- bottom nav -->
 <div class="fixed-bottom " style="height:10%;">
    <div class="row border-top pt-2 bg-white sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
       <div class="col-3 p-3">
@@ -26,8 +25,6 @@
       </div>
    </div>
 </div>
-<!-- end bottom nav  -->
-<!-- No user account modal -->
 <div class="modal fade" id="user_no_account_message_modal" tabindex="-1" role="dialog" aria-labelledby="user_no_account_message_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered-d" role="document">
       <div class="modal-content border-0 card-1">
@@ -41,4 +38,3 @@
       </div>
    </div>
 </div>
-<!-- end modal -->
