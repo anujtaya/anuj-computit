@@ -43,11 +43,11 @@
             <span>Add Services</span>
          </div>
          <div class="p-1 ml-auto bd-highlight">
-            <a href="{{route('service_provider_profile_update_service_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle theme-color fs-1"></i></a>
+            <a href="{{route('service_provider_profile_update_service_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle card-1 theme-color fs-1"></i></a>
          </div>
       </div>
       @foreach($user_services as $user_service)
-      <span class="btn btn-sm  theme-background-color m-1  fs--2 bg-white "  >
+      <span class="badge bg-white theme-color  m-1  fs--1 card-1 rounded-pill "  >
       {{$user_service->service_sub_cat->service_category->service_name}} - {{$user_service->service_sub_cat->service_subname}}
       </span>
       @endforeach  
@@ -58,7 +58,7 @@
             <span>Education & Certifications</span>
          </div>
          <div class="p-1 ml-auto bd-highlight">
-            <a href="{{route('service_provider_profile_update_certificate_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle theme-color fs-1"></i></a>
+            <a href="{{route('service_provider_profile_update_certificate_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle card-1 theme-color fs-1"></i></a>
          </div>
       </div>
       <br>
@@ -78,17 +78,39 @@
             <span>Languages</span>
          </div>
          <div class="p-1 ml-auto bd-highlight">
-            <a href="{{route('service_provider_profile_update_languages_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle theme-color fs-1"></i></a>
+            <a href="{{route('service_provider_profile_update_languages_preferences')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle card-1 theme-color fs-1"></i></a>
          </div>
       </div>
       <div>
          @foreach($current_languages as $language)
-         <span class="btn btn-sm theme-background-color m-1 fs--2 bg-white"> {{$language->language_name}} </span>
+         <span class="badge bg-white theme-color  m-1  fs--1 card-1 rounded-pill"> {{$language->language_name}} </span>
          @endforeach    
-         <span class="btn btn-sm theme-background-color m-1 fs--2 bg-white"> English (Default) </span>
+         <span class="badge bg-white theme-color  m-1  fs--1 card-1 rounded-pill"> English (Default) </span>
       </div>
    </div>
+   <div class="m-2 p-2 rounded card-1">
+      <div class="d-flex bd-highlight rounded">
+         <div class="p-1 bd-highlight">
+            <span>Bio (About you)</span>
+         </div>
+         <div class="p-1 ml-auto bd-highlight">
+            <a href="{{route('service_provider_profile_update_user_bio')}}" onclick="toggle_animation(true);"><i class="fas fa-plus-circle rounded-circle card-1 theme-color fs-1"></i></a>
+         </div>
+      </div>
+      <p class="p-2">
+         <i>
+         <span class="teaser">{{substr(Auth::user()->user_bio, 0, 30)}}..</span>
 
+         <span class="complete" style="display:none;">{{Auth::user()->user_bio}}</span>
+
+         <span class="more theme-color">More</span>
+       
+         
+         
+         
+         </i>
+      </p>
+   </div>
    <div class="m-2   rounded">
       <div class="d-flex bd-highlight mt-4 rounded">
          <div class="p-2 bd-highlight">
@@ -116,3 +138,25 @@
 
 
 </div>
+
+<script>
+$.fn.clicktoggle = function(a, b) {
+    return this.each(function() {
+        var clicked = false;
+        $(this).click(function() {
+            if (clicked) {
+                clicked = false;
+                return b.apply(this, arguments);
+            }
+            clicked = true;
+            return a.apply(this, arguments);
+        });
+    });
+};
+
+$(".more").clicktoggle(function() {
+  $(this).text("Less").siblings(".complete").show();
+}, function() {
+  $(this).text("More").siblings(".complete").hide();
+});
+</script>

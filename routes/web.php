@@ -129,6 +129,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/sevrice_provider/profle/update_service_preferences', 'ServiceProviderController@service_provider_update_service_preferences')->name('service_provider_profile_update_service_preferences');
   Route::get('/sevrice_provider/profle/update_certificate_preferences', 'ServiceProviderController@service_provider_update_certificate_preferences')->name('service_provider_profile_update_certificate_preferences');
   Route::get('/sevrice_provider/profle/update_languages_preferences', 'ServiceProviderController@service_provider_update_languages_preferences')->name('service_provider_profile_update_languages_preferences');
+  Route::get('/sevrice_provider/profle/update_user_bio', 'ServiceProviderController@service_provider_update_user_bio_view')->name('service_provider_profile_update_user_bio');
+  Route::post('/sevrice_provider/profle/update_user_bio', 'ServiceProviderController@service_provider_update_user_bio_save')->name('service_provider_profile_update_user_bio');
   Route::get('/service_provider/jobs/history',  'ServiceProviderController@service_provider_jobs_history')->name('service_provider_jobs_history');
   Route::get('/service_provider/jobs/full_history',  'ServiceProviderController@service_provider_jobs_full_history')->name('service_provider_jobs_full_history');
   Route::get('/service_provider/more/',  'ServiceProviderController@service_provider_more')->name('service_provider_more');

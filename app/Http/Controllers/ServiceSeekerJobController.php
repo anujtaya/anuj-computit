@@ -356,7 +356,7 @@ class ServiceSeekerJobController extends Controller
             $conversation = Conversation::find($conversation_id);
             $conversation_message = new ConversationMessage();
             $conversation_message->user_id = Auth::id();
-            $conversation_message->text = 'Accpeted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
+            $conversation_message->text = 'Accepted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
             $conversation_message->conversation_id = $conversation_id;
             $conversation_message->msg_created_at = Carbon::now();
             $conversation_message->json = ["type" => "ACTION", "status"=> "ACCEPTED"];

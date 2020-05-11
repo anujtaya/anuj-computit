@@ -15,6 +15,7 @@ use Response;
 use DB;
 use Validator;
 use Input;
+use Session;
 
 class ServiceProviderController extends Controller
 {
@@ -190,6 +191,21 @@ class ServiceProviderController extends Controller
             $user->save();
             return redirect()->back();
         }
+    }
+
+
+    function service_provider_update_user_bio_view(){
+        return View::make("service_provider.profile.nested.update_user_bio");
+    }
+
+    function service_provider_update_user_bio_save(Request $request){
+        $input = Input::all();
+        $current_user = User::find(Auth::id());
+        $current_user->user_bio = $input['user_bio'];
+        if($current_user->save()){
+            Session::put('status' , 'Your status updated.');
+        }
+        return redirect()->back();
     }
 
     
