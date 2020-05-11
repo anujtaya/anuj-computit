@@ -19,7 +19,7 @@
             <br>
             <div class="text-left mb-2">
                We have succesfully delivered your offering price of <b>${{number_format($conversation->json['offer'],2)}}</b> to the Service Seeker.
-                Please wait while we get a response from Service Seeker directly. Look for SMS, Push notification or Email alerts sent by us.
+               Please wait while we get a response from Service Seeker directly. Look for SMS, Push notification or Email alerts sent by us.
             </div>
          </div>
          <li class="list-group-item m-1 border-0 card-1 fs--2" @if($conversation_reply_count != 0 || 1 == 1)  onclick="location.href= '{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}';toggle_animation(true);" @endif>

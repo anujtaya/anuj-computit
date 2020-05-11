@@ -338,7 +338,7 @@ class ServiceSeekerJobController extends Controller
                   ->join('users', 'users.id', 'conversation_messages.user_id')
                   ->orderBy('conversation_messages.msg_created_at', 'ASC')
                   ->get();
-          $viewRendered = view('service_provider.jobs.partial.conversation_templates.job_conversation_messages_new', compact('msgs'))->render();
+          $viewRendered = view('service_seeker.jobs.conversation_templates.job_conversation_messages_new', compact('msgs'))->render();
           return Response::json(['html'=>$viewRendered, 'msgs'=>$msgs]);
         }
       return Response::json($response);
