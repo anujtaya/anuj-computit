@@ -46,6 +46,21 @@
          <div class="text-center ml-4 mr-4 d-none" style="margin-top:20px;" id="anim-2">
          </div>
       </div>
+      <!-- general alert modal -->
+      <div class="modal fade" id="application_alert_modal" tabindex="-1" role="dialog" aria-labelledby="application_alert_modal_title" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered-d" role="document">
+            <div class="modal-content border-0 card-1">
+               <div class="modal-body text-center" style="min-height:300px;">
+                  <i class="fas fa-exclamation-circle text-warning display-1"></i>
+                  <h1 class="fs-1 mt-2">Something went wrong!</h1>
+                  <p class="fs--1 mt-2">We have found some error while performing last action. Please see the error description below.</p>
+                  <p class="fs--1 mt-2" id="application_alert_modal_text"></p>
+                  <button class="btn btn-warning text-white card-1" onclick="location.reload();" style="border-radius:30px;">Refresh</a>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end modal -->
       <script>
          @yield('customjavascripts')
 
@@ -63,9 +78,13 @@
          document.getElementById("anim-2").innerHTML = m;
          }
          }
+         function display_app_error(msg){
+            $("#application_alert_modal_text").html("");
+            $("#application_alert_modal_text").html(msg);
+            $("#application_alert_modal").modal("show");
+         }
       </script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-      <!-- <script src="{{asset('custom.js')}}"></script> -->
    </body>
 </html>

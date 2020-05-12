@@ -17,6 +17,28 @@
       </div>
    </div>
 </div>
+
+<!-- job booking option type modal -->
+<div class="modal fade" id="job_booking_option_type_modal" tabindex="-1" role="dialog" aria-labelledby="job_booking_option_type_modal_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered-d" role="document">
+      <div class="modal-content border-0 card-1">
+         <div class="modal-body text-center" style="min-height:300px;">
+            <h1 class="fs-1">Almost there!</h1>
+            <p class="fs--1 mb-2">
+               Post your job on job board so Service providers can contact you with quote prices. We will let you know when someone replies to your job with a quote pricing.
+               <br><br>
+               <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Post to Job Board</a>
+            </p>
+            Or
+            <p class="fs--1 mb-2">
+              Find online Service providers and get a response with a quote in less than 5 minutes. Subject to Service Provider availbility in your area.
+              <br><br>
+            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Look for Service Providers Now</a>
+            </p>
+         </div>
+      </div>
+   </div>
+</div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
 @endsection
 

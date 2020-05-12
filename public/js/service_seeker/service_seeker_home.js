@@ -271,50 +271,59 @@ function clear_job_draft_data(job_draft_id) {
 function book_job() {
     if (typeof current_address_string !== 'undefined') {
         if (current_job_lat != null && current_job_lng != null) {
-            toggle_animation(true, "This make take up to 20 mins as our Service providers are currently on other jobs. Please view the Jobs tab to see the status of the job");
-
-            var job_obj = {
-                current_job_draft_id: current_job_draft_id,
-                title: $("#service_job_title").val(),
-                description: $("#service_job_description").val(),
-                job_date_time: $("#service_job_datetime").val(),
-                service_category_id: current_service_id,
-                service_subcategory_id: current_service_node_id,
-                // Sultan - Task 2.1.9 //
-                service_category_name: $("#service_selection_name_display").text(),
-                service_subcategory_name: $("#nid_" + current_service_node_id).text(),
-                service_category_id: current_service_id,
-                current_address_string: current_address_string,
-                //////
-                job_lat: current_job_lat,
-                job_lng: current_job_lng,
-            }
-            $.ajax({
-                type: "POST",
-                url: app_url + '/service_seeker/job/request/submit',
-                data: {
-                    "_token": csrf_token,
-                    "job_obj": JSON.stringify(job_obj),
-                },
-                success: function(results) {
-                    console.log(results);
-                    if (results) {
-                        window.location = seeker_jobs_url;
-                    } else {
-                        toggle_animation(false);
-                        alert("Something went wrong!")
-                    }
-                },
-                error: function(results, status, err) {
-                    console.log(err);
-                }
-            });
+            job_book_via_board();
+        } else {
+            $("#street_number").addClass('animated shake is-invalid');
+            setTimeout(function() { $("#street_number").removeClass('animated shake '); }, 1000);
         }
     } else {
         $("#street_number").addClass('animated shake is-invalid');
         setTimeout(function() { $("#street_number").removeClass('animated shake '); }, 1000);
     }
 }
+
+function job_book_via_board() {
+    toggle_animation(true);
+    var job_obj = {
+        current_job_draft_id: current_job_draft_id,
+        title: $("#service_job_title").val(),
+        description: $("#service_job_description").val(),
+        job_date_time: $("#service_job_datetime").val(),
+        service_category_id: current_service_id,
+        service_subcategory_id: current_service_node_id,
+        service_category_name: $("#service_selection_name_display").text(),
+        service_subcategory_name: $("#nid_" + current_service_node_id).text(),
+        service_category_id: current_service_id,
+        current_address_string: current_address_string,
+        job_lat: current_job_lat,
+        job_lng: current_job_lng,
+    }
+    $.ajax({
+        type: "POST",
+        url: app_url + '/service_seeker/job/request/submit',
+        data: {
+            "_token": csrf_token,
+            "job_obj": JSON.stringify(job_obj),
+        },
+        success: function(results) {
+            console.log(results);
+            if (results) {
+                window.location = seeker_jobs_url;
+            } else {
+                toggle_animation(false);
+                alert("Something went wrong!")
+            }
+        },
+        error: function(results, status, err) {
+            toggle_animation(false);
+            display_app_error("Job Booking: " + err);
+            console.log(err);
+        }
+    });
+}
+
+
+
 
 var placeSearch;
 var componentForm = {
