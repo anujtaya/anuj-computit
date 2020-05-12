@@ -74,3 +74,4 @@ var conversation_id = "{{$conversation->id}}";
 let src = '{{asset('/sounds/soft_notification.mp3')}}';
 let audio = new Audio(src);
 </script>
+

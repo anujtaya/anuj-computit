@@ -290,7 +290,6 @@ class ServiceSeekerJobController extends Controller
       $message = $_POST['message'];
       $response = false;
       if($conversation_id != null && $message != null){
-        $receiver_id = Auth::user()->id;
         $conversation = Conversation::where('id',$conversation_id)->first();
         $msg = new ConversationMessage();
         $msg->user_id = Auth::id();
