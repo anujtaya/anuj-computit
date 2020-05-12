@@ -284,13 +284,10 @@ function book_job() {
 }
 
 
-function job_book_via_instant_selection() {
-    console.log('job board instant type selected');
-}
+=
 
 
-
-function job_book_via_board() {
+function job_booking_submit(type) {
     toggle_animation(true);
     var job_obj = {
         current_job_draft_id: current_job_draft_id,
@@ -305,6 +302,7 @@ function job_book_via_board() {
         current_address_string: current_address_string,
         job_lat: current_job_lat,
         job_lng: current_job_lng,
+        job_type: type,
     }
     $.ajax({
         type: "POST",

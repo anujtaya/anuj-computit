@@ -26,13 +26,13 @@
             <p class="fs--1 mb-2">
                Post your job on job board so Service providers can contact you with quote prices. We will let you know when someone replies to your job with a quote pricing.
                <br><br>
-               <button class="btn theme-background-color text-white card-1" onclick="job_book_via_board();" style="border-radius:30px;">Post to Job Board</button>
+               <button class="btn theme-background-color text-white card-1" onclick="job_booking_submit('BOARD');" style="border-radius:30px;">Post to Job Board</button>
             </p>
             Or
             <p class="fs--1 mb-2">
                Find online Service providers and get a response with a quote in less than 5 minutes. Subject to Service Provider availbility in your area.
                <br><br>
-               <button class="btn theme-background-color text-white card-1" onclick="job_book_via_instant_selection();" style="border-radius:30px;">Look for Service Providers Now</button>
+               <button class="btn theme-background-color text-white card-1" onclick="job_booking_submit('INSTANT');" style="border-radius:30px;">Look for Service Providers Now</button>
             </p>
          </div>
       </div>

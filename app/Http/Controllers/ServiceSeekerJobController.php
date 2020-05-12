@@ -239,6 +239,7 @@ class ServiceSeekerJobController extends Controller
           $job->job_lat = $job_obj->job_lat;
           $job->job_lng = $job_obj->job_lng;
           $job->status = "OPEN";
+          $job->job_type = $job_obj->job_type;
           $job->job_pin = mt_rand(1000,9999);
           $response = $job->save();
         }
@@ -263,7 +264,7 @@ class ServiceSeekerJobController extends Controller
         $job->job_lat = $job_obj->job_lat;
         $job->job_lng = $job_obj->job_lng;
         $job->status = "OPEN";
-        $job->job_type = "BOARD";
+        $job->job_type = $job_obj->job_type;
         $job->job_pin = mt_rand(1000,9999);
         $response = $job->save();
       }
