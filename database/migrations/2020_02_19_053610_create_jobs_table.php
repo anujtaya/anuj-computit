@@ -11,6 +11,7 @@ class CreateJobsTable extends Migration
      *
      * @return void
      */
+    // The job has two types instant jobs and job that are posted to job board
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
@@ -29,6 +30,7 @@ class CreateJobsTable extends Migration
             $table->string('postcode')->nullable();
             //to enable job pin confirmation
             $table->char('job_pin', 4)->nullable();
+            $table->char('job_type', 10)->nullable();
             $table->string('service_category_name')->nullable();
             $table->string('service_subcategory_name')->nullable();
             $table->bigInteger('service_category_id')->unsigned()->nullable();

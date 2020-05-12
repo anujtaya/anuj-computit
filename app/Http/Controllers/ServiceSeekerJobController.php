@@ -212,7 +212,7 @@ class ServiceSeekerJobController extends Controller
     }
 
     
-    protected function request_job(){
+    protected function job_request_type_board(){
       $job_obj = json_decode($_POST['job_obj']);
       $seeker_id = Auth::user()->id;
       $response = false;
@@ -263,6 +263,7 @@ class ServiceSeekerJobController extends Controller
         $job->job_lat = $job_obj->job_lat;
         $job->job_lng = $job_obj->job_lng;
         $job->status = "OPEN";
+        $job->job_type = "BOARD";
         $job->job_pin = mt_rand(1000,9999);
         $response = $job->save();
       }

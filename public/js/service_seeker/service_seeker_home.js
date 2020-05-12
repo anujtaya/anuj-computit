@@ -271,7 +271,8 @@ function clear_job_draft_data(job_draft_id) {
 function book_job() {
     if (typeof current_address_string !== 'undefined') {
         if (current_job_lat != null && current_job_lng != null) {
-            job_book_via_board();
+            //show job booking type selector modal
+            $("#job_booking_option_type_modal").modal("show");
         } else {
             $("#street_number").addClass('animated shake is-invalid');
             setTimeout(function() { $("#street_number").removeClass('animated shake '); }, 1000);
@@ -281,6 +282,13 @@ function book_job() {
         setTimeout(function() { $("#street_number").removeClass('animated shake '); }, 1000);
     }
 }
+
+
+function job_book_via_instant_selection() {
+    console.log('job board instant type selected');
+}
+
+
 
 function job_book_via_board() {
     toggle_animation(true);
@@ -300,7 +308,7 @@ function job_book_via_board() {
     }
     $.ajax({
         type: "POST",
-        url: app_url + '/service_seeker/job/request/submit',
+        url: app_url + '/service_seeker/jobs/request/type/board/submit',
         data: {
             "_token": csrf_token,
             "job_obj": JSON.stringify(job_obj),
