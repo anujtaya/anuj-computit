@@ -442,7 +442,7 @@ class ServiceSeekerJobController extends Controller
     if($completed_jobs_count > 0) {
         $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;
     }
-    $rating_records = $jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
+    $rating_records = $completed_jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
     $rating_prefix = 5;
     $rating_count = 1 + count($rating_records);
     $rating_sum = intval($rating_records->sum('service_seeker_rating'));
@@ -517,6 +517,56 @@ class ServiceSeekerJobController extends Controller
     }
     return redirect()->back();
   }
+
+
+  //service provider list for instant job map
+  protected function job_instant_provider_list(){
+    $job = Job::where('id', $_POST['job_id'])->first();
+    if($job != null) {
+       $service_providers = DB::table("users")
+         ->join('service_provider_services', 'users.id', '=', 'service_provider_services.user_id')
+         ->select("users.*" , "users.id as user_id"
+         ,DB::raw("6371 * acos(cos(radians(" . $job->job_lat . ")) 
+         * cos(radians(users.user_lat)) 
+         * cos(radians(users.user_lng) - radians(" . $job->job_lng . ")) 
+         + sin(radians(" .$job->job_lat. ")) 
+         * sin(radians(users.user_lat))) AS distance"))
+         ->where("users.is_online", true)
+         ->where("users.is_verified", true)
+         ->where("service_provider_services.service_cat_id",$job->service_subcategory_id)
+         ->having('distance', '<=', 200)
+         ->groupBy("user_id")
+         ->orderBy('distance', 'asc')
+         ->get();
+         return Response::json($service_providers);
+    } else {
+      return Response::json(array());
+    }
+ }
+
+ 
+ //rendered view for service provider display for map selector
+ protected function job_instant_provider_info(){
+   $user_id = $_POST['user_id'];
+   $user = User::find($user_id);
+   if($user != null) {
+     $certificates = $user->certificates;
+     $languages = $user->languages;
+     $user_services = $user->service_provider_services;
+     $stats = $this->calcualte_user_job_stats($user_id);
+     $rendered_view = view('service_seeker.jobs.partial.service_provider_info')
+                     ->with('certificates', $certificates)
+                     ->with('current_languages', $languages)
+                     ->with('user_services', $user_services)
+                     ->with('user', $user)
+                     ->with('stats', $stats)
+                     ->render();
+     return Response::json($rendered_view);
+   } else {
+     return Response::json(false);
+   }
+  
+ }
 
 
 }

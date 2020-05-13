@@ -284,7 +284,6 @@ function book_job() {
 }
 
 
-=
 
 
 function job_booking_submit(type) {
