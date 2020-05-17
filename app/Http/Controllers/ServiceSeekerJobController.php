@@ -548,6 +548,7 @@ class ServiceSeekerJobController extends Controller
  //rendered view for service provider display for map selector
  protected function job_instant_provider_info(){
    $user_id = $_POST['user_id'];
+   $job_id = $_POST['job_id'];
    $user = User::find($user_id);
    if($user != null) {
      $certificates = $user->certificates;
@@ -560,6 +561,7 @@ class ServiceSeekerJobController extends Controller
                      ->with('user_services', $user_services)
                      ->with('user', $user)
                      ->with('stats', $stats)
+                     ->with('job_id', $job_id)
                      ->render();
      return Response::json($rendered_view);
    } else {
@@ -585,6 +587,28 @@ class ServiceSeekerJobController extends Controller
   }
   return redirect()->back();
  }
+
+ //assign a service provider to instant job type
+ protected function job_instant_assign_service_provider(Request $request){
+    $input = $request->all();
+    $job = Job::find($input['job_instant_sp_selector_job_id']);
+    $service_provider_id =  $input['job_instant_sp_selector_provider_id'];
+    if($job != null && $service_provider_id != null) {
+       //assign the service provider
+       $job->service_provider_id = $service_provider_id;
+       $job->job_sp_selector_date_time = Carbon::now();
+       $job->save();
+       //notify service provider. At this point Service provider will only have 5 minutes to respond the job.
+       //send email notification to service provider.
+    }
+    return redirect()->back();
+ }
+
+ //resets the job instant type to its originol values so the service seeker can select a different service provider
+ protected function service_seeker_job_instant_reset_job(Request $request) {
+   return redirect()->back();
+ }
+
 
 
 }

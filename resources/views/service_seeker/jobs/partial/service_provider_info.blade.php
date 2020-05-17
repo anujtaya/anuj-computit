@@ -61,6 +61,11 @@
       </div>
    </div>
    <div class="m-2 shadow-sm-d  rounded">
-      <button class="btn mt-4 theme-background-color card-1 btn-block bg-white" style="border-radius:20px;"  onclick="$('#service_provider_account_information_modal').modal('hide');$('#seeker_login_to_post_job_modal').modal('show');">Select this Provider</button> 
+      <form action="{{route('service_seeker_job_instant_assign_service_provider')}}" method="POST" onsubmit="toggle_animation(true);">
+         @csrf
+         <input type="hidden" name="job_instant_sp_selector_job_id" value="{{$job_id}}" required>
+         <input type="hidden" name="job_instant_sp_selector_provider_id" value="{{$user->id}}" required>
+         <button type="submit" class="btn mt-4 theme-background-color card-1 btn-block bg-white" style="border-radius:20px;">Select this Provider</button> 
+      </form>
    </div>
 </div>

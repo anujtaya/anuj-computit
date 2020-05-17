@@ -275,7 +275,8 @@ function show_service_provider_info_modal(user_id) {
         url: service_seeker_job_instant_proider_info_url,
         data: {
             "_token": csrf_token,
-            "user_id": user_id
+            "user_id": user_id,
+            "job_id": job_id
         },
         success: function(results) {
             if (results == false) {

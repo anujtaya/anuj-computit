@@ -89,7 +89,12 @@ $currentUserTab = 'joboverview';
          <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab">
                @if($job->job_type == 'INSTANT')
-                  @include('service_seeker.jobs.partial.job_overview_partial_instant_open')
+                  <!-- if service provider id and timestamps are stored display the timer option and option to reset the job -->
+                  @if($job->service_provider_id != null && $job->job_sp_selector_date_time != null)
+                     @include('service_seeker.jobs.partial.job_overview_partial_instant_open_selected')
+                  @else 
+                     @include('service_seeker.jobs.partial.job_overview_partial_instant_open')
+                  @endif
                @elseif($job->job_type == "BOARD")
                   @if($job->status == 'OPEN')
                      @include('service_seeker.jobs.partial.job_overview_partial_open')

@@ -1,9 +1,26 @@
 <?php
 //app landing page
-Route::get('/', 'GuestController@mobile_landing_page')->name('mobile.app.landing');
+Route::get('/root', 'GuestController@mobile_landing_page')->name('mobile.app.landing');
+
+Route::get('/', 'MarketController@market_home_main')->name('market_home');
+Route::get('/marketFAQ', 'MarketController@market_faq')->name('market_faq');
+Route::get('/marketServiceProviders', 'MarketController@market_serviceproviders');
+Route::get('/marketClients', 'MarketController@market_serviceseekers');
+Route::get('/marketTerms', 'MarketController@market_terms');
+Route::get('/marketCategories', 'MarketController@market_categories');
+Route::get('/marketDownloadApp', 'MarketController@market_download_app');
+Route::get('/marketPolicy', 'MarketController@market_policy');
+Route::get('/marketSafety', 'MarketController@market_safety');
+Route::get('/marketAbout', 'MarketController@market_about');
+Route::get('/market_business', 'MarketController@market_business');
+Route::get('/legal', 'MarketController@market_legal');
+Route::get('/marketHelp', 'MarketController@market_help')->middleware('auth');
+
+
+
 Auth::routes();
 //guest routess
-Route::get('/',  'GuestController@handle_landing_request')->name('handle_landing_request');
+Route::get('/root',  'GuestController@handle_landing_request')->name('handle_landing_request');
 Route::get('app/',  'GuestController@handle_landing_request')->name('handle_landing_request');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/root', 'GuestController@mobile_landing_page')->name('guest_mobile_landing_page');
@@ -96,9 +113,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   //service seeker instant job routes
   Route::post('/service_seeker/job/instant/provider_list', 'ServiceSeekerJobController@job_instant_provider_list')->name('service_seeker_job_instant_provider_list');
   Route::post('/service_seeker/job/instant/provider_info', 'ServiceSeekerJobController@job_instant_provider_info')->name('service_seeker_job_instant_provider_info');
-
-
-
+  Route::post('/service_seeker/job/instant/assign_service_provider', 'ServiceSeekerJobController@job_instant_assign_service_provider')->name('service_seeker_job_instant_assign_service_provider');
+  Route::post('/service_seeker/job/instant/reset_job', 'ServiceSeekerJobController@job_instant_reset_job')->name('service_seeker_job_instant_reset_job');
+  
   
 
   

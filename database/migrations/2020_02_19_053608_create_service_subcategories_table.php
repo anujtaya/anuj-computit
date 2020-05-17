@@ -17,7 +17,8 @@ class CreateServiceSubcategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string("service_subname")->nullable();
             $table->bigInteger("service_cat_id")->unsigned()->nullable();
-            $table->boolean("is_active")->nullable();;
+            $table->boolean("is_active")->nullable();
+            $table->bigInteger("priority")->nullable();
             $table->foreign('service_cat_id')->references('id')->on('service_categories');
             $table->timestamps();
         });
