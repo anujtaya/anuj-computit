@@ -61,6 +61,15 @@
       <input type="hidden" name="ss_job_cancel_id" value="{{$job->id}}" required>
       <a class="btn btn-danger text-white btn-sm fs--1" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
    </form>
+   <!-- show an option to post job to job board if job is of instant type -->
+   @if($job->job_type == 'INSTANT')
+   <form action="{{route('service_seeker_job_posttojobboard')}}" method="POST" id="job_posttojobboard_form" onsubmit="toggle_animation(true);">
+      @csrf
+      <input type="hidden" name="ss_job_posttojobboard_id" value="{{$job->id}}" required>
+      <button class="btn theme-background-color text-white btn-sm fs--1 card-1" >Post to Job Board</button>
+   </form>
+   @endif
+   
    <!-- job cancellation confirm dialog modal -->
    <div class="modal fade" id="job_cancel_confirm_modal" tabindex="-1" role="dialog" aria-labelledby="job_cancel_confirm_modal_title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered-d" role="document">

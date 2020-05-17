@@ -568,5 +568,23 @@ class ServiceSeekerJobController extends Controller
   
  }
 
+ //this function converts the job from instant job type into job board type.
+ function service_seeker_job_posttojobboard(Request $request){
+  $input = $request->all();
+  $job = Job::find($input['ss_job_posttojobboard_id']);
+  //check if job exitst
+  if($job != null) {
+    //check if job type is instant and job status is open and check if user booked the job
+    if($job->job_type == 'INSTANT' && $job->status == 'OPEN' && $job->service_seeker_id == Auth::id()) {
+      //convert the job to 'BOARD' type
+      $job->job_type = 'BOARD';
+      $job->service_provider_id = null;
+      $job->status = 'OPEN';
+      $job->save();
+    }
+  }
+  return redirect()->back();
+ }
+
 
 }

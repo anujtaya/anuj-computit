@@ -242,6 +242,7 @@ class ServiceProviderJobController extends Controller
 				* sin(radians(jobs.job_lat))) AS distance"))
 				->where("jobs.status", "OPEN")
 				->where("jobs.service_seeker_id", '!=', Auth::id())
+				->where("jobs.job_type", 'BOARD')
 				->having('distance', '<=', $user->work_radius)
 				->groupBy("job_id")
 				->orderBy('distance', 'asc')

@@ -11,6 +11,9 @@
 
    <div class="mt-2" id="service_provider_map_view" >
       <!-- map div -->
+      <div class="mt-2 mb-2">
+         Please select from available Service Providers..
+      </div>
       <div class="" id="map_controls">
          <div class="d-flex bd-highlight mb-2">
             <div class="mr-auto p-0 bd-highlight">

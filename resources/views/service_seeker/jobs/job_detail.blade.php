@@ -63,6 +63,10 @@ $currentUserTab = 'joboverview';
                <div class="col-12 text-right">
                   <span class="badge  badge-warning  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Instant Job</span> 
                </div>
+            @else
+               <div class="col-12 text-right">
+                  <span class="badge  theme-background-color  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Posted to Job Board</span> 
+               </div>
             @endif
          </div>
          <ul class="nav nav-pills shadow-sm pl-2 pr-2 pb-1 nav-fill m-0 fs--1" id="myTab" role="tablist">

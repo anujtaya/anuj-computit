@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/jobs/job/update/rating', 'ServiceSeekerJobController@update_rating')->name('service_seeker_job_update_rating');
   //job cancel route
   Route::post('/service_seeker/jobs/action/cancel', 'ServiceSeekerJobController@service_seeker_job_cancel')->name('service_seeker_job_cancel');
+  //post to job board
+  Route::post('/service_seeker/jobs/action/posttojobboard', 'ServiceSeekerJobController@service_seeker_job_posttojobboard')->name('service_seeker_job_posttojobboard');
   //ajax call routes
   Route::post('/service_seeker/preferences/update', 'ServiceSeekerController@update_preferences')->name('service_seeker_preferences_update');
   Route::get('/service_seeker/timer', 'ServiceSeekerJobController@timer')->name('service_provider_timer');
