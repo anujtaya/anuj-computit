@@ -124,18 +124,18 @@ class ServiceProviderController extends Controller
     }
 
     function service_provider_jobs_history(){
-        //need to be changed to service_provider_id
-        //$service_provider_jobs = Job::where('service_seeker_id', Auth::id())->where('status', '!=', 'OPEN')->where('status', '!=', 'COMPLETED')->where('status', '!=', 'CANCELED')->get();
-        
-        // $convos = Conversation::where('service_provider_id', Auth::id())->get();
         $jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
                                 ->where('conversations.service_provider_id', Auth::id())
                                 ->where('jobs.status','!=' , 'DRAFT')
                                 ->where('jobs.status','!=' , 'COMPLETED')
                                 ->where('jobs.status','!=' , 'CANCELLED')
+                                ->where('jobs.job_type','!=' , 'INSTANT')
                                 ->get();
+        //instatn job type fetch 
+        $instant_jobs = Job::where('service_provider_id', Auth::id())->where('job_type', 'INSTANT')->get();
+        
         //dd($service_provider_jobs);
-        return View::make("service_provider.jobs.history")->with('jobs', $jobs);
+        return View::make("service_provider.jobs.history")->with('jobs', $jobs)->with('instant_jobs', $instant_jobs);
     }
 
 

@@ -1,3 +1,4 @@
+<!-- board job types -->
 @foreach($jobs as $job)
 <li class="list-group-item mt-2 mb-2 ml-2 mr-2 card-1 border-0  fs--1 p-0"  style="cursor:pointer;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
     @if($job->job_type == 'INSTANT')

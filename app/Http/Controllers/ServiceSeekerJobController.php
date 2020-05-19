@@ -605,7 +605,17 @@ class ServiceSeekerJobController extends Controller
  }
 
  //resets the job instant type to its originol values so the service seeker can select a different service provider
- protected function service_seeker_job_instant_reset_job(Request $request) {
+ protected function job_instant_reset_job(Request $request) {
+  $input = $request->all();
+  $job = Job::find($input['job_instant_sp_selector_job_id']);
+  if($job != null) {
+    $job->job_sp_selector_date_time = null;
+    $job->service_provider_id = null;
+    $job->save();
+    //remove the conversation if any between service provider and service seeker
+    //let service provider know that the service seeker is no longer interested in the job 
+    
+  }
    return redirect()->back();
  }
 
