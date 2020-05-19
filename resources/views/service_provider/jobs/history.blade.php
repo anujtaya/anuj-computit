@@ -58,7 +58,7 @@ var service_provider_jobs_filter_url = "{{route('service_provider_jobs_filter')}
           },
           success: function(results){
             var myUl = $("#service_provider_filter_ul_list");
-            if(results['jobs'].length == 0){
+            if(results['jobs'].length == 0 && results['instant_jobs'] == 0 ){
               myUl.html("<p class='m-2 p-2 text-warning'>No jobs found</p>");
             }else{
               myUl.html(results['html']);

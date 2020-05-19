@@ -489,20 +489,37 @@ class ServiceProviderJobController extends Controller
 		$user_id = Auth::id();
 		if($filter_action == "ALL"){
 			$jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
-					->where('conversations.service_provider_id', Auth::id())
-					->where('jobs.status','!=', 'CANCELLED')
-					->orderBy('jobs.job_date_time', 'asc')
-					->get();
+								->where('conversations.service_provider_id', Auth::id())
+								->where('jobs.status','!=', 'CANCELLED')
+								->where('jobs.job_type','!=' , 'INSTANT')
+								->orderBy('jobs.job_date_time', 'asc')
+								->get();
+			//instatn job type fetch 
+			$instant_jobs = Job::where('service_provider_id', Auth::id())
+								->where('status','!=' , 'DRAFT')
+								->where('status','!=' , 'COMPLETED')
+								->where('status','!=' , 'CANCELLED')
+								->where('job_type', 'INSTANT')->get();
 		}else{
 			$jobs = Conversation::join('jobs', 'conversations.job_id', 'jobs.id')
-					->where('conversations.service_provider_id', Auth::id())
-					->where('jobs.status',$filter_action)
-					->orderBy('jobs.job_date_time', 'asc')
-					->get();
+								->where('conversations.service_provider_id', Auth::id())
+								->where('jobs.status',$filter_action)
+								->where('jobs.job_type','!=' , 'INSTANT')
+								->orderBy('jobs.job_date_time', 'asc')
+							->get();
+			//instatn job type fetch 
+			$instant_jobs = Job::where('service_provider_id', Auth::id())
+								->where('status','!=' , 'DRAFT')
+								->where('status','!=' , 'COMPLETED')
+								->where('status','!=' , 'CANCELLED')
+								->where('job_type', 'INSTANT')->get();
 		}
 		//render the html page.
-		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_templates_list', compact('jobs'))->render();
-		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
+		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_templates_list')
+						->with('jobs', $jobs)
+						->with('instant_jobs', $instant_jobs)				
+						->render();
+		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs, 'instant_jobs'=>$instant_jobs]);
 	}
 
 	//service provider cancel job handler

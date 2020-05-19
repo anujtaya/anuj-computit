@@ -132,7 +132,11 @@ class ServiceProviderController extends Controller
                                 ->where('jobs.job_type','!=' , 'INSTANT')
                                 ->get();
         //instatn job type fetch 
-        $instant_jobs = Job::where('service_provider_id', Auth::id())->where('job_type', 'INSTANT')->get();
+        $instant_jobs = Job::where('service_provider_id', Auth::id())
+                            ->where('status','!=' , 'DRAFT')
+                            ->where('status','!=' , 'COMPLETED')
+                            ->where('status','!=' , 'CANCELLED')
+                            ->where('job_type', 'INSTANT')->get();
         
         //dd($service_provider_jobs);
         return View::make("service_provider.jobs.history")->with('jobs', $jobs)->with('instant_jobs', $instant_jobs);

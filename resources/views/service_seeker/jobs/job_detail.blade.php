@@ -91,7 +91,21 @@ $currentUserTab = 'joboverview';
                @if($job->job_type == 'INSTANT')
                   <!-- if service provider id and timestamps are stored display the timer option and option to reset the job -->
                   @if($job->service_provider_id != null && $job->job_sp_selector_date_time != null)
-                     @include('service_seeker.jobs.partial.job_overview_partial_instant_open_selected')
+                     @if($job->status == 'OPEN')
+                        @include('service_seeker.jobs.partial.job_overview_partial_instant_open_selected')
+                     @elseif($job->status == 'APPROVED')
+                        @include('service_seeker.jobs.partial.job_overview_partial_approved')
+                     @elseif($job->status == 'ONTRIP')
+                        @include('service_seeker.jobs.partial.job_overview_partial_ontrip')
+                     @elseif($job->status == 'ARRIVED')
+                        @include('service_seeker.jobs.partial.job_overview_partial_arrived')
+                     @elseif($job->status == 'STARTED')
+                        @include('service_seeker.jobs.partial.job_overview_partial_started')
+                     @elseif($job->status == 'COMPLETED')
+                        @include('service_seeker.jobs.partial.job_overview_partial_completed')
+                     @elseif($job->status == 'CANCELLED')
+                        @include('service_seeker.jobs.partial.job_overview_partial_cancelled')
+                     @endif
                   @else 
                      @include('service_seeker.jobs.partial.job_overview_partial_instant_open')
                   @endif

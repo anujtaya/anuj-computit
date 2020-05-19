@@ -611,10 +611,12 @@ class ServiceSeekerJobController extends Controller
   if($job != null) {
     $job->job_sp_selector_date_time = null;
     $job->service_provider_id = null;
-    $job->save();
-    //remove the conversation if any between service provider and service seeker
-    //let service provider know that the service seeker is no longer interested in the job 
     
+    //remove the conversation if any between service provider and service seeker
+
+    
+    //let service provider know that the service seeker is no longer interested in the job 
+    $job->save();
   }
    return redirect()->back();
  }

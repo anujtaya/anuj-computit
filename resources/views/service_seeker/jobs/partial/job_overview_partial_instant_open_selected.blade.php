@@ -15,7 +15,14 @@
             </div>
          </div>
          <!-- service provider resonse time counter -->
+         @php
+               $conversation = $job->conversations->where('service_provider_id', $job->service_provider_id)->first();
+         @endphp
+         @if($conversation != null)
 
+         <a href="{{route('service_seeker_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm theme-background-color text-white card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+
+         @endif
 
 
          <!-- option to select a different service provider  -->
@@ -38,7 +45,7 @@
    var job_id = "{{$job->id}}";
    window.onload = function() {
       //check if service provider has responded to the converstions
-      
+
    }
    
 </script>
