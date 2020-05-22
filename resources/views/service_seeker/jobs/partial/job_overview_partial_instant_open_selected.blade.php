@@ -1,8 +1,5 @@
 <div class="p-0 fs--1">
    <div class="mt-2" >
-      <div class="mt-2 alert alert-info mb-2">
-         Waiting for Service Provider Response. We will let you know when Service Provider responds to you Job request.
-      </div>
       <div>
          <!-- service provider info -->
          <div class="d-flex  theme-background-color rounded  text-white bd-highlight  sticky-top shadow-d card-1">
@@ -19,14 +16,19 @@
                $conversation = $job->conversations->where('service_provider_id', $job->service_provider_id)->first();
          @endphp
          @if($conversation != null)
-
-         <a href="{{route('service_seeker_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm theme-background-color text-white card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
-
+            <a href="{{route('service_seeker_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm theme-background-color text-white card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+         @else 
+            <div class="alert alert-info fs--1">
+               Waiting for Service Provider Response. We will let you know when Service Provider responds to you Job request. If the Service Provider does not respond in next 20 minutes the timer will expire and you may choose a different Service provider.
+            </div>
+               <div id="tcc"  class="col-lg-12 text-center">
+                  <span class="badge badge-primary fs-2"><span id="time">--:--</span> Minutes</div></span>
+               </div>
          @endif
 
 
          <!-- option to select a different service provider  -->
-        <div class="text-center">
+        <div class="text-center" id="job_instant_switch_provider_div" style="display:none;">
             <form action="{{route('service_seeker_job_instant_reset_job')}}" method="POST" onsubmit="toggle_animation(true);">
                @csrf
                <input type="hidden" name="job_instant_sp_selector_job_id" value="{{$job->id}}" required>
@@ -43,10 +45,52 @@
    var job_lat = "{{$job->job_lat}}";
    var job_lng = "{{$job->job_lng}}";
    var job_id = "{{$job->id}}";
+   var job_sp_selector_date_time = "{{$job->job_sp_selector_date_time}}";
+   var current_time = "{{\Carbon\Carbon::now()}}";
+  
+
    window.onload = function() {
       //check if service provider has responded to the converstions
-
+      //countDownTime(job_sp_selector_date_time);
+   //    var fiveMinutes = 60 * 5,
+   //      display = document.querySelector('#time');
+   //  startTimer(fiveMinutes, display);
+   initialize_timer();
    }
    
+function initialize_timer(){
+   var js_sp_selector_date_time = new Date(job_sp_selector_date_time);
+   var js_current_time = new Date(current_time).getTime();
+   var js_seconds_diff =(js_current_time - js_sp_selector_date_time) / 1000;
+   var js_diff_minutes = js_seconds_diff / 60;
+   var time_left =  (5 - js_diff_minutes) * 60; 
+   display = document.querySelector('#time');
+   startTimer(time_left, display);
+   console.log(time_left);
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    var x  = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    
+
+        if (--timer < 0) {
+           clearInterval(x);
+           $("#tcc").fadeOut();
+           $("#job_instant_switch_provider_div").show();
+           // timer = duration;
+        } else {
+          display.textContent = minutes + ":" + seconds;
+        }
+
+    }, 1000);
+}
+
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
