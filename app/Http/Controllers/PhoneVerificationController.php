@@ -13,6 +13,8 @@ use App\User;
 use App\ServiceCategory;
 use App\ServiceSubCategory;
 use Validator;
+use App\Notification;
+use App\Notifications\MobileNumberVerified;
 
 class PhoneVerificationController extends Controller
 {
@@ -76,33 +78,46 @@ class PhoneVerificationController extends Controller
         $twilio_verify_sid = \Config::get("services.twilio.TWILIO_VERIFY_SID");
         $twilio = new Client($twilio_sid, $token);
 
-        try {
+       
             //if not test environment
             if(!config('app.debug')) {
-                $verification = $twilio->verify->v2->services($twilio_verify_sid)
-                    ->verificationChecks
-                    ->create($input['verification_code'], array('to' => $input['phone_number']));
-                if ($verification->valid) {
-                    $user->is_verified =1;
-                    $user->save();
-                    if(Session::has('mobile_number_changed')) {
-                        return redirect::to(Session::pull('mobile_number_changed'));
-                    }
-                    if(Session::has('is_sp_registration_required')) {
-                        return redirect()->route('service_provider_register_business');
+                try {
+                    $verification = $twilio->verify->v2->services($twilio_verify_sid)
+                        ->verificationChecks
+                        ->create($input['verification_code'], array('to' => $input['phone_number']));
+                    if ($verification->valid) {
+                        $user->is_verified =1;
+                        $user->save();
+                        //send notification
+                        $this->send_mobile_number_verification_success_notification();
+                        if(Session::has('mobile_number_changed')) {
+                            return redirect::to(Session::pull('mobile_number_changed'));
+                        }
+                        if(Session::has('is_sp_registration_required')) {
+                            return redirect()->route('service_provider_register_business');
+                        } else {
+                        return redirect()->route('service_seeker_home');
+                        }
                     } else {
-                    return redirect()->route('service_seeker_home');
-                    }
-                } else {
-                    $validator->errors()->add('verification_code', 'Verification code is incorrect.');
+                        $validator->errors()->add('verification_code', 'Verification code is incorrect.');
+                        return redirect()
+                                ->back()
+                                ->withErrors($validator)
+                                ->withInput();
+                    } 
+                }
+                catch (\Exception $e) {
+                    $validator->errors()->add('verification_code', $e->getCode(). ' : ' . 'Please request another code and try again!');
                     return redirect()
                             ->back()
                             ->withErrors($validator)
                             ->withInput();
-                } 
+                }
             } else { 
                 $user->is_verified =1;
                 $user->save();
+                //send notification
+                $this->send_mobile_number_verification_success_notification();
                 if(Session::has('mobile_number_changed')) {
                     return redirect::to(Session::pull('mobile_number_changed'));
                 }
@@ -112,13 +127,15 @@ class PhoneVerificationController extends Controller
                     return redirect()->route('service_seeker_registration_completed');
                 }
             }
-        }
-        catch (\Exception $e) {
-            $validator->errors()->add('verification_code', $e->getCode(). ' : ' . 'Please request another code and try again!');
-            return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-        }
+       
+    }
+
+    function send_mobile_number_verification_success_notification() {
+        $user = auth()->user();
+        $data = new \stdClass();
+        $data->name = $user->first;
+        $data->mobile_number_masked = $user->phone;
+        //send email notification
+        Auth::user()->notify(new MobileNumberVerified($data));
     }
 }
