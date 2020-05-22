@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Hash;
 use Image;
 use Storage;
 use URL;
+use Notifiable;
+use App\Notification;
+use App\Notifications\AccountCreated;
 
 class UserController extends Controller
 {
@@ -49,6 +52,8 @@ class UserController extends Controller
           $new_user->password = Hash::make($data['password']);
           if($new_user->save()) {
               Auth::loginUsingId($new_user->id);
+              //once the user is logged in send the user a new account created email notification
+              Auth::user()->notify(new AccountCreated());
               return redirect()->route('service_seeker_home');
           } else {
               Session::put('error', 'Unable to process this request.');

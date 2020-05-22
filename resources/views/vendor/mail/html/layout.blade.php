@@ -27,6 +27,7 @@
         <tr>
             <td align="center">
                 <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                    <img src="{{asset('/images/brand/logo-min.png')}}" style="height:80px;width:80px;margin-top:20px;" height="80" width="80" alt="{{config('app.name')}}">
                     {{ $header ?? '' }}
 
                     <!-- Email Body -->
