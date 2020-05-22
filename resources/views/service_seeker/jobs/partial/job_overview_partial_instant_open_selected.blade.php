@@ -41,8 +41,9 @@
                <br>
                <br>
                <p class="fs--1 mb-2">
-                  Your Service Provider didn't respond to the Job within the specified time limit. You can either select a different Service Provider or Post the job on to Job Board so the Service Provider in your area
-                  can respond to you with price quote on your job. Select an option from below to continue.
+                  Your Service Provider didn't respond to the job within the defined time limit.
+                  You can either select a different Service Provider or Post the job on to Job Board so the Service Provider in your area can respond to you with a price quote on your job. 
+                  Select an option from below to continue.
                </p>
                <form class="mb-2" action="{{route('service_seeker_job_instant_reset_job')}}" method="POST" onsubmit="toggle_animation(true);">
                   @csrf
