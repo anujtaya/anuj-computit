@@ -1,5 +1,5 @@
-<div class="fixed-bottom " style="height:10%;">
-   <div class="row border-top pt-2 bg-white sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
+<div class="fixed-bottom bg-white" style="height:10%;">
+   <div class="row border-top pt-2 =sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
       <div class="col-3 p-3">
          <span class="{{ (request()->is('guest/service_seeker/home')) ? 'theme-color' : '' }}  text-decoration-none"  onclick="update_user_location();">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
          Home</span>

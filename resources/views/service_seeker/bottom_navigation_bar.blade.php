@@ -1,5 +1,5 @@
-<div class="fixed-bottom"  @if(request()->is('service_seeker/home')) style="height:10%" @endif>
-   <div class="row border-top pt-2 bg-white sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
+<div class="fixed-bottom bg-white "  @if(request()->is('service_seeker/home')) style="height:10%" @endif>
+   <div class="row border-top pt-2 sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
       @if(request()->is('service_seeker/home')  || request()->is('service_seeker/more') )
 
       @else
