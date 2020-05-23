@@ -134,8 +134,10 @@ class PhoneVerificationController extends Controller
         $user = auth()->user();
         $data = new \stdClass();
         $data->name = $user->first;
-        $data->mobile_number_masked = $user->phone;
-        //send email notification
+        $data->mobile_number_masked = '******'. substr($user->phone, -4);
+        //email notification
         Auth::user()->notify(new MobileNumberVerified($data));
+        //sms notification
+        //push notification
     }
 }
