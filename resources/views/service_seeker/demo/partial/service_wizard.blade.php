@@ -63,7 +63,7 @@
       <div class="col-12 fs--1 p-2 p-3" >
          <div class="form-group">
             <label for="exampleInputEmail1">Write your job title</label>
-            <input type="email" class="form-control form-control-sm" onchange="create_draft_job();"  id="service_job_title" placeholder="Please enter your job title" value="@if($session_draft_job != null){{$session_draft_job->title}}@endif">
+            <input type="text" class="form-control form-control-sm" onchange="create_draft_job();"  id="service_job_title" placeholder="Please enter your job title" value="@if($session_draft_job != null){{$session_draft_job->title}}@endif">
             <small id="emailHelp" class="form-text text-muted">Please use plain english text.</small>
          </div>
          <div class="form-group">
