@@ -54,6 +54,13 @@
    var job_id = "{{$job->id}}";
    window.onload = function() {
       fetch_service_providers();
+      initialize_service_provider_fetch_timer();
+   }
+   var provider_fetch_timer;
+   function initialize_service_provider_fetch_timer(){
+      provider_fetch_timer  = setInterval(function () {
+         fetch_service_providers();
+      }, 20000);
    }
    
 </script>

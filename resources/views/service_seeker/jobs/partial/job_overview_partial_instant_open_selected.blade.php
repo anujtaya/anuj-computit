@@ -14,9 +14,19 @@
    $conversation = $job->conversations->where('service_provider_id', $job->service_provider_id)->first();
    @endphp
    @if($conversation != null)
-   <a href="{{route('service_seeker_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="fs--1 btn btn-sm theme-background-color text-white card-1" onclick="toggle_animation(true);">
-   <i class="fas fa-comments-dollar"></i> Messages
-   </a>
+   <div class="text-center mt-4">
+      <p>
+         Your Service provider <b>{{$job->service_provider_profile->first}}</b> has offered to this job for <b>${{number_format($conversation->json['offer'],2)}}</b>.
+         Please click on the Messages button below to accept the offer or contact {{$job->service_provider_profile->first}}  
+      </p>
+      <a href="{{route('service_seeker_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}" class="btn mt-4 theme-background-color card-1 btn-block bg-white fs--1"  onclick="toggle_animation(true);">
+      <i class="fas fa-comments-dollar"></i> Messages
+      </a>
+   </div>
+   <div id="switch_provider_modal_trigger" class="fs--1">
+      <button class="btn mt-4 theme-background-color card-1 btn-block bg-white fs--1" onclick="$('#switch_provider_modal_form').submit();">Select a different Service Provider</button>
+      <button class="btn mt-4 theme-background-color card-1 btn-block bg-white fs--1" onclick="$('#job_posttojobboard_form').submit();">Post to Job Board</button>
+   </div>
    @else 
    <div class="alert alert-info fs--1">
       Waiting for Service Provider Response. We will let you know when Service Provider responds to you Job request. If the Service Provider does not respond in next 20 minutes the timer will expire and you may choose a different Service provider.
@@ -25,7 +35,7 @@
       <span class="fs-2 text-muted" style="font-size:36px;"><span id="time">--:--</span> Minutes</span>
    </div>
    <div id="switch_provider_modal_trigger" style="display:none;">
-      <button class="btn mt-4 theme-background-color card-1 btn-block bg-white">Select a different Service Provider</button>
+      <button class="btn mt-4 theme-background-color card-1 btn-block bg-white" onclick="$('#switch_provider_modal_form').submit();">Select a different Service Provider</button>
       <button class="btn mt-4 theme-background-color card-1 btn-block bg-white" onclick="$('#job_posttojobboard_form').submit();">Post to Job Board</button>
    </div>
    @endif
@@ -45,7 +55,7 @@
                   You can either select a different Service Provider or Post the job on to Job Board so the Service Provider in your area can respond to you with a price quote on your job. 
                   Select an option from below to continue.
                </p>
-               <form class="mb-2" action="{{route('service_seeker_job_instant_reset_job')}}" method="POST" onsubmit="toggle_animation(true);">
+               <form class="mb-2" action="{{route('service_seeker_job_instant_reset_job')}}" method="POST" id="switch_provider_modal_form" onsubmit="toggle_animation(true);">
                   @csrf
                   <input type="hidden" name="job_instant_sp_selector_job_id" value="{{$job->id}}" required>
                   <button type="submit" class="btn mt-4 theme-background-color card-1 btn-block bg-white">Choose another Service Provider</button>
@@ -58,19 +68,18 @@
    </div>
 </div>
 <!-- end dialog model -->
-
 @if($conversation != null)
 <script>
-window.onload = function() {
-   }
-
+   window.onload = function() {
+      }
+   
 </script>
 @else 
 <script>
-window.onload = function() {
-   initialize_timer();
-   initialize_conversation_check_timer();
-   }
+   window.onload = function() {
+      initialize_timer();
+      initialize_conversation_check_timer();
+      }
 </script>
 @endif
 <script>
@@ -85,7 +94,7 @@ window.onload = function() {
    var job_sp_selector_date_time = "{{$job->job_sp_selector_date_time}}";
    var current_time = "{{\Carbon\Carbon::now()}}";
    
-
+   
    function initialize_timer(){
    var js_sp_selector_date_time = new Date(job_sp_selector_date_time);
    var js_current_time = new Date(current_time).getTime();
@@ -127,8 +136,8 @@ window.onload = function() {
    
     }, 1000);
    }
-
-
+   
+   
    function check_conversation_exists(){
       $.ajax({
             type: "POST",

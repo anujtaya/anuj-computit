@@ -293,6 +293,15 @@ function show_service_provider_info_modal(user_id) {
     });
 }
 
+var first_load = true;
+
+function first_load_initialize() {
+    if (first_load) {
+        set_display_bounds();
+        first_load = false;
+    }
+}
+
 function fetch_service_providers() {
     $.ajax({
         type: "POST",
@@ -303,10 +312,9 @@ function fetch_service_providers() {
         },
         success: function(results) {
             $("#map_msg").html(results.length + ' Service Provider found nearby your job location.');
-            if (results.length != 0) {
-                populate_markers(results);
-                set_display_bounds();
-            }
+            populate_markers(results);
+            first_load_initialize();
+
         },
         error: function(results, status, err) {
             console.log(err);
