@@ -621,6 +621,19 @@ class ServiceSeekerJobController extends Controller
    return redirect()->back();
  }
 
+ //check if the ocnversation exists for instant job between provider and seeker
+ protected function job_instant_provider_check_conversation_exists(){
+  $service_provider_id = $_POST['service_provider_id'];
+  $job_id = $_POST['job_id'];
+  $conversation = Job::find($job_id)->conversations->where('service_provider_id', $service_provider_id)->first();
+  if($conversation != null) {
+    return Response::json(true);
+  } else {
+    return Response::json(false);
+  }
+
+ }
+
 
 
 }

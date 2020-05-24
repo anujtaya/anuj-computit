@@ -58,35 +58,49 @@
    </div>
 </div>
 <!-- end dialog model -->
+
+@if($conversation != null)
+<script>
+window.onload = function() {
+   }
+
+</script>
+@else 
+<script>
+window.onload = function() {
+   initialize_timer();
+   initialize_conversation_check_timer();
+   }
+</script>
+@endif
 <script>
    var service_seeker_job_instant_proider_list_url = "{{route('service_seeker_job_instant_provider_list')}}";
    var service_seeker_job_instant_proider_info_url = "{{route('service_seeker_job_instant_provider_info')}}";
+   var service_seeker_job_instant_proider_check_conversation_exists =  "{{route('service_seeker_job_instant_provider_check_conversation_exists')}}";
    var app_url = "{{URL::to('/')}}";
    var job_lat = "{{$job->job_lat}}";
    var job_lng = "{{$job->job_lng}}";
    var job_id = "{{$job->id}}";
+   var service_provider_id = "{{$job->service_provider_id}}";
    var job_sp_selector_date_time = "{{$job->job_sp_selector_date_time}}";
    var current_time = "{{\Carbon\Carbon::now()}}";
    
-   
-   window.onload = function() {
-      //check if service provider has responded to the converstions
-      //countDownTime(job_sp_selector_date_time);
-   //    var fiveMinutes = 60 * 5,
-   //      display = document.querySelector('#time');
-   //  startTimer(fiveMinutes, display);
-   initialize_timer();
-   }
-   
+
    function initialize_timer(){
    var js_sp_selector_date_time = new Date(job_sp_selector_date_time);
    var js_current_time = new Date(current_time).getTime();
    var js_seconds_diff =(js_current_time - js_sp_selector_date_time) / 1000;
    var js_diff_minutes = js_seconds_diff / 60;
-   var time_left =  (5 - js_diff_minutes) * 60; 
+   var time_left =  (20 - js_diff_minutes) * 60; 
    display = document.querySelector('#time');
    startTimer(time_left, display);
    console.log(time_left);
+   }
+   var conversation_check_timer;
+   function initialize_conversation_check_timer(){
+      conversation_check_timer  = setInterval(function () {
+         check_conversation_exists();
+      }, 5000);
    }
    
    function startTimer(duration, display) {
@@ -102,6 +116,7 @@
    
         if (--timer < 0) {
            clearInterval(x);
+           clearInterval(conversation_check_timer);
            $("#tcc").fadeOut();
            $("#switch_provider_modal_trigger").show();
            $("#switch_provider_dialog_modal").modal('show');
@@ -111,6 +126,32 @@
         }
    
     }, 1000);
+   }
+
+
+   function check_conversation_exists(){
+      $.ajax({
+            type: "POST",
+            url: service_seeker_job_instant_proider_check_conversation_exists,
+            data: {
+               "_token": CSRF_TOKEN,
+               "job_id": job_id,
+               "service_provider_id": service_provider_id
+            },
+            success: function(results){
+               //console.log(results);
+               if(results  == false) {
+                  console.log('conversation does not exists');
+                  
+               } else {
+                  location.reload();
+                  console.log('conversation exits');
+               }
+            },
+            error: function(results, status, err) {
+               console.log(err);
+            }
+      });
    }
    
 </script>

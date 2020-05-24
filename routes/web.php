@@ -115,7 +115,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/job/instant/provider_info', 'ServiceSeekerJobController@job_instant_provider_info')->name('service_seeker_job_instant_provider_info');
   Route::post('/service_seeker/job/instant/assign_service_provider', 'ServiceSeekerJobController@job_instant_assign_service_provider')->name('service_seeker_job_instant_assign_service_provider');
   Route::post('/service_seeker/job/instant/reset_job', 'ServiceSeekerJobController@job_instant_reset_job')->name('service_seeker_job_instant_reset_job');
-  
+  Route::post('/service_seeker/job/instant/provider_check_conversation_exists', 'ServiceSeekerJobController@job_instant_provider_check_conversation_exists')->name('service_seeker_job_instant_provider_check_conversation_exists');
   
 
   
