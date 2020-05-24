@@ -15,10 +15,13 @@ use Carbon\Carbon;
 use Session;
 use Validator;
 use Input;
-use Notification;
 use App\Notifications\ServiceSeekerEmailInvoice;
 use PDF;
 use DB;
+use Notifiable;
+use App\Notification;
+use App\Notifications\JobBoardNotification;
+use App\Notifications\JobInstantNotification;
 
 
 class ServiceSeekerJobController extends Controller
@@ -240,8 +243,14 @@ class ServiceSeekerJobController extends Controller
           $job->job_lng = $job_obj->job_lng;
           $job->status = "OPEN";
           $job->job_type = $job_obj->job_type;
+        
           $job->job_pin = mt_rand(1000,9999);
           $response = $job->save();
+          if($response && $job->job_type == 'BOARD') {
+            $this->send_notification_job_board_notification($job);
+          } else if ($response && $job->job_type == 'INSTANT'){
+            $this->send_notification_job_insant_notification($job);
+          }
         }
       }else{
         $job = new Job();
@@ -267,8 +276,22 @@ class ServiceSeekerJobController extends Controller
         $job->job_type = $job_obj->job_type;
         $job->job_pin = mt_rand(1000,9999);
         $response = $job->save();
+        if($response && $job->job_type == 'BOARD') {
+          $this->send_notification_job_board_notification($job);
+        } else if ($response && $job->job_type == 'INSTANT'){
+          $this->send_notification_job_insant_notification($job);
+        }
       }
       return Response::json($response);
+    }
+
+    protected function send_notification_job_board_notification($job){
+      Auth::user()->notify(new JobBoardNotification($job));
+    }
+
+
+    protected function send_notification_job_insant_notification($job){
+      Auth::user()->notify(new JobInstantNotification($job));
     }
 
 
