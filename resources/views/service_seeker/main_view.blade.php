@@ -22,7 +22,7 @@
       <div id="seeker_services_list_container" class="row text-center fs--1 m-0" >
         @foreach($categories as $category)
          <div  class="col-6 p-1">
-            <div class="rounded h-100 bg-white p-1 text-center shadow-sms card-1" id="sid-{{$category->id}}" onclick="user_service_selection(this.id);" data-catname="{{$category->service_name}}">
+            <div class="rounded  bg-white p-1 text-center shadow-sms card-1" style="min-height:110px!important;" id="sid-{{$category->id}}" onclick="user_service_selection(this.id);" data-catname="{{$category->service_name}}">
               <img src="{{asset('images/service_icons/'.strtolower(str_replace(' ', '',$category->service_name)).'.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:50px;" alt="">
               <span>{{$category->service_name}}</span>
             </div>
@@ -62,7 +62,7 @@ function display_updated_seeker_service_list(data) {
       var img = document.createElement('img');
 
       div_1.classList = 'col-6 p-2';
-      div_2.classList = 'rounded h-100 bg-white p-1 text-center border';
+      div_2.classList = 'rounded bg-white p-1 text-center border';
       div_2.id = "sid-"+data[i]['id'];
       div_2.dataset.catname = data[i]['service_name'];
       div_2.addEventListener('click', function(){

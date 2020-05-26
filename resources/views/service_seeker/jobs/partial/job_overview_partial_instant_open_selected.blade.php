@@ -96,8 +96,8 @@
    
    
    function initialize_timer(){
-   var js_sp_selector_date_time = new Date(job_sp_selector_date_time);
-   var js_current_time = new Date(current_time).getTime();
+   var js_sp_selector_date_time = new Date( job_sp_selector_date_time.replace(/-/g, '/')  );
+   var js_current_time = new Date(current_time.replace(/-/g, '/')).getTime();
    var js_seconds_diff =(js_current_time - js_sp_selector_date_time) / 1000;
    var js_diff_minutes = js_seconds_diff / 60;
    var time_left =  (20 - js_diff_minutes) * 60; 
