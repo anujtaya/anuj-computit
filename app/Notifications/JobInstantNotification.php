@@ -43,7 +43,7 @@ class JobInstantNotification extends Notification
     {
         return (new MailMessage)
                     ->subject('We have successfully created your instant job.')
-                    ->line('We have successfully posted the job on the job board. Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$this->job->id.'')
+                    ->line('We have successfully posted your job for review by our Service Providers. Available Service Providers will appear in both the List View and Map View and will respond to your job soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:'.$this->job->id.'')
                     ->action('Visit App', url('/'))
                     ->line('Thank you for using our application!');
     }
