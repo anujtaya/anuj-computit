@@ -14,9 +14,18 @@ use Input;
 use Validator;
 use Response;
 use DB;
+use App\Notification;
+use App\Notifications\AccountCreated;
 
 class DemoController extends Controller
 {
+    
+    function test_email(){
+           $user = User::where('email', 'tayaanuj@gmail.com')->first();
+           $user->notify(new AccountCreated());
+    }
+    
+    
     function car_map_demo(){
         return View::make("demo.car_map_demo");
     }
