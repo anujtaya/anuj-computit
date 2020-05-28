@@ -8,7 +8,7 @@
          </div>
       @endif
       <div class="col-3 p-2">
-      @if(!(request()->is('service_seeker/home')))
+      @if(!(request()->is('service_seeker/home')) || request()->has('showBooking'))
       <a class="{{ (request()->is('service_seeker/home')) ? 'theme-color' : '' }}  text-muted  text-decoration-none"  href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);"><i class="fas  fs-2 fa-home mb-1"></i> <br>
          Home
       </a>
