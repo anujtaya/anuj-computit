@@ -48,11 +48,11 @@
                   @csrf
                   <div class="radio">
                      <input id="radio-1" name="demo_type" type="radio" value="ss" checked="">
-                     <label for="radio-1" class="radio-label  " style="font-size:16px;">I want work done.</label>
+                     <label for="radio-1" class="radio-label  " style="font-size:16px;">I want work done. (Know as a 'Seeker')</label>
                   </div>
                   <div class="radio">
                      <input id="radio-2" name="demo_type" value="sp" type="radio">
-                     <label for="radio-2" class="radio-label" style="font-size:16px;">I want to work.</label>
+                     <label for="radio-2" class="radio-label" style="font-size:16px;">I want to work. I want to work . (Know as a 'Provider')</label>
                   </div>
                   <div class="mt-4">
                      <button type="submit" class="btn theme-background-color fs--1 text-white" styles="border-radius:20px;padding-left:10px;padding-top:10px;padding-bottom:10px;" width="221px" height="47px" onclick="toggle_animation(true);">Continue</button>
