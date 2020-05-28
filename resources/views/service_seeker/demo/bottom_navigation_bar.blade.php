@@ -5,20 +5,20 @@
          Home</span>
       </div>
       <div class="col-3 p-3">
-         <span class="text-muteds text-muted" style="opacity:0.2;" onclick="$('#user_no_account_message_modal').modal('show');">
+         <span class="text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2 fa-user mb-1"></i><br>
          Profile
          </sapn>
       </div>
       <div class="col-3 p-3">
-         <span class="text-muteds text-muted" style="opacity:0.2;" onclick="$('#user_no_account_message_modal').modal('show');">
+         <span class="text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2  fa-briefcase mb-1"></i>
          <br>
          Jobs
          </sapn>
       </div>
       <div class="col-3 p-3  ">
-         <span class="text-muteds text-muted" style="opacity:0.2;" onclick="$('#user_no_account_message_modal').modal('show');">
+         <span class="text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2 fa-plus mb-1"></i><br>
          More
          </sapn>
