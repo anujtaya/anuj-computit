@@ -213,8 +213,9 @@
       //update_interval =  setInterval(fetch_all_jobs, 25000);
       //setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup
+      update_sp_location();
       if(current_lat == '') {
-         update_sp_location();
+         //update_sp_location();
       } else {
          filter_service_provider_jobs(null,true);
       }

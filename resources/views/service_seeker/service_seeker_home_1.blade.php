@@ -79,9 +79,9 @@ var seeker_update_current_location = "{{route('service_seeker_services_location_
 var update_location_on_load = false;
 
 window.onload = function() {
-   if(current_lat == '' || update_location_on_load) {
+   //if(current_lat == '' || update_location_on_load) {
       update_user_location();
-   }
+   //}
 }
 </script>
 <!-- end map control script  -->
