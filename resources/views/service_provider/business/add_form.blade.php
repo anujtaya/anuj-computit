@@ -49,7 +49,7 @@ input:checked + .slider:before {
 }
 </style>
 
-<form method="POST" action="{{ route('service_provider_register_business_process') }}" onsubmit="toggle_animation(true);">
+<form method="POST" action="{{ route('service_provider_register_business_process') }}" id="business_info_form" onsubmit="toggle_animation(true);">
    @csrf
    <div class="form-group  mt-3 row">
       <div class="col-md-12 mb-4 text-centers">
@@ -57,7 +57,7 @@ input:checked + .slider:before {
       </div>
       <div class="col-md-12 mb-3">
          <label for="business_name">Business Name</label>
-         <input id="business_name" type="text" class="form-control form-control-sm  @error('business_name') is-invalid @enderror" name="business_name" value="{{ old('business_name') }}" required autocomplete="business_name"  autofocus>
+         <input id="business_name" type="text" class="form-control form-control-sm  @error('business_name') is-invalid @enderror" name="business_name" value="{{ old('business_name') }}" autocomplete="business_name"  autofocus>
          @error('business_name')
          <span class="invalid-feedback" role="alert">
          <strong>{{ $message }}</strong>
@@ -66,7 +66,7 @@ input:checked + .slider:before {
       </div>
       <div class="col-md-12 mb-3">
          <label for="business_email">Business Email</label>
-         <input id="business_email" type="email" class="form-control  form-control-sm @error('business_email') is-invalid @enderror" name="business_email" value="{{ old('business_email') }}" required autocomplete="business_email"  autofocus>
+         <input id="business_email" type="email" class="form-control  form-control-sm @error('business_email') is-invalid @enderror" name="business_email" value="{{ old('business_email') }}" autocomplete="business_email"  autofocus>
          @error('business_email')
          <span class="invalid-feedback" role="alert">
          <strong>{{ $message }}</strong>
@@ -98,11 +98,6 @@ input:checked + .slider:before {
             <input type="checkbox" id="checkbox" name="business_gst" >
             <div class="slider round"></div>
          </label>
-      </div>
-      <div class="col-md-12 text-centers mb-0">
-         <button type="submit" class="btn theme-background-color fs--1 shadow-sm  font-weight-normal mt-2" width="221px" height="47px" id="" >
-         {{ __('Continue') }} <i class="fas fa-arrow-right"></i>
-         </button>
       </div>
    </div>
 </form>

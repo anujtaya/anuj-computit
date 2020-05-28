@@ -20,8 +20,6 @@ class ServiceProviderBusinessController extends Controller
 
     function registration_process(Request $request){
         $validator =  Validator::make($request->all(), [
-            'business_name' => 'required|min:3|max:255',
-            'business_email' => 'required|email',
             'business_abn' => 'max:11',
         ]);
         if ($validator->fails()) {
@@ -55,10 +53,11 @@ class ServiceProviderBusinessController extends Controller
             if($new_business_info->save()){
               $user = User::find(Auth::id());
               $user->user_type = 2;
-              $user->save();
+              if($user->save()) {
+                return redirect()->route('service_provider_register_services');
+              }
             }
             return redirect()->back();
-            //return redirect()->route('service_provider_register_services');
         }
     }
 

@@ -11,7 +11,7 @@
                        <span class="fs--">Step 1 of 4</span> 
                      </div>
                      <div class="p-1 ml-auto bd-highlight">
-                        <a href="{{route('service_provider_register_services')}}"  class="font-weight-bolder theme-color" onclick="toggle_animation(true);"> Next</a>
+                        <a href="#" onclick="$('#business_info_form').submit();"  class="font-weight-bolder theme-color" onclick="toggle_animation(true);"> Next</a>
                      </div>
                   </div>
                   <div class="p-1">

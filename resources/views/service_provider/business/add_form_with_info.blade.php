@@ -49,7 +49,7 @@ input:checked + .slider:before {
 }
 </style>
 
-<form method="POST" action="{{ route('service_provider_register_business_process') }}" onsubmit="toggle_animation(true);">
+<form method="POST" action="{{ route('service_provider_register_business_process') }}" id="business_info_form" onsubmit="toggle_animation(true);">
    @csrf
    <div class="form-group  mt-3 row">
       <div class="col-md-12 mb-4 text-centers">
@@ -98,11 +98,6 @@ input:checked + .slider:before {
             <input type="checkbox" id="checkbox" name="business_gst" @if($current_business_info->gst_enabled)  checked @endif  >
             <div class="slider round"></div>
          </label>
-      </div>
-      <div class="col-md-12 text-centers mb-0">
-         <button type="submit" class="btn theme-background-color fs--1 shadow-sm  font-weight-normal mt-2" width="221px" height="47px" id=""  >
-         {{ __('Continue') }} <i class="fas fa-arrow-right"></i>
-         </button>
       </div>
    </div>
 </form>
