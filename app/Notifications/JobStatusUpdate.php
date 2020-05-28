@@ -43,6 +43,7 @@ class JobStatusUpdate extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+        ->from('info@local2local.com.au')
         ->subject('LocaL2LocaL - Job Status Updated')
         ->theme('default')
         ->markdown('mail.job.status_update', ['job' => $this->data_array]);

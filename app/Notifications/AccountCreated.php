@@ -31,6 +31,7 @@ class AccountCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                ->from('info@local2local.com.au')
                 ->subject('Welcome to the LocaL2LocaL Community.')
                 ->markdown('mail.account.service_seeker_account_created', $this->options);
               

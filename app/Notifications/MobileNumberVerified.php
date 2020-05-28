@@ -42,6 +42,7 @@ class MobileNumberVerified extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->from('info@local2local.com.au')
                     ->subject('LocaL2LocaL - Mobile Number Verified')
                     ->greeting('Hello '.$this->user_info->name.'!')
                     ->line('The mobile number ending with '.$this->user_info->mobile_number_masked. ' linked to your LocaL2LocaL account is now succefully verified. Now you can access your account dashboard in LocaL2LocaL application.')

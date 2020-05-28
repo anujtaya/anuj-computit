@@ -43,7 +43,7 @@ class ServiceProviderEmailInvoice extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-     
+                    ->from('info@local2local.com.au')
                     ->line('Dear LocaL2LocaL User,')
                     ->line('Your tax invoice has finished processing and is ready to download. Please see the attached file.')
                     ->attach($this->data_array->file_name, [
