@@ -21,11 +21,12 @@
          </div>
       </div>
       <div class="col-lg-12 p-3">
-         <div class="p-1">
-            @include('service_provider.language.add_form')
-            <div class=" mb-2 text-centers">
-               <h1 class="fs--1">Saved Languages</h1>
+         <div class="p-1">     
+            <div class="mt-2 text-centers">
+               <h1 class="fs-1">Select your language skills</h1>
+               <p class="fs--1">If English isn't your first language please pick from the following below</p>
             </div>
+            @include('service_provider.language.add_form')
             <ul class="list-group fs--1">
                @foreach($current_languages as $language)
                <li class="list-group-item">               

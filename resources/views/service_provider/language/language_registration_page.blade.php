@@ -22,9 +22,10 @@
                   </div> 
                   <div class="mt-2 text-centers">
                      <h1 class="fs-1">Select your language skills</h1>
+                     <p class="fs--1">If English isn't your first language please pick from the following below</p>
                   </div>
 
-                  <div class="p-1">
+                  <div class="p-0">
                      @include('service_provider.language.add_form')
                      <div class=" mb-2 text-centers">
                         <h1 class="fs-1">Saved Languages</h1>
