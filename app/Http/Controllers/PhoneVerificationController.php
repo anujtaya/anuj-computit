@@ -84,7 +84,8 @@ class PhoneVerificationController extends Controller
                 try {
                     $verification = $twilio->verify->v2->services($twilio_verify_sid)
                         ->verificationChecks
-                        ->create($input['verification_code'], array('to' => $input['phone_number']));
+                        ->create($input['verification_code'], array('to' => '+'.$input['phone_number']));
+                      
                     if ($verification->valid) {
                         $user->is_verified =1;
                         $user->save();
@@ -107,6 +108,7 @@ class PhoneVerificationController extends Controller
                     } 
                 }
                 catch (\Exception $e) {
+                    dd($e);
                     $validator->errors()->add('verification_code', $e->getCode(). ' : ' . 'Please request another code and try again!');
                     return redirect()
                             ->back()
