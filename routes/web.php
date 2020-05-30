@@ -221,7 +221,7 @@ Route::get('/demo/test_sp_invoice_template_design/{id}', 'DemoController@test_sp
 Route::get('/demo/test_ss_invoice_template_design/{id}', 'DemoController@test_ss_invoice_template_design');
 Route::get('/demo/button_demo', 'DemoController@button_demo');
 Route::get('/test_notification', 'JobNotificationController@test_template');
-Route::get('/demp/test_email', 'DemoController@test_email')->name('demo_test_email');
+Route::get('/demo/test_email', 'DemoController@test_email')->name('demo_test_email');
 
 
 //helpdesk routes
