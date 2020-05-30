@@ -1,6 +1,5 @@
 <?php
 //app landing page
-
 Route::get('/', 'MarketController@market_home_main')->name('market_home');
 Route::get('/root', 'MarketController@market_home_main')->name('market_home');
 Route::get('/marketFAQ', 'MarketController@market_faq')->name('market_faq');
@@ -17,8 +16,6 @@ Route::get('/legal', 'MarketController@market_legal');
 Route::get('/marketHelp', 'MarketController@market_help')->middleware('auth');
 
 
-//testing app
-
 Auth::routes();
 //guest routess
 Route::get('/app/root',  'GuestController@handle_landing_request')->name('handle_landing_request');
@@ -31,11 +28,14 @@ Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')-
 Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
 Route::post('/guest/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
 Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('guest_service_seeker_services_filter');
+
+
 //manage service seeker draft job
 Route::post('/guest/service_seeker/session/create_draft_job', 'GuestController@create_draft_job')->name('guest_service_seeker_session_create_draft_job');
 Route::post('/guest/service_seeker/session/retrieve_session_draft_job', 'GuestController@retrieve_draft_job')->name('guest_service_seeker_session_retrieve_session_draft_job');
 Route::post('/guest/service_seeker/session/retrieve_session_draft_sp_list', 'GuestController@retrieve_session_draft_sp_list')->name('guest_service_seeker_session_retrieve_session_draft_sp_list');
 Route::post('/guest/service_seeker/session/retrieve_session_draft_sp_info', 'GuestController@retrieve_session_draft_sp_info')->name('guest_service_seeker_session_retrieve_session_draft_sp_info');
+
 
 //service provider demo routes
 Route::get('/guest/service_provider/home', 'GuestController@service_provider_home')->name('guest_service_provider_home');
@@ -44,20 +44,24 @@ Route::get('/guest/service_provider/jobs/job/{id}', 'GuestController@service_pro
 Route::post('/guest/imageservice/images/fetch/', 'JobAttachmentController@retrive_job_images')->name('guest_imageservice_images_fetch');
 Route::get('/guest/storage/images/profile/{filename}', 'ImageStorageController@make_profile_image_link');
 Route::get('/guest/storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
+
+
 //session draft job attachment storage routes
 Route::post('guest/imageservice/images/image_upload', 'GuestController@store_session_draft_job_attachment')->name('guest_imageservice_images_upload');
 Route::post('guest/imageservice/images/fetch/', 'GuestController@retrieve_session_draft_job_attachment')->name('guest_imageservice_images_fetch');
 Route::post('guest/imageservice/images/delete/', 'GuestController@remove_job_images')->name('guest_imageservice_images_delete');
 Route::get('guest/storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
 
+
 //register home controller routes
 Route::post('/register', 'RegisterHomeController@register')->name('register');
+
+
 //user account update routes
 Route::post('app/user/update_account_information', 'UserController@user_update_account_details')->name('app_user_update_account_information');
 Route::post('app/user/update_password_information', 'UserController@update_account_password')->name('app_user_update_password_information');
 
 
-//logges in user main application routes
 //service seeker routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/registration_completed',  'ServiceSeekerController@registration_completed')->name('service_seeker_registration_completed');
@@ -117,12 +121,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/job/instant/assign_service_provider', 'ServiceSeekerJobController@job_instant_assign_service_provider')->name('service_seeker_job_instant_assign_service_provider');
   Route::post('/service_seeker/job/instant/reset_job', 'ServiceSeekerJobController@job_instant_reset_job')->name('service_seeker_job_instant_reset_job');
   Route::post('/service_seeker/job/instant/provider_check_conversation_exists', 'ServiceSeekerJobController@job_instant_provider_check_conversation_exists')->name('service_seeker_job_instant_provider_check_conversation_exists');
-  
-
-  
-
-  
 });
+
 
 Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_provider/register/business',  'ServiceProviderBusinessController@registration_page')->name('service_provider_register_business');
@@ -141,6 +141,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_provider/register/languages/upload',  'ServiceProviderLanguagesController@registration_process')->name('service_provider_register_language_process');
   Route::get('/service_provider/language/delete/{id}',  'ServiceProviderLanguagesController@delete')->name('service_provider_delete_language');
 });
+
 
 //Service Provider Routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] , function () {
@@ -186,30 +187,30 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::post('/service_provider/jobs/job/cancel', 'ServiceProviderJobController@service_provider_job_cancel')->name('service_provider_job_cancel');
 });
 
+
 Route::group(['middleware' => 'auth' ], function () {
   Route::get('/user/mobile_verification/send', 'PhoneVerificationController@send')->name('user_verify_phone_send');
   Route::get('/user/mobile_verification/submit', 'PhoneVerificationController@submit')->name('user_verify_phone_submit');
   Route::post('/user/mobile_verification/submit_code', 'PhoneVerificationController@requestcode')->name('user_phone_number_verification_requestcode');
   Route::post('/user/mobile_verification/verify_code', 'PhoneVerificationController@verify')->name('user_phone_number_verification_submitcode');
-
   //image processor routes
   Route::post('imageservice/images/image_upload', 'JobAttachmentController@store_images')->name('imageservice_images_upload');
   Route::post('imageservice/images/fetch/', 'JobAttachmentController@retrive_job_images')->name('imageservice_images_fetch');
   Route::post('imageservice/images/delete/', 'JobAttachmentController@remove_job_images')->name('imageservice_images_delete');
   Route::post('imageservice/images/user/profile_image_upload', 'UserController@upload_user_profile_image')->name('imageservice_images_user_profile_image_upload');
-
   //storage directory links
   Route::get('storage/images/profile/{filename}', 'ImageStorageController@make_profile_image_link');
   Route::get('storage/images/profile/', 'ImageStorageController@make_profile_image_link_default');
   Route::get('storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
 });
-//rating routes
-Route::post('/addRating', 'JobController@addRating');
+
+
 //job extras controlle routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] , function () {
   Route::post('app/services/jobs/extras/add', 'JobExtraController@store')->name('app_services_job_extra_add');
   Route::get('app/services/jobs/extras/remove/{id}', 'JobExtraController@remove')->name('app_services_job_extra_remove');
 });
+
 
 //demo/test route links
 Route::get('/demo/car_map_demo', 'DemoController@car_map_demo')->name('demo_car_map_demo');
@@ -222,11 +223,14 @@ Route::get('/demo/button_demo', 'DemoController@button_demo');
 Route::get('/test_notification', 'JobNotificationController@test_template');
 Route::get('/demp/test_email', 'DemoController@test_email')->name('demo_test_email');
 
+
 //helpdesk routes
 Route::post('app/services/support/send_support_email', 'HelpdeskController@send_support_email')->name('app_services_support_send_support_email')->middleware('auth');
 
+
 //artisan admin routes
 Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->middleware('auth');
+
 
 //Service Provider Portal routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] , function () {
@@ -238,7 +242,5 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/banking', 'ProviderPortalController@redirect_to_banking_page');
   Route::get('/app/portal/provider/banking/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account')->name('app_portal_provider_banking_stripe_onboarding');
   Route::get('/app/portal/provider/banking/stripe/connect/single_sign_on_link', 'StripeConnectController@single_sign_on_link')->name('app_portal_provider_banking_single_on_link');
-  
-
 });
 
