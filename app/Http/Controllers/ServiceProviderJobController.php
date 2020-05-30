@@ -12,6 +12,7 @@ use App\ConversationMessage;
 use App\JobPayment;
 use Notification;
 use App\Notifications\ServiceProviderEmailInvoice;
+use App\Notifications\JobQuoteOfferSend;
 use App\User;
 use Carbon\Carbon;
 use Input;
@@ -111,14 +112,18 @@ class ServiceProviderJobController extends Controller
 					$conversation->json = ["offer" => $job_offer, 'offer_description'=> $job_offer_description];
 					if($conversation->save()){
 						//$job->status = 'PENDING';
-						$job->save();
+						if($job->save()){
+							$this->send_notification_job_quote_offer($job,$conversation);
+						}
 					}
 				}else{
 					$conversation_exists->json = ["offer" => $job_offer, 'offer_description'=> $job_offer_description];
 					$conversation_exists->status = 'OPEN';
 					if($conversation_exists->save()){
 						//$job->status = 'OPEN';
-						$job->save();
+						if($job->save()){
+							$this->send_notification_job_quote_offer($job,$conversation_exists);
+						}
 					}
 				}
 			}
@@ -548,6 +553,44 @@ class ServiceProviderJobController extends Controller
 		}
 		return redirect()->route('service_provider_home');
 	  }
+
+
+	//notification functions below
+	//job board notification
+	protected function send_notification_job_quote_offer($job,$conversation){
+		$user = User::find($job->service_seeker_id);
+		if($user != null) {
+			$service_provider_info = User::find($conversation->service_provider_id);
+			$data = new \stdClass();
+			$data->job_id = $job->id;
+			$data->service_seeker_name = $user->first;
+			$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+			$data->service_name = $job->service_category_name.'-'.$job->service_subcategory_name;
+			$data->offer = $conversation->json['offer'];
+			//email
+			$user->notify(new JobQuoteOfferSend($data));
+			//sms
+			//push notification
+		}
+	}
+
+	protected function send_notification_job_quote_offer($job,$conversation){
+		$user = User::find($job->service_seeker_id);
+		if($user != null) {
+			$service_provider_info = User::find($conversation->service_provider_id);
+			$data = new \stdClass();
+			$data->job_id = $job->id;
+			$data->service_seeker_name = $user->first;
+			$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+			$data->service_name = $job->service_category_name.'-'.$job->service_subcategory_name;
+			$data->offer = $conversation->json['offer'];
+			//email
+			$user->notify(new JobQuoteOfferSend($data));
+			//sms
+			//push notification
+		}
+	}
+  
 
 
 }
