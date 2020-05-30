@@ -22,6 +22,7 @@ use Notifiable;
 use App\Notification;
 use App\Notifications\JobBoardNotification;
 use App\Notifications\JobInstantNotification;
+use App\Notifications\JobInstantServiceProviderSelectionNotification;
 
 
 class ServiceSeekerJobController extends Controller
@@ -284,16 +285,6 @@ class ServiceSeekerJobController extends Controller
       }
       return Response::json($response);
     }
-
-    protected function send_notification_job_board_notification($job){
-      Auth::user()->notify(new JobBoardNotification($job));
-    }
-
-
-    protected function send_notification_job_insant_notification($job){
-      Auth::user()->notify(new JobInstantNotification($job));
-    }
-
 
     protected function show_job_conversation($job_id, $service_provider_id){
       //make sure the messages are in right order
@@ -620,9 +611,9 @@ class ServiceSeekerJobController extends Controller
        //assign the service provider
        $job->service_provider_id = $service_provider_id;
        $job->job_sp_selector_date_time = Carbon::now();
-       $job->save();
-       //notify service provider. At this point Service provider will only have 5 minutes to respond the job.
-       //send email notification to service provider.
+       if($job->save()){
+        $this->send_notification_job_insant_service_provider_selection($job);
+       }
     }
     return redirect()->back();
  }
@@ -656,6 +647,32 @@ class ServiceSeekerJobController extends Controller
   }
 
  }
+
+
+//notification functions below
+//job board notification
+protected function send_notification_job_board_notification($job){
+  //email
+  Auth::user()->notify(new JobBoardNotification($job));
+  //sms
+  //push notification
+}
+
+//job instant notification
+protected function send_notification_job_insant_notification($job){
+  Auth::user()->notify(new JobInstantNotification($job));
+}
+
+//instant job type service provider selection notification
+protected function send_notification_job_insant_service_provider_selection($job){
+  $user = User::find($job->service_provider_id);
+  if($user != null) {
+    //email
+    $user->notify(new JobInstantServiceProviderSelectionNotification($job));
+    //sms
+    //push notification
+  }
+}
 
 
 
