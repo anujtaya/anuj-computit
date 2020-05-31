@@ -25,7 +25,7 @@ use App\Notifications\JobInstantNotification;
 use App\Notifications\JobInstantServiceProviderSelectionNotification;
 use App\Notifications\JobConversationNewMessageServiceSeeker;
 use App\Notifications\JobQuoteOfferRejected;
-
+use App\Notifications\JobQuoteOfferAccepted;
 
 class ServiceSeekerJobController extends Controller
 {
@@ -383,11 +383,11 @@ class ServiceSeekerJobController extends Controller
             if($response_r) {
               $job->service_provider_id = $conversation->service_provider_id;
               $job->save();
-            }
-            if($response_r){
               $conversations = Conversation::where('job_id', $job->id)
                       ->join('users', 'conversations.service_provider_id', '=', 'users.id')
                       ->get();
+              //send notification
+              $this->send_notification_job_offer_accepted($conversation);
               return redirect()->route('service_seeker_job', $job_id);
             }
           }
@@ -697,7 +697,7 @@ protected function send_notification_job_conversation_new_message($conversation,
   }
 }
 
-//service seeker respond to service provider message
+//service seeker rejects service provider job offer
 protected function send_notification_job_offer_rejected($conversation){
   $user = User::find($conversation->job->service_seeker_id);
   if($user != null) {
@@ -709,6 +709,23 @@ protected function send_notification_job_offer_rejected($conversation){
     $data->offer = $conversation->json['offer'];
     //email
     $service_provider_info->notify(new JobQuoteOfferRejected($data));
+    //sms
+    //push notification
+  }
+}
+
+//service seeker accepts service provider job offer
+protected function send_notification_job_offer_accepted($conversation){
+  $user = User::find($conversation->job->service_seeker_id);
+  if($user != null) {
+    $service_provider_info = User::find($conversation->service_provider_id);
+    $data = new \stdClass();
+    $data->job_id = $conversation->job_id;
+    $data->service_seeker_name = $user->first;
+    $data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+    $data->offer = $conversation->json['offer'];
+    //email
+    $service_provider_info->notify(new JobQuoteOfferAccepted($data));
     //sms
     //push notification
   }
