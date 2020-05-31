@@ -244,3 +244,6 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/app/portal/provider/banking/stripe/connect/single_sign_on_link', 'StripeConnectController@single_sign_on_link')->name('app_portal_provider_banking_single_on_link');
 });
 
+
+//cookie controller routes
+Route::get('/app/session/set/user_offline_consent', 'SessionController@set_user_offline_consent')->name('app_session_set_user_offline_consent');
