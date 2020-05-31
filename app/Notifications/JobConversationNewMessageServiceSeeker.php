@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class JobConversationNewMessageServiceProvider extends Notification
+class JobConversationNewMessageServiceSeeker extends Notification
 {
     use Queueable;
 
@@ -43,9 +43,9 @@ class JobConversationNewMessageServiceProvider extends Notification
     {
         return (new MailMessage)
                     ->from('info@local2local.com.au')
-                    ->greeting('Hello '.$this->data->service_seeker_name.'!')
-                    ->subject('New Message from your Service Provider - '.$this->data->service_provider_name)
-                    ->line($this->data->service_provider_name.' has responded to your job with id:#'.$this->data->job_id)
+                    ->greeting('Hello '.$this->data->service_provider_name.'!')
+                    ->subject('New Message from Service Seeker - '.$this->data->service_seeker_name)
+                    ->line($this->data->service_seeker_name.' has responded to your job with id:#'.$this->data->job_id)
                     ->line('Message: '.$this->data->message)
                     ->line('Please go to your job to reply/view your messages.');
     }

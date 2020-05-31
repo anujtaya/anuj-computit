@@ -23,6 +23,7 @@ use App\Notification;
 use App\Notifications\JobBoardNotification;
 use App\Notifications\JobInstantNotification;
 use App\Notifications\JobInstantServiceProviderSelectionNotification;
+use App\Notifications\JobConversationNewMessageServiceSeeker;
 
 
 class ServiceSeekerJobController extends Controller
@@ -321,6 +322,8 @@ class ServiceSeekerJobController extends Controller
             $job->status = 'OPEN';
             $job->save();
           }
+          //send notification
+          $this->send_notification_job_conversation_new_message($conversation,$message);
         }
 	    }
       return Response::json($response);
@@ -669,6 +672,23 @@ protected function send_notification_job_insant_service_provider_selection($job)
   if($user != null) {
     //email
     $user->notify(new JobInstantServiceProviderSelectionNotification($job));
+    //sms
+    //push notification
+  }
+}
+
+//service seeker respond to service provider message
+protected function send_notification_job_conversation_new_message($conversation,$message){
+  $user = User::find($conversation->job->service_seeker_id);
+  if($user != null) {
+    $service_provider_info = User::find($conversation->service_provider_id);
+    $data = new \stdClass();
+    $data->job_id = $conversation->job_id;
+    $data->service_seeker_name = $user->first;
+    $data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+    $data->message = $message;
+    //email
+    $service_provider_info->notify(new JobConversationNewMessageServiceSeeker($data));
     //sms
     //push notification
   }
