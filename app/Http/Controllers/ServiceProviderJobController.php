@@ -13,6 +13,7 @@ use App\JobPayment;
 use Notification;
 use App\Notifications\ServiceProviderEmailInvoice;
 use App\Notifications\JobQuoteOfferSend;
+use App\Notifications\JobConversationNewMessageServiceProvider;
 use App\User;
 use Carbon\Carbon;
 use Input;
@@ -180,6 +181,9 @@ class ServiceProviderJobController extends Controller
 		  $msg->text = $message;
 		  $msg->msg_created_at = Carbon::now();
 		  $response = $msg->save();
+		  if($response) {
+			$this->send_notification_job_conversation_new_message($conversation,$message);
+		  }
 	  }
       return Response::json($response);
     }
@@ -574,18 +578,17 @@ class ServiceProviderJobController extends Controller
 		}
 	}
 
-	protected function send_notification_job_quote_offer($job,$conversation){
-		$user = User::find($job->service_seeker_id);
+	protected function send_notification_job_conversation_new_message($conversation,$message){
+		$user = User::find($conversation->job->service_seeker_id);
 		if($user != null) {
 			$service_provider_info = User::find($conversation->service_provider_id);
 			$data = new \stdClass();
-			$data->job_id = $job->id;
+			$data->job_id = $conversation->job_id;
 			$data->service_seeker_name = $user->first;
 			$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
-			$data->service_name = $job->service_category_name.'-'.$job->service_subcategory_name;
-			$data->offer = $conversation->json['offer'];
+			$data->message = $message;
 			//email
-			$user->notify(new JobQuoteOfferSend($data));
+			$user->notify(new JobConversationNewMessageServiceProvider($data));
 			//sms
 			//push notification
 		}
