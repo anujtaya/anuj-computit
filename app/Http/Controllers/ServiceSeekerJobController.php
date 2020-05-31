@@ -24,6 +24,7 @@ use App\Notifications\JobBoardNotification;
 use App\Notifications\JobInstantNotification;
 use App\Notifications\JobInstantServiceProviderSelectionNotification;
 use App\Notifications\JobConversationNewMessageServiceSeeker;
+use App\Notifications\JobQuoteOfferRejected;
 
 
 class ServiceSeekerJobController extends Controller
@@ -413,6 +414,8 @@ class ServiceSeekerJobController extends Controller
           $response = $conversation_message->save();
 
           if($response){
+            //send notification
+            $this->send_notification_job_offer_rejected($conversation);
             return redirect()->back();
           }
       }else{
@@ -693,6 +696,25 @@ protected function send_notification_job_conversation_new_message($conversation,
     //push notification
   }
 }
+
+//service seeker respond to service provider message
+protected function send_notification_job_offer_rejected($conversation){
+  $user = User::find($conversation->job->service_seeker_id);
+  if($user != null) {
+    $service_provider_info = User::find($conversation->service_provider_id);
+    $data = new \stdClass();
+    $data->job_id = $conversation->job_id;
+    $data->service_seeker_name = $user->first;
+    $data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+    $data->offer = $conversation->json['offer'];
+    //email
+    $service_provider_info->notify(new JobQuoteOfferRejected($data));
+    //sms
+    //push notification
+  }
+}
+
+
 
 
 

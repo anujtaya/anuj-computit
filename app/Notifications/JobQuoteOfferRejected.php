@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class JobQuoteOfferSend extends Notification
+class JobQuoteOfferRejected extends Notification
 {
     use Queueable;
 
@@ -42,12 +42,12 @@ class JobQuoteOfferSend extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('info@local2local.com.au')
-                    ->greeting('Hello '.$this->user_info->name.'!')
-                    ->subject('Action Required!'.$this->data->service_provider_name.' has offered to a quote for $'.$this->data->offer)
-                    ->line($this->data->service_provider_name.' has offered a quote of $'.$this->data->offer.' for the '.$this->data->service_name.' requested by you.')
-                    ->line('Please visit your Service Seeker Jobs menu for more information. The job id is:'.$this->data->job_id)
-                    ->line('Thank you for using our application!');
+                ->from('info@local2local.com.au')
+                ->greeting('Hello '.$this->data->service_provider_name.'!')
+                ->subject('Job Quote Offer Rejected by Service Seeker')
+                ->line($this->data->service_seeker_name.' has rejected your job offer quote of $'.$this->data->offer.'.')
+                ->line('Please visit your Service Provider Jobs menu for more information. The job id is:#'.$this->data->job_id)
+                ->line('Thank you for using our application!');
     }
 
     /**
