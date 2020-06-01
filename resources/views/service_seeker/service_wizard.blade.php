@@ -28,13 +28,13 @@
       <div class=" border-top bg-white sticky-bottom justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <a href="" class="text-white " onclick="wizard_exit(); event.preventDefault();">
-               <i class="fas fs-1 fa-times theme-color"></i>
+               <a href="" class="fs-1 theme-color" onclick="wizard_exit(); event.preventDefault();">
+                  <i class="fas fa-times"></i> Cancel
                </a>
             </div>
             <div class=" bd-highlight pt-3 pr-4 pb-3">
-               <a href="" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
-               <i class="fas fa-arrow-right theme-color fs-2"></i>
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
+                  Next <i class="fas fa-arrow-right"></i>
                </a>
             </div>
          </div>
@@ -79,13 +79,13 @@
       <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <a href="" onclick="wizard_switch('wizard_view_1');event.preventDefault();">
-               <i class="fas fa-arrow-left theme-color fs-2"></i>
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_1');event.preventDefault();">
+                  <i class="fas fa-arrow-left"></i> Back
                </a>
             </div>
             <div class=" bd-highlight pt-3 pr-4 pb-3">
-               <a href="" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
-               <i class="fas fa-arrow-right theme-color fs-2"></i>
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
+                  Next <i class="fas fa-arrow-right"></i>
                </a>
             </div>
          </div>
@@ -128,13 +128,13 @@
       <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <a href="" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
-               <i class="fas fa-arrow-left theme-color fs-2"></i>
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
+                  <i class="fas fa-arrow-left"></i> Back
                </a>
             </div>
             <div class=" bd-highlight pt-3 pr-4 pb-3">
-               <a href="" onclick="wizard_switch('wizard_view_4');event.preventDefault();">
-               <i class="fas fa-arrow-right theme-color fs-2"></i>
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_4');event.preventDefault();">
+                  Next <i class="fas fa-arrow-right"></i>
                </a>
             </div>
          </div>
@@ -170,8 +170,8 @@
       <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
          <div class="d-flex bd-highlight">
             <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
-               <a href="" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
-               <i class="fas fa-arrow-left theme-color fs-2"></i>
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
+                  <i class="fas fa-arrow-left"></i> Back
                </a>
             </div>
             <div class=" bd-highlight   pt-3 pr-4 pb-3">
