@@ -113,6 +113,13 @@ class ServiceProviderJobController extends Controller
 					$conversation->json = ["offer" => $job_offer, 'offer_description'=> $job_offer_description];
 					if($conversation->save()){
 						//$job->status = 'PENDING';
+						//generate a message record
+						$msg = new ConversationMessage();
+						$msg->user_id = Auth::id();
+						$msg->conversation_id = $conversation->id;
+						$msg->text = 'Provider has sent you a job quote for $'.$job_offer;
+						$msg->msg_created_at = Carbon::now();
+						$msg->save();
 						if($job->save()){
 							$this->send_notification_job_quote_offer($job,$conversation);
 						}
@@ -122,6 +129,13 @@ class ServiceProviderJobController extends Controller
 					$conversation_exists->status = 'OPEN';
 					if($conversation_exists->save()){
 						//$job->status = 'OPEN';
+						//generate a message record
+						$msg = new ConversationMessage();
+						$msg->user_id = Auth::id();
+						$msg->conversation_id = $conversation_exists->id;
+						$msg->text = 'Provider has changed the job quote to $'.$job_offer;
+						$msg->msg_created_at = Carbon::now();
+						$msg->save();
 						if($job->save()){
 							$this->send_notification_job_quote_offer($job,$conversation_exists);
 						}
