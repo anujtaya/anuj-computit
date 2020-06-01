@@ -658,15 +658,21 @@ class ServiceSeekerJobController extends Controller
 //notification functions below
 //job board notification
 protected function send_notification_job_board_notification($job){
+  $data = new \stdClass();
+  $data->job_id = $job->id;
+  $data->service_seeker_name = $job->service_seeker_profile->first;
   //email
-  Auth::user()->notify(new JobBoardNotification($job));
+  Auth::user()->notify(new JobBoardNotification($data));
   //sms
   //push notification
 }
 
 //job instant notification
 protected function send_notification_job_insant_notification($job){
-  Auth::user()->notify(new JobInstantNotification($job));
+  $data = new \stdClass();
+  $data->job_id = $job->id;
+  $data->service_seeker_name = $job->service_seeker_profile->first;
+  Auth::user()->notify(new JobInstantNotification($data));
 }
 
 //instant job type service provider selection notification
