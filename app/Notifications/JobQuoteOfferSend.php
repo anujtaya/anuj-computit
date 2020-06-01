@@ -43,7 +43,7 @@ class JobQuoteOfferSend extends Notification
     {
         return (new MailMessage)
                     ->from('info@local2local.com.au')
-                    ->greeting('Hello '.$this->user_info->name.'!')
+                    ->greeting('Hello '.$this->data->service_seeker_name.'!')
                     ->subject('Action Required!'.$this->data->service_provider_name.' has offered to a quote for $'.$this->data->offer)
                     ->line($this->data->service_provider_name.' has offered a quote of $'.$this->data->offer.' for the '.$this->data->service_name.' requested by you.')
                     ->line('Please visit your Service Seeker Jobs menu for more information. The job id is:'.$this->data->job_id)
