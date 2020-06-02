@@ -18,7 +18,7 @@ class JobAttachmentController extends Controller
 {
     function store_images(Request $request){
         $validation = Validator::make($request->all(), [
-          'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:100000',
+          'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:5000',
           'current_job_id' => 'required'
          ]);
          if($validation->passes())
@@ -41,9 +41,9 @@ class JobAttachmentController extends Controller
          else
          {
           return response()->json([
-          //  'message'   => $validation->errors()->all(),
-          //  'uploaded_image' => '',
-          //  'class_name'  => 'alert-danger'
+           'message'   => $validation->errors()->all(),
+           'uploaded_image' => '',
+           'class_name'  => 'alert-danger'
           ]);
          }
   }

@@ -39,9 +39,9 @@
 
 <script>
    $(document).ready(function(){
-
      $('#upload_form').on('submit', function(event){
          toggle_animation(true);
+         $('#message').css('display', 'none');
          event.preventDefault();
          $.ajax({
               url:"{{ route('imageservice_images_upload') }}",
@@ -55,11 +55,18 @@
               {
                 toggle_animation(false);
                 //console.log(data);
-                $('#message').css('display', 'block');
-                $('#message').html(data.message);
-                $('#message').addClass(data.class_name);
-                if(data.uploaded_image != "") {
+               
+                if(data.uploaded_image != "" && data.class_name == "alert-success") {
+                  $('#message').css('display', 'block');
+                  $('#message').html(data.message);
+                  $('#message').removeClass("alert-danger");
+                  $('#message').addClass(data.class_name);
                   load_images(1);
+                } else if(data.class_name == "alert-danger") {
+                  $('#message').removeClass("alert-success");
+                  $('#message').addClass(data.class_name);
+                  $('#message').css('display', 'block');
+                  $('#message').html(data.message);
                 }
               },
               error : function(request,error)
