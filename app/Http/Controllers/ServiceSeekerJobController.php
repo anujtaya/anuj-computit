@@ -554,7 +554,7 @@ class ServiceSeekerJobController extends Controller
          ->where("users.is_online", true)
          ->where("users.is_verified", true)
          ->where("service_provider_services.service_cat_id",$job->service_subcategory_id)
-         ->having('distance', '<=', 200)
+         ->having('distance', '<=', 2000)
          ->groupBy("user_id")
          ->orderBy('distance', 'asc')
          ->get();

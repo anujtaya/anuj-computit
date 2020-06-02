@@ -383,11 +383,14 @@ class ServiceProviderJobController extends Controller
 				//calcualte job total
 				//charge the service to service provider
 				$create_payment_record = $this->charge_job_payment($job);
-				$job->status = 'COMPLETED';
-				$job->save();
-				//send invoice for both Service Provder and Service Seeker.
-				//Send Push notification for Service completion.
-				//send an email to local2local admin about a completed job.
+				if($create_payment_record) {
+					$job->status = 'COMPLETED';
+					$job->save();
+					//send invoice for both Service Provder and Service Seeker.
+					//Send Push notification for Service completion.
+					//send an email to local2local admin about a completed job.
+				}
+				
 			} 
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -399,7 +402,7 @@ class ServiceProviderJobController extends Controller
 		$response = false;
 		//find the existing payment source 
 		$payment_source = $job->job_payment;
-		if($payment_source == null) {
+		if($payment_source == null ||$payment_source == "CASH") {
 			$final_price = $this->calcualte_final_job_total($job->id);  
 			$service_fee_without_extras =    $this->calcualte_final_job_total_without_extras($job->id);                        
 			//credit card surcharges if paid using card
@@ -426,7 +429,11 @@ class ServiceProviderJobController extends Controller
 			if($new_charge->save()){
 				$response = true;
 			}
+		} else if ($payment_source == "STRIPE") {
+			dd($job);
+			//prepare to charge amount using stripe.
 		}
+
 		return $response;
 	}
 
