@@ -11,8 +11,9 @@ class AccountCreated extends Notification
 {
     use Queueable;
     protected   $options;
+    protected   $user_name;
 
-    public function __construct()
+    public function __construct($user_name)
     {
        
         $data = [
@@ -21,6 +22,7 @@ class AccountCreated extends Notification
        ];
       
         $this->options = $data;
+        $this->user_name = $user_name;
     }
    
     public function via($notifiable)
@@ -32,6 +34,7 @@ class AccountCreated extends Notification
     {
         return (new MailMessage)
                 ->from('info@local2local.com.au')
+                ->greeting('Hello '.$this->user_name.',')
                 ->subject('Welcome to the LocaL2LocaL Community.')
                 ->markdown('mail.account.service_seeker_account_created', $this->options);
               

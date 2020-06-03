@@ -680,6 +680,7 @@ protected function send_notification_job_insant_service_provider_selection($job)
   $user = User::find($job->service_provider_id);
   if($user != null) {
     //email
+    $job->service_provider_name = $user->first;
     $user->notify(new JobInstantServiceProviderSelectionNotification($job));
     //sms
     //push notification
@@ -694,7 +695,7 @@ protected function send_notification_job_conversation_new_message($conversation,
     $data = new \stdClass();
     $data->job_id = $conversation->job_id;
     $data->service_seeker_name = $user->first;
-    $data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+    $data->service_provider_name = $service_provider_info->first;
     $data->message = $message;
     //email
     $service_provider_info->notify(new JobConversationNewMessageServiceSeeker($data));
@@ -711,7 +712,7 @@ protected function send_notification_job_offer_rejected($conversation){
     $data = new \stdClass();
     $data->job_id = $conversation->job_id;
     $data->service_seeker_name = $user->first;
-    $data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+    $data->service_provider_name = $service_provider_info->first;
     $data->offer = $conversation->json['offer'];
     //email
     $service_provider_info->notify(new JobQuoteOfferRejected($data));
@@ -728,7 +729,7 @@ protected function send_notification_job_offer_accepted($conversation){
     $data = new \stdClass();
     $data->job_id = $conversation->job_id;
     $data->service_seeker_name = $user->first;
-    $data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+    $data->service_provider_name = $service_provider_info->first;
     $data->offer = $conversation->json['offer'];
     //email
     $service_provider_info->notify(new JobQuoteOfferAccepted($data));

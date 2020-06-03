@@ -44,7 +44,7 @@ class JobBoardNotification extends Notification
         return (new MailMessage)
                     ->from('info@local2local.com.au')
                     ->subject('We have successfully posted your job to job board.')
-                    ->greeting('Hello '.$this->data->service_seeker_name.'!')
+                    ->greeting('Hello '.$this->data->service_seeker_name.',')
                     ->line('We have succesfully posted the job on job board. Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$this->data->job_id.'')
                     ->action('Visit App', url('/'))
                     ->line('Thank you for using our application!');

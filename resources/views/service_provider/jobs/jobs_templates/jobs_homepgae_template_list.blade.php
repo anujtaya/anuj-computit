@@ -26,7 +26,7 @@
       <i class="fas fa-circle-notch fs-2 theme-color fa-spin"></i>
       <br>
       <br>
-      <span>We are still looking for Job that matches your profile. Please stay tuned..</span>
+      <span>We are still looking for a Job that matches your profile. Please stay tuned..</span>
       <br><br>
   </div>
 @endif

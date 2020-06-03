@@ -53,7 +53,7 @@ class UserController extends Controller
           if($new_user->save()) {
               Auth::loginUsingId($new_user->id);
               //once the user is logged in send the user a new account created email notification
-              Auth::user()->notify(new AccountCreated());
+              Auth::user()->notify(new AccountCreated($new_user->first));
               return redirect()->route('service_seeker_home');
           } else {
               Session::put('error', 'Unable to process this request.');

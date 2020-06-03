@@ -44,7 +44,7 @@ class JobInstantNotification extends Notification
         return (new MailMessage)
                     ->from('info@local2local.com.au')
                     ->subject('We have successfully created your instant job.')
-                    ->greeting('Hello '.$this->data->service_seeker_name.'!')
+                    ->greeting('Hello '.$this->data->service_seeker_name.',')
                     ->line('We have successfully posted your job for review by our Service Providers. Available Service Providers will appear in both the List View and Map View and will respond to your job soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:'.$this->data->job_id.'')
                     ->action('Visit App', url('/'))
                     ->line('Thank you for using our application!');

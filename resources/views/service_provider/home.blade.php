@@ -229,7 +229,7 @@
    
 </script>
 
-//when user is offline and cookie does not exists
+
 @if(!Auth::user()->is_online && session('user_offline_consent') == null)
 <!-- Modal -->
 <div class="modal fade" id="user_online_check_modal_popup" tabindex="-1" role="dialog" aria-labelledby="user_online_check_modal_popup_title" aria-hidden="true">

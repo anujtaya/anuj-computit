@@ -43,7 +43,7 @@ class JobConversationNewMessageServiceProvider extends Notification
     {
         return (new MailMessage)
                     ->from('info@local2local.com.au')
-                    ->greeting('Hello '.$this->data->service_seeker_name.'!')
+                    ->greeting('Hello '.$this->data->service_seeker_name.',')
                     ->subject('New Message from your Service Provider - '.$this->data->service_provider_name)
                     ->line($this->data->service_provider_name.' has responded to your job with id:#'.$this->data->job_id)
                     ->line('Message: '.$this->data->message)

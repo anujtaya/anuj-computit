@@ -43,7 +43,7 @@ class JobInstantServiceProviderSelectionNotification extends Notification
     {
         return (new MailMessage)
                     ->from('info@local2local.com.au')
-                    ->greeting('Hello there!')
+                    ->greeting('Hello '.$this->job->service_provider_name.',')
                     ->subject('Action Required! You have got an Instant Job Quote request.')
                     ->line('A Service Seeker requested an Instant job quote for '.$this->job->service_category_name.'-'.$this->job->service_subcategory_name.'. You have 20 minutes to respond to with a price quote. Details of the job is availble in your LocaL2LocaL app.')
                     ->line('PLease visit your Service Provider Jobs menu for detailed job description. The instant job id is:#'.$this->job->id)

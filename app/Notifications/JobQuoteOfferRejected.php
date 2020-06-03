@@ -43,7 +43,7 @@ class JobQuoteOfferRejected extends Notification
     {
         return (new MailMessage)
                 ->from('info@local2local.com.au')
-                ->greeting('Hello '.$this->data->service_provider_name.'!')
+                ->greeting('Hello '.$this->data->service_provider_name.',')
                 ->subject('Job Quote Offer Rejected by Service Seeker')
                 ->line($this->data->service_seeker_name.' has rejected your job offer quote of $'.$this->data->offer.'.')
                 ->line('Please visit your Service Provider Jobs menu for more information. The job id is:#'.$this->data->job_id)
