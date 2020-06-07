@@ -46,8 +46,6 @@ class CreateJobsTable extends Migration
             $table->char('service_provider_rating', 1)->nullable();
             $table->string('service_seeker_comment')->nullable();
             $table->string('service_provider_comment')->nullable();
-            //instant job type service provider time selector datetime stamp recorder.
-            $table->datetime('job_sp_selector_date_time')->nullable();
             $table->timestamps();
         });
     }

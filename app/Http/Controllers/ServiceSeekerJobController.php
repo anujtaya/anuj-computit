@@ -21,8 +21,6 @@ use DB;
 use Notifiable;
 use App\Notification;
 use App\Notifications\JobBoardNotification;
-use App\Notifications\JobInstantNotification;
-use App\Notifications\JobInstantServiceProviderSelectionNotification;
 use App\Notifications\JobConversationNewMessageServiceSeeker;
 use App\Notifications\JobQuoteOfferRejected;
 use App\Notifications\JobQuoteOfferAccepted;
@@ -248,12 +246,12 @@ class ServiceSeekerJobController extends Controller
           $job->job_type = $job_obj->job_type;
         
           $job->job_pin = mt_rand(1000,9999);
-          $response = $job->save();
-          if($response && $job->job_type == 'BOARD') {
-            $this->send_notification_job_board_notification($job);
-          } else if ($response && $job->job_type == 'INSTANT'){
-            $this->send_notification_job_insant_notification($job);
-          }
+          if($job->job_type == 'BOARD') {
+            $response = $job->save();
+            if($response){
+              $this->send_notification_job_board_notification($job);
+            }
+          } 
         }
       }else{
         $job = new Job();
@@ -278,12 +276,12 @@ class ServiceSeekerJobController extends Controller
         $job->status = "OPEN";
         $job->job_type = $job_obj->job_type;
         $job->job_pin = mt_rand(1000,9999);
-        $response = $job->save();
-        if($response && $job->job_type == 'BOARD') {
-          $this->send_notification_job_board_notification($job);
-        } else if ($response && $job->job_type == 'INSTANT'){
-          $this->send_notification_job_insant_notification($job);
-        }
+        if($job->job_type == 'BOARD') {
+          $response = $job->save();
+          if($response){
+            $this->send_notification_job_board_notification($job);
+          }
+        } 
       }
       return Response::json($response);
     }
@@ -539,120 +537,7 @@ class ServiceSeekerJobController extends Controller
   }
 
 
-  //service provider list for instant job map
-  protected function job_instant_provider_list(){
-    $job = Job::where('id', $_POST['job_id'])->first();
-    if($job != null) {
-       $service_providers = DB::table("users")
-         ->join('service_provider_services', 'users.id', '=', 'service_provider_services.user_id')
-         ->select("users.*" , "users.id as user_id"
-         ,DB::raw("6371 * acos(cos(radians(" . $job->job_lat . ")) 
-         * cos(radians(users.user_lat)) 
-         * cos(radians(users.user_lng) - radians(" . $job->job_lng . ")) 
-         + sin(radians(" .$job->job_lat. ")) 
-         * sin(radians(users.user_lat))) AS distance"))
-         ->where("users.is_online", true)
-         ->where("users.is_verified", true)
-         ->where("service_provider_services.service_cat_id",$job->service_subcategory_id)
-         ->having('distance', '<=', 2000)
-         ->groupBy("user_id")
-         ->orderBy('distance', 'asc')
-         ->get();
-         return Response::json($service_providers);
-    } else {
-      return Response::json(array());
-    }
- }
 
- 
- //rendered view for service provider display for map selector
- protected function job_instant_provider_info(){
-   $user_id = $_POST['user_id'];
-   $job_id = $_POST['job_id'];
-   $user = User::find($user_id);
-   if($user != null) {
-     $certificates = $user->certificates;
-     $languages = $user->languages;
-     $user_services = $user->service_provider_services;
-     $stats = $this->calcualte_user_job_stats($user_id);
-     $rendered_view = view('service_seeker.jobs.partial.service_provider_info')
-                     ->with('certificates', $certificates)
-                     ->with('current_languages', $languages)
-                     ->with('user_services', $user_services)
-                     ->with('user', $user)
-                     ->with('stats', $stats)
-                     ->with('job_id', $job_id)
-                     ->render();
-     return Response::json($rendered_view);
-   } else {
-     return Response::json(false);
-   }
-  
- }
-
- //this function converts the job from instant job type into job board type.
- function service_seeker_job_posttojobboard(Request $request){
-  $input = $request->all();
-  $job = Job::find($input['ss_job_posttojobboard_id']);
-  //check if job exitst
-  if($job != null) {
-    //check if job type is instant and job status is open and check if user booked the job
-    if($job->job_type == 'INSTANT' && $job->status == 'OPEN' && $job->service_seeker_id == Auth::id()) {
-      //convert the job to 'BOARD' type
-      $job->job_type = 'BOARD';
-      $job->service_provider_id = null;
-      $job->status = 'OPEN';
-      $job->save();
-    }
-  }
-  return redirect()->back();
- }
-
- //assign a service provider to instant job type
- protected function job_instant_assign_service_provider(Request $request){
-    $input = $request->all();
-    $job = Job::find($input['job_instant_sp_selector_job_id']);
-    $service_provider_id =  $input['job_instant_sp_selector_provider_id'];
-    if($job != null && $service_provider_id != null) {
-       //assign the service provider
-       $job->service_provider_id = $service_provider_id;
-       $job->job_sp_selector_date_time = Carbon::now();
-       if($job->save()){
-        $this->send_notification_job_insant_service_provider_selection($job);
-       }
-    }
-    return redirect()->back();
- }
-
- //resets the job instant type to its originol values so the service seeker can select a different service provider
- protected function job_instant_reset_job(Request $request) {
-  $input = $request->all();
-  $job = Job::find($input['job_instant_sp_selector_job_id']);
-  if($job != null) {
-    $job->job_sp_selector_date_time = null;
-    $job->service_provider_id = null;
-    
-    //remove the conversation if any between service provider and service seeker
-
-    
-    //let service provider know that the service seeker is no longer interested in the job 
-    $job->save();
-  }
-   return redirect()->back();
- }
-
- //check if the ocnversation exists for instant job between provider and seeker
- protected function job_instant_provider_check_conversation_exists(){
-  $service_provider_id = $_POST['service_provider_id'];
-  $job_id = $_POST['job_id'];
-  $conversation = Job::find($job_id)->conversations->where('service_provider_id', $service_provider_id)->first();
-  if($conversation != null) {
-    return Response::json(true);
-  } else {
-    return Response::json(false);
-  }
-
- }
 
 
 //notification functions below
@@ -667,25 +552,6 @@ protected function send_notification_job_board_notification($job){
   //push notification
 }
 
-//job instant notification
-protected function send_notification_job_insant_notification($job){
-  $data = new \stdClass();
-  $data->job_id = $job->id;
-  $data->service_seeker_name = $job->service_seeker_profile->first;
-  Auth::user()->notify(new JobInstantNotification($data));
-}
-
-//instant job type service provider selection notification
-protected function send_notification_job_insant_service_provider_selection($job){
-  $user = User::find($job->service_provider_id);
-  if($user != null) {
-    //email
-    $job->service_provider_name = $user->first;
-    $user->notify(new JobInstantServiceProviderSelectionNotification($job));
-    //sms
-    //push notification
-  }
-}
 
 //service seeker respond to service provider message
 protected function send_notification_job_conversation_new_message($conversation,$message){

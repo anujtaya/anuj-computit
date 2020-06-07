@@ -21,18 +21,12 @@
 <div class="modal fade" id="job_booking_option_type_modal" tabindex="-1" role="dialog" aria-labelledby="job_booking_option_type_modal_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered-d" role="document">
       <div class="modal-content border-0 card-1">
-         <div class="modal-body text-center" style="min-height:300px;">
+         <div class="modal-body text-center">
             <h1 class="fs-1">Almost there!</h1>
             <p class="fs--1 mb-2">
                Post your job on job board so Service providers can contact you with quote prices. We will let you know when someone replies to your job with a quote pricing.
                <br><br>
                <button class="btn theme-background-color text-white card-1" onclick="job_booking_submit('BOARD');" style="border-radius:30px;">Post to Job Board</button>
-            </p>
-            Or
-            <p class="fs--1 mb-2">
-               Find online Service providers and get a response with a quote in less than 5 minutes. Subject to Service Provider availbility in your area.
-               <br><br>
-               <button class="btn theme-background-color text-white card-1" onclick="job_booking_submit('INSTANT');" style="border-radius:30px;">Look for Service Providers Now</button>
             </p>
          </div>
       </div>

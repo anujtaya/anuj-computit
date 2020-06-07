@@ -115,12 +115,6 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/more/wallet/stripe/create_customer',  'ServiceSeekerStripePaymentController@create_customer')->name('service_seeker_more_wallet_stripe_create_customer');
   Route::post('/service_seeker/more/wallet/stripe/change_customer_default_card',  'ServiceSeekerStripePaymentController@change_customer_default_card')->name('service_seeker_more_wallet_stripe_change_customer_default_card');
   Route::get('/service_seeker/more/wallet/stripe/delete_customer_card/{id}',  'ServiceSeekerStripePaymentController@delete_customer_card')->name('service_seeker_more_wallet_stripe_delete_customer_card');
-  //service seeker instant job routes
-  Route::post('/service_seeker/job/instant/provider_list', 'ServiceSeekerJobController@job_instant_provider_list')->name('service_seeker_job_instant_provider_list');
-  Route::post('/service_seeker/job/instant/provider_info', 'ServiceSeekerJobController@job_instant_provider_info')->name('service_seeker_job_instant_provider_info');
-  Route::post('/service_seeker/job/instant/assign_service_provider', 'ServiceSeekerJobController@job_instant_assign_service_provider')->name('service_seeker_job_instant_assign_service_provider');
-  Route::post('/service_seeker/job/instant/reset_job', 'ServiceSeekerJobController@job_instant_reset_job')->name('service_seeker_job_instant_reset_job');
-  Route::post('/service_seeker/job/instant/provider_check_conversation_exists', 'ServiceSeekerJobController@job_instant_provider_check_conversation_exists')->name('service_seeker_job_instant_provider_check_conversation_exists');
 });
 
 

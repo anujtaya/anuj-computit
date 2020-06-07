@@ -1,11 +1,7 @@
 <ul id="service_seeker_filter_ul_list" class="list-group fs--1" style="overflow:scroll; height:640px;">
   @foreach($jobs as $job)
   <li class="list-group-item mt-2 mb-2 ml-2 mr-2 card-1 border-0  p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);" style="cursor:pointer;">
-    @if($job->job_type == 'INSTANT')
-      <div class="bg-warning text-white ml-auto  fs--2 p-2 card-1" style="border-bottom-left-radius:10px;width:30%;">Instant Job</div>
-    @elseif($job->job_type == 'BOARD')
-      <div class="theme-background-color ml-auto  fs--2 p-2 card-1" style="border-bottom-left-radius:10px;width:40%;">Posted to Job Board</div>
-    @endif
+    <div class="theme-background-color ml-auto  fs--2 p-2 card-1" style="border-bottom-left-radius:10px;width:40%;">Posted to Job Board</div>
     <div class="d-flex pl-2 pr-2 pt-2 bd-highlight">
       <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{ucfirst($job->title)}}</div>
     </div>

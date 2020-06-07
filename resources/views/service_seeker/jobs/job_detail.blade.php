@@ -59,15 +59,9 @@ $currentUserTab = 'joboverview';
                   <span class="badge  badge-danger  p-2 fs--2 font-weight-normal animated headShake delay-1s" style="border-radius:20px!important;">CANCELLED</span>
                @endif   
             </div>
-            @if($job->job_type == 'INSTANT')
-               <div class="col-12 text-right">
-                  <span class="badge  badge-warning  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Instant Job</span> 
-               </div>
-            @else
-               <div class="col-12 text-right">
-                  <span class="badge  theme-background-color  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Posted to Job Board</span> 
-               </div>
-            @endif
+            <div class="col-12 text-right">
+               <span class="badge  theme-background-color  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Posted to Job Board</span> 
+            </div>
          </div>
          <ul class="nav nav-pills shadow-sm pl-2 pr-2 pb-1 nav-fill m-0 fs--1" id="myTab" role="tablist">
             <li class="nav-item ">
@@ -88,43 +82,20 @@ $currentUserTab = 'joboverview';
    <div class="p-0" style="margin-top:130px;">
          <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab">
-               @if($job->job_type == 'INSTANT')
-                  <!-- if service provider id and timestamps are stored display the timer option and option to reset the job -->
-                  @if($job->service_provider_id != null && $job->job_sp_selector_date_time != null)
-                     @if($job->status == 'OPEN')
-                        @include('service_seeker.jobs.partial.job_overview_partial_instant_open_selected')
-                     @elseif($job->status == 'APPROVED')
-                        @include('service_seeker.jobs.partial.job_overview_partial_approved')
-                     @elseif($job->status == 'ONTRIP')
-                        @include('service_seeker.jobs.partial.job_overview_partial_ontrip')
-                     @elseif($job->status == 'ARRIVED')
-                        @include('service_seeker.jobs.partial.job_overview_partial_arrived')
-                     @elseif($job->status == 'STARTED')
-                        @include('service_seeker.jobs.partial.job_overview_partial_started')
-                     @elseif($job->status == 'COMPLETED')
-                        @include('service_seeker.jobs.partial.job_overview_partial_completed')
-                     @elseif($job->status == 'CANCELLED')
-                        @include('service_seeker.jobs.partial.job_overview_partial_cancelled')
-                     @endif
-                  @else 
-                     @include('service_seeker.jobs.partial.job_overview_partial_instant_open')
-                  @endif
-               @elseif($job->job_type == "BOARD")
-                  @if($job->status == 'OPEN')
-                     @include('service_seeker.jobs.partial.job_overview_partial_open')
-                  @elseif($job->status == 'APPROVED')
-                     @include('service_seeker.jobs.partial.job_overview_partial_approved')
-                  @elseif($job->status == 'ONTRIP')
-                     @include('service_seeker.jobs.partial.job_overview_partial_ontrip')
-                  @elseif($job->status == 'ARRIVED')
-                     @include('service_seeker.jobs.partial.job_overview_partial_arrived')
-                  @elseif($job->status == 'STARTED')
-                     @include('service_seeker.jobs.partial.job_overview_partial_started')
-                  @elseif($job->status == 'COMPLETED')
-                     @include('service_seeker.jobs.partial.job_overview_partial_completed')
-                  @elseif($job->status == 'CANCELLED')
-                     @include('service_seeker.jobs.partial.job_overview_partial_cancelled')
-                  @endif
+               @if($job->status == 'OPEN')
+                  @include('service_seeker.jobs.partial.job_overview_partial_open')
+               @elseif($job->status == 'APPROVED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_approved')
+               @elseif($job->status == 'ONTRIP')
+                  @include('service_seeker.jobs.partial.job_overview_partial_ontrip')
+               @elseif($job->status == 'ARRIVED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_arrived')
+               @elseif($job->status == 'STARTED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_started')
+               @elseif($job->status == 'COMPLETED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_completed')
+               @elseif($job->status == 'CANCELLED')
+                  @include('service_seeker.jobs.partial.job_overview_partial_cancelled')
                @endif
             </div>
             <div class="tab-pane fade @if($currentUserTab  == 'jobdetail')show active @endif fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">
