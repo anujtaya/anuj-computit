@@ -333,12 +333,12 @@ function update_user_final_location(lat, lng, suburb, state) {
         },
         success: function(results) {
             if (results) {
-                $("#user_current_saved_location").html('Location set to: <span class="theme-color">' + suburb + ',' + state + "</span>");
+                $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + suburb + ',' + state + "</span>");
                 current_lat = lat;
                 current_lng = lng;
                 map.setCenter(new google.maps.LatLng(current_lat, current_lng));
                 current_sp_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
-                filter_service_provider_jobs(null, true);
+                filter_service_provider_jobs(null, false);
             } else {
                 console.log('Location update notification should not be sent.');
             }

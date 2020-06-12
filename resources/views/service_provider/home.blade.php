@@ -85,7 +85,7 @@
             <div class="d-flex fs--2 bd-highlight">
                <div class="p-2 bd-highlight" id="user_current_saved_location">
                   @if(Auth::user()->user_lat != null)
-                  Location set to: <span class="theme-color">{{Auth::user()->user_city}}, {{Auth::user()->user_state}}</span> 
+                  <i class="fas fa-map-marker-alt"></i> <span class="theme-color">{{Auth::user()->user_city}}, {{Auth::user()->user_state}}</span> 
                   @else
                   <span class="text-danger">Please update your service location.</span>
                   @endif      
@@ -118,7 +118,7 @@
          </div>
       </div>
       <!-- preloader container display  -->
-      <ul class="list-group fs--1 mt-1" id="preloader_display">
+      <ul class="list-group fs--1 mt-1 d-none" id="preloader_display">
          <div class="timeline-wrapper">
             @for($i=0;$i<6;$i++)
             <div class="timeline-item card-1 m-1 border-0">
@@ -142,7 +142,7 @@
          </div>
       </ul>
       <!-- job list contianer display  -->
-      <ul class="list-group m-0 " style="overflow:scroll; height:640px;" id="job_list_display">
+      <ul class="list-group m-0 " style="overflow:scroll; height:640px;display:none;" id="job_list_display">
          <!-- autopupulate area  -->
       </ul>
    </div>
@@ -210,15 +210,17 @@
    var current_lng = "{{Auth::user()->user_lng}}";
    
    window.onload = function() {
-      //update_interval =  setInterval(fetch_all_jobs, 25000);
-      //setInterval(update_refresh_count_display, 5000);
+      update_interval = setInterval(function(){ filter_service_provider_jobs(null,false) }, 20000);
+      setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup
-      update_sp_location();
+    
+      //update_sp_location();    
       if(current_lat == '') {
-         //update_sp_location();
+         update_sp_location();
       } else {
-         filter_service_provider_jobs(null,true);
+         filter_service_provider_jobs(null,false);
       }
+      switch_view_mode('MAP')
    }
    
    var filter_settings = {
