@@ -43,7 +43,7 @@
          <div class="text-center" style="margin-top:250px;">
             <img src="{{secure_url('/images/brand/l2l-logo-svg.svg')}}" class="fa-spin spin" height="60" width="60">
          </div>
-         <div class="text-center ml-4 mr-4 d-none" style="margin-top:20px;" id="anim-2">
+         <div class="text-center ml-4 mr-4  fs-1" style="margin-top:20px;" id="anim-2">
          </div>
       </div>
       <!-- general alert modal -->

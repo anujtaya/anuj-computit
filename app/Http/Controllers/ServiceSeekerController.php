@@ -27,9 +27,11 @@ class ServiceSeekerController extends Controller
         $categories = ServiceCategory::all();
         return view("service_seeker.service_seeker_home_2")->with('categories', $categories);
       } else {
+        $categories = ServiceCategory::all();
         $jobs = Job::where('service_seeker_id', Auth::id())->whereIn('status', ['OPEN', 'INPROGRESS', 'STARTED', 'ARRIVED', 'ONTRIP'])->get();
         return view("service_seeker.service_seeker_home_1")
-               ->with('jobs', $jobs);
+              ->with('categories', $categories)
+              ->with('jobs', $jobs);
       }
     
   }

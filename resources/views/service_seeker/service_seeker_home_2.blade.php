@@ -2,7 +2,6 @@
 @section('content')
 @push('header-script')
 <script src="{{asset('/js/service_seeker/service_seeker_home.js')}}?v={{rand(1,100)}}"></script>
-<script src="{{asset('/js/service_seeker/service_seeker_home_map.js')}}?v={{rand(1,100)}}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" href="{{asset('/css/third/flatpickr.min.css')}}">
 <script src="{{asset('/js/third/flatpickr.js')}}"></script>
@@ -14,21 +13,6 @@
       </div>
       <div class="col-lg-4 p-0 border-d"  id="view_box_2" style="display:none;">
          @include('service_seeker.service_wizard')
-      </div>
-   </div>
-</div>
-<!-- job booking option type modal -->
-<div class="modal fade" id="job_booking_option_type_modal" tabindex="-1" role="dialog" aria-labelledby="job_booking_option_type_modal_title" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered-d" role="document">
-      <div class="modal-content border-0 card-1">
-         <div class="modal-body text-center">
-            <h1 class="fs-1">Almost there!</h1>
-            <p class="fs--1 mb-2">
-               Post your job on job board so Service providers can contact you with quote prices. We will let you know when someone replies to your job with a quote pricing.
-               <br><br>
-               <button class="btn theme-background-color text-white card-1" onclick="job_booking_submit('BOARD');" style="border-radius:30px;">Post to Job Board</button>
-            </p>
-         </div>
       </div>
    </div>
 </div>

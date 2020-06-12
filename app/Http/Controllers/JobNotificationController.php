@@ -28,6 +28,8 @@ class JobNotificationController extends Controller
         //push notification channelgit
         //email notification
         $user = User::find($job->service_seeker_id);
+        $job->service_provider_name = $user->first();
+        
         $user->notify(new JobStatusUpdate($job));
     }
 
@@ -35,6 +37,7 @@ class JobNotificationController extends Controller
     function test_template() {
         $job = Job::find(2);
         $user = User::find($job->service_seeker_id);
+        $job->service_provider_name = $user->first;
         $user->notify(new JobStatusUpdate($job));
         dd(true);
     }

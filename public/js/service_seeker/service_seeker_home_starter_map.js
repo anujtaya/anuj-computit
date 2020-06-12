@@ -193,6 +193,7 @@ function update_user_location() {
 }
 
 
+
 function update_location_using_navigator(position) {
     pos = {
         lat: position.coords.latitude,
@@ -258,6 +259,7 @@ function update_user_final_location(lat, lng, suburb, state, full_address) {
                 current_lng = lng;
                 map.setCenter(new google.maps.LatLng(current_lat, current_lng));
                 current_user_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
+                populate_random_job_markers();
             } else {
                 console.log('Location update notification should not be sent.');
             }
@@ -350,4 +352,54 @@ function geocodePosition(pos) {
             }
         }
     });
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+
+//generates rando job markers on map. In production replace it with actual service providers marker data
+function populate_random_job_markers() {
+    setMapOnAll(null);
+    markers = [];
+    for (var i = 0; i < 10; i++) {
+        var coords = generate_random_coordinate();
+        service_provider_conversation_marker = new google.maps.Marker({
+            position: new google.maps.LatLng(coords.lat, coords.lng),
+            icon: {
+                //url: './images/dot.svg',
+                url: app_url + '/images/map/service_seeker_job_icon.svg',
+                scaledSize: new google.maps.Size(30, 30),
+            },
+            custom_data: service_categories[Math.floor(Math.random() * (10 - 1) + 1)],
+        });
+        markers.push(service_provider_conversation_marker);
+        setMapOnAll(map);
+    }
+}
+
+
+function generate_random_coordinate() {
+    var r = 5000 / 111300 // = 100 meters
+        ,
+        y0 = current_user_marker.getPosition().lat(),
+        x0 = current_user_marker.getPosition().lng(),
+        u = Math.random(),
+        v = Math.random(),
+        w = r * Math.sqrt(u),
+        t = 2 * Math.PI * v,
+        x = w * Math.cos(t),
+        y1 = w * Math.sin(t),
+        x1 = x / Math.cos(y0)
+    var coords = {
+        lat: y0 + y1,
+        lng: x0 + x1
+    };
+    //console.log(coords);
+
+    return coords;
 }

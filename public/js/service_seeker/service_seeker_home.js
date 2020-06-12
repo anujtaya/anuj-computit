@@ -1,3 +1,178 @@
+var map, current_user_marker;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+
+            zoom: 12,
+            clickableIcons: false,
+            // disableDefaultUI: true,
+            gestureHandling: 'greedy',
+            disableDefaultUI: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            styles: [{
+                    "featureType": "all",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "weight": "2.00"
+                    }]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{
+                        "color": "#9c9c9c"
+                    }]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text",
+                    "stylers": [{
+                        "visibility": "on"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [{
+                        "color": "#f2f2f2"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                },
+                {
+                    "featureType": "landscape.man_made",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [{
+                            "saturation": -100
+                        },
+                        {
+                            "lightness": 45
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#eeeeee"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "color": "#7b7b7b"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "simplified"
+                    }]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.icon",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [{
+                            "color": "#46bcec"
+                        },
+                        {
+                            "visibility": "on"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#b5dae1"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "color": "#070707"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                }
+            ],
+        }),
+
+        current_user_marker = new google.maps.Marker({
+            map: map,
+            zIndex: 1,
+            //icon: icons,
+            icon: {
+                url: '/images/map/marker.svg',
+                scaledSize: new google.maps.Size(40, 40), // scaled size
+            },
+            draggable: true,
+        });
+
+    current_user_marker.addListener('click', function() {
+        map.panTo(current_user_marker.position);
+        map.setZoom(18);
+    });
+
+    //set new current location on marker drag
+    google.maps.event.addListener(current_user_marker, 'dragend', function(evt) {
+        geocodePosition(current_user_marker.getPosition());
+    });
+
+
+
+}
+
 function map_display_control() {
     if ($("#map").is(":visible")) {
         $("#map:visible").fadeOut()
@@ -272,7 +447,7 @@ function book_job() {
     if (typeof current_address_string !== 'undefined') {
         if (current_job_lat != null && current_job_lng != null) {
             //show job booking type selector modal
-            $("#job_booking_option_type_modal").modal("show");
+            job_booking_submit('BOARD');
         } else {
             $("#street_number").addClass('animated shake is-invalid');
             setTimeout(function() { $("#street_number").removeClass('animated shake '); }, 1000);
@@ -287,7 +462,7 @@ function book_job() {
 
 
 function job_booking_submit(type) {
-    toggle_animation(true);
+    toggle_animation(true, 'Searching for providers. This usually takes around 10-20 minutes so please check back in your jobs tab when alerted.');
     var job_obj = {
         current_job_draft_id: current_job_draft_id,
         title: $("#service_job_title").val(),
@@ -347,44 +522,36 @@ function initAutocomplete() {
         componentRestrictions: { country: 'au' }
     });
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-
         // Get the place details from the autocomplete object.
         place = autocomplete.getPlace();
-        current_address_string = place['address_components'];
-
-        //console.log(componentForm);
-
+        current_address_string = place['address_components']
         current_job_lat = place.geometry.location.lat();
         current_job_lng = place.geometry.location.lng();
-
-        for (var component in componentForm) {
-            document.getElementById(component).value = '';
-            document.getElementById(component).disabled = false;
-        }
-
-        var fullAddress = [];
-
+        update_map_position(place.geometry.location);
+        // for (var component in componentForm) {
+        //     document.getElementById(component).value = '';
+        //     document.getElementById(component).disabled = false;
+        // }
+        // var fullAddress = [];
         // Get each component of the address from the place details
         // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-            var addressType = place.address_components[i].types[0];
-            if (componentForm[addressType]) {
-                var val = place.address_components[i][componentForm[addressType]];
-                document.getElementById(addressType).value = val;
-            }
-            if (addressType == "street_number") {
-                fullAddress[0] = val;
-            } else if (addressType == "route") {
-                fullAddress[0] += " " + val;
-            }
-        }
+        // for (var i = 0; i < place.address_components.length; i++) {
+        //     var addressType = place.address_components[i].types[0];
+        //     if (componentForm[addressType]) {
+        //         var val = place.address_components[i][componentForm[addressType]];
+        //         document.getElementById(addressType).value = val;
+        //     }
+        //     if (addressType == "street_number") {
+        //         fullAddress[0] = val;
+        //     } else if (addressType == "route") {
+        //         fullAddress[0] += " " + val;
+        //     }
+        // }
 
-        document.getElementById('street_number').value = fullAddress.join(" ");
-        if (document.getElementById('street_number').value !== "") {
-            document.getElementById('street_number').disabled = false;
-        }
-
-
+        // document.getElementById('street_number').value = fullAddress.join(" ");
+        // if (document.getElementById('street_number').value !== "") {
+        //     document.getElementById('street_number').disabled = false;
+        // }
     });
 }
 
@@ -405,6 +572,11 @@ function resetPosition() {
     }
 }
 
+function update_map_position(location) {
+    map.panTo(location);
+    current_user_marker.setPosition(location);
+    map.setZoom(18);
+}
 
 function prefill_location_info() {
     if (navigator.geolocation) {
@@ -431,24 +603,25 @@ function geocodePosition(pos) {
             current_address_string = responses[0].address_components;
             current_job_lat = pos.lat;
             current_job_lng = pos.lng;
-            var fullAddress = [];
-            for (var i = 0; i < responses[0].address_components.length; i++) {
-                var addressType = responses[0].address_components[i].types[0];
-                if (componentForm[addressType]) {
-                    var val = responses[0].address_components[i][componentForm[addressType]];
-                    document.getElementById(addressType).value = val;
-                }
-                if (addressType == "street_number") {
-                    fullAddress[0] = val;
-                } else if (addressType == "route") {
-                    fullAddress[0] += " " + val;
-                }
-            }
-            document.getElementById('street_number').value = fullAddress.join(" ");
-            if (document.getElementById('street_number').value !== "") {
-                document.getElementById('street_number').disabled = false;
-            }
-
+            update_map_position(responses[0].geometry.location);
+            document.getElementById('street_number').value = responses[0].formatted_address;
+            // var fullAddress = [];
+            // for (var i = 0; i < responses[0].address_components.length; i++) {
+            //     var addressType = responses[0].address_components[i].types[0];
+            //     if (componentForm[addressType]) {
+            //         var val = responses[0].address_components[i][componentForm[addressType]];
+            //         document.getElementById(addressType).value = val;
+            //     }
+            //     if (addressType == "street_number") {
+            //         fullAddress[0] = val;
+            //     } else if (addressType == "route") {
+            //         fullAddress[0] += " " + val;
+            //     }
+            // }
+            // document.getElementById('street_number').value = fullAddress.join(" ");
+            // if (document.getElementById('street_number').value !== "") {
+            //     document.getElementById('street_number').disabled = false;
+            // }
         }
     });
 }

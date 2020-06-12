@@ -1,5 +1,14 @@
 @component('mail::message' )
-# Hi there!
+{{-- Greeting --}}
+@if (! empty($greeting))
+# {{ $greeting }}
+@else
+@if ($level === 'error')
+# @lang('Whoops!')
+@else
+# @lang('Hi there!')
+@endif
+@endif
 
 <p>The status of the job with id {{$job->id}} has been changed to "{{$job->status}}". Please navigate to LocaL2LocaL app to know more.</p>
 
