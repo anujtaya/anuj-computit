@@ -1,5 +1,6 @@
 var map, current_user_marker;
 
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
 
@@ -168,10 +169,8 @@ function initMap() {
     google.maps.event.addListener(current_user_marker, 'dragend', function(evt) {
         geocodePosition(current_user_marker.getPosition());
     });
-
-
-
 }
+
 
 function map_display_control() {
     if ($("#map").is(":visible")) {
@@ -182,6 +181,7 @@ function map_display_control() {
         user_map_settings(true); // UPDATE
     }
 }
+
 
 function user_map_settings(map_status) {
     var user_preferences = {
@@ -218,6 +218,7 @@ var draft_obj = {
     job_lng: current_job_lng,
 }
 
+
 function user_service_selection(service_id) {
     var service_name = $("#" + service_id).data("catname");
     var user_service_id = service_id.substr(4);
@@ -232,7 +233,6 @@ function user_service_selection(service_id) {
 }
 
 
-
 function wizard_exit() {
     wizard_switch_2('wizard_view_1');
     $("#view_box_2").hide();
@@ -241,6 +241,7 @@ function wizard_exit() {
         clear_job_draft_data(current_job_draft_id);
     }
 }
+
 
 function set_current_node_id(node_id) {
     toggle_animation(true);
@@ -256,6 +257,7 @@ function set_current_node_id(node_id) {
         wizard_switch('wizard_view_2');
     }
 }
+
 
 function wizard_switch(id) {
     // create_seeker_job_draft();
@@ -274,6 +276,7 @@ function wizard_switch(id) {
     }
 }
 
+
 function wizard_switch_1(id) {
     $("#wizard_view_1").hide();
     $("#wizard_view_2").hide();
@@ -282,6 +285,7 @@ function wizard_switch_1(id) {
     $("#" + id).show();
     toggle_animation(false);
 }
+
 
 function wizard_switch_2(id) {
     if (current_service_node_id == null) {
@@ -325,6 +329,7 @@ function wizard_switch_3(id) {
     toggle_animation(false);
 }
 
+
 function wizard_switch_4(id) {
     $("#wizard_view_1").hide();
     $("#wizard_view_2").hide();
@@ -334,9 +339,11 @@ function wizard_switch_4(id) {
     toggle_animation(false);
 }
 
+
 function hasValue(elem) {
     return $(elem).filter(function() { return $(this).val(); }).length > 0;
 }
+
 
 function retrieve_sub_categories(service_cat_id) {
     toggle_animation(true);
@@ -390,7 +397,6 @@ function render_service_node_list(data) {
 }
 
 function create_seeker_job_draft() {
-    // if(current_job_draft_id == null){
     var draft_obj = {
         title: $("#service_job_title").val(),
         description: $("#service_job_description").val(),
@@ -416,8 +422,8 @@ function create_seeker_job_draft() {
             console.log(err);
         }
     });
-    // }
 }
+
 
 function clear_job_draft_data(job_draft_id) {
     if (job_draft_id != null) {
@@ -457,8 +463,6 @@ function book_job() {
         setTimeout(function() { $("#street_number").removeClass('animated shake '); }, 1000);
     }
 }
-
-
 
 
 function job_booking_submit(type) {
@@ -503,8 +507,6 @@ function job_booking_submit(type) {
 }
 
 
-
-
 var placeSearch;
 var componentForm = {
     street_number: 'short_name',
@@ -528,40 +530,16 @@ function initAutocomplete() {
         current_job_lat = place.geometry.location.lat();
         current_job_lng = place.geometry.location.lng();
         update_map_position(place.geometry.location);
-        // for (var component in componentForm) {
-        //     document.getElementById(component).value = '';
-        //     document.getElementById(component).disabled = false;
-        // }
-        // var fullAddress = [];
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
-        // for (var i = 0; i < place.address_components.length; i++) {
-        //     var addressType = place.address_components[i].types[0];
-        //     if (componentForm[addressType]) {
-        //         var val = place.address_components[i][componentForm[addressType]];
-        //         document.getElementById(addressType).value = val;
-        //     }
-        //     if (addressType == "street_number") {
-        //         fullAddress[0] = val;
-        //     } else if (addressType == "route") {
-        //         fullAddress[0] += " " + val;
-        //     }
-        // }
-
-        // document.getElementById('street_number').value = fullAddress.join(" ");
-        // if (document.getElementById('street_number').value !== "") {
-        //     document.getElementById('street_number').disabled = false;
-        // }
     });
 }
 
-//user presee reset btn event
+//user presses reset btn event
 function resetPosition() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
                 pos = {
-                    lat: position.coords.latitude, //get current lattitude from device.
-                    lng: position.coords.longitude //get current longitude from device.
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
                 };
                 geocodePosition(pos);
             },
@@ -582,8 +560,8 @@ function prefill_location_info() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
                 pos = {
-                    lat: position.coords.latitude, //get current lattitude from device.
-                    lng: position.coords.longitude //get current longitude from device.
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
                 };
                 geocodePosition(pos);
             },
@@ -601,27 +579,10 @@ function geocodePosition(pos) {
         if (responses && responses.length > 0) {
             console.log(responses[0]);
             current_address_string = responses[0].address_components;
-            current_job_lat = pos.lat;
-            current_job_lng = pos.lng;
+            current_job_lat = responses[0].geometry.location.lat();
+            current_job_lng = responses[0].geometry.location.lng();
             update_map_position(responses[0].geometry.location);
             document.getElementById('street_number').value = responses[0].formatted_address;
-            // var fullAddress = [];
-            // for (var i = 0; i < responses[0].address_components.length; i++) {
-            //     var addressType = responses[0].address_components[i].types[0];
-            //     if (componentForm[addressType]) {
-            //         var val = responses[0].address_components[i][componentForm[addressType]];
-            //         document.getElementById(addressType).value = val;
-            //     }
-            //     if (addressType == "street_number") {
-            //         fullAddress[0] = val;
-            //     } else if (addressType == "route") {
-            //         fullAddress[0] += " " + val;
-            //     }
-            // }
-            // document.getElementById('street_number').value = fullAddress.join(" ");
-            // if (document.getElementById('street_number').value !== "") {
-            //     document.getElementById('street_number').disabled = false;
-            // }
         }
     });
 }
