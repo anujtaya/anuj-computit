@@ -4,7 +4,6 @@
 <script src="{{asset('/js/service_seeker/service_seeker_home.js')}}?v={{rand(1,100)}}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" href="{{asset('/css/third/flatpickr.min.css')}}">
-<script src="{{asset('/js/third/flatpickr.js')}}"></script>
 @endpush
 <div class="container ">
    <div class="row  justify-content-center" >
