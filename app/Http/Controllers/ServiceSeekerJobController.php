@@ -30,11 +30,13 @@ class ServiceSeekerJobController extends Controller
     
 
     protected function show_jobs(){
-      $seeker_jobs = Job::where('service_seeker_id', Auth::id())
-                      ->where('status', '!=', 'DRAFT')
-                      ->where('status', '!=', 'COMPLETED')
-                      ->where('status', '!=', 'CANCELLED')
-                      ->orderBy('job_date_time', 'desc')->get();
+      $seeker_jobs = Job::where('service_seeker_id',  Auth::id())
+                      ->leftJoin('conversations', 'jobs.id', '=', 'conversations.job_id')
+                      ->groupBy('jobs.id')
+                      ->where('jobs.status', '!=', 'DRAFT')
+                      ->where('jobs.status', '!=', 'COMPLETED')
+                      ->where('jobs.status', '!=', 'CANCELLED')
+                      ->get(['jobs.*', DB::raw('count(conversations.id) as conversations')]);
       return View::make("service_seeker.jobs.jobs")->with('jobs', $seeker_jobs);
     }
 
@@ -107,7 +109,8 @@ class ServiceSeekerJobController extends Controller
       $filter_action = $_POST['filter_action'];
       $user_id = Auth::id();
       if($filter_action == "ALL"){
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', '!=', 'DRAFT')->orderBy('job_date_time', 'desc')->get();
+        $jobs = Job::where('service_seeker_id', Auth::user()->id)
+                ->where('status', '!=', 'DRAFT') ->orderBy('job_date_time', 'desc')->get();
       }else{
         $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', $filter_action)->orderBy('job_date_time', 'desc')->get();
       }
