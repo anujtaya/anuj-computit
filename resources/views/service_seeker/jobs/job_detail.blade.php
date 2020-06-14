@@ -24,6 +24,70 @@
 .fade {
    transition: opacity .15s linear;
 }
+
+.pure-material-progress-linear {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    height: 0.25em;
+    color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.12);
+    font-size: 16px;
+    min-width: 100%;
+}
+
+.pure-material-progress-linear::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+/* Determinate */
+.pure-material-progress-linear::-webkit-progress-value {
+    background-color: currentColor;
+    transition: all 0.2s;
+}
+
+.pure-material-progress-linear::-moz-progress-bar {
+    background-color: currentColor;
+    transition: all 0.2s;
+}
+
+.pure-material-progress-linear::-ms-fill {
+    border: none;
+    background-color: currentColor;
+    transition: all 0.2s;
+}
+
+/* Indeterminate */
+.pure-material-progress-linear:indeterminate {
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, transparent 50%, currentColor 50%, currentColor 60%, transparent 60%, transparent 71.5%, currentColor 71.5%, currentColor 84%, transparent 84%);
+    animation: pure-material-progress-linear 2s infinite linear;
+}
+
+.pure-material-progress-linear:indeterminate::-moz-progress-bar {
+    background-color: transparent;
+}
+
+.pure-material-progress-linear:indeterminate::-ms-fill {
+    animation-name: none;
+}
+
+@keyframes pure-material-progress-linear {
+    0% {
+        background-size: 200% 100%;
+        background-position: left -31.25% top 0%;
+    }
+    50% {
+        background-size: 800% 100%;
+        background-position: left -49% top 0%;
+    }
+    100% {
+        background-size: 400% 100%;
+        background-position: left -102% top 0%;
+    }
+}
+
 </style>
 <!-- php code to detect current tab  -->
 @if(Session::has('current_tab'))
@@ -59,9 +123,6 @@ $currentUserTab = 'joboverview';
                   <span class="badge  badge-danger  p-2 fs--2 font-weight-normal animated headShake delay-1s" style="border-radius:20px!important;">CANCELLED</span>
                @endif   
             </div>
-            <div class="col-12 text-right">
-               <span class="badge  theme-background-color  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Posted to Job Board</span> 
-            </div>
          </div>
          <ul class="nav nav-pills shadow-sm pl-2 pr-2 pb-1 nav-fill m-0 fs--1" id="myTab" role="tablist">
             <li class="nav-item ">
@@ -77,9 +138,14 @@ $currentUserTab = 'joboverview';
                <a class="nav-link" id="jobhelp-tab" data-toggle="tab" href="#jobhelp" role="tab" aria-controls="jobhelp" aria-selected="false">Help</a>
             </li>
          </ul>
+         <!-- progress bar contianer -->
+         <div id="prog-container" style="display:none;">
+         <progress class="pure-material-progress-linear d-block"/>
+         </div>
+         <!-- end container -->
       </div>
    </div>
-   <div class="p-0" style="margin-top:130px;">
+   <div class="p-0" style="margin-top:110px;">
          <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab">
                @if($job->status == 'OPEN')

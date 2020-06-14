@@ -135,6 +135,7 @@
    
    
    function load_conversation_map_data(){
+      prog_load_dis(true);
       $.ajax({
             type: "POST",
             url: service_seeker_job_offer_map_data_url,
@@ -143,12 +144,22 @@
             },
             success: function(results){
                populate_conversation_map_data(results);
-               console.log(results);
+               prog_load_dis(false);
             },
             error: function(results, status, err) {
                console.log(err);
+               prog_load_dis(false);
             }
       });
+   }
+
+
+   function prog_load_dis(b){
+      if(b){
+         $("#prog-container").fadeIn();
+      } else {
+         $("#prog-container").fadeOut();
+      }
    }
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
