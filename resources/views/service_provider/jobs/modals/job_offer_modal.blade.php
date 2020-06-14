@@ -26,7 +26,7 @@
 
       <div class="modal-footer" style="text-align: center!important; border-top: none">
         <!-- <button type="button" class="btn btn-secondary" style="background-color: red!important; color: white!important" data-dismiss="modal">Close</button> -->
-        <button type="submit" class="btn btn-primary" style="background-color: #5D29BA!important; color: white!important; margin:auto ;display:block;">Send offer</button>
+        <button type="submit" class="btn btn-primary btn-sm card-1" style="background-color: #5D29BA!important; color: white!important; margin:auto ;display:block;">Send offer</button>
       </div>
 	  </form>
     </div>
