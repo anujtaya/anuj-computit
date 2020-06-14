@@ -1,7 +1,6 @@
 <!-- board job types -->
 @foreach($jobs as $job)
-<li class="list-group-item mt-2 mb-2 ml-2 mr-2 card-1 border-0  fs--1 p-0"  style="cursor:pointer;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">  
-    <div class="theme-background-color ml-auto  fs--2 p-2 card-1" style="border-bottom-left-radius:10px;width:40%;">Posted to Job Board</div>
+<li class="list-group-item mb-2 ml-2 mr-2 border p-0"  style="cursor:pointer;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">  
     <div class="d-flex bd-highlight pl-2 pr-2 pt-2">
         <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
     </div>
