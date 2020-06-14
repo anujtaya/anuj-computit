@@ -1,5 +1,69 @@
 @extends('layouts.service_seeker_master')
 @section('content')
+<style>
+.pure-material-progress-linear {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    height: 0.25em;
+    color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.12);
+    font-size: 16px;
+    min-width: 100%;
+}
+
+.pure-material-progress-linear::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+/* Determinate */
+.pure-material-progress-linear::-webkit-progress-value {
+    background-color: currentColor;
+    transition: all 0.2s;
+}
+
+.pure-material-progress-linear::-moz-progress-bar {
+    background-color: currentColor;
+    transition: all 0.2s;
+}
+
+.pure-material-progress-linear::-ms-fill {
+    border: none;
+    background-color: currentColor;
+    transition: all 0.2s;
+}
+
+/* Indeterminate */
+.pure-material-progress-linear:indeterminate {
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, transparent 50%, currentColor 50%, currentColor 60%, transparent 60%, transparent 71.5%, currentColor 71.5%, currentColor 84%, transparent 84%);
+    animation: pure-material-progress-linear 2s infinite linear;
+}
+
+.pure-material-progress-linear:indeterminate::-moz-progress-bar {
+    background-color: transparent;
+}
+
+.pure-material-progress-linear:indeterminate::-ms-fill {
+    animation-name: none;
+}
+
+@keyframes pure-material-progress-linear {
+    0% {
+        background-size: 200% 100%;
+        background-position: left -31.25% top 0%;
+    }
+    50% {
+        background-size: 800% 100%;
+        background-position: left -49% top 0%;
+    }
+    100% {
+        background-size: 400% 100%;
+        background-position: left -102% top 0%;
+    }
+}
+</style>
 <div class="container ">
    <div class="row  justify-content-center" >
       <div class="col-lg-12 sticky-top shadow-sm bg-white p-3  border-d">
@@ -35,6 +99,11 @@
                </a>
             </div>
          </div>
+         <!-- progress bar contianer -->
+         <div id="prog-container" style="display:none;">
+         <progress class="pure-material-progress-linear d-block"/>
+         </div>
+         <!-- end container -->
       </div>
       <div class="col-lg-12 pl-2 pr-2 mt-2 border-d">
          @include('service_seeker.jobs.jobs_templates.jobs_templates_list')
@@ -70,6 +139,14 @@ var service_seeker_jobs_filter_url = "{{route('service_seeker_jobs_filter')}}";
               console.log(err);
           }
       });
+   }
+
+   function prog_load_dis(b){
+      if(b){
+         $("#prog-container").fadeIn();
+      } else {
+         $("#prog-container").fadeOut();
+      }
    }
 </script>
 @endsection
