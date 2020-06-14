@@ -13,18 +13,18 @@
          </div>
       </div>
       <div class="p-0 bd-highlight">
-         <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" id="map_btn" onclick="switch_view_mode('MAP')">
+         <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white"  style="display:none;"id="map_btn" onclick="switch_view_mode('MAP')">
          <i class="fas fa-globe-asia"></i> Map View
          </button>
-         <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" style="display:none;" id="list_btn" onclick="switch_view_mode('LIST')">
+         <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white"  id="list_btn" onclick="switch_view_mode('LIST')">
          <i class="fas fa-list-ol"></i> List View
          </button>
       </div>
    </div>
-   <div class="mt-2" id="service_provider_list_view" style="overflow:scroll; height:600px;scroll-behavior: smooth;">
+   <div class="mt-2" id="service_provider_list_view" style="overflow:scroll;display:none;height:600px;scroll-behavior: smooth;">
       @include('service_seeker/jobs/jobs_templates/job_filter_offer')
    </div>
-   <div class="mt-2" id="service_provider_map_view" style="display:none;">
+   <div class="mt-2" id="service_provider_map_view" >
       <!-- map div -->
       <div class="" id="map_controls">
          <div class="d-flex bd-highlight mb-2">
@@ -86,8 +86,11 @@
    
    window.onload = function() {
        //switch view to map for testing
-       switch_view_mode('MAP');
+       //switch_view_mode('MAP');
        load_conversation_map_data();
+       setInterval(() => {
+          load_conversation_map_data();
+       }, 20000);
    }
    
    function switch_view_mode(str) {

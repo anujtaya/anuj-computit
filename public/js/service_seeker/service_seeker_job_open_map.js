@@ -264,7 +264,7 @@ function find_closest_marker() {
     }
     // (debug) The closest marker is:
     map.panTo(markers[closest].position);
-    map.setZoom(17)
+    map.setZoom(16)
     console.log(markers[closest]);
 }
 
