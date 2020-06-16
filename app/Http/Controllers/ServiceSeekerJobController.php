@@ -108,11 +108,24 @@ class ServiceSeekerJobController extends Controller
     protected function filter_jobs(){
       $filter_action = $_POST['filter_action'];
       $user_id = Auth::id();
-      if($filter_action == "ALL"){
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)
-                ->where('status', '!=', 'DRAFT') ->orderBy('job_date_time', 'desc')->get();
+      $jobs = [];
+      if($filter_action === "ALL"){
+        $jobs = 
+        Job::where('service_seeker_id',   $user_id)
+                      ->leftJoin('conversations', 'jobs.id', '=', 'conversations.job_id')
+                      ->groupBy('jobs.id')
+                      ->where('jobs.status', '!=', 'DRAFT')
+                      ->where('jobs.status', '!=', 'COMPLETED')
+                      ->orderBy('jobs.job_date_time', 'desc')
+                      ->get(['jobs.*', DB::raw('count(conversations.id) as conversations')]);
       }else{
-        $jobs = Job::where('service_seeker_id', Auth::user()->id)->where('status', $filter_action)->orderBy('job_date_time', 'desc')->get();
+        $jobs =
+        Job::where('service_seeker_id',   $user_id)
+        ->leftJoin('conversations', 'jobs.id', '=', 'conversations.job_id')
+        ->groupBy('jobs.id')
+        ->where('jobs.status', $filter_action)
+        ->orderBy('jobs.job_date_time', 'desc')
+        ->get(['jobs.*', DB::raw('count(conversations.id) as conversations')]);
       }
       //render the html page.
       $viewRendered = view('service_seeker.jobs.jobs_templates.jobs_templates_list', compact('jobs'))->render();

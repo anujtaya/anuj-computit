@@ -103,8 +103,8 @@
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-               <span class="dropdown-item" onclick="filter_service_provider_jobs($(this),true);" data-value="Rating" style="cursor: pointer">Rating</span>
-               <span class="dropdown-item" onclick="filter_service_provider_jobs($(this),true);" data-value="Distance" style="cursor: pointer">Distance</span>
+               <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
+               <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
             </div>
             <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer" >
             <i class="fas fa-redo-alt"></i> Refresh
@@ -208,9 +208,11 @@
    var current_suburb = "{{Auth::user()->user_city}}";
    var current_lat = "{{Auth::user()->user_lat}}";
    var current_lng = "{{Auth::user()->user_lng}}";
+    //can be changed using session if wants to remember
+    var current_filter_choice = 'RECENT';
    
    window.onload = function() {
-      update_interval = setInterval(function(){ filter_service_provider_jobs(null,false) }, 20000);
+      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 20000);
       setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup
     
@@ -218,17 +220,12 @@
       if(current_lat == '') {
          update_sp_location();
       } else {
-         filter_service_provider_jobs(null,false);
+         filter_service_provider_jobs(current_filter_choice,false);
       }
       switch_view_mode('MAP')
    }
    
-   var filter_settings = {
-      'distance_filter' : true,
-      'ratings_filter' : false,
-      'date_filter' : true
-   }
-   
+  
 </script>
 
 

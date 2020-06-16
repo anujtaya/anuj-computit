@@ -1,5 +1,5 @@
 var markers = [];
-var map, infoWindow, pos, current_job_marker,service_provider_marker;
+var map, infoWindow, pos, current_job_marker, service_provider_marker;
 var radius = 50;
 var distance_matrix_service;
 
@@ -162,13 +162,13 @@ function initMap() {
             ],
         }),
 
-    //current job marker
-    current_job_marker = new google.maps.Marker({
-        position: new google.maps.LatLng(job_lat, job_lng), //service seeker job co-ordinates
-        map: map,
-        zIndex: 1,
-        icon: icons,
-    });
+        //current job marker
+        current_job_marker = new google.maps.Marker({
+            position: new google.maps.LatLng(job_lat, job_lng), //service seeker job co-ordinates
+            map: map,
+            zIndex: 1,
+            icon: icons,
+        });
 
     current_job_marker.addListener('click', function() {
         map.panTo(current_job_marker.position);
@@ -185,10 +185,10 @@ function initMap() {
         position: new google.maps.LatLng(service_provider_lat, service_provider_lng), //service seeker job co-ordinates
         map: map,
         icon: service_provider_icon,
-        title:'Service Provider Location',
+        title: 'Service Provider Location',
         zIndex: 100,
     });
-    
+
     //service provider marker event listener
     service_provider_marker.addListener('click', function() {
         map.panTo(service_provider_marker.position);
@@ -197,12 +197,13 @@ function initMap() {
     });
 
     map.setCenter(new google.maps.LatLng(job_lat, job_lng));
-    
+
     distance_matrix_service = new google.maps.DistanceMatrixService();
 }
 
 //set nice zooom
 var bounds, zoomLevel;
+
 function set_display_bounds() {
     bounds = new google.maps.LatLngBounds();
     bounds.extend(current_job_marker.position);
@@ -217,10 +218,10 @@ function set_display_bounds() {
 }
 
 //updates service provider coordinates on the map
-function update_service_provider_location(data){
+function update_service_provider_location(data) {
     service_provider_marker.setPosition(new google.maps.LatLng(data.lat, data.lng));
     set_display_bounds();
-    if(enable_eta) {
+    if (enable_eta) {
         find_eta();
     } else {
         document.getElementById("service_provider_eta").innerHTML = '<span class="text-danger">ETA: NA</span>';
@@ -235,11 +236,11 @@ var DrivingOptions = {
     departureTime: date,
     trafficModel: 'pessimistic'
 };
-var enable_eta = false;
+
 //calculates the estimated time of arrival
-function find_eta(){
-     if(distance_matrix_service_limit > 0 && enable_eta) {
-        distance_matrix_service_limit  =  distance_matrix_service_limit - 1;
+function find_eta() {
+    if (distance_matrix_service_limit > 0 && enable_eta) {
+        distance_matrix_service_limit = distance_matrix_service_limit - 1;
         console.log('Current distance matrix service limit updated to ' + distance_matrix_service_limit);
         distance_matrix_service.getDistanceMatrix({
             origins: [current_job_marker.position],
@@ -248,15 +249,15 @@ function find_eta(){
             avoidTolls: true,
             durationInTraffic: true,
             drivingOptions: DrivingOptions,
-    
+
         }, callback);
-    
+
         function callback(response, status) {
-    
+
             if (status == 'OK') {
                 var origins = response.originAddresses;
                 var destinations = response.destinationAddresses;
-    
+
                 for (var i = 0; i < origins.length; i++) {
                     var results = response.rows[i].elements;
                     for (var j = 0; j < results.length; j++) {
@@ -274,17 +275,13 @@ function find_eta(){
                 }
             }
         }
-     } else {
+    } else {
         console.log('Current distance matrix service limit reached.');
-     }
+    }
 }
 
 
 //function reset map data
-function reset_map_data(){
+function reset_map_data() {
     console.log('Map data reset completed.');
 }
-
-
-
-

@@ -252,11 +252,12 @@ class ServiceProviderJobController extends Controller
 
 	//important function to retrive service provider home job board page based on multiple parameters. Please care for sql bottleneck.
 	protected function fetch_all_jobs(){
-		$filter_action = $_POST['filter_action'];
+		$filter_action = $_POST['filter'];
 		$user = Auth::user();	
-		//based on user 
-		//based on user distance from current location
-		$jobs = DB::table("jobs")
+		
+		//based on distance 
+		if($filter_action == 'DISTANCE') {
+			$jobs = DB::table("jobs")
 			->select("jobs.*" , "jobs.id as job_id"
 				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
 				* cos(radians(jobs.job_lat)) 
@@ -264,12 +265,44 @@ class ServiceProviderJobController extends Controller
 				+ sin(radians(" .$_POST['current_lat']. ")) 
 				* sin(radians(jobs.job_lat))) AS distance"))
 				->where("jobs.status", "OPEN")
-				->where("jobs.service_seeker_id", '!=', Auth::id())
+				->where("jobs.service_seeker_id", '!=', $user->id)
 				->where("jobs.job_type", 'BOARD')
 				->having('distance', '<=', $user->work_radius)
 				->groupBy("job_id")
 				->orderBy('distance', 'asc')
 				->get();
+		} else if ($filter_action == 'RECENT') {
+			$jobs = DB::table("jobs")
+			->select("jobs.*" , "jobs.id as job_id"
+				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+				* cos(radians(jobs.job_lat)) 
+				* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+				+ sin(radians(" .$_POST['current_lat']. ")) 
+				* sin(radians(jobs.job_lat))) AS distance"))
+				->where("jobs.status", "OPEN")
+				->where("jobs.service_seeker_id", '!=',  $user->id)
+				->where("jobs.job_type", 'BOARD')
+				->having('distance', '<=', $user->work_radius)
+				->groupBy("job_id")
+				->orderBy('created_at', 'desc')
+				->get();
+		} else {
+			$jobs = DB::table("jobs")
+			->select("jobs.*" , "jobs.id as job_id"
+				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+				* cos(radians(jobs.job_lat)) 
+				* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+				+ sin(radians(" .$_POST['current_lat']. ")) 
+				* sin(radians(jobs.job_lat))) AS distance"))
+				->where("jobs.status", "OPEN")
+				->where("jobs.service_seeker_id", '!=',  $user->id)
+				->where("jobs.job_type", 'BOARD')
+				->having('distance', '<=', $user->work_radius)
+				->groupBy("job_id")
+				->orderBy('jobs.created_at', 'asc')
+				->get();
+		}
+		
 		//$jobs  = Job::where('status', 'OPEN')->get();
 		//render the html page.
 		$viewRendered = view('service_provider.jobs.jobs_templates.jobs_homepgae_template_list', compact('jobs'))->render();

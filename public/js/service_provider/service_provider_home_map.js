@@ -3,6 +3,7 @@ var map, infoWindow, pos, serviceMarker, current_sp_marker, user1, tempuserlat, 
     servicelatlng, userlatlng, source, destination, cityCircle;
 var radius = 50;
 var bounds, zoomLevel;
+var isIdle = false;
 
 function initMap() {
     //service provider current location
@@ -174,8 +175,16 @@ function initMap() {
         current_sp_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
     }
 
+    map.addListener('idle', function() {
+        isIdle = true;
+    });
+    map.addListener('bounds_changed', function() {
+        isIdle = false;
+    });
 
 }
+
+
 
 function display_job_markers() {
     markers = [];
@@ -202,7 +211,11 @@ function display_job_markers() {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
     setMapOnAll(map);
-    find_closest_marker();
+    //find_closest_marker();
+    if (isIdle) {
+        set_display_bounds();
+    }
+
 }
 
 

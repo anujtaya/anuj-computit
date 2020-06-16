@@ -1,17 +1,11 @@
 function filter_service_provider_jobs(data, isViewUpdateRequired) {
     if (data != null) {
-        data = data.attr('data-value');
+        current_filter_choice = data;
+        make_filter_ajax_request(data, isViewUpdateRequired);
+    } else {
+        data = current_filter_choice;
     }
-    if (data == null) {
-        console.log('No sort requested!');
-        make_filter_ajax_request(data, isViewUpdateRequired);
-    } else if (data == 'Rating') {
-        make_filter_ajax_request(data, isViewUpdateRequired);
-        console.log('Rating sort requested!');
-    } else if (data == 'Distance') {
-        make_filter_ajax_request(data, isViewUpdateRequired);
-        console.log('Distance sort requested!');
-    }
+
 }
 
 function make_filter_ajax_request(data, isViewUpdateRequired) {
@@ -25,12 +19,13 @@ function make_filter_ajax_request(data, isViewUpdateRequired) {
         url: service_provider_jobs_fetch_url,
         data: {
             "_token": csrf_token,
-            "filter_action": data,
+            "filter": data,
             "current_lat": current_lat,
             "current_lng": current_lng
         },
         success: function(results) {
-            console.log(results['jobs']);
+            console.log(data);
+            //console.log(results['jobs']);
             if (isViewUpdateRequired) {
                 job_list_container.style.display = "block";
                 preloader_container.style.display = 'none';

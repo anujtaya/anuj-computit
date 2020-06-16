@@ -55,7 +55,7 @@
    var service_provider_lat = "{{$conversation_current->service_provider_information->user_lat}}";
    var service_provider_lng = "{{$conversation_current->service_provider_information->user_lng}}";
    var service_provider_loc_update_interval = null;
-
+   var enable_eta = true;
    window.onload = function() {
       //window onload functions
       service_provider_loc_update_interval = setInterval(load_service_provider_cordinates, 20000);

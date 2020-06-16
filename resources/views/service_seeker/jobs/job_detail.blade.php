@@ -1,12 +1,7 @@
 @extends('layouts.service_seeker_master')
 @section('content')
 <style>
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-   color: #fff!important;
-   background-color: #2c7be5;
-   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-}
+
 .modal-backdrop {
    position:;
    top: 0;
@@ -89,6 +84,28 @@
 }
 
 </style>
+
+<!-- custom nav style based on job status  -->
+@if($job->status == 'APPROVED' || $job->status == 'ONTRIP' || $job->status == 'ARRIVED' || $job->status == 'STARTED' || $job->status == 'COMPLETED')
+<style>
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+   color: #fff!important;
+   background-color: rgb(0, 185, 92)!important;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+</style>
+@else 
+<style>
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+   color: #fff!important;
+   background-color: #2c7be5;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+</style>
+@endif
+<!-- end custom styles  -->
 <!-- php code to detect current tab  -->
 @if(Session::has('current_tab'))
 @php
