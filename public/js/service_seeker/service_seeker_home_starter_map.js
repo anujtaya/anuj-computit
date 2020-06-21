@@ -259,7 +259,6 @@ function update_user_final_location(lat, lng, suburb, state, full_address) {
                 current_lng = lng;
                 map.setCenter(new google.maps.LatLng(current_lat, current_lng));
                 current_user_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
-                populate_random_job_markers();
             } else {
                 console.log('Location update notification should not be sent.');
             }
@@ -364,21 +363,31 @@ function setMapOnAll(map) {
 
 //generates rando job markers on map. In production replace it with actual service providers marker data
 function populate_random_job_markers() {
-    setMapOnAll(null);
-    markers = [];
-    for (var i = 0; i < 10; i++) {
-        var coords = generate_random_coordinate();
-        service_provider_conversation_marker = new google.maps.Marker({
-            position: new google.maps.LatLng(coords.lat, coords.lng),
-            icon: {
-                //url: './images/dot.svg',
-                url: app_url + '/images/map/service_seeker_job_icon.svg',
-                scaledSize: new google.maps.Size(30, 30),
-            },
-            custom_data: service_categories[Math.floor(Math.random() * (10 - 1) + 1)],
-        });
-        markers.push(service_provider_conversation_marker);
-        setMapOnAll(map);
+    if (markers.length == 0) {
+        setMapOnAll(null);
+        markers = [];
+        for (var i = 0; i < 10; i++) {
+            var coords = generate_random_coordinate();
+            service_provider_conversation_marker = new google.maps.Marker({
+                position: new google.maps.LatLng(coords.lat, coords.lng),
+                icon: {
+                    //url: './images/dot.svg',
+                    url: app_url + '/images/map/service_seeker_job_icon.svg',
+                    scaledSize: new google.maps.Size(30, 30),
+                },
+                custom_data: service_categories[Math.floor(Math.random() * (10 - 1) + 1)],
+            });
+            markers.push(service_provider_conversation_marker);
+            setMapOnAll(map);
+        }
+    } else {
+        const a = Math.floor(Math.random() * 6) + 1;
+        for (var i = 0; i < markers.length; i++) {
+            if (i == a) {
+                markers[i].setMap(null);
+            }
+
+        }
     }
 }
 

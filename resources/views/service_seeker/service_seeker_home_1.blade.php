@@ -82,6 +82,7 @@ var service_categories = @json($categories);
 window.onload = function() {
    //if(current_lat == '' || update_location_on_load) {
       update_user_location();
+      populate_random_job_markers();
    //}
 }
 </script>
