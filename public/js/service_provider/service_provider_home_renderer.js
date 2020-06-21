@@ -4,6 +4,7 @@ function filter_service_provider_jobs(data, isViewUpdateRequired) {
         make_filter_ajax_request(data, isViewUpdateRequired);
     } else {
         data = current_filter_choice;
+        make_filter_ajax_request(data, isViewUpdateRequired);
     }
 
 }

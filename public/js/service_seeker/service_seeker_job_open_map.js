@@ -229,6 +229,17 @@ function set_display_bounds() {
 }
 
 
+function set_closest_marker_display_bounds(service_provider_marker) {
+    bounds = new google.maps.LatLngBounds();
+    bounds.extend(current_job_marker.position);
+    bounds.extend(service_provider_marker.position);
+    map.fitBounds(bounds);
+    zoomLevel = map.getZoom();
+    map.setCenter(current_job_marker.position);
+    zoomLevel = zoomLevel - 1;
+    map.setZoom(zoomLevel);
+}
+
 
 function reset_map_position() {
     map.setCenter(current_job_marker.position);
@@ -263,9 +274,10 @@ function find_closest_marker() {
         }
     }
     // (debug) The closest marker is:
-    map.panTo(markers[closest].position);
+    //map.panTo(markers[closest].position);
     map.setZoom(16)
-    console.log(markers[closest]);
+    set_closest_marker_display_bounds(markers[closest]);
+    //console.log(markers[closest]);
 }
 
 

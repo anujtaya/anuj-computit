@@ -158,6 +158,10 @@ class ServiceSeekerJobController extends Controller
         ->join('users', 'conversations.service_provider_id', '=', 'users.id')
         ->where('conversations.status', 'OPEN')
         ->get();
+      
+
+
+
       return Response::json($map_data);
     }
 
@@ -414,30 +418,27 @@ class ServiceSeekerJobController extends Controller
   }
 
   protected function reject_offer($job_id, $conversation_id){
-    if($job_id != null){
-      $job = Job::find($job_id);
-      if($job){
-          // store approved status message in converstation json property.
-          $conversation = Conversation::find($conversation_id);
-          $conversation_message = new ConversationMessage();
-          $conversation_message->user_id = Auth::id();
-          $conversation_message->conversation_id = $conversation_id;
-          $conversation_message->text = 'Rejected the offer for '.$conversation->json['offer'].'.';
-          $conversation_message->json = ["type" => "ACTION", "status"=> "REJECTED"];
-          $conversation_message->msg_created_at = Carbon::now();
-          $response = $conversation_message->save();
+    $job = Job::find($job_id);
+    if($job){
+        // store approved status message in converstation json property.
+        $conversation = Conversation::find($conversation_id);
+        $conversation_message = new ConversationMessage();
+        $conversation_message->user_id = Auth::id();
+        $conversation_message->conversation_id = $conversation_id;
+        $conversation_message->text = 'Rejected the offer for '.$conversation->json['offer'].'.';
+        $conversation_message->json = ["type" => "ACTION", "status"=> "REJECTED"];
+        $conversation_message->msg_created_at = Carbon::now();
+        $response = $conversation_message->save();
 
-          if($response){
-            //send notification
-            $this->send_notification_job_offer_rejected($conversation);
-            return redirect()->back();
-          }
-      }else{
-        abort(404);
-      }
-    }else{
-      abort(404);
+        if($conversation_message->save()){
+          //send notification
+          $conversation->status = 'CLOSED';
+          $conversation->save();
+          $this->send_notification_job_offer_rejected($conversation);
+          return redirect()->route('service_seeker_job', $job->id);
+        }
     }
+    return redirect()->back();
   }
 
   protected function timer(){
@@ -552,7 +553,16 @@ class ServiceSeekerJobController extends Controller
     return redirect()->back();
   }
 
-
+//job status update retrival function
+protected function job_request_stutus_update(){
+    $job_id = $_POST['job_id'];
+    $job = Job::find($job_id);
+    if($job != null) {
+      return Response::json($job->status);
+    }else {
+      return REsponse::json(false);
+    }
+  }
 
 
 

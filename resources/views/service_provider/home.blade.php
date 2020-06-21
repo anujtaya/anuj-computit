@@ -48,10 +48,10 @@
                      </button>
                   @endif
                   <!-- map view controls -->
-                  <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="map_btn" onclick="switch_view_mode('MAP')">
+                  <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="map_btn" onclick="switch_view_mode('MAP')">
                   <i class="fas fa-globe-asia"></i> Map View
                   </button>
-                  <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="list_btn" onclick="switch_view_mode('LIST')">
+                  <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="list_btn" onclick="switch_view_mode('LIST')">
                   <i class="fas fa-list-ol"></i> List View
                   </button>          
             </div>
@@ -99,26 +99,26 @@
          </div>
          <!-- end location update div -->
          <div class="col-7 pl-2 pt-2 pb-2">
-            <a class="btn btn-sm theme-background-color border-0 fs--2 card-1" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-sm theme-background-color border-0 fs--2 card-1" style="border-radius:20px;display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
                <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
             </div>
-            <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer" >
+            <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
             <i class="fas fa-redo-alt"></i> Refresh
             </a>
          </div>
          <div class=" col-5 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
             <span id="update_refresh_counter_el">0</span> sec ago.
-            <button class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;display:none;" >
+            <button class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
             <i class="fas fa-crosshairs"></i> Reset
             </button>
          </div>
       </div>
       <!-- preloader container display  -->
-      <ul class="list-group fs--1 mt-1 d-none" id="preloader_display">
+      <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display;">
          <div class="timeline-wrapper">
             @for($i=0;$i<6;$i++)
             <div class="timeline-item card-1 m-1 border-0">
@@ -147,7 +147,7 @@
       </ul>
    </div>
 </div>
-<div id="map_view_display" class="" style="display:none;margin-bottom:60px">
+<div id="map_view_display" class="" style="margin-bottom:60px">
    <div id="map" class="text-center " style="min-width:100%!important; min-height:75%!important; overflow: hidden;">
    </div>
 </div>
@@ -222,7 +222,7 @@
       } else {
          filter_service_provider_jobs(current_filter_choice,false);
       }
-      switch_view_mode('MAP')
+      //switch_view_mode('MAP')
    }
    
   

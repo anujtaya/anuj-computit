@@ -193,4 +193,51 @@ $currentUserTab = 'joboverview';
          </div>
       </div>
 </div>
+
+
+
+@if($job->status == 'APPROVED' || $job->status == 'ONTRIP' || $job->status == 'ARRIVED' || $job->status == 'STARTED') 
+<script>
+var job_status_check_route_url = "{{route('service_seeker_job_request_status_updte')}}";
+var current_status = "{{$job->status}}";
+window.onload = function() {
+   setInterval(() => {
+   check_job_status_update();
+   }, 15000);
+}
+
+function check_job_status_update(){
+   prog_load_dis(true);
+   $.ajax({
+         type: "POST",
+         url: job_status_check_route_url,
+         data: {
+         "_token": csrf_token,
+         "job_id": "{{$job->id}}"
+         },
+         success: function(results){
+            if(results != current_status) {
+               location.reload();
+            } else {
+               console.log('Job status unchanged.');
+            }
+            prog_load_dis(false);
+         },
+         error: function(results, status, err) {
+            console.log(err);
+            prog_load_dis(false);
+         }
+   });
+}
+</script>
+@endif
+<script>
+ function prog_load_dis(b){
+      if(b){
+         $("#prog-container").fadeIn();
+      } else {
+         $("#prog-container").fadeOut();
+      }
+   }
+</script>
 @endsection

@@ -154,13 +154,7 @@
    }
 
 
-   function prog_load_dis(b){
-      if(b){
-         $("#prog-container").fadeIn();
-      } else {
-         $("#prog-container").fadeOut();
-      }
-   }
+  
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <script src="{{asset('/js/service_seeker/service_seeker_job_open_map.js')}}?v={{rand(1,100)}}"></script>

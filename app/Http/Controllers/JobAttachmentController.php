@@ -18,9 +18,20 @@ class JobAttachmentController extends Controller
 {
     function store_images(Request $request){
         $validation = Validator::make($request->all(), [
-          'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:5000',
+          'file' => 'required|image|mimes:jpeg,png,jpg,gif',
           'current_job_id' => 'required'
          ]);
+
+         $image_size  = $request->file('file')->getSize();
+         $file_size = number_format($image_size / 1048576,2);
+         if($file_size > 5) {
+           $validation->errors()->add('file', 'Image size could not be greater than 5 MBs.');
+            return response()->json([
+           'message'   => $validation->errors()->all(),
+           'uploaded_image' => '',
+           'class_name'  => 'alert-danger'
+          ]);
+         }
          if($validation->passes())
          {
           $image = $request->file('file');
