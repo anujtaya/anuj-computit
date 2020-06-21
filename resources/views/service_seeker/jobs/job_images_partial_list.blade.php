@@ -10,7 +10,7 @@
    <div >
       @if($job->status != 'COMPLETED')
          @if($job->status != 'CANCELLED')
-            <button class="btn theme-background-color btn-sm  border fs--1  m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
+            <button class="btn theme-background-color btn-sm  border fs--1  m-1" id="trigger_image" onclick="document.getElementById('file').click();"><i class="fas fa-camera"></i> Add Photo </button>
          @endif
       @endif
       <div class="row  m-1 text-center" id="image-container">
@@ -77,15 +77,21 @@
             processData: false,
             success:function(data)
             {
-               console.log(data);
-               $('#message').css('display', 'block');
-               $('#message').html(data.message);
-               $('#message').addClass(data.class_name);
-               // $('#uploaded_image').html(data.uploaded_image);
-               if(data.uploaded_image != "") {
-                  load_images(job_id);
-               }
                toggle_animation(false);
+                //console.log(data);
+               
+                if(data.uploaded_image != "" && data.class_name == "alert-success") {
+                  $('#message').css('display', 'block');
+                  $('#message').html(data.message);
+                  $('#message').removeClass("alert-danger");
+                  $('#message').addClass(data.class_name);
+                  load_images(1);
+                } else if(data.class_name == "alert-danger") {
+                  $('#message').removeClass("alert-success");
+                  $('#message').addClass(data.class_name);
+                  $('#message').css('display', 'block');
+                  $('#message').html(data.message);
+                }
             }, error: function(results, status, err) {
                toggle_animation(false);
          }

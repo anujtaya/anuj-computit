@@ -312,11 +312,20 @@ class ServiceSeekerJobController extends Controller
       $conversation = Conversation::where('job_id', $job_id)
                             ->where('service_provider_id', $service_provider_id)->first();
       $conversation_messages = Conversation::where('job_id', $job_id)
+                            ->select('conversation_messages.*')
                             ->where('service_provider_id', $service_provider_id)
                             ->join('conversation_messages', 'conversation_messages.conversation_id', 'conversations.id')
                             ->join('users', 'users.id', 'conversation_messages.user_id')
                             ->orderBy('conversation_messages.msg_created_at', 'ASC')
                             ->get();
+      //dd($conversation_messages);
+      foreach($conversation_messages as $message) {
+          if($message->user_id != Auth::id()) {
+            $conversation_message = ConversationMessage::find($message->id);
+            $conversation_message->is_read = true;
+            $conversation_message->save();
+          }
+      }
       return View::make("service_seeker.jobs.job_converstation")->with('msgs',$conversation_messages)->with('conversation',$conversation)->with('job', $job);
     }
 
@@ -532,7 +541,7 @@ class ServiceSeekerJobController extends Controller
 		//create a email notification object
 		$temp = new \stdClass();
 		$temp->file_name = $dest_path;
-		$user = User::find($job->service_provider_id);
+		$user = User::find($job->service_seeker_id);
 		$user->notify(new ServiceSeekerEmailInvoice($temp));
 		if(file_exists($dest_path)){
             unlink($dest_path);

@@ -24,6 +24,18 @@
          </span>
       </div>
    </div>
+   @if($user->user_bio != null)
+   <div class="m-2 p-2 rounded shadow-sm-d card-1">
+      <div class="d-flex bd-highlight rounded">
+         <div class="p-1 bd-highlight">
+         <span>About {{$user->first}} {{$user->last}}:</span>
+         </div>
+      </div>  
+      <p class="p-1 pr-1">
+         {{$user->user_bio}}
+      </p>
+   </div>
+   @endif
    <div class="m-2 p-2 rounded shadow-sm-d card-1">
       <div class="d-flex bd-highlight rounded">
          <div class="p-1 bd-highlight">

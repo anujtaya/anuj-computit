@@ -82,6 +82,7 @@
    //propmt user to select a file from device
    document.getElementById('trigger_image').onclick = function() {
       document.getElementById('file').click();
+      console.log("button click for image uploads")
    };
 
    var CSRF_TOKEN = "{{csrf_token()}}"

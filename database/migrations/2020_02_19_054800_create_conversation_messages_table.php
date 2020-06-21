@@ -23,6 +23,7 @@ class CreateConversationMessagesTable extends Migration
             $table->foreign('conversation_id')->references('id')->on('conversations');
 
             $table->string('text')->nullable();
+            $table->boolean('is_read')->default(false);
             $table->json('json')->nullable();
 			$table->datetime('msg_created_at')->nullable();
             $table->timestamps();

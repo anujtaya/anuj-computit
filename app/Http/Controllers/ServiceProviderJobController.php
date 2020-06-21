@@ -169,12 +169,21 @@ class ServiceProviderJobController extends Controller
 	  //find the sevrice seeker of this job and send info to blade view.
       $service_seeker_profile = User::find($job->service_seeker_id);
 	
-      $conversation_messages = Conversation::where('job_id', $job_id)
+	  $conversation_messages = Conversation::where('job_id', $job_id)
+							->select('conversation_messages.*')
                             ->where('service_provider_id', $service_provider_id)
                             ->join('conversation_messages', 'conversation_messages.conversation_id', 'conversations.id')
                             ->join('users', 'users.id', 'conversation_messages.user_id')
                             ->orderBy('conversation_messages.msg_created_at', 'ASC')
 							->get();
+		//dd($conversation_messages);
+		foreach($conversation_messages as $message) {
+			if($message->user_id != Auth::id()) {
+				$conversation_message = ConversationMessage::find($message->id);
+				$conversation_message->is_read = true;
+				$conversation_message->save();
+			}
+		}				
 	  return View::make("service_provider.jobs.partial.job_converstation")
 				  ->with('msgs',$conversation_messages)
 				  ->with('conversation',$conversation)
