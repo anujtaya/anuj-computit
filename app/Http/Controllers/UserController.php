@@ -134,9 +134,26 @@ class UserController extends Controller
             $img      = $request->file('file');
             $img_ext  = $img->getClientOriginalExtension();
             $img_name = Auth::id().''.time().'.' .$img->getClientOriginalExtension();
+            
+            
+            $data = getimagesize($img);
+            $width = $data[0];
+            $height = $data[1];
+            
+            
+            //apply the image adjustments
             $image_resize = Image::make($img->getRealPath());
             $image_resize->orientate();
-            $image_resize->fit(200);
+            if($width > $height){
+                $n_height = 200;
+                $n_width = 200/$height * $width;
+            }else{
+                $n_width = 200;
+                $n_height = 200/$width * $height;
+            }
+            $image_resize->resize($n_width, $n_height);
+
+            
             $filePath = '';
             $response = false;
             if(app()->isLocal()) {

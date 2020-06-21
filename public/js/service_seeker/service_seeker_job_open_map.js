@@ -283,17 +283,43 @@ function find_closest_marker() {
 
 //populate map conversation modal popup
 //populates the text values in map job detail modal
+// function populate_map_con_detail_modal_popup(a) {
+//     console.log(a);
+//     $("#map_con_modal_popup_name").html(a.first + ' ' + a.last);
+//     if (a.rating == null) {
+//         $("#map_con_modal_popup_rating").html('5.00');
+//     } else {
+//         $("#map_con_modal_popup_rating").html(a.rating);
+//     }
+//     $("#map_con_modal_popup_offer_price").html(a.json.offer);
+//     $("#map_con_modal_popup_offer_description").html(a.json.offer_description);
+//     $('#map_con_modal_popup').modal('show');
+//     $('#map_con_modal_popup_conversation_link').attr("href", app_url + '/service_seeker/jobs/job/conversation/' + a.job_id + '/' + a.service_provider_id);
+//     $('#map_con_modal_popup_image').attr("src", app_url + "/storage/images/profile/" + a.profile_image_path);
+// }
+
+
 function populate_map_con_detail_modal_popup(a) {
-    console.log(a);
-    $("#map_con_modal_popup_name").html(a.first + ' ' + a.last);
-    if (a.rating == null) {
-        $("#map_con_modal_popup_rating").html('5.00');
-    } else {
-        $("#map_con_modal_popup_rating").html(a.rating);
-    }
-    $("#map_con_modal_popup_offer_price").html(a.json.offer);
-    $("#map_con_modal_popup_offer_description").html(a.json.offer_description);
-    $('#map_con_modal_popup').modal('show');
-    $('#map_con_modal_popup_conversation_link').attr("href", app_url + '/service_seeker/jobs/job/conversation/' + a.job_id + '/' + a.service_provider_id);
-    $('#map_con_modal_popup_image').attr("src", app_url + "/storage/images/profile/" + a.profile_image_path);
+    $.ajax({
+        type: "POST",
+        url: service_seeker_job_request_provider_info_url,
+        data: {
+            "_token": csrf_token,
+            "user_id": a.service_provider_id,
+            "job_id": a.job_id,
+        },
+        success: function(results) {
+            if (results == false) {
+                $('#map_sp_info_container').html('An error occured. Please try again after some time.');
+            } else {
+                //populate modal with information and display if data is valid
+                $('#map_sp_info_container').html(results);
+                $('#map_con_modal_popup').modal('show');
+            }
+        },
+        error: function(results, status, err) {
+            console.log(err);
+        }
+    });
+
 }

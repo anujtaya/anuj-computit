@@ -159,9 +159,6 @@ class ServiceSeekerJobController extends Controller
         ->where('conversations.status', 'OPEN')
         ->get();
       
-
-
-
       return Response::json($map_data);
     }
 
@@ -573,6 +570,37 @@ protected function job_request_stutus_update(){
     }
   }
 
+
+//fetched the service provider info for service seeker map modal view display
+protected function job_request_provider_info(){
+  $user_id = $_POST['user_id'];
+  $job_id = $_POST['job_id'];
+  $user = User::find($user_id);
+  if($user != null) {
+    //find conversation data for the given service provider id and job id
+    $conversation = Conversation::where('job_id', $job_id)->where('service_provider_id', $user->id)->first();
+    if($conversation == null) {
+      return Response::json(false);
+    } 
+
+    $certificates = $user->certificates;
+    $languages = $user->languages;
+    $user_services = $user->service_provider_services;
+    $stats = $this->calcualte_user_job_stats($user_id);
+    $rendered_view = view('service_seeker.jobs.partial.service_provider_info')
+                    ->with('certificates', $certificates)
+                    ->with('current_languages', $languages)
+                    ->with('user_services', $user_services)
+                    ->with('user', $user)
+                    ->with('stats', $stats)
+                    ->with('job_id', $job_id)
+                    ->with('conversation', $conversation)
+                    ->render();
+    return Response::json($rendered_view);
+  } else {
+    return Response::json(false);
+  }
+}
 
 
 //notification functions below

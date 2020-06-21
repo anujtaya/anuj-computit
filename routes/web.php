@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/jobs/job/email_invoice/{id}', 'ServiceSeekerJobController@service_seeker_email_invoice' )->name('service_seeker_job_email_invoice');
   Route::post('/service_seeker/job/tracking/info/{id}', 'ServiceSeekerJobController@job_tracking_info')->name('service_seeker_job_tracking_info');
   Route::post('/service_seeker/job/request/update', 'ServiceSeekerJobController@job_request_stutus_update')->name('service_seeker_job_request_status_updte');
+  Route::post('/service_seeker/job/request/provider_info', 'ServiceSeekerJobController@job_request_provider_info')->name('service_seeker_job_request_provider_info');
   //service seeker rating update
   Route::post('/service_seeker/jobs/job/update/rating', 'ServiceSeekerJobController@update_rating')->name('service_seeker_job_update_rating');
   //job cancel route
