@@ -39,7 +39,7 @@
                <i>{{$job->description}}</i>
             </div>
             @php
-               $unread_msgs = $conversation->conversation_messages->where('is_read', false)->where('user_id', '!=' , Auth::id());
+               $unread_msgs = \App\Conversation::find($conversation->conversation_id)->conversation_messages->where('is_read', false)->where('user_id', '=' ,$service_seeker_profile->id);
             @endphp
             @if(count($unread_msgs) > 0)
                <span class="text-primary font-weight-normal fs--3 p-1 text-danger animated flash infinite"><i class="fas fa-circle text-danger"></i> You have {{count($unread_msgs)}} unread @if(count($unread_msgs) == 1) message @else messages @endif</span> |
