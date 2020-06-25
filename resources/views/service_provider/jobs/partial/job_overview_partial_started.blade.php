@@ -73,15 +73,15 @@
                <input type="hidden" name="extra_job_id" value="{{$job->id}}" required>
                <div class="form-group">
                   <label for="extra_name">Name</label>
-                  <input type="text" minlength="3" class="form-control form-control-sm" id="extra_name" name="extra_name"  placeholder="" value="Test Extra 1" required>
+                  <input type="text" minlength="3" class="form-control form-control-sm" id="extra_name" name="extra_name"  placeholder="" value="" required>
                </div>
                <div class="form-group">
                   <label for="extra_quantity">Quantity</label>
-                  <input type="number" minlength="1"  class="form-control form-control-sm" id="extra_quantity" name="extra_quantity"  value="{{rand(1,5)}}" placeholder="" required>
+                  <input type="number" minlength="1"  class="form-control form-control-sm" id="extra_quantity" name="extra_quantity"  value="" placeholder="" required>
                </div>
                <div class="form-group">
                   <label for="extra_price">Unit Price</label>
-                  <input type="number" minlength="1"  class="form-control form-control-sm" id="extra_price" name="extra_price"  value="{{rand(100,1000)/10}}" placeholder="" required>
+                  <input type="number"   class="form-control form-control-sm" id="extra_price" name="extra_price"  step="0.01" value="" placeholder="" required>
                </div>
                <div class="form-group">
                   <label for="extra_description">Description <small>(Optional)</small></label>
