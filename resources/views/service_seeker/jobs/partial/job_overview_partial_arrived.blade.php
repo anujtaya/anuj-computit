@@ -15,10 +15,9 @@
          <img src="{{asset('images/svg/l2l_welcome.svg')}}" alt="" style="opacity:0.4;"  width="250px" class="img-fluid" alt="Responsive image">
          <br><br>
          <p>
-            Your Service Provider notified us that he has reached your Job location. 
-            Please treat each other with respect.
-            He will require a Job Pin from you in order to start the job. If you can't locate him
-            please contact him using the messages section of this job. 
+            Your Service Provider reached your Job location.Please treat each other with respect.
+            The Service Provider will require a Job Pin from you in order to start the job. If you can't locate you Service Provider
+            please contact your Service Provider using the messages section of this job. 
          </p>
          <div>
          <span class="border text-monospace fs-1  p-2">

@@ -56,11 +56,10 @@
    var service_provider_lng = "{{$conversation_current->service_provider_information->user_lng}}";
    var service_provider_loc_update_interval = null;
    var enable_eta = true;
-   window.onload = function() {
-      //window onload functions
-      service_provider_loc_update_interval = setInterval(load_service_provider_cordinates, 20000);
+   $( document ).ready(function() {
       load_service_provider_cordinates();
-   }
+      service_provider_loc_update_interval = setInterval(load_service_provider_cordinates, 20000);
+});
   
    function load_service_provider_cordinates(){
       $.ajax({

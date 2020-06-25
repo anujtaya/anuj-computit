@@ -265,8 +265,10 @@ function find_eta() {
                         var numeric_distance = element.duration_in_traffic.value / 60;
                         var distance = element.distance.text;
                         var duration = element.duration_in_traffic.text;
+                        //console.log(element.duration_in_traffic.value);
                         if (numeric_distance < 1) {
                             document.getElementById("service_provider_eta").innerHTML = '<span class="text-success">Arrived</span>';
+                            send_proximity_alert_to_seeker();
                             distance_matrix_service_limit = 0;
                         } else {
                             document.getElementById("service_provider_eta").innerHTML = 'ETA: ' + distance + " " + duration;
@@ -284,4 +286,9 @@ function find_eta() {
 //function reset map data
 function reset_map_data() {
     console.log('Map data reset completed.');
+}
+
+function send_proximity_alert_to_seeker() {
+    //delivers push notification to service seeker if the provider is close to the job location.
+    console.log('Proximity push notification triggered!');
 }
