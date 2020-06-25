@@ -1,11 +1,11 @@
 <div class="p-0">
    @if (Session::has('status'))
-   <div class="alert alert-success fs--1" role="alert">
+   <div class="alert alert-success fs--1" role="alert" onclick="this.style.display = 'none';">
       {{ Session::pull('status') }}
    </div>
    @endif
    @if(Session::has('error'))
-   <div class="alert alert-error fs--1" role="alert">
+   <div class="alert alert-error fs--1" role="alert" onclick="this.style.display = 'none';">
       {{ Session::pull('error') }}
    </div>
    @endif 
@@ -50,7 +50,7 @@
       </div>
       <div class="form-group">
          @if($job->status == 'OPEN')
-         <button class="btn btn-info btn-sm fs--1 font-weight-normal" type="submit" id="job_detail_save_btn" style="display:none;">Save Changes</button>
+         <button class="btn btn-info btn-sm fs--1 font-weight-normal" type="submit" id="job_detail_save_btn">Save Changes</button>
          @endif
       </div>
    </form>
