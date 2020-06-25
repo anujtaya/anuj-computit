@@ -42,7 +42,7 @@
                $unread_msgs = $conversation->conversation_messages->where('is_read', false);
             @endphp
             @if(count($unread_msgs) > 0)
-               <span class="text-primary font-weight-normal fs--3 p-1"><i class="fas fa-circle"></i> You have {{count($unread_msgs)}} unread @if(count($unread_msgs) == 1) message @else messages @endif</span> |
+               <span class="text-primary font-weight-normal fs--3 p-1 text-danger animated flash infinite"><i class="fas fa-circle text-danger"></i> You have {{count($unread_msgs)}} unread @if(count($unread_msgs) == 1) message @else messages @endif</span> |
             @endif
             <span class="text-muted font-weight-normal fs--3 p-1">{{$conversation_reply_count}} messages</span>
             
