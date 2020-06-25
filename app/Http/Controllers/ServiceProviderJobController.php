@@ -117,7 +117,7 @@ class ServiceProviderJobController extends Controller
 						$msg = new ConversationMessage();
 						$msg->user_id = Auth::id();
 						$msg->conversation_id = $conversation->id;
-						$msg->text = 'Provider has sent you a job quote for $'.$job_offer;
+						$msg->text = 'Provider has sent you a job quote for $'.$job_offer.'Offer Description: '.$job_offer_description;
 						$msg->msg_created_at = Carbon::now();
 						$msg->save();
 						if($job->save()){
@@ -133,7 +133,7 @@ class ServiceProviderJobController extends Controller
 						$msg = new ConversationMessage();
 						$msg->user_id = Auth::id();
 						$msg->conversation_id = $conversation_exists->id;
-						$msg->text = 'Provider has changed the job quote to $'.$job_offer;
+						$msg->text = 'Provider has sent you a job quote for $'.$job_offer.'Offer Description: '.$job_offer_description;
 						$msg->msg_created_at = Carbon::now();
 						$msg->save();
 						if($job->save()){

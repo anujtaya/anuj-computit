@@ -5,6 +5,7 @@
       <div class="media-body ml-2">
          <div class=" theme-background-color text-white  py-2 px-3 mb-2 rounded" style="background:#5D29BA!important;color:white!important;">
             Service Provider {{$conversation->service_provider_profile->first}} has offered to complete this job for ${{number_format($conversation->json['offer'],2)}}.
+            <b>Offer Description:</b> {{$conversation->json['offer_description']}}.
          </div>
       </div>
    </div>
