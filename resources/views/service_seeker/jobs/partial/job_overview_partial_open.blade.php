@@ -77,7 +77,7 @@
        load_conversation_map_data();
        filter_service_seeker_job_offers(null);
        setInterval(() => {
-          //load_conversation_map_data();
+          load_conversation_map_data();
        }, 20000);
    }
    
