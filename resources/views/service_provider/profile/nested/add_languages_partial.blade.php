@@ -10,13 +10,14 @@
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
          <div class="row">
-            <div class="col-2">
+         <div class="col-3">
                <a href="{{route('service_provider_profile_nested')}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left theme-color fs-1" ></i> </a>
             </div>
-            <div class="col-8 font-size-bolder text-center font-weight-bold theme-color">
-               Add Languages
+            <div class="col-6 font-size-bolder text-center font-weight-bold theme-color">
+                Add Languages
             </div>
-            <div class="col-2 text-right">
+            <div class="col-3 text-right">
+                <a href="{{route('service_provider_profile_nested')}}" class="theme-color font-weight-bold" onclick="toggle_animation(true);">Next</a>
             </div>
          </div>
       </div>
