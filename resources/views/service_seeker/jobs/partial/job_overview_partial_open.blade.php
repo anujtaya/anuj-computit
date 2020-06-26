@@ -6,9 +6,12 @@
             <a class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white" href="#" role="button" id="ss_job_filter_offer_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
-            <div class="dropdown-menu" aria-labelledby="ss_job_filter_offer_dropdown">
-               <span class="dropdown-item" onclick="filter_service_seeker_job_offers($(this));" id="PRICEHL" data-jobOfferFilter="PRICEHL" style="cursor: pointer">Price High - Low</span>
-               <span class="dropdown-item" onclick="filter_service_seeker_job_offers($(this));" id="PRICELH" data-jobOfferFilter="PRICELH"  style="cursor: pointer">Price Low - High</span>
+            <div class="dropdown-menu">
+               <span class="dropdown-item" onclick="filter_service_seeker_job_offers('NONE');" style="cursor: pointer">None</span>
+               <span class="dropdown-item" onclick="filter_service_seeker_job_offers('RATING');" style="cursor: pointer">Rating</span>
+               <span class="dropdown-item" onclick="filter_service_seeker_job_offers('DISTANCE');" style="cursor: pointer">Distance</span>
+               <span class="dropdown-item" onclick="filter_service_seeker_job_offers('PRICEHL');" style="cursor: pointer">Price High - Low</span>
+               <span class="dropdown-item" onclick="filter_service_seeker_job_offers('PRICELH');" style="cursor: pointer">Price Low - High</span>
             </div>
          </div>
       </div>
@@ -60,19 +63,21 @@
 </div>
 <!-- end model -->
 <script>
-   var service_seeker_job_offer_filter_url = "{{route('service_seeker_job_offer_filter', $job->id)}}";
+   var service_seeker_job_offer_filter_url = "{{route('service_seeker_job_offer_filter')}}";
    var service_seeker_job_offer_map_data_url = "{{route('service_seeker_job_offer_map_data', $job->id)}}";
    var service_seeker_job_request_provider_info_url = "{{route('service_seeker_job_request_provider_info')}}";
    var app_url = "{{URL::to('/')}}";
    var job_lat = "{{$job->job_lat}}";
    var job_lng = "{{$job->job_lng}}";
+   var job_id = "{{$job->id}}";
    
    window.onload = function() {
        //switch view to map for testing
        //switch_view_mode('MAP');
        load_conversation_map_data();
+       filter_service_seeker_job_offers(null);
        setInterval(() => {
-          load_conversation_map_data();
+          //load_conversation_map_data();
        }, 20000);
    }
    
@@ -93,25 +98,38 @@
             setTimeout(function(){  $("#map_btn").removeClass('animated zoomIn '); }, 1000);
          }
    }
-   
+
+
+   var current_filter = 'NONE';
    function filter_service_seeker_job_offers(data){
-      toggle_animation(true);
+      if(data == null) {
+         current_filter = 'NONE';
+      } else {
+         current_filter = data;
+      }
+      console.log(current_filter);
+      prog_load_dis(true);
       $.ajax({
             type: "POST",
             url: service_seeker_job_offer_filter_url,
             data: {
             "_token": csrf_token,
-            "filter_action": data.attr('data-jobOfferFilter'),
+            "filter_action": current_filter,
+            "job_id" : job_id,
+            "job_lat" : job_lat,
+            "job_lng" : job_lng
             },
             success: function(results){
+               console.log(results);
             var myUl = $("#service_seeker_job_filter_offer_ul");
-               myUl.html(results['html']);
-            toggle_animation(false);
+            myUl.html(results['html']);
+            prog_load_dis(false);
             var filterAnchorTag = document.getElementById('ss_job_filter_offer_dropdown');
-            filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.text()+")</small>";
+            filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + current_filter +")</small>";
             },
             error: function(results, status, err) {
                console.log(err);
+               prog_load_dis(false);
             }
       });
    }

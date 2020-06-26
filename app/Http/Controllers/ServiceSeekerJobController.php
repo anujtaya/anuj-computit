@@ -54,12 +54,7 @@ class ServiceSeekerJobController extends Controller
         $job_extras = $job->extras->where('status', 'ACTIVE');
         $job_price = 0.00;
         if($job->status == 'OPEN' || $job->status == 'CANCELLED' ) {
-          $conversations = Conversation::where('job_id', $job->id)
-                ->select('conversations.*')
-                ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-                ->where('conversations.status', 'OPEN')
-                ->get();
-                //dd($conversations);
+          $conversations = [];
         } else {
           $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
           $conversation_current->service_provider_information = $conversation_current->service_provider_profile;
@@ -132,22 +127,98 @@ class ServiceSeekerJobController extends Controller
       return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
     }
 
-    protected function filter_job_offer($job_id){
+    protected function filter_job_offer(){
       $filter_action = $_POST['filter_action'];
-      $user_id = Auth::id();
-      if($job_id != null){
-        $job = Job::find($job_id);
-        if($job){
-          $conversations = $job->conversations;
-          if($filter_action == "PRICELH"){
-            $conversations = $conversations->sortBy('json.offer');
-          }else if($filter_action == "PRICEHL"){
+      $job_id = $_POST['job_id'];
+      //$user_id = Auth::id();
+      $job = Job::find($job_id);
+      if($job != null){
+          if($filter_action == 'NONE') {
+            $conversations =  Conversation::where('job_id', $job->id)
+            ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path','users.first' ,'users.last','users.rating',
+                    DB::raw("6371 * acos(cos(radians(" . $_POST['job_lat'] . ")) 
+                    * cos(radians(users.user_lat)) 
+                    * cos(radians(users.user_lng) - radians(" . $_POST['job_lng'] . ")) 
+                    + sin(radians(" .$_POST['job_lat']. ")) 
+                    * sin(radians(users.user_lat))) AS distance") )
+            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+            ->where('conversations.status', 'OPEN')
+            ->get();
+            $conversations = $conversations->sortByDesc('created_at');
+            $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
+            return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
+          } else if($filter_action == "PRICEHL"){
+            $conversations =  Conversation::where('job_id', $job->id)
+            ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path','users.first' ,'users.last','users.rating',
+                    DB::raw("6371 * acos(cos(radians(" . $_POST['job_lat'] . ")) 
+                    * cos(radians(users.user_lat)) 
+                    * cos(radians(users.user_lng) - radians(" . $_POST['job_lng'] . ")) 
+                    + sin(radians(" .$_POST['job_lat']. ")) 
+                    * sin(radians(users.user_lat))) AS distance") )
+            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+            ->where('conversations.status', 'OPEN')
+            ->get();
+
             $conversations = $conversations->sortByDesc('json.offer');
+            $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
+            return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
+          } 
+          else if($filter_action == "PRICELH"){
+            $conversations =  Conversation::where('job_id', $job->id)
+            ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path','users.first' ,'users.last','users.rating',
+                    DB::raw("6371 * acos(cos(radians(" . $_POST['job_lat'] . ")) 
+                    * cos(radians(users.user_lat)) 
+                    * cos(radians(users.user_lng) - radians(" . $_POST['job_lng'] . ")) 
+                    + sin(radians(" .$_POST['job_lat']. ")) 
+                    * sin(radians(users.user_lat))) AS distance") )
+            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+            ->where('conversations.status', 'OPEN')
+            ->get();
+
+            $conversations = $conversations->sortBy('json.offer');
+            $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
+            return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
           }
-        }
-      }
-      $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer', compact('conversations'))->render();
-      return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
+          else if($filter_action == "RATING"){
+            $conversations =  Conversation::where('job_id', $job->id)
+            ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path','users.first' ,'users.last','users.rating',
+                    DB::raw("6371 * acos(cos(radians(" . $_POST['job_lat'] . ")) 
+                    * cos(radians(users.user_lat)) 
+                    * cos(radians(users.user_lng) - radians(" . $_POST['job_lng'] . ")) 
+                    + sin(radians(" .$_POST['job_lat']. ")) 
+                    * sin(radians(users.user_lat))) AS distance") )
+            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+            ->where('conversations.status', 'OPEN')
+            ->orderBy('rating', 'desc')
+            ->get();
+
+
+            $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
+            return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
+          }
+          else if($filter_action == "DISTANCE"){
+            $conversations =  Conversation::where('job_id', $job->id)
+            ->select('conversations.*', 'users.user_lat','users.user_lng','users.user_city', 'users.user_state' ,'users.profile_image_path','users.first' ,'users.last','users.rating',
+                    DB::raw("6371 * acos(cos(radians(" . $_POST['job_lat'] . ")) 
+                    * cos(radians(users.user_lat)) 
+                    * cos(radians(users.user_lng) - radians(" . $_POST['job_lng'] . ")) 
+                    + sin(radians(" .$_POST['job_lat']. ")) 
+                    * sin(radians(users.user_lat))) AS distance") )
+            ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+            ->where('conversations.status', 'OPEN')
+            ->orderBy('distance', 'asc')
+            ->get();
+
+
+            $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
+            return Response::json(['html'=>$viewRendered, 'conversations'=>$conversations]);
+          }
+          else {
+            return Response::json(false);
+          }
+         
+      } 
+    
     }
 
 

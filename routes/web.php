@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/jobs/request/type/board/submit', 'ServiceSeekerJobController@job_request_type_board')->name('service_seeker_jobs_request_type_board_subimt');
   Route::post('/service_seeker/jobs/filter', 'ServiceSeekerJobController@filter_jobs')->name('service_seeker_jobs_filter');
   //individual job routes
-  Route::post('/serivce_seeker/jobs/job/{id}/filter', 'ServiceSeekerJobController@filter_job_offer')->name('service_seeker_job_offer_filter');
+  Route::post('/serivce_seeker/jobs/job/data/filter', 'ServiceSeekerJobController@filter_job_offer')->name('service_seeker_job_offer_filter');
   Route::post('/serivce_seeker/jobs/job/{id}/map_data', 'ServiceSeekerJobController@map_data_job_offer')->name('service_seeker_job_offer_map_data');
   //message job route
   Route::get('/service_seeker/messages', 'ServiceSeekerController@service_seeker_messages')->name('service_seeker_messages');
