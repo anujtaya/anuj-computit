@@ -111,6 +111,7 @@ class ServiceSeekerJobController extends Controller
                       ->groupBy('jobs.id')
                       ->where('jobs.status', '!=', 'DRAFT')
                       ->where('jobs.status', '!=', 'COMPLETED')
+                      ->where('jobs.status', '!=', 'CANCELLED')
                       ->orderBy('jobs.job_date_time', 'desc')
                       ->get(['jobs.*', DB::raw('count(conversations.id) as conversations')]);
       }else{
