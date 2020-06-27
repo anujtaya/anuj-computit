@@ -28,6 +28,9 @@ $currentUserTab = 'userbasic';
                <a class="nav-link @if($currentUserTab  == 'userbasic') active @endif" id="userbasic-tab" data-toggle="tab" href="#userbasic" role="tab" aria-controls="userbasic" aria-selected="true">Basic Info</a>
             </li>
             <li class="nav-item ">
+               <a class="nav-link @if($currentUserTab  == 'userbusiness') active @endif " id="userbusiness-tab" data-toggle="tab" href="#userbusiness" role="tab" aria-controls="userbusiness" aria-selected="false">Business Info</a>
+            </li>
+            <li class="nav-item ">
                <a class="nav-link @if($currentUserTab  == 'usersecurity') active @endif " id="usersecurity-tab" data-toggle="tab" href="#usersecurity" role="tab" aria-controls="usersecurity" aria-selected="false"> Security</a>
             </li>
          </ul>
@@ -37,6 +40,9 @@ $currentUserTab = 'userbasic';
             </div>
             <div class="tab-pane fade fs--1 @if($currentUserTab  == 'usersecurity') show active @endif" id="usersecurity" role="tabpanel" aria-labelledby="usersecurity-tab">
                @include('service_provider.profile.password')
+            </div>
+            <div class="tab-pane fade fs--1 @if($currentUserTab  == 'userbusiness') show active @endif" id="userbusiness" role="tabpanel" aria-labelledby="userbusiness-tab">
+               @include('service_provider.profile.businessinfo')
             </div>
          </div>
       </div>
