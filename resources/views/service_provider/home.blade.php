@@ -118,7 +118,7 @@
          </div>
       </div>
       <!-- preloader container display  -->
-      <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display;">
+      <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display">
          <div class="timeline-wrapper">
             @for($i=0;$i<6;$i++)
             <div class="timeline-item card-1 m-1 border-0">
