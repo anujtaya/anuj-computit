@@ -8,11 +8,7 @@
          <div class="row" >
             <div class="col-md-12 h-100" >
                <div class="card bg-white p-4 shadow-none">
-                  @if(app()->isLocal())
-                     @include('auth.forms.register_form_dev')
-                  @else
                      @include('auth.forms.register_form')
-                  @endif
                </div>
             </div>
          </div>
