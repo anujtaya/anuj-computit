@@ -77,7 +77,6 @@
          <div class="d-flex p-0 bd-highlight">
             <div class="p-1 flex-grow-1 bd-highlight"> {{$certificate->certificate_name}}</div>
             <div class="p-1 bd-highlight">{{ date('d/m/Y', strtotime($certificate->certificate_expiry)) }}</div>
-            <div class="p-1 bd-highlight"> <a href="{{route('service_provider_delete_certificate', $certificate->id)}}" onclick="toggle_animation(true);" class="text-decoration-none text-danger">Remove</a> </div>
          </div>
       </li>
       @endforeach
