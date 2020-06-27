@@ -32,7 +32,7 @@
                   class="border p-1"  height="45" width="45" style="border-radius:50%;" alt="Service Seeker Profile Image 40*40" type="button" id="dropDownImageBox" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          </div>
          <div class="pl-2 pr-2 pt-3 fs--1 bd-highlight">   
-              {{$conversation_current->service_provider_information->first}} is on the way to job location. Track him using the Google map below.
+              {{$conversation_current->service_provider_information->first}} is on the way to job location. Track your Service Provider using the Google map below.
           </div>
       </div>
       <!-- live tracking stats  -->
