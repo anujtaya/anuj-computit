@@ -98,11 +98,19 @@
       </div>
    </div>
    <p class="p-2">
+      @if(Auth::user()->user_bio != null)
       <i>
-      <span class="teaser">{{substr(Auth::user()->user_bio, 0, 30)}}..</span>
-      <span class="complete" style="display:none;">{{Auth::user()->user_bio}}</span>
-      <span class="more theme-color">More</span>
+         <span class="teaser">{{substr(Auth::user()->user_bio, 0, 30)}}</span>
+         @if(strlen(Auth::user()->user_bio) > 29)
+            <span class="complete" style="display:none;">{{substr(Auth::user()->user_bio, 30)}}</span>
+            <span class="more theme-color">More</span>
+         @endif
       </i>
+      @else
+      <i class="theme-color">
+         You haven't submitted any information in about me section. You are strongly encouraged to fill this section to attract more attention from Service Seeker.
+      </i>
+      @endif
    </p>
 </div>
 <div class="m-2   rounded">
