@@ -18,10 +18,10 @@
                @if($job->status == 'OPEN')
                <div class="row ml-2 mr-2 mt-3">
                   <div class="col-6 p-1">
-                     <button type="button" class="btn btn-block btn-danger btn-sm fs--1 text-danger-d text-white card-1"  data-target="#jobConversationRejectOfferModal" data-toggle="modal">Reject Offer</button>
+                     <button type="button" class="btn btn-block btn-danger btn-sm fs--1 text-danger-d text-white shadow"  data-target="#jobConversationRejectOfferModal" data-toggle="modal">Reject Offer</button>
                   </div>
                   <div class="col-6 p-1">
-                     <button type="button" class="btn btn-block btn-success fs--1 btn-sm text-success-d text-white card-1" data-toggle="modal" data-target="#jobConversationAcceptOfferModal">Accept Offer</button>
+                     <button type="button" class="btn btn-block btn-success fs--1 btn-sm text-success-d text-white shadow" data-toggle="modal" data-target="#jobConversationAcceptOfferModal">Accept Offer</button>
                   </div>
                </div>
                @endif
