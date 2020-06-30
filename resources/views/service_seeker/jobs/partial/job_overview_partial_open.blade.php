@@ -54,7 +54,7 @@
 <!-- Modal -->
 <div class="modal fade" id="map_con_modal_popup" tabindex="-1" role="dialog" aria-labelledby="map_con_modal_popupTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
-      <div class="modal-content border">
+      <div class="modal-content border-0 shadow-sm">
          <div class="modal-body" id="map_sp_info_container">
             
          </div>
