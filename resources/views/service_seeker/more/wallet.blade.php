@@ -73,6 +73,16 @@
                <button  class="btn btn-sm theme-background-color fs--2 mt-3 shadow">Add card</button>
             </form>
          </div>
+         @if(request()->has('job_id') && request()->has('sp_id'))
+           
+           
+            <div class="p-2 shadow-sm bg-warning text-white rounded mt-2" onclick="location.href='{{route('service_seeker_job_conversation', [ request()->job_id, request()->sp_id])}}?triggermodal=true'" >
+               Continue to Job offer confirmation window <i class="fas fa-arrow-circle-right fs-1 float-right"></i>
+               <br>
+               <br>
+               You have a job offer confirmation pending from your previous visit. Please tap here once you added a payment source to your account.
+            </div>
+         @endif
       </div>
    </div>
 </div>

@@ -31,7 +31,7 @@ class ServiceSeekerStripePaymentController extends Controller
         } else {
             $response = $this->create_new_stripe_customer_object($input);
         }
-  
+        
          return redirect()->back();
                
       } 

@@ -52,7 +52,7 @@ class ServiceSeekerController extends Controller
       return View::make("service_seeker.more.faqs");
   }
 
-  function service_seeker_more_wallet(){
+  function service_seeker_more_wallet(Request $request){
       return View::make("service_seeker.more.wallet");
   }
 

@@ -31,7 +31,7 @@
                      <label class="font-weight-bold mb-0" for="exampleInputEmail1">Job Date & Time</label>
                      <br>
                      <span>
-                     {{ date('d/m/Y - H:i A', strtotime($job->job_date_time)) }}
+                     {{ date('d/m/Y - h:i A', strtotime($job->job_date_time)) }}
                      </span>
                   </div>
                   <div class="form-group mb-1">
@@ -74,18 +74,18 @@
                            </li>
                            @endforeach
                         </ul>
-                        <a href="" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>
+                        <a href="{{route('service_seeker_more_wallet')}}?job_id={{$job->id}}&sp_id={{$conversation->service_provider_id}}" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>
                      </div>
                      @else
                      <span class="text-danger">Oh Snap! You don't have a payment source set up for your account. Please tap here to set-up a payment source. We will need a payment source before you can accept Service Provider offers.</span>
                      <br> <br>
-                     <a href="" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>
+                     <a href="{{route('service_seeker_more_wallet')}}?job_id={{$job->id}}&sp_id={{$conversation->service_provider_id}}" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>
                      @endif
                   </div>
                </div>
                <div class="row mt-3 ml-0 mr-0">
                   <div class="col-12 mb-2 p-0">
-                     By clicking the button "Confirm to Prceed" I agree to LocaL2LocaL offer acceptance T&Cs. To view our T&C, please tap here.
+                     By clicking the button "Confirm to Prceed" you agree to LocaL2LocaL offer acceptance T&Cs. To view our T&C, please tap here.
                   </div>
                   <div class="col-12 mt-2 p-0">
                      @if(count($card_sources) != 0)
@@ -100,3 +100,13 @@
       </div>
    </div>
 </div>
+
+@if(request()->has('triggermodal'))
+<script>
+// display modal if the request contains the triggermodal data input
+$( document ).ready(function() {
+   $('#jobConversationAcceptOfferModal').modal('show');
+});
+
+</script>
+@endif
