@@ -26,7 +26,7 @@
                   <button type="button" class="btn btn-block btn-secondary fs--1 text-white shadow"  data-dismiss="modal">Dismiss</button>
                </div>
                <div class="col-6 p-1">
-                  <button  type="submit" class="btn btn-block btn-danger fs--1 text-white shadow">Reject Offer</button>
+                  <button  type="submit" class="btn btn-block btn-warning fs--1 text-white shadow">Reject Offer</button>
                </div>
             </div>
          </form>

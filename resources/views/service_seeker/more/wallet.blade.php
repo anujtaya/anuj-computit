@@ -10,69 +10,67 @@
       </div>
       <div class="col-lg-12 fs--1 bg-white p-2 mt-2  border-d">
          @if(Session::has('success'))
-            <div class="alert alert-success fs--1">
-              {{Session::pull('success')}}
-            </div>
+         <div class="alert alert-success fs--1">
+            {{Session::pull('success')}}
+         </div>
          @endif
          @if(Session::has('error'))
-            <div class="alert alert-danger fs--1">
-              {{Session::pull('error')}}
-            </div>
+         <div class="alert alert-danger fs--1">
+            {{Session::pull('error')}}
+         </div>
          @endif
-         <div class="p-3 border rounded">
-            <h6 class=" pb-2"><strong>Payment Source</strong></h6>
-            <div class="table-responsive">
-               <table class="table table-sm fs--1 table-bordered">
-                  <tr class="bg-light">
-                     <td>Brand</td>
-                     <td>Last 4</td>
-                     <td>Expiry</td>
-                     <td>Default</td>
-                     <td>Delete</td>
-                  </tr>
-                  @php
-                  $stripe_payment_source = Auth::user()->service_seeker_stripe_payment;
-                  $card_sources = [];
-                  if($stripe_payment_source != null) {
-                  $card_sources = $stripe_payment_source->sss_payment_sources;
-                  }
-                  @endphp
-                  @foreach($card_sources as $source)
-                  <tr>
-                     <td class="fs-1">@if($source->brand == 'Visa') <i class="fab fa-cc-visa"></i> @elseif($source->brand == 'MasterCard') <i class="fab fa-cc-mastercard"></i> @else <i class="far fa-credit-card"></i>@endif</td>
-                     <td>**{{$source->last_4}}</td>
-                     <td>{{date('m/Y', strtotime($source->expiry))}}</td>
-                     <td class="">
-                        @if($source->is_default)
-                        <span class="theme-color" ><i class="fas fs-1 fa-check-square"></i></span>
-                        @else
-                        <form action="{{route('service_seeker_more_wallet_stripe_change_customer_default_card')}}" id="form-{{$source->id}}"  method="POST">
-                           @csrf
-                           <input type="hidden" name="source_id" value="{{$source->id}}">
-                           <span class=""  onclick="$('#form-'+ {{$source->id}}).submit();toggle_animation(true);"><i class='far fs-1 fa-square'></i></span>
-                          
-                        </form>
-                        @endif
-                     </td>
-                     <td>
-                        @if(!$source->is_default)
-                        <a href="{{route('service_seeker_more_wallet_stripe_delete_customer_card', $source->id)}}" class="text-danger p-2" onclick="return confirm('Are you sure you want to remove this card?')"><i class="fas fa-trash-alt "></i></a>
-                        @endif
-                     </td>
-                  </tr>
-                  @endforeach
-               </table>
+         <div class="p-2 shadow-sm rounded">
+            <h6 class=""><strong>Payment Source</strong></h6>
+            <div class="m-1">
+               <h6>Stripe</h6>
+               <!-- source list with default selection  -->
+               <div class="m-1">
+                  <ul class="list-group">
+                     @php
+                     $stripe_payment_source = Auth::user()->service_seeker_stripe_payment;
+                     $card_sources = [];
+                     if($stripe_payment_source != null) {
+                     $card_sources = $stripe_payment_source->sss_payment_sources;
+                     }
+                     @endphp
+                     @foreach($card_sources as $source)
+                        <li class="list-group-item">
+                           @if($source->brand == 'Visa') <i class="fab fa-cc-visa"></i> @elseif($source->brand == 'MasterCard') <i class="fab fa-cc-mastercard"></i> @else <i class="far fa-credit-card"></i>@endif**{{$source->last_4}} Expires:{{date('m/Y', strtotime($source->expiry))}}
+                              @if($source->is_default)
+                              <br>
+                              <span class="theme-color" ><i class="fas fs--1 fa-check-square"></i> Default</span>
+                              @else
+                              <form action="{{route('service_seeker_more_wallet_stripe_change_customer_default_card')}}" id="form-{{$source->id}}" class="m-0"  method="POST">
+                                 @csrf
+                                 <input type="hidden" name="source_id" value="{{$source->id}}">
+                                 <span class="theme-color"  onclick="$('#form-'+ {{$source->id}}).submit();toggle_animation(true);"><i class='far fs--1 fa-square'></i> Make Default</span>
+                              </form>
+                              @endif
+                              @if(!$source->is_default)
+                              <a href="{{route('service_seeker_more_wallet_stripe_delete_customer_card', $source->id)}}" class="text-danger" onclick="return confirm('Are you sure you want to remove this card?')"><i class="far fa-square"></i> Remove</a>
+                              @endif
+                        </li>
+                     @endforeach
+                  </ul>
+               </div>
+            </div>
+            <div class="mt-3 ml-1 mr-1">
+               <h6>Paypal</h6>
+               <!-- source list with default selection  -->
+               <div class="m-1">
+                     Coming Soon :)
+               </div>
             </div>
          </div>
-         <div class="p-3 border rounded mt-2">
-            <span>Add new Payment Source</span> <br> <br>
+         <div class="p-2 shadow-sm rounded mt-2">
+            <span>Add new Credit/Debit Source</span> <br> <br>
             <form action="{{route('service_seeker_more_wallet_stripe_create_customer')}}" class="my-form needs-validation"  method="post" id="payment-form">
                @csrf
                <div id="card-element" class="h-100 mt-1  border rounded p-2">
                </div>
                <div id="card-errors" role="alert"></div>
                <input type="hidden" name="user_id" value="46" />
-               <button  class="btn btn-sm theme-background-color fs--2 mt-3 ">Add card</button>
+               <button  class="btn btn-sm theme-background-color fs--2 mt-3 shadow">Add card</button>
             </form>
          </div>
       </div>
