@@ -24,6 +24,10 @@ use App\Notifications\JobBoardNotification;
 use App\Notifications\JobConversationNewMessageServiceSeeker;
 use App\Notifications\JobQuoteOfferRejected;
 use App\Notifications\JobQuoteOfferAccepted;
+use App\ServiceseekerStripePaymentSource;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Stripe\Customer;
 
 class ServiceSeekerJobController extends Controller
 {
@@ -461,39 +465,74 @@ class ServiceSeekerJobController extends Controller
 
 
   //Service seeker job offer accept function. 
-  protected function accept_offer($job_id, $conversation_id){
-    if($job_id != null){
-      $job = Job::find($job_id);
-      if($job){
-          $job->status = 'APPROVED';
-          $response = $job->save();
-          if($response){
-            $conversation = Conversation::find($conversation_id);
-            $conversation_message = new ConversationMessage();
-            $conversation_message->user_id = Auth::id();
-            $conversation_message->text = 'Accepted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
-            $conversation_message->conversation_id = $conversation_id;
-            $conversation_message->msg_created_at = Carbon::now();
-            $conversation_message->json = ["type" => "ACTION", "status"=> "ACCEPTED"];
-            $response_r = $conversation_message->save();
-            if($response_r) {
-              $job->service_provider_id = $conversation->service_provider_id;
-              $job->save();
-              $conversations = Conversation::where('job_id', $job->id)
+  protected function accept_offer(Request $request){
+    $input = Input::all();
+    $job = Job::find($input['accept_job_id']);
+    $conversation = Conversation::find($input['accept_conversation_id']);
+    $stripe_payment_source = ServiceseekerStripePaymentSource::find($input['stripe_payment_source_id']);
+    $stripe_payment_customer_object = $stripe_payment_source->service_seeker_payment;
+
+    if($job == null || $conversation == null) {
+      //report problem with job not found and conversation not found
+      return redirect()->back();
+    }
+
+    if($stripe_payment_customer_object == null) {
+      //report problem with job not found and conversation not found
+      return redirect()->back();
+    }
+
+    //previous payment records
+    $old_payment_records = $job->job_payments;
+
+    //default payment record repsons
+    $payment_record_response = false;
+
+    //charging user using stripe account
+    if($old_payment_records == null) {
+      $payment_record_response = $this->record_job_payment($job,$conversation,$stripe_payment_customer_object,'STRIPE');
+    } else {
+      $payment_record_response = true;
+    }
+    
+
+    
+    if($payment_record_response == true) {
+
+      //save conversation 
+      $conversation = Conversation::find($conversation->id);
+      $conversation_message = new ConversationMessage();
+      $conversation_message->user_id = Auth::id();
+      $conversation_message->text = 'Accepted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
+      $conversation_message->conversation_id = $conversation->id;
+      $conversation_message->msg_created_at = Carbon::now();
+      $conversation_message->json = ["type" => "ACTION", "status"=> "ACCEPTED"];
+      $conversation_message->save();
+      
+      $job->status = 'APPROVED';
+      $job->service_provider_id = $conversation->service_provider_id;
+      $job->save();
+      $conversations = Conversation::where('job_id', $job->id)
                       ->join('users', 'conversations.service_provider_id', '=', 'users.id')
                       ->get();
               //send notification
               $this->send_notification_job_offer_accepted($conversation);
-              return redirect()->route('service_seeker_job', $job_id);
-            }
-          }
-      }else{
-        abort(404);
-      }
-    }else{
-      abort(404);
-    }
+              return redirect()->route('service_seeker_job', $job->id);
+    } 
+
+  return redirect()->back();
+  
   }
+
+
+
+
+
+
+
+
+
+
 
   protected function reject_offer($job_id, $conversation_id){
     $job = Job::find($job_id);
@@ -624,12 +663,87 @@ class ServiceSeekerJobController extends Controller
     $data =  (object) Input::all(); 
     $job = Job::find($data->ss_job_cancel_id);
     if($job != null) {
-      //charge any cancellation fee if applicable
-      $job->status = 'CANCELLED';
-      $job->save();
+      //for now refund the money
+      $job_payment = $job->job_payments;
+      if($job_payment != null) {
+        $refund_response = $this->precharge_refund_job_payment($job_payment);
+        if($refund_response) {
+          $job_payment->status = "REFUNDED";
+          $job_payment->save();
+        } 
+        $job->status = 'CANCELLED';
+        $job->save();
+      }
+     
     }
     return redirect()->back();
   }
+
+
+//record job payment
+function record_job_payment($job, $conversation,$stripe_payment_customer_object,$payment_method) {
+  $response =  false;
+  $charge_amount = $conversation->json['offer'];
+  if($payment_method == 'STRIPE') {
+    try {
+      \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+      $charge_response = \Stripe\Charge::create ( array (
+                  "amount" => $charge_amount * 100,
+                  "currency" => "aud",
+                  "customer" => $stripe_payment_customer_object->stripe_payment_token_id,
+                  "description" => $job->id. '--'. $job->title,
+                  'receipt_email' => $job->service_seeker_profile->email,
+                  "capture" => false,
+          ) );
+        if($charge_response->id != '') {
+          //store payment details
+          $new_charge = new \App\JobPayment();
+          $new_charge->job_id = $job->id;
+          $new_charge->payment_reference_number = $charge_response->id;
+          $new_charge->payment_method = 'STRIPE';
+          $new_charge->payable_job_price = $charge_amount;
+          $new_charge->notes = 'TEMPORARY HOLD UNTIL THE JOB IS COMPLETED';
+          $new_charge->status = 'UNPAID';
+          if($new_charge->save()) {
+            $response = true;
+          }
+        }
+     }
+    catch (\Stripe\Error\InvalidRequest $e){Session::put('CardError', $e->getMessage() );  $response = false; }
+    catch (\Stripe\Error\Card $e){Session::put('CardError', $e->getMessage() ); $response = false; }
+    catch (\Stripe\Error\Customer $e){Session::put('CardError', $e->getMessage() );$response = false;}
+    catch (\Stripe\Error\Account $e){Session::put('CardError', $e->getMessage() ); $response = false;}
+    
+  }
+  return $response;
+}
+
+
+
+//precharge_refund
+function precharge_refund_job_payment($job_payment){
+    $response = false;
+    if($job_payment != null) {
+      if($job_payment->payment_method == 'STRIPE') {
+        try {
+            \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+            $charge = \Stripe\Refund::create([
+            'charge' => $job_payment->payment_reference_number,
+            'reason' => 'requested_by_customer',
+            ]);
+            $response =  true;
+        }
+        catch (\Stripe\Error\InvalidRequest $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Card $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Refund $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Customer $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Account $e){$response =  $e->getMessage();}
+      }
+    }
+    return $response;
+}
+ 
+
 
 //job status update retrival function
 protected function job_request_stutus_update(){

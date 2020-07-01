@@ -7,8 +7,11 @@
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <form action="{{route('service_seeker_accept_job', [$job->id, $conversation->id] )}}" method="post">
+         <form action="{{route('service_seeker_accept_job')}}" method="post">
             @csrf
+            <input type="hidden" name="accept_job_id" value="{{$job->id}}" required>
+            <input type="hidden" name="accept_conversation_id" value="{{$conversation->id}}" required>
+
             <div class="modal-body fs--1">
                <div class="fs--1">
 
@@ -66,12 +69,14 @@
                      <div class="m-0">
                         <ul class="list-group mb-2">
                            @foreach($card_sources as $source)
-                           <li class="list-group-item fs--1 p-0">
-                              <div class="radio">
-                                 <input type="radio" id="radio-{{$source->id}}" name="stripe_payment_source_id" value="{{$source->id}}"  @if($source->is_default) checked @endif>     
-                                 <label for="radio-{{$source->id}}" class="radio-label fs--1 " > {{$source->brand}} **{{$source->last_4}} Expires:{{date('m/Y', strtotime($source->expiry))}}</label>
-                              </div>
-                           </li>
+                              @if($source->is_default)
+                                 <li class="list-group-item fs--1 p-0">
+                                    <div class="radio">
+                                       <input type="radio" id="radio-{{$source->id}}" name="stripe_payment_source_id" value="{{$source->id}}"  @if($source->is_default) checked @endif>     
+                                       <label for="radio-{{$source->id}}" class="radio-label fs--1 " > {{$source->brand}} **{{$source->last_4}} Expires:{{date('m/Y', strtotime($source->expiry))}}</label>
+                                    </div>
+                                 </li>
+                              @endif
                            @endforeach
                         </ul>
                         <a href="{{route('service_seeker_more_wallet')}}?job_id={{$job->id}}&sp_id={{$conversation->service_provider_id}}" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>

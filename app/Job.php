@@ -27,7 +27,7 @@ class Job extends Model
       return $this->hasMany('App\JobExtra');
     }
 
-    public function job_payment(){
+    public function job_payments(){
       return $this->hasOne('App\JobPayment');
     }
    

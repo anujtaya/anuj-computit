@@ -11,6 +11,6 @@ class ServiceseekerStripePaymentSource extends Model
     public $timestamps = true;
 
     public function service_seeker_payment(){
-        return $this->belongsTo('App\ServiceSeekerPayment');
+        return $this->belongsTo('App\ServiceSeekerStripePayment', 'sss_payment_id', 'id');
     }
 }

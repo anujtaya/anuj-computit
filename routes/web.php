@@ -92,7 +92,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/jobs/job/conversation/{job_id}/{service_provider_id}/', 'ServiceSeekerJobController@show_job_conversation' )->name('service_seeker_job_conversation');
   Route::post('/service_seeker/jobs/job/conversation/send_message', 'ServiceSeekerJobController@send_message')->name('service_seeker_job_conversation_message_send');
   Route::post('/service_seeker/jobs/job/conversation/check_new_messages', 'ServiceSeekerJobController@check_new_messages')->name('service_seeker_check_new_messages');
-  Route::post('/service_seeker/jobs/job/{job_id}/{conversation_id}/offer/accept', 'ServiceSeekerJobController@accept_offer')->name('service_seeker_accept_job');
+  Route::post('/service_seeker/jobs/job/offer/accept', 'ServiceSeekerJobController@accept_offer')->name('service_seeker_accept_job');
   Route::post('/service_seeker/jobs/job/{job_id}/{conversation_id}/offer/reject', 'ServiceSeekerJobController@reject_offer')->name('service_seeker_reject_job');
   Route::post('/service_seeker/job/request/draft', 'ServiceSeekerJobController@request_job_draft')->name('service_seeker_job_request_draft');
   Route::post('/service_seeker/job/clear/draft', 'ServiceSeekerJobController@clear_job_draft')->name('service_seeker_job_clear_draft');
