@@ -52,7 +52,7 @@
          <img src="{{asset('images/svg/sp_messages_2.svg')}}" alt="" style="opacity:0.4;" class="img-fluid" alt="Responsive image">
          <br>
          <br>
-         <span>You can send you price quote by clicking below.</span>
+         <span>You can send your price quote by clicking below.</span>
          <br><br>
          <a  class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
             @if($conversation == null) Send Offer @else Revise Offer @endif
