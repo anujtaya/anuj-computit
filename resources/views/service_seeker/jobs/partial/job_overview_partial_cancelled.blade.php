@@ -10,3 +10,17 @@
       </p>
    </div>
 </div>
+
+<!-- show job payment transation either for refund or $10 cancellation charge -->
+@php
+$job_payment  = $job->job_payments;
+@endphp
+@if($job_payment != null) 
+   @if($job_payment->status == "REFUNDED")
+      <div class="shadow-sm rounded p-3 m-2 bg-secondary text-white">
+         A refund has been made to account. The total refund amount is ${{ number_format( $job_payment->payable_job_price ,2)}}.
+         <br>
+         <small class="text-muted">Ref no: {{$job_payment->payment_reference_number}}</small>  
+      </div>
+   @endif 
+@endif
