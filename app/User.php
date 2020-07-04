@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function service_seeker_stripe_payment(){
         return $this->hasOne('App\ServiceSeekerStripePayment');
     }
+
+    public function service_provider_paylogs(){
+        return $this->hasMany('App\ServiceProviderPayLog');
+    }
 }

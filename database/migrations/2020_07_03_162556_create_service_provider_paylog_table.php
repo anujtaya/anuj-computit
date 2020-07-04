@@ -17,10 +17,10 @@ class CreateServiceProviderPaylogTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('job_id')->unsigned()->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');
-            $table->bigInteger('service_provider_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->double('total_amount');
             $table->char('status', 10)->nullable();
-            $table->foreign('service_provider_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
