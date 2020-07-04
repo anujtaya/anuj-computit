@@ -78,6 +78,7 @@
             <li class="nav-item ">
                <a class="nav-link active" id="joboverview-tab" data-toggle="tab" href="#joboverview" role="tab" aria-controls="joboverview" aria-selected="true">Overview</a>
             </li>
+            @if($job->status != 'CANCELLED')
             <li class="nav-item ">
                <a class="nav-link " id="jobdetail-tab" data-toggle="tab" href="#jobdetail" role="tab" aria-controls="jobdetail" aria-selected="false"> Details</a>
             </li>
@@ -87,6 +88,7 @@
             <li class="nav-item ">
                <a class="nav-link" id="jobhelp-tab" data-toggle="tab" href="#jobhelp" role="tab" aria-controls="jobhelp" aria-selected="false">Help</a>
             </li>
+            @endif
          </ul>
          <div class="tab-content pl-3 pr-3 mt-3" id="myTabContent">
             <div class="tab-pane fade show active  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab"> 
@@ -102,8 +104,11 @@
                   @include('service_provider.jobs.partial.job_overview_partial_started')
                @elseif($job->status == 'COMPLETED')
                   @include('service_provider.jobs.partial.job_overview_partial_completed')
+               @elseif($job->status == 'CANCELLED')
+                  @include('service_provider.jobs.partial.job_overview_partial_cancelled')
                @endif
             </div>
+            @if($job->status != 'CANCELLED')
             <div class="tab-pane fade  fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">
                @include('service_provider.jobs.partial.job_description_partial')
             </div>
@@ -113,6 +118,7 @@
             <div class="tab-pane fade  fs--1" id="jobhelp" role="tabpanel" aria-labelledby="jobhelp-tab">
                @include('service_provider.jobs.partial.job_help_partial')
             </div>
+            @endif
          </div>
       </div>
       <div class="col-lg-12 pl-3 pr-3 mt-4 border-d">

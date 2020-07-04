@@ -20,7 +20,7 @@
          $service_provider = \App\User::find($job->service_provider_id);
          $service_provider_business = $service_provider->business_info;
          $extras = $job->extras->where('status', 'ACTIVE');
-         $job_payment = $job->job_payment;
+         $job_payment = $job->job_payments;
          //calculate job total and other variables
          $conversation = \App\Conversation::where('job_id', $job->id)
             ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )

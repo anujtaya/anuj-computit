@@ -24,6 +24,9 @@
             {{Session::pull('status')}}
          </div>
       @endif
+      @php
+         $job_payment = $job->job_payments;
+      @endphp
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
          <div class="ml-auto p-0 bd-highlight"> 
@@ -34,19 +37,19 @@
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Total Job Price</div>
-         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job->job_payment->job_price, 2)}}</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">GST Included</div>
-         <div class="ml-auto p-2 bd-highlight"> ${{$job->job_payment->gst_fee_value}}</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{$job_payment->gst_fee_value}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Payment Mode</div>
-         <div class="ml-auto p-2 bd-highlight"> {{$job->job_payment->payment_method}}</div>
+         <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_method}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Payment Reference Number</div>
-         <div class="ml-auto p-2 bd-highlight"> {{$job->job_payment->payment_reference_number}}</div>
+         <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_reference_number}}</div>
       </div>
    </div>
    <div class="p-2">

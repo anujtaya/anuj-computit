@@ -30,5 +30,9 @@ class Job extends Model
     public function job_payments(){
       return $this->hasOne('App\JobPayment');
     }
+
+    public function job_paylog(){
+      return $this->hasOne('App\ServiceProviderPayLog');
+    }
    
 }

@@ -19,16 +19,12 @@
 
 <div class="fs--1">
    <div class="p-2">
-      @if(Session::has('status'))
-         <div class="alert alert-info">
-            {{Session::pull('status')}}
-         </div>
-      @endif
 
       @php
          $job_payment = $job->job_payments;
       @endphp
 
+      @if($job_payment->status == 'CANCHARGE')
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
          <div class="ml-auto p-0 bd-highlight"> 
@@ -56,10 +52,6 @@
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Payment Mode</div>
          <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_method}}</div>
-      </div>
-      <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
-         <div class="p-2 bd-highlight">Payment Reference Number</div>
-         <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_reference_number}}</div>
       </div>
    </div>
    <div class="p-2">
@@ -97,6 +89,13 @@
          <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Update Rating</button>
       </form>
    </div>
+   @else
+   <div class="p-2 alert alert-info text-center">
+      <i class="fas fa-exclamation-triangle fs-2"></i>
+      <br><br>
+      This job was cancelled by Service Seeker. If you can only recieve cancellation fee if the Service Seeker cancels the job after 10 minutes of accepting your job offer. 
+   </div>
+   @endif
 </div>
 
 <script>
