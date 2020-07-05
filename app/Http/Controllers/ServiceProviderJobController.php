@@ -500,19 +500,81 @@ class ServiceProviderJobController extends Controller
 				
 			} else {
 
-				print('The payment hold amount is less than the payable total amount by service seeker: '. $payable_job_final_value);print('<br>');
+				//refund the previous charge amount	 
+				$refund_response = $this->stripe_refund_charge($payment_source->payment_reference_number);
+				if($refund_response == true) {
+					//refund is successful now make a new payment record
+					$stripe_payment_customer_object = $job->service_seeker_profile->service_seeker_stripe_payment;
+					$new_charge_response = $this->stripe_make_new_charge($payment_source,$payable_job_final_value,$job,$stripe_payment_customer_object);
+					if($new_charge_response == true) {
+						$payment_source->job_price = $final_price;
+						$payment_source->service_fee_percentage = $service_fee_percentage;
+						$payment_source->service_fee_price = $service_fee_price;
+						$payment_source->service_provider_gets = $service_provider_payment_amount_total;
+						$payment_source->is_gst_applicable = $is_gst_applicable;
+						$payment_source->gst_fee_value = $gst_fee_value;
+						if($payment_source->save()) {
+							$response = true;
+							$this->generate_service_provider_payment_record($service_provider,$payment_source,$job);
+						}
+					}
+				} 
 
 			}
 			
-
-
-
 		}
 	
-
 		return $response;
 	}
 
+	protected function stripe_make_new_charge($payment_source,$payable_job_final_value,$job,$stripe_payment_customer_object){
+		$response = false;
+		try {
+			\Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+			$charge_response = \Stripe\Charge::create ( array (
+						"amount" => $payable_job_final_value * 100,
+						"currency" => "aud",
+						"customer" => $stripe_payment_customer_object->stripe_payment_token_id,
+						"description" => $job->id. '--'. $job->title,
+						'receipt_email' => $job->service_seeker_profile->email,
+						"capture" => true,
+				) );
+			  if($charge_response->id != '') {
+				//record payment details
+				$payment_source->payment_reference_number;
+				$payment_source->payment_method = 'STRIPE';
+				$payment_source->payable_job_price = $payable_job_final_value;
+				$payment_source->notes = 'FINAL PAYMENT CHARGED BY LOCAL2LOCAL';
+				$payment_source->status = 'PAID';
+				$payment_source->save();
+				$response = true;
+			  }
+		   }catch (\Stripe\Error\InvalidRequest $e){$response =  $e->getMessage();}
+		   catch (\Stripe\Error\Card $e){$response =  $e->getMessage();}
+		   catch (\Stripe\Error\Refund $e){$response =  $e->getMessage();}
+		   catch (\Stripe\Error\Customer $e){$response =  $e->getMessage();}
+		   catch (\Stripe\Error\Account $e){$response =  $e->getMessage();}
+		   return $response;
+	}
+
+	//refund unused charge amount to stripe customer
+	protected function stripe_refund_charge($charge_id){
+		$response = false;
+		try {
+            \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+            $charge = \Stripe\Refund::create([
+            'charge' => $charge_id,
+            'reason' => 'requested_by_customer',
+            ]);
+            $response =  true;
+        }
+        catch (\Stripe\Error\InvalidRequest $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Card $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Refund $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Customer $e){$response =  $e->getMessage();}
+        catch (\Stripe\Error\Account $e){$response =  $e->getMessage();}
+		return $response;
+	}
 
 
 	//generate a payment to be paid log for service provider
@@ -523,7 +585,7 @@ class ServiceProviderJobController extends Controller
 			$paylog->job_id =  $job->id;
 			$paylog->status = 'PENDING';
 			$paylog->total_amount = $payment_source->service_provider_gets;
-			$paylog->service_provider_id = $service_provider->id;
+			$paylog->user_id = $service_provider->id;
 			$paylog->save();
 			//Log::info('Service Provider with id '.$service_provider->id.' paylog created for job'.$job->id);
 		}

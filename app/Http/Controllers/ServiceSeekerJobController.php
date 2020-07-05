@@ -473,29 +473,21 @@ class ServiceSeekerJobController extends Controller
     $stripe_payment_customer_object = $stripe_payment_source->service_seeker_payment;
 
     if($job == null || $conversation == null) {
-      //report problem with job not found and conversation not found
       return redirect()->back();
     }
 
     if($stripe_payment_customer_object == null) {
-      //report problem with job not found and conversation not found
       return redirect()->back();
     }
 
-    //previous payment records
     $old_payment_records = $job->job_payments;
-
-    //default payment record repsons
     $payment_record_response = false;
-
-    //charging user using stripe account
     if($old_payment_records == null) {
       $payment_record_response = $this->record_job_payment($job,$conversation,$stripe_payment_customer_object,'STRIPE');
     } else {
       $payment_record_response = true;
     }
     
-
     
     if($payment_record_response == true) {
 
