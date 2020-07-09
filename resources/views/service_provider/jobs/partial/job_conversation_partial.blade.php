@@ -69,11 +69,15 @@
 </div>
 <!-- add job offer modal window -->
 @include('service_provider.jobs.modals.job_offer_modal')
+@include('service_provider.jobs.modals.job_accepted_modal')
 <script>
    var msgs = {!! json_encode($msgs) !!}; // SULTAN - HOME - ELOQUENT DATA FROM BLADE TO JAVASCRIPT
    var conversation_id = "{{$conversation->id}}";
    var service_provider_offer_exists_url = "{{ route('service_provider_offer_exists')}}";
-   
+   var service_provider_offer_accept_check_url = "{{ route('service_provider_offer_accept_check')}}";
+   var job_status = "{{$job->status}}";
+   var job_id = "{{$job->id}}";
+
       $( document ).ready(function() {
         var elem = document.getElementById('scroll-area');
         elem.scrollTop = elem.scrollHeight;
@@ -87,7 +91,7 @@
              url: service_provider_offer_exists_url,
              data: {
                "_token": csrf_token,
-               "job_id": "{{$job->id}}",
+               "job_id":job_id,
              },
              success: function(results){
                if(results){

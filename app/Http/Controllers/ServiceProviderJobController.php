@@ -166,6 +166,19 @@ class ServiceProviderJobController extends Controller
 	}
 
 
+	//check to see if the service provider offer has been accepted
+	protected function check_if_offer_accepted(){
+		$response = false;
+		$job = Job::find($_POST['job_id']);
+		if($job != null) {
+			if($job->service_provider_id == Auth::id()) {
+				$response = true;
+			} 
+		}
+		return Response::json($response);
+	}
+
+
 	protected function show_job_conversation($job_id, $service_provider_id){
       //make sure the messages are in right order
 	  $job = Job::find($job_id);
