@@ -25,7 +25,7 @@
 </style>
 <div class="container ">
    <div class="row  justify-content-center" >
-      <div class="col-lg-12 shadow-sm-none fixed-top bg-white p-0 border-d">
+      <div class="col-lg-12 shadow-sm-none bg-white p-0 border-d fixed-top">
          <div class="row p-3">
             <div class="col-4">  <a href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">#JB-{{$job->id}}</span></div>
@@ -90,7 +90,10 @@
             </li>
             @endif
          </ul>
-         <div class="tab-content pl-3 pr-3 mt-3" id="myTabContent">
+      </div>
+   </div>
+   <div class="p-0" style="margin-top:120px;">
+      <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade show active  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab"> 
                @if($job->status == 'OPEN')
                   @include('service_provider.jobs.partial.job_overview_partial_open')
@@ -119,10 +122,6 @@
                @include('service_provider.jobs.partial.job_help_partial')
             </div>
             @endif
-         </div>
       </div>
-      <div class="col-lg-12 pl-3 pr-3 mt-4 border-d">
-      </div>
-   </div>
 </div>
 @endsection

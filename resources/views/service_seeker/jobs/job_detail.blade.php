@@ -162,7 +162,7 @@ $currentUserTab = 'joboverview';
          <!-- end container -->
       </div>
    </div>
-   <div class="p-0" style="margin-top:110px;">
+      <div class="p-0" style="margin-top:110px;">
          <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab">
                @if($job->status == 'OPEN')

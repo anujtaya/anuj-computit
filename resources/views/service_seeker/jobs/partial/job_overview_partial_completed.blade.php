@@ -35,6 +35,7 @@
             </a>
          </div>
       </div>
+      
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Total Job Price</div>
          <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>

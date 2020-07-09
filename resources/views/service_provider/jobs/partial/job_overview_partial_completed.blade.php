@@ -17,7 +17,7 @@
 }
 </style>
 
-<div class="fs--1">
+<div class="fs--1" style="overflow:scroll; scroll-behavior: smooth;">
    <div class="p-2">
       @if(Session::has('status'))
          <div class="alert alert-info">
