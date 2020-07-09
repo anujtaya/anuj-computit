@@ -18,7 +18,7 @@
                </div>
             </div>
             <div class="col-6   p-0">
-               <div class="border m-2 theme-color h-100 rounded p-3">
+               <div class="border m-2 theme-color  rounded p-3" style="min-height:110px!important;">
                   <a href="{{route('service_provider_more_faqs')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
                   <img src="{{asset('/images/service_seeker/faq.svg')}}" height="100px" width="100px" alt=""> <br>
                   FAQ's
@@ -26,7 +26,7 @@
                </div>
             </div>
             <div class="col-6  p-0">
-               <div class="border m-2  theme-color h-100 rounded p-3">
+               <div class="border m-2  theme-color rounded p-3" style="min-height:110px!important;">
                   <a href="{{route('service_provider_more_wallet')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
                   <img src="{{asset('/images/service_seeker/wallet.svg')}}" height="100px" width="100px" alt=""> <br>
                      Payouts
@@ -34,7 +34,7 @@
                </div>
             </div>
             <div class="col-6 p-0">
-               <div class="border m-2  theme-color h-100 rounded  p-3">
+               <div class="border m-2  theme-color rounded  p-3" style="min-height:110px!important;">
                   <a href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
                   <img src="{{asset('/images/service_seeker/switch.svg')}}" height="100px" width="100px" alt=""> <br>
                   Switch to Seeker
@@ -42,7 +42,7 @@
                </div>
             </div>
             <div class="col-12 p-0">
-               <div class="border m-2  theme-color h-100 rounded  p-3">
+               <div class="border m-2  theme-color  rounded  p-3" style="min-height:50px!important;">
                   <a href="{{route('logout')}}" onclick="toggle_animation(true);" class="text-danger text-decoration-none">
                      <i class="fas fa-sign-out-alt"></i>   Logout
                   </a>
