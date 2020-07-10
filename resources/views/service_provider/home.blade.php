@@ -209,7 +209,7 @@
    var current_lat = "{{Auth::user()->user_lat}}";
    var current_lng = "{{Auth::user()->user_lng}}";
     //can be changed using session if wants to remember
-    var current_filter_choice = 'RECENT';
+   var current_filter_choice = 'RECENT';
    
    window.onload = function() {
       update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 20000);

@@ -30,9 +30,6 @@
             @endif      
          </div>
       </div>
-      <div class="d-flex pl-2 pr-2 pb-2 bd-highlight">
-         <div class="p-0 w-100 bd-highlight"></div>
-      </div>
    </li>
    @endforeach
 </ul>
