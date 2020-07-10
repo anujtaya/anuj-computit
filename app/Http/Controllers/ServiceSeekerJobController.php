@@ -323,12 +323,12 @@ class ServiceSeekerJobController extends Controller
             $job->job_date_time = $job_obj->job_date_time;
           }
           $job->service_seeker_id = $seeker_id;
-          $job->street_number = $job_obj->current_address_string[0]->long_name;
-          $job->street_name = $job_obj->current_address_string[1]->long_name;
-          $job->state = $job_obj->current_address_string[4]->long_name;
-          $job->postcode = $job_obj->current_address_string[6]->long_name;
-          $job->city = $job_obj->current_address_string[3]->long_name;
-          $job->suburb = $job_obj->current_address_string[2]->long_name;
+          $job->street_number = $job_obj->current_address_string->street_number;
+          $job->street_name = $job_obj->current_address_string->street_name;
+          $job->state = $job_obj->current_address_string->state;
+          $job->postcode = $job_obj->current_address_string->postcode;
+          $job->city =$job_obj->current_address_string->city;
+          $job->suburb = $job_obj->current_address_string->suburb;
           $job->service_category_id = $job_obj->service_category_id;
           $job->service_category_name = $job_obj->service_category_name;
           $job->service_subcategory_name = $job_obj->service_subcategory_name;
@@ -354,12 +354,12 @@ class ServiceSeekerJobController extends Controller
           $job->job_date_time = $job_obj->job_date_time;
         }
         $job->service_seeker_id = $seeker_id;
-        $job->street_number = $job_obj->current_address_string[0]['long_name'];
-        $job->street_name = $job_obj->current_address_string[1]['long_name'];
-        $job->state = $job_obj->current_address_string[4]['long_name'];
-        $job->postcode = $job_obj->current_address_string[6]['long_name'];
-        $job->city = $job_obj->current_address_string[3]['long_name'];
-        $job->suburb = $job_obj->current_address_string[2]['long_name'];
+        $job->street_number = $job_obj->current_address_string->street_number;
+        $job->street_name = $job_obj->current_address_string->street_name;
+        $job->state = $job_obj->current_address_string->state;
+        $job->postcode = $job_obj->current_address_string->postcode;
+        $job->city =$job_obj->current_address_string->city;
+        $job->suburb = $job_obj->current_address_string->suburb;
         $job->service_category_id = $job_obj->service_category_id;
         $job->service_category_name = $job_obj->service_category_name;
         $job->service_subcategory_name = $job_obj->service_subcategory_name;

@@ -1,5 +1,17 @@
-var map, current_user_marker;
-
+var map, current_user_marker, geocoder, placeSearch, autocomplete;
+var current_service_id = null;
+var current_service_node_id = null;
+var current_job_draft_id = null;
+var current_job_lat = null;
+var current_job_lng = null;
+var current_address_string = {
+    street_number: '',
+    street_name: '',
+    state: '',
+    postcode: '',
+    city: '',
+    suburb: ''
+}
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -169,6 +181,8 @@ function initMap() {
     google.maps.event.addListener(current_user_marker, 'dragend', function(evt) {
         geocodePosition(current_user_marker.getPosition());
     });
+
+    geocoder = new google.maps.Geocoder();
 }
 
 
@@ -204,11 +218,6 @@ function user_map_settings(map_status) {
 }
 
 
-var current_service_id = null;
-var current_service_node_id = null;
-var current_job_draft_id = null;
-var current_job_lat = null;
-var current_job_lng = null;
 var draft_obj = {
     title: $("#service_job_title").val(),
     description: $("#service_job_description").val(),
@@ -450,7 +459,7 @@ function clear_job_draft_data(job_draft_id) {
 
 
 function book_job() {
-    if (typeof current_address_string !== 'undefined') {
+    if (current_address_string.postcode != '') {
         if (current_job_lat != null && current_job_lng != null) {
             //show job booking type selector modal
             job_booking_submit('BOARD');
@@ -507,15 +516,7 @@ function job_booking_submit(type) {
 }
 
 
-var placeSearch;
-var componentForm = {
-    street_number: 'short_name',
-    route: 'long_name',
-    locality: 'long_name',
-    administrative_area_level_1: 'short_name',
-    postal_code: 'short_name'
-};
-var autocomplete
+
 
 function initAutocomplete() {
 
@@ -526,7 +527,7 @@ function initAutocomplete() {
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         // Get the place details from the autocomplete object.
         place = autocomplete.getPlace();
-        current_address_string = place['address_components']
+        prepare_user_address_object(place['address_components']);
         current_job_lat = place.geometry.location.lat();
         current_job_lng = place.geometry.location.lng();
         update_map_position(place.geometry.location);
@@ -572,17 +573,48 @@ function prefill_location_info() {
 }
 
 function geocodePosition(pos) {
-    var geocoder = new google.maps.Geocoder();
     geocoder.geocode({
         latLng: pos
     }, function(responses) {
         if (responses && responses.length > 0) {
-            console.log(responses[0]);
-            current_address_string = responses[0].address_components;
+            prepare_user_address_object(responses[0].address_components);
             current_job_lat = responses[0].geometry.location.lat();
             current_job_lng = responses[0].geometry.location.lng();
             update_map_position(responses[0].geometry.location);
             document.getElementById('street_number').value = responses[0].formatted_address;
         }
     });
+}
+
+//prepare user current address string for job booking object
+function prepare_user_address_object(address_object) {
+    //make default values null
+    current_address_string = {
+        street_number: '',
+        street_name: '',
+        state: '',
+        postcode: '',
+        city: '',
+        suburb: ''
+    }
+    for (var i = 0; i < address_object.length; i++) {
+        var address_type = address_object[i].types[0];
+
+        var val = address_object[i]['long_name']
+        if (address_type == "street_number") {
+            current_address_string.street_number = val;
+        } else if (address_type == "route") {
+            current_address_string.street_name = val;
+        } else if (address_type == "administrative_area_level_2") {
+            current_address_string.city = val;
+        } else if (address_type == "administrative_area_level_1") {
+            current_address_string.state = val;
+        } else if (address_type == "postal_code") {
+            current_address_string.postcode = val;
+        } else if (address_type == "postal_code") {
+            current_address_string.postcode = val;
+        } else if (address_type == "locality") {
+            current_address_string.suburb = val;
+        }
+    }
 }
