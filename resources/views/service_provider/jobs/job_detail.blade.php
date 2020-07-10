@@ -92,7 +92,7 @@
          </ul>
       </div>
    </div>
-   <div class="p-0" style="margin-top:120px;">
+   <div class="p-0" style="margin-top:140px;">
       <div class="tab-content  mt-3" id="myTabContent">
             <div class="tab-pane fade show active  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab"> 
                @if($job->status == 'OPEN')
