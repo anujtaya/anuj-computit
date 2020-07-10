@@ -13,6 +13,8 @@ use View;
 use Input;
 use Validator;
 use Response;
+use Image;
+use Storage;
 
 class JobAttachmentController extends Controller
 {
@@ -34,18 +36,35 @@ class JobAttachmentController extends Controller
          }
          if($validation->passes())
          {
-          $image = $request->file('file');
-          $new_name = rand() . '.' . $image->getClientOriginalExtension();
-          $image->move(storage_path('/public/job_attachments'), $new_name);
+
+
+          //the file object
+          $img = $request->file('file');
+
+          //create an image object for alterations
+          $image_alteration = Image::make($img->getRealPath());
+          $image_alteration->orientate();
+
+          //create a unique file path name
+          $file_path = rand() . '.' . $img->getClientOriginalExtension();
+
+          //create a streamable image re
+          $resource = $image_alteration->stream()->detach();
+          $response = Storage::disk('local')->put('/public/job_attachments/'.$file_path, $resource);
+
+          //store the job attachment
           $new_image_attachment = new JobAttachment();
-          $new_image_attachment->path = $new_name;
+          $new_image_attachment->path = $file_path;
           $new_image_attachment->name = 'Job Image';
           $new_image_attachment->upload_user_id   = Auth::id();
           $new_image_attachment->job_id   = $request->all()['current_job_id'];
           $new_image_attachment->save();
+
+
+
           return response()->json([
            'message'   => 'Image Upload Successfully',
-           'uploaded_image' => '<img src="/storage/job_attachments/'.$new_name.'" class="img-thumbnail" width="300" />',
+           'uploaded_image' => '<img src="/storage/job_attachments/'.$file_path.'" class="img-thumbnail" width="300" />',
            'class_name'  => 'alert-success'
           ]);
          }

@@ -85,7 +85,7 @@
                   $('#message').html(data.message);
                   $('#message').removeClass("alert-danger");
                   $('#message').addClass(data.class_name);
-                  load_images(1);
+                  load_images(job_id);
                 } else if(data.class_name == "alert-danger") {
                   $('#message').removeClass("alert-success");
                   $('#message').addClass(data.class_name);
