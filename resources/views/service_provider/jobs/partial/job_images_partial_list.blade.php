@@ -8,8 +8,10 @@
    <br />
    <!-- <span id="uploaded_image"></span> -->
    <div >
-      @if($job->status != 'COMPLETED')
-      <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
+      @if($job->service_provider_id == Auth::id())
+         @if($job->status != 'COMPLETED')
+            <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
+         @endif
       @else
       <span class="d-none" id="trigger_image"></span>
       @endif
@@ -164,6 +166,7 @@
             }
             }else{
             $("#message").css("display", "none");
+            element.innerHTML = "No Images Found. Any Image attachemnt will appear here.";
             }
          }
       });
