@@ -177,6 +177,7 @@
    }
    
    function image_remove(id){
+      console.log('Image delete request made.');
       $.ajax({
          url: "{{route('imageservice_images_delete')}}",
          type: 'POST',

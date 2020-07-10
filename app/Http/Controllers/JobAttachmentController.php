@@ -92,8 +92,9 @@ class JobAttachmentController extends Controller
     $response = false;
     if($attachment != null){
       if($attachment->path != null && $attachment->upload_user_id == Auth::id()) { 
-        if(file_exists(storage_path('/public/job_attachments/'.$attachment->path))){
-            unlink(storage_path('/public/job_attachments/'.$attachment->path));
+        $delete_response = Storage::disk('local')->delete('/public/job_attachments/'.$attachment->path);
+
+        if($delete_response){
             $attachment->delete();
             $response = true;
         }
