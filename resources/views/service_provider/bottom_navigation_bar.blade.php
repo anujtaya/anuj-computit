@@ -3,7 +3,7 @@
    <div class="row border-top pt-2 bg-white sticky-bottom justify-content-center fs--1 text-center m-0">
       @if(!request()->is('service_provider/more'))
          <div class="col-12 mb-2  p-2">
-            <a class="btn btn-block btn-sm text-white mt-2 card-1" style="border-radius:20px;background:#399BDB;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">Switch to Seeker - I want work done</a>
+            <a class="btn btn-block btn-sm text-white mt-2 shadow" style="background:#399BDB;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">Switch to Seeker - I want work done</a>
          </div>
       @endif
       <div class="col-3   p-2">

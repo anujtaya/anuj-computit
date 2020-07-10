@@ -30,7 +30,7 @@
 </style>
 <div class="container ">
    <div class="row  justify-content-center" >
-      <div class="col-lg-12 theme-background-color card-1 shadow-sms fixed-top bg-white pl-3 pr-3 border-d" style="z-index:19!important;">
+      <div class="col-lg-12 theme-background-color shadow shadow-sms fixed-top bg-white pl-3 pr-3 border-d" style="z-index:19!important;">
          <div class="row">
             <div class="col-8 pl-2 pt-3 pb-3">
                   <!-- online/offline controls -->
@@ -49,10 +49,10 @@
                   @endif
                   <!-- map view controls -->
                   <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="map_btn" onclick="switch_view_mode('MAP')">
-                  <i class="fas fa-globe-asia"></i> Map View
+                  Map View
                   </button>
                   <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="list_btn" onclick="switch_view_mode('LIST')">
-                  <i class="fas fa-list-ol"></i> List View
+                  List View
                   </button>          
             </div>
             <div class="col-4 text-right">
@@ -66,7 +66,7 @@
                   <div class="dropdown-menu dropdown-menu-right card-1 py-0" aria-labelledby="navbarDropdownUser">
                      <div class="bg-white py-1">
                         <a class="dropdown-item theme-color" href="{{route('service_provider_profile_nested')}}" onclick="toggle_animation(true);">Profile</a>
-                        <a class="dropdown-item theme-color" href="{{route('service_provider_more_help')}}"  onclick="toggle_animation(true);">Notifications</a>
+                        <!-- <a class="dropdown-item theme-color" href="{{route('service_provider_more_help')}}"  onclick="toggle_animation(true);">Notifications</a> -->
                         <a class="dropdown-item theme-color"  href="{{route('service_provider_jobs_history')}}"  onclick="toggle_animation(true);">Job History</a>
                         <a class="dropdown-item theme-color" href="{{route('service_provider_more_help')}}" onclick="toggle_animation(true);">Help</a>
                         <a class="dropdown-item text-danger" href="{{ url('logout')}}" onclick="toggle_animation(true);">Logout</a>
@@ -91,7 +91,7 @@
                   @endif      
                </div>
                <div class="ml-auto p-2 bd-highlight"> 
-                  <button class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="update_sp_location();"  style="border-radius:20px;" >
+                  <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="update_sp_location();"  style="border-radius:20px;" >
                   <i class="fas fa-redo-alt"></i> Update
                   </button>
                </div>
@@ -99,20 +99,20 @@
          </div>
          <!-- end location update div -->
          <div class="col-7 pl-2 pt-2 pb-2">
-            <a class="btn btn-sm theme-background-color border-0 fs--2 card-1" style="border-radius:20px;display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-sm theme-background-color border-0 fs--2 shadow" style="border-radius:20px;display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
                <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
             </div>
-            <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
-            <i class="fas fa-redo-alt"></i> Refresh
+            <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
+            Refresh
             </a>
          </div>
          <div class=" col-5 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
             <span id="update_refresh_counter_el">0</span> sec ago.
-            <button class="btn btn-sm theme-background-color border-0 fs--2 card-1" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
+            <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
             <i class="fas fa-crosshairs"></i> Reset
             </button>
          </div>
@@ -121,7 +121,7 @@
       <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display">
          <div class="timeline-wrapper">
             @for($i=0;$i<6;$i++)
-            <div class="timeline-item card-1 m-1 border-0">
+            <div class="timeline-item shadow m-1 border-0">
                <div class="animated-background">
                   <div class="background-masker header-top"></div>
                   <div class="background-masker header-left"></div>
@@ -175,7 +175,7 @@
          </div>
          <div class="modal-footer">
             <!-- <button type="button" class="btn btn-sm fs--1 btn-secondary text-white" data-dismiss="modal">Dismiss</button> -->
-            <a id="map_job_detail_modal_link" onclick="toggle_animation(true);" class="btn bg-white fs--1 theme-color card-1 btn-block">Open Job</a>
+            <a id="map_job_detail_modal_link" onclick="toggle_animation(true);" class="btn bg-white fs--1 theme-color shadow btn-block">Open Job</a>
          </div>
       </div>
    </div>
@@ -184,7 +184,7 @@
 <!-- Modal -->
 <div class="modal fade" id="user_location_modal_manual_popup" tabindex="-1" role="dialog" aria-labelledby="user_location_modal_manual_popup_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
-      <div class="modal-content border-0 card-1">
+      <div class="modal-content border-0 shadow">
          <div class="modal-body text-center" style="min-height:500px;">
             <i class="fas fa-exclamation-triangle display-1 text-danger"></i>
             <br><br>
@@ -233,7 +233,7 @@
 <!-- Modal -->
 <div class="modal fade" id="user_online_check_modal_popup" tabindex="-1" role="dialog" aria-labelledby="user_online_check_modal_popup_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" style="margin-top:60px;" role="document">
-      <div class="modal-content border-0 card-1">
+      <div class="modal-content border-0 shadow">
          <div class="modal-body ">
             <i class="fas fa-hand-point-up display-1 theme-color"></i>
             <br><br>
