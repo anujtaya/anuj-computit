@@ -254,3 +254,6 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
 });
+
+
+Route::get('testing/test', 'TestController@test')->name('app_portal_admin_home');
