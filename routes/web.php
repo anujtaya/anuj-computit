@@ -256,4 +256,4 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
 });
 
 
-Route::get('testing/test', 'TestController@test')->name('app_portal_admin_home');
+Route::get('testing/test', 'TestController@test');
