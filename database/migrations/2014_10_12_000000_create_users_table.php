@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_verified')->default(0)->nullable();
             $table->boolean('is_online')->default(0)->nullable();
             $table->string('verification_code')->nullable();
+            $table->tinyInteger('status')->default(0)->nullable();
             $table->char('rating', 10)->nullable();
             $table->json('properties')->nullable();
             //user location properties
@@ -35,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->decimal("user_lng", 9,6)->nullable();
             $table->string('user_state')->nullable();
             $table->string('user_city')->nullable();
+            $table->string('user_suburb')->nullable();
             $table->string('user_postcode')->nullable();
             $table->string('user_full_address')->nullable();
             //user bio route

@@ -291,22 +291,45 @@ function update_sp_location() {
     }
 }
 
+
 function update_location_using_navigator(position) {
+    var city = '';
+    var suburb = '';
+    var state = '';
+    var postcode = '';
+    var full_address = '';
+
     pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
 
-
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({
         latLng: pos
     }, function(responses) {
-        if (responses && responses.length > 0) {
-            suburb = responses[0]['address_components'][1]['long_name'];
-            state = responses[0]['address_components'][3]['short_name'];
-            update_user_final_location(pos.lat, pos.lng, suburb, state);
+
+        var address_object = responses[0]['address_components'];
+        full_address = responses[0]['formatted_address'];
+        for (var i = 0; i < address_object.length; i++) {
+            var address_type = address_object[i].types[0];
+
+            var val = address_object[i]['long_name']
+            if (address_type == "street_number") {} else if (address_type == "route") {
+
+            } else if (address_type == "administrative_area_level_2") {
+                city = address_object[i]['short_name'];
+            } else if (address_type == "administrative_area_level_1") {
+                state = val;
+            } else if (address_type == "state") {
+                state = val;
+            } else if (address_type == "postal_code") {
+                postcode = val;
+            } else if (address_type == "locality") {
+                suburb = address_object[i]['short_name'];
+            }
         }
+        update_user_final_location(pos.lat, pos.lng, suburb, state, city, postcode, full_address);
     });
 }
 
@@ -333,7 +356,7 @@ function handle_automatc_loc_update_failure() {
     $('#user_location_modal_manual_popup').modal('show');
 }
 
-function update_user_final_location(lat, lng, suburb, state) {
+function update_user_final_location(lat, lng, suburb, state, city, postcode, full_address) {
     $.ajax({
         type: "POST",
         url: service_provider_location_update_url,
@@ -342,7 +365,10 @@ function update_user_final_location(lat, lng, suburb, state) {
             "lat": lat,
             'lng': lng,
             'suburb': suburb,
-            'state': state
+            'state': state,
+            'city': city,
+            'postcode': postcode,
+            'full_address': full_address
         },
         success: function(results) {
             if (results) {
@@ -380,33 +406,41 @@ function initAutocomplete() {
 }
 
 function fillInAddress() {
+
+    var city = '';
+    var suburb = '';
+    var state = '';
+    var postcode = '';
+    var full_address = '';
+
     var place = autocomplete.getPlace();
-    console.log(place);
     place_lat = place.geometry.location.lat();
     place_lng = place.geometry.location.lng();
 
-    if (place.address_components.length < 4) {
-        for (var i = 0; i < place.address_components.length; i++) {
-            suburb = place.address_components[0]['long_name'];
-            state = place.address_components[1]['short_name'];
+    var address_object = place['address_components'];
+    full_address = place['formatted_address'];
+    for (var i = 0; i < address_object.length; i++) {
+        var address_type = address_object[i].types[0];
+        var val = address_object[i]['long_name'];
+
+        if (address_type == "street_number") {} else if (address_type == "route") {
+
+        } else if (address_type == "administrative_area_level_2") {
+            city = address_object[i]['short_name'];
+        } else if (address_type == "administrative_area_level_1") {
+            state = val;
+        } else if (address_type == "state") {
+            state = val;
+        } else if (address_type == "postal_code") {
+            postcode = val;
+        } else if (address_type == "locality") {
+            suburb = suburb = address_object[i]['short_name'];
         }
-        update_user_final_location(place_lat, place_lng, suburb, state);
-        $('#user_location_modal_manual_popup').modal('hide');
     }
-    if (place.address_components.length > 4) {
-        for (var i = 0; i < place.address_components.length; i++) {
-            var addressType = place.address_components[i].types[0];
-            if (addressType == "locality") {
-                suburb = place.address_components[i]['long_name'];
-            }
-            if (addressType == "administrative_area_level_1") {
-                state = place.address_components[i]['short_name'];
-            }
-        }
-        update_user_final_location(place_lat, place_lng, suburb, state);
-        $('#user_location_modal_manual_popup').modal('hide');
-    }
+    update_user_final_location(place_lat, place_lng, suburb, state, city, postcode, full_address);
+    $('#user_location_modal_manual_popup').modal('hide');
 }
+
 //end in it autocomplete code
 
 

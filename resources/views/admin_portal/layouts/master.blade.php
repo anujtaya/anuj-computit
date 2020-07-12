@@ -13,7 +13,7 @@
       @stack('header-style')
       <script src="{{asset('lib/fa/js/all.js')}}"></script>
       <!-- theme css -->
-      <link rel="stylesheet" href="{{asset('css/backend/provider_portal.css')}}?v={{rand(10,10000)}}">
+      <link rel="stylesheet" href="{{asset('css/backend/admin_portal.css')}}?v={{rand(10,10000)}}">
       <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
       @stack('header-script')
       <style>

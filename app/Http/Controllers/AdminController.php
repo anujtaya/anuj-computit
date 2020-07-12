@@ -21,6 +21,24 @@ class AdminController extends Controller
         return view('admin_portal.modules.home.home');
     }
 
+    function users_all(){
+        $users = User::paginate(3);
+        return view('admin_portal.modules.user_management.users' , ['users' => $users]);
+    }
+
+    function users_search(Request $request) {
+        $input = Input::get();
+        $users = [];
+        if($input['email'] != '') {
+            $users = User::where('email', 'LIKE', '%'.$input['email'] .'%')->get();
+        }
+        if($input['user_id'] != '') {
+            $users = User::where('id',  $input['user_id'])->get();
+        }
+        
+        return view('admin_portal.modules.user_management.users' , ['users' => $users]);
+    }
+
 
 
     //chart related functions

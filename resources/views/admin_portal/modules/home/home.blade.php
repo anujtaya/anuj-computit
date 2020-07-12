@@ -9,7 +9,7 @@
 <div class="row">
    <div class="col-lg-4 p-1">
       <div class="card h-100 rounded-0 bg-white ">
-         <div class="card-header">
+         <div class="card-header bg-secondary text-white bg-secondary text-white">
             Service Provider 
          </div>
          <div class="card-body">
@@ -19,7 +19,7 @@
    </div>
    <div class="col-lg-4  p-1">
       <div class="card h-100 rounded-0  bg-white ">
-         <div class="card-header">
+         <div class="card-header bg-secondary text-white">
             Service Seeker 
          </div>
          <div class="card-body">
@@ -29,7 +29,7 @@
    </div>
    <div class="col-lg-4  p-1">
       <div class="card h-100 rounded-0 bg-white">
-         <div class="card-header">
+         <div class="card-header bg-secondary text-white">
             Total (Inc. Admin)
          </div>
          <div class="card-body">
@@ -39,7 +39,7 @@
    </div>
    <div class="col-lg-6  p-1">
       <div class="card h-100 rounded-0 bg-white">
-         <div class="card-header">
+         <div class="card-header bg-secondary text-white">
             Registration Trend Monthly
          </div>
          <div class="card-body">
@@ -49,7 +49,7 @@
    </div>
    <div class="col-lg-6  p-1">
       <div class="card h-100 rounded-0 bg-white">
-         <div class="card-header">
+         <div class="card-header bg-secondary text-white">
            All Time Registration Trend
          </div>
          <div class="card-body">

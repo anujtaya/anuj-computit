@@ -85,7 +85,15 @@
             <div class="d-flex fs--2 bd-highlight">
                <div class="p-2 bd-highlight" id="user_current_saved_location">
                   @if(Auth::user()->user_lat != null)
-                  <i class="fas fa-map-marker-alt"></i> <span class="theme-color">{{Auth::user()->user_city}}, {{Auth::user()->user_state}}</span> 
+                  <i class="fas fa-map-marker-alt"></i> 
+                  <span class="theme-color">
+                     @if(Auth::user()->user_suburb != '') 
+                     {{Auth::user()->user_suburb}}, {{Auth::user()->user_state}}
+                     @else
+
+                     {{Auth::user()->user_city}}, {{Auth::user()->user_state}}
+                     @endif
+                  </span> 
                   @else
                   <span class="text-danger">Please update your service location.</span>
                   @endif      

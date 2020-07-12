@@ -3,14 +3,14 @@
     <span class="navbar-toggler-icon" ></span>
     </button>
     <a class="navbar-brand text-left ml-3" href="../index.html">
-       <div class="d-flex align-items-center theme-color fs-1">Admin Portal</div>
+       <div class="d-flex align-items-center fs-1 text-secondary">Admin Portal</div>
     </a>
     <div class="collapse navbar-collapse  mt-2" id="navbarNavDropdown1">
        <ul class="navbar-nav align-items-center ml-auto">
           <li class="nav-item dropdown">
              <a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="avatar theme-color avatar-xl">
-                   <span class="fas fa-user-circle fs-3"></span>
+                <div class="avatar avatar-xl">
+                   <span class="fas fa-user-circle fs-3 text-secondary"></span>
                 </div>
              </a>
              <div class="dropdown-menu dropdown-menu-right shadow-lg border-0 bg-white py-0" aria-labelledby="navbarDropdownUser">

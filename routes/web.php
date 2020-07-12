@@ -250,5 +250,7 @@ Route::get('/app/session/set/user_offline_consent', 'SessionController@set_user_
 //Service Provider Portal routes
 Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
   Route::get('/app/portal/admin/home', 'AdminController@home')->name('app_portal_admin_home');
+  Route::get('/app/portal/admin/users/all', 'AdminController@users_all')->name('app_portal_admin_users_all');
+  Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
 });

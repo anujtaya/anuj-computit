@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
           'user_type' => 2,
           'phone' => "0477651396",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
 
@@ -35,6 +36,7 @@ class UserSeeder extends Seeder
           'user_type' => 2,
           'phone' => "0477647917",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
         //Provider account
@@ -46,6 +48,7 @@ class UserSeeder extends Seeder
           'user_type' => 1,
           'phone' => "0477647917",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
         //Provider account
@@ -57,6 +60,7 @@ class UserSeeder extends Seeder
           'user_type' => 2,
           'phone' => "0477647917",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
         //Provider account
@@ -68,6 +72,7 @@ class UserSeeder extends Seeder
           'user_type' => 2,
           'phone' => "0477647917",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
         //Provider account
@@ -79,6 +84,7 @@ class UserSeeder extends Seeder
           'user_type' => 2,
           'phone' => "0477647917",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
          //Marketing Provider account
@@ -90,6 +96,7 @@ class UserSeeder extends Seeder
           'user_type' => 2,
           'phone' => "0477647917",
           'is_verified' => true,
+          'status' => 1,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
     }
