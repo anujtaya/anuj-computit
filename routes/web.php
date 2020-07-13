@@ -257,3 +257,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
 
 
 Route::get('testing/test', 'TestController@test');
+Route::post('paypal', 'PaymentController@payWithpaypal');
+// route for check status of the payment
+Route::get('status', 'PaymentController@getPaymentStatus');
+Route::get('paypal', 'PaymentController@index');
