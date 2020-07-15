@@ -224,7 +224,7 @@ class ServiceProviderController extends Controller
         $user->user_state = $_POST['state'];
         $user->user_suburb = $_POST['suburb'];
         $user->user_postcode = $_POST['postcode'];
-        $user->user_full_address = $_POST['full_addresss'];
+        $user->user_full_address = $_POST['full_address'];
         if($user->save()){
             $current_location = $user->current_location;
             if($current_location != null) {
