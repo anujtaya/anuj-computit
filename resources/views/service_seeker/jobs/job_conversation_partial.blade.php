@@ -3,7 +3,7 @@
    <!-- conversation offer holder -->
    <div class="media fs--2 w-100 ml-auto ">
       <div class="media-body ml-2">
-         <div class=" theme-background-color text-white  py-2 px-3 mb-2 rounded" style="background:#5D29BA!important;color:white!important;">
+         <div class="bg-secondary text-white  py-2 px-3 mb-2 rounded" style="color:white!important;">
             Service Provider {{$conversation->service_provider_profile->first}} has offered to complete this job for ${{number_format($conversation->json['offer'],2)}}.
             Offer Description: {{$conversation->json['offer_description']}}.
          </div>

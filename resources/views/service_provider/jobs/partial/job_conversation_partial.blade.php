@@ -3,9 +3,8 @@
    <!-- conversation offer holder -->
    <div class="media fs--2 w-100 ml-auto  mb-1">
       <div class="media-body ml-2">
-         <div class=" theme-background-color text-white  py-2 px-3 mb-2 rounded" style="background:#399BDB;">
-            You have offered to complete this job for ${{number_format($conversation->json['offer'],2)}}. 
-            <b>Offer Description:</b> {{$conversation->json['offer_description']}}.
+         <div class="bg-secondary text-white  py-2 px-3 mb-2 rounded">
+            You have offered to complete this job for ${{number_format($conversation->json['offer'],2)}}. Offer Description: {{$conversation->json['offer_description']}}.
          </div>
       </div>
    </div>
