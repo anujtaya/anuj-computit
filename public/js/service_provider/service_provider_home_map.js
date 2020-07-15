@@ -372,7 +372,7 @@ function update_user_final_location(lat, lng, suburb, state, city, postcode, ful
         },
         success: function(results) {
             if (results) {
-                $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + suburb + ',' + state + "</span>");
+                $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + full_address + "</span>");
                 current_lat = lat;
                 current_lng = lng;
                 map.setCenter(new google.maps.LatLng(current_lat, current_lng));

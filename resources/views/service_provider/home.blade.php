@@ -83,30 +83,27 @@
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom">
             <div class="d-flex fs--2 bd-highlight">
-               <div class="p-2 bd-highlight" id="user_current_saved_location">
+               <div class="p-2 bd-highlight" onclick="update_sp_location();" id="user_current_saved_location">
                   @if(Auth::user()->user_lat != null)
                   <i class="fas fa-map-marker-alt"></i> 
                   <span class="theme-color">
-                     @if(Auth::user()->user_suburb != '') 
-                     {{Auth::user()->user_suburb}}, {{Auth::user()->user_state}}
-                     @else
-
-                     {{Auth::user()->user_city}}, {{Auth::user()->user_state}}
+                     @if(Auth::user()->user_full_address != '') 
+                        {{Auth::user()->user_full_address}}
                      @endif
                   </span> 
                   @else
                   <span class="text-danger">Please update your service location.</span>
                   @endif      
                </div>
-               <div class="ml-auto p-2 bd-highlight"> 
+               <!-- <div class="ml-auto p-2 bd-highlight"> 
                   <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="update_sp_location();"  style="border-radius:20px;" >
                   <i class="fas fa-redo-alt"></i> Update
                   </button>
-               </div>
+               </div> -->
             </div>
          </div>
          <!-- end location update div -->
-         <div class="col-7 pl-2 pt-2 pb-2">
+         <div class="col-6 pl-2 pt-2 pb-2">
             <a class="btn btn-sm theme-background-color border-0 fs--2 shadow" style="border-radius:20px;display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sort-amount-up-alt"></i> Filter
             </a>
@@ -114,14 +111,18 @@
                <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
                <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
             </div>
-            <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
+            <!-- <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
             Refresh
-            </a>
+            </a> -->
+            
          </div>
-         <div class=" col-5 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
+         <div class="col-6 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
             <span id="update_refresh_counter_el">0</span> sec ago.
-            <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
+            <!-- <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
             <i class="fas fa-crosshairs"></i> Reset
+            </button> -->
+            <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
+            <i class="fas fa-redo-alt"></i> Update
             </button>
          </div>
       </div>
