@@ -663,11 +663,10 @@ class ServiceSeekerJobController extends Controller
         if($refund_response) {
           $job_payment->status = "REFUNDED";
           $job_payment->save();
-        } 
-        $job->status = 'CANCELLED';
-        $job->save();
+        }  
       }
-     
+      $job->status = 'CANCELLED';
+      $job->save();  
     }
     return redirect()->back();
   }

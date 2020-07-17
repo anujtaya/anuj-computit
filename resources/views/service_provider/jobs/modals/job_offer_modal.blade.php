@@ -18,10 +18,10 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1" style="border-top-left-radius: 10px!important; border-bottom-left-radius: 10px!important; background-color: #5D29BA!important; color: white">$</span>
         </div>
-        <input type="number" id="job_offer" name="job_offer" value="" class="form-control" style="border-top-right-radius: 10px!important; border-bottom-right-radius: 10px!important;" aria-label="job_offer" aria-describedby="basic-addon1" required>
+        <input type="number" id="job_offer" name="job_offer" value="" step="0.01" class="form-control" style="border-top-right-radius: 10px!important; border-bottom-right-radius: 10px!important;" aria-label="job_offer" aria-describedby="basic-addon1" required>
       </div>
       <label class="pb-2">Your response to job</label>
-			<textarea type="text" class="form-control form-control-sm"rows="4" id="job_offer_description" name="job_offer_description" style="/* border: 1px solid #5D29BA!important */" placeholder=""></textarea>
+			<textarea type="text" class="form-control form-control-sm" rows="4" id="job_offer_description" name="job_offer_description" style="/* border: 1px solid #5D29BA!important */" placeholder=""></textarea>
 		  </div>
 
       <div class="modal-footer" style="text-align: center!important; border-top: none">

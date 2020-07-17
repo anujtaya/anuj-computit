@@ -184,6 +184,7 @@ function initMap() {
 
 }
 
+var is_first_request = true;
 
 
 function display_job_markers() {
@@ -212,8 +213,9 @@ function display_job_markers() {
     });
     setMapOnAll(map);
     //find_closest_marker();
-    if (isIdle) {
+    if (is_first_request) {
         set_display_bounds();
+        is_first_request = false;
     }
 
 }

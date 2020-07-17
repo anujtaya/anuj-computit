@@ -41,7 +41,7 @@ function make_filter_ajax_request(data, isViewUpdateRequired) {
             //toggle_animation(false);
             if (data != null) {
                 var filterAnchorTag = document.getElementById('sp_jobs_filter');
-                filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.trim() + ")</small>";
+                filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data.trim() + ")</small>";
             }
         },
         error: function(results, status, err) {

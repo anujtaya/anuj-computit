@@ -94,7 +94,7 @@ class ServiceProviderController extends Controller
         $validator =  Validator::make($request->all(), [
             'business_abn' => 'max:11',
         ]);
-        Session::put('current_tab', 'userbusiness');
+        Session::put('current_tab', 'userbasic');
         if ($validator->fails()) {
             return redirect()
                     ->back()

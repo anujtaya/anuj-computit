@@ -21,13 +21,27 @@
    @endif
    
    <!-- end notice section display -->
+   @if($job->status == 'OPEN')
+         <br>
+         <form action="{{route('service_seeker_job_location_update')}}" method="post" onsubmit="toggle_animation(true);" method="POST">
+                  @csrf
+                  <input type="hidden" name="update_location_job_id" value="{{$job->id}}">
+                  <div class="form-group">
+                     <label for="location_input">Change Location?</label>
+                     <input type="text" class="form-control form-control-sm" id="location_input" name="location_input" onFocus="initAutocomplete()" required/>
+                  </div>
+                  <input type="hidden" value="" id="json_location_object" name="json_location_object" required>
+                  <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Location</button>
+               </form>
+         @endif
    <form action="{{route('service_seeker_job_details_update')}}" method="post" onsubmit="toggle_animation(true);">
       @csrf
       <input type="hidden" name="update_job_id" value="{{$job->id}}">
       <div class="form-group">
-         <label  class="font-weight-bold" for="exampleInputEmail1">Location</label> <br>
+         <label  class="font-weight-bold" for="exampleInputEmail1">Job Location</label> <br>
          {{$job->street_number}} {{$job->street_name}} <br>
          {{$job->city}}<br>{{$job->state}}, {{$job->postcode}}
+     
       </div>
       <div class="form-group">
          <label class="font-weight-bold" for="job_scheduled_for">Job Schedule Time</label>
@@ -38,7 +52,7 @@
       <div class="form-group">
          <label class="font-weight-bold" for="update_job_datetime">Change Schedule Time</label>
          <input type='datetime-local' class="form-control form-control-sm"  id="update_job_datetime" name="update_job_datetime" value="{{\Carbon\Carbon::parse($job->job_date_time)->format('Y-m-d\TH:i:s')}}" onchange="$('#job_detail_save_btn').show();">
-      </div>
+      </div> 
       @endif
       <div class="form-group">
          <label  class="font-weight-bold" for="update_job_title">Job Title</label> <br>
@@ -50,7 +64,7 @@
       </div>
       <div class="form-group">
          @if($job->status == 'OPEN')
-         <button class="btn btn-info btn-sm fs--1 font-weight-normal" type="submit" id="job_detail_save_btn">Save Changes</button>
+         <button class="btn btn-info btn-sm fs--2 font-weight-normal shadow" type="submit" id="job_detail_save_btn">Save Changes</button>
          @endif
       </div>
    </form>
@@ -59,7 +73,7 @@
    <form action="{{route('service_seeker_job_cancel')}}" method="POST" id="job_cancel_form" onsubmit="toggle_animation(true);">
       @csrf
       <input type="hidden" name="ss_job_cancel_id" value="{{$job->id}}" required>
-      <a class="btn btn-danger text-white btn-sm fs--1" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
+      <a class="btn btn-danger text-white btn-sm fs--2 shadow" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
    </form>
    
    <!-- job cancellation confirm dialog modal -->
@@ -73,8 +87,8 @@
                <p>
                   A cancellation fee of $10.00 may apply if the job is cancelled after being approved.
                </p>
-               <button class="fs--1 btn-sm btn-danger text-white mr-2" onclick=" $( '#job_cancel_form' ).submit()">Proceed to Cancel</button>
-               <button class="fs--1 btn-sm btn-secondary text-white" data-dismiss="modal">Dismiss</button>
+               <button class="fs--2 btn-sm btn-danger text-white mr-2" onclick=" $( '#job_cancel_form' ).submit()">Proceed to Cancel</button>
+               <button class="fs--2 btn-sm btn-secondary text-white" data-dismiss="modal">Dismiss</button>
             </div>
          </div>
       </div>

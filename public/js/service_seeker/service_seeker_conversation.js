@@ -44,13 +44,15 @@ function check_new_messages() {
             if (results == false) {
                 //do nothin
             } else {
-                var myDiv = $("#scroll-area");
-                myDiv.append(results['html']);
-                msgs = results['msgs'];
+                // var myDiv = $("#scroll-area");
+                // myDiv.append(results['html']);
+                // msgs = results['msgs'];
+                // audio.play();
+                // $("#scroll-area").stop().animate({
+                //     scrollTop: "+=100"
+                // }, 100);
                 audio.play();
-                $("#scroll-area").stop().animate({
-                    scrollTop: "+=100"
-                }, 100);
+                location.reload();
             }
         },
         error: function(results, status, err) {

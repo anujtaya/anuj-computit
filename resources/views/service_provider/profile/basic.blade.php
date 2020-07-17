@@ -50,6 +50,7 @@
    </div>
    <div class="row m-1" style="overflow:scroll; height:630px;" >
       <div class="col-12 fs--1 p-2 " >
+         <span class="text-muted">Personal Details</span><br><br>
          <form action="{{route('app_user_update_account_information')}}" method="POST" onsubmit="toggle_animation(true);">
             @csrf
             <div class="form-group">
@@ -96,6 +97,10 @@
                <button type="submit" class="btn theme-background-color btn-sm fs--1 font-weight-normal card-1">Save Changes</button>
             </div>
          </form>
+      </div>
+      <div class="col-lg-12 fs--1 p-2">
+         <span class="text-muted">Business Details</span><br><br>
+         @include('service_provider.profile.businessinfo')
       </div>
    </div>
 </div>

@@ -66,7 +66,7 @@
             <span>Add new Credit/Debit Source</span> <br> <br>
             <form action="{{route('service_seeker_more_wallet_stripe_create_customer')}}" class="my-form needs-validation"  method="post" id="payment-form">
                @csrf
-               <div id="card-element" class="h-100 mt-1  border rounded p-2">
+               <div id="card-element" class="mt-1 border rounded p-2">
                </div>
                <div id="card-errors" role="alert"></div>
                <input type="hidden" name="user_id" value="46" />

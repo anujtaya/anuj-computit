@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('service_seeker_services_filter');
   Route::get('/service_seeker/jobs/full_history',  'ServiceSeekerController@service_seeker_jobs_full_history')->name('service_seeker_jobs_full_history');
   Route::post('/service_seeker/job/details/update', 'ServiceSeekerController@service_seeker_job_details_update')->name('service_seeker_job_details_update');
+  Route::post('/service_seeker/job/location/update', 'ServiceSeekerController@service_seeker_job_location_update')->name('service_seeker_job_location_update');
   //jobs routes
   Route::get('/service_seeker/jobs/history', 'ServiceSeekerJobController@show_jobs')->name('service_seeker_jobs');
   Route::get('/service_seeker/jobs/job/{id}', 'ServiceSeekerJobController@show_job')->name('service_seeker_job');

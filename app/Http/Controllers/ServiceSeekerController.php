@@ -127,6 +127,35 @@ class ServiceSeekerController extends Controller
       return redirect()->back();
     }
 
+
+    protected function service_seeker_job_location_update(Request $request){
+      $input = $request->all();
+      $validation = Validator::make($request->all(), [
+        'update_location_job_id' => 'required',
+        'json_location_object' => 'required'
+       ]);
+       if($validation->passes()){
+         $job = Job::find($input['update_location_job_id']);
+         if($job){
+           if($job->service_seeker_id == Auth::id() && $job->status == 'OPEN'){
+             $location = json_decode($input['json_location_object']);
+             $job->street_number = $location->street_number;
+             $job->street_name = $location->street_name;
+             $job->state = $location->state;
+             $job->postcode = $location->postcode;
+             $job->city = $location->city;
+             $job->suburb = $location->suburb;
+             $job->job_lat = $location->lat;
+             $job->job_lng = $location->lng;
+             $job->save();
+            Session::put('status', 'The job location has been successfully updated.');
+           }
+         }
+       }
+      Session::put('current_tab', 'jobdetail');
+      return redirect()->back();
+    }
+
     protected function show_message_offer(){
       $conversation_id = $_POST['conversation_id'];
       $data = array();

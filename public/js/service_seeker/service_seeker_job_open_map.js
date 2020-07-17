@@ -281,22 +281,7 @@ function find_closest_marker() {
 }
 
 
-//populate map conversation modal popup
-//populates the text values in map job detail modal
-// function populate_map_con_detail_modal_popup(a) {
-//     console.log(a);
-//     $("#map_con_modal_popup_name").html(a.first + ' ' + a.last);
-//     if (a.rating == null) {
-//         $("#map_con_modal_popup_rating").html('5.00');
-//     } else {
-//         $("#map_con_modal_popup_rating").html(a.rating);
-//     }
-//     $("#map_con_modal_popup_offer_price").html(a.json.offer);
-//     $("#map_con_modal_popup_offer_description").html(a.json.offer_description);
-//     $('#map_con_modal_popup').modal('show');
-//     $('#map_con_modal_popup_conversation_link').attr("href", app_url + '/service_seeker/jobs/job/conversation/' + a.job_id + '/' + a.service_provider_id);
-//     $('#map_con_modal_popup_image').attr("src", app_url + "/storage/images/profile/" + a.profile_image_path);
-// }
+
 
 
 function populate_map_con_detail_modal_popup(a) {
@@ -322,4 +307,69 @@ function populate_map_con_detail_modal_popup(a) {
         }
     });
 
+}
+
+var placeSearch, autocomplete
+var current_address_string = {
+    street_number: '',
+    street_name: '',
+    state: '',
+    postcode: '',
+    city: '',
+    suburb: '',
+    lng: '',
+    lat: ''
+}
+//new location update functions
+function initAutocomplete() {
+
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('location_input'), {
+        types: ['geocode'],
+        componentRestrictions: { country: 'au' }
+    });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        // Get the place details from the autocomplete object.
+        place = autocomplete.getPlace();
+        console.log(place);
+        prepare_user_address_object(place['address_components'],place.geometry.location.lat(),place.geometry.location.lng());
+    });
+}
+
+//prepare user current address string for job booking object
+function prepare_user_address_object(address_object, new_lat, new_lng) {
+    //make default values null
+    current_address_string = {
+        street_number: '',
+        street_name: '',
+        state: '',
+        postcode: '',
+        city: '',
+        suburb: '',
+        lng: '',
+        lat: ''
+    }
+    for (var i = 0; i < address_object.length; i++) {
+        var address_type = address_object[i].types[0];
+
+        var val = address_object[i]['long_name']
+        if (address_type == "street_number") {
+            current_address_string.street_number = val;
+        } else if (address_type == "route") {
+            current_address_string.street_name = val;
+        } else if (address_type == "administrative_area_level_2") {
+            current_address_string.city = val;
+        } else if (address_type == "administrative_area_level_1") {
+            current_address_string.state = val;
+        } else if (address_type == "postal_code") {
+            current_address_string.postcode = val;
+        } else if (address_type == "postal_code") {
+            current_address_string.postcode = val;
+        } else if (address_type == "locality") {
+            current_address_string.suburb = val;
+        }
+        current_address_string.lng = new_lat;
+        current_address_string.lat = new_lng;
+
+        document.getElementById('json_location_object').value = JSON.stringify(current_address_string);
+    }
 }

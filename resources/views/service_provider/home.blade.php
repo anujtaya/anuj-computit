@@ -105,7 +105,7 @@
          <!-- end location update div -->
          <div class="col-6 pl-2 pt-2 pb-2">
             <a class="btn btn-sm theme-background-color border-0 fs--2 shadow" style="border-radius:20px;display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-sort-amount-up-alt"></i> Filter
+            <i class="fas fa-sort-amount-up-alt"></i> Sort
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
