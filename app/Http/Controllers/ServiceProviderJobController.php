@@ -440,7 +440,7 @@ class ServiceProviderJobController extends Controller
 			$data =  (object) Input::all();
 			$job = Job::find($data->started_job_id);
             if($job ->status == 'STARTED') {
-				$create_payment_record = $this->charge_job_payment($job);
+				$create_payment_record = $this->create_payment_record($job);
 				if($create_payment_record) {
 					$job->status = 'COMPLETED';
 					$job->save();
@@ -452,89 +452,52 @@ class ServiceProviderJobController extends Controller
 	}
 
 
-	function charge_job_payment($job) {
+	function create_payment_record($job) {
 		//set the resonse variable 
 		$response = false;
-		//find the existing payment source 
-		$payment_source = $job->job_payments;
+		//load service provider profile
 		$service_provider = $job->service_provider_profile;
+		//find the existing payment source 
+		$final_price = $this->calcualte_final_job_total($job->id);  
+		//print('Final price is: '. $final_price);print('<br>');
+		$service_fee_without_extras =    $this->calcualte_final_job_total_without_extras($job->id);    
+		//print('Final price without extras is: '. $service_fee_without_extras);print('<br>');
+		$service_fee_percentage = 12.00;
+		//print('LocaL2LocaL service fee percentage is: '. $service_fee_percentage);print('<br>');
+		$service_fee_price = round(round((($service_fee_percentage/100)*$service_fee_without_extras),2),2);
+		//print('LocaL2LocaL service fee price is: '. $service_fee_price);print('<br>');
+		$is_gst_applicable = false;
+		if($service_provider->business_info != null) {
 
-		if($payment_source->payment_method == 'STRIPE') {
-			$final_price = $this->calcualte_final_job_total($job->id);  
-			//print('Final price is: '. $final_price);print('<br>');
-			$service_fee_without_extras =    $this->calcualte_final_job_total_without_extras($job->id);    
-			//print('Final price without extras is: '. $service_fee_without_extras);print('<br>');
-			$service_fee_percentage = 12.00;
-			//print('LocaL2LocaL service fee percentage is: '. $service_fee_percentage);print('<br>');
-			$service_fee_price = round(round((($service_fee_percentage/100)*$service_fee_without_extras),2),2);
-			//print('LocaL2LocaL service fee price is: '. $service_fee_price);print('<br>');
-			$is_gst_applicable = false;
-			if($service_provider->business_info != null) {
+			$is_gst_applicable = $service_provider->business_info->gst_enabled;
+			//print('GST value in service provider profile is: '. $is_gst_applicable);print('<br>');
 
-				$is_gst_applicable = $service_provider->business_info->gst_enabled;
-				//print('GST value in service provider profile is: '. $is_gst_applicable);print('<br>');
+		}
+		//print('Is GST applicable: '. $is_gst_applicable);print('<br>');
+		$gst_fee_value = 0;
+		if($is_gst_applicable) {
+			$gst_fee_value = round(($final_price/11),2);
+		}
+		//print('Total GST payable on final price is: '. $gst_fee_value);print('<br>');
+		$payable_job_final_value = $final_price + $gst_fee_value;
+		//print('Final amount payable by user: '. $payable_job_final_value);print('<br>');
+		$service_provider_payment_amount_total = $payable_job_final_value - $service_fee_price; 
+		//print('Service Provider amount is: '. $service_provider_payment_amount_total);print('<br>');
 
-			}
-			//print('Is GST applicable: '. $is_gst_applicable);print('<br>');
-			$gst_fee_value = 0;
-			if($is_gst_applicable) {
-
-				$gst_fee_value = round(($final_price/11),2);
-
-			}
-			//print('Total GST payable on final price is: '. $gst_fee_value);print('<br>');
-			$payable_job_final_value = $final_price + $gst_fee_value;
-			//print('Final amount payable by user: '. $payable_job_final_value);print('<br>');
-			$service_provider_payment_amount_total = $payable_job_final_value - $service_fee_price; 
-			//print('Service Provider amount is: '. $service_provider_payment_amount_total);print('<br>');
-			
-			//if the charge is marked as unpaid then calcualte id the hold amount is lesser than the payable price and capture the final amount payable by service seeker.
-			if($payment_source->payable_job_price == $payable_job_final_value) {
-
-				$capture_response = $this->capture_stripe_precharge($payment_source->payment_reference_number, 'Payment for job with id #'.$payment_source->job_id);
-
-				if($capture_response == true){
-
-					$payment_source->job_price = $final_price;
-					$payment_source->payable_job_price = $payable_job_final_value;
-					$payment_source->service_fee_percentage = $service_fee_percentage;
-					$payment_source->service_fee_price = $service_fee_price;
-					$payment_source->service_provider_gets = $service_provider_payment_amount_total;
-					$payment_source->is_gst_applicable = $is_gst_applicable;
-					$payment_source->gst_fee_value = $gst_fee_value;
-					$payment_source->notes = 'PAYMENT PROCESSED SUCCEFULLY';
-					$payment_source->status = 'PAID';
-					if($payment_source->save()) {
-						$response = true;
-						$this->generate_service_provider_payment_record($service_provider,$payment_source,$job);
-					}
-
-				}
-				
-			} else {
-
-				//refund the previous charge amount	 
-				$refund_response = $this->stripe_refund_charge($payment_source->payment_reference_number);
-				if($refund_response == true) {
-					//refund is successful now make a new payment record
-					$stripe_payment_customer_object = $job->service_seeker_profile->service_seeker_stripe_payment;
-					$new_charge_response = $this->stripe_make_new_charge($payment_source,$payable_job_final_value,$job,$stripe_payment_customer_object);
-					if($new_charge_response == true) {
-						$payment_source->job_price = $final_price;
-						$payment_source->service_fee_percentage = $service_fee_percentage;
-						$payment_source->service_fee_price = $service_fee_price;
-						$payment_source->service_provider_gets = $service_provider_payment_amount_total;
-						$payment_source->is_gst_applicable = $is_gst_applicable;
-						$payment_source->gst_fee_value = $gst_fee_value;
-						if($payment_source->save()) {
-							$response = true;
-							$this->generate_service_provider_payment_record($service_provider,$payment_source,$job);
-						}
-					}
-				} 
-
-			}
-			
+		$payment_source = new JobPayment();
+		$payment_source->job_id = $job->id;
+		$payment_source->job_price = $final_price;
+		$payment_source->payable_job_price = $payable_job_final_value;
+		$payment_source->service_fee_percentage = $service_fee_percentage;
+		$payment_source->service_fee_price = $service_fee_price;
+		$payment_source->service_provider_gets = $service_provider_payment_amount_total;
+		$payment_source->is_gst_applicable = $is_gst_applicable;
+		$payment_source->gst_fee_value = $gst_fee_value;
+		$payment_source->notes = 'INITIAL PAYMENT REQUIRED';
+		$payment_source->status = 'UNPAID';
+		if($payment_source->save()) {
+			$response = true;
+			$this->generate_service_provider_payment_record($service_provider,$payment_source,$job);
 		}
 	
 		return $response;

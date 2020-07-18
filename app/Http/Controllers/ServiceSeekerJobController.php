@@ -470,61 +470,32 @@ class ServiceSeekerJobController extends Controller
     $input = Input::all();
     $job = Job::find($input['accept_job_id']);
     $conversation = Conversation::find($input['accept_conversation_id']);
-    $stripe_payment_source = ServiceseekerStripePaymentSource::find($input['stripe_payment_source_id']);
-    $stripe_payment_customer_object = $stripe_payment_source->service_seeker_payment;
 
     if($job == null || $conversation == null) {
       return redirect()->back();
     }
 
-    if($stripe_payment_customer_object == null) {
-      return redirect()->back();
-    }
-
-    $old_payment_records = $job->job_payments;
-    $payment_record_response = false;
-    if($old_payment_records == null) {
-      $payment_record_response = $this->record_job_payment($job,$conversation,$stripe_payment_customer_object,'STRIPE');
-    } else {
-      $payment_record_response = true;
-    }
+    //save conversation 
+    $conversation = Conversation::find($conversation->id);
+    $conversation_message = new ConversationMessage();
+    $conversation_message->user_id = Auth::id();
+    $conversation_message->text = 'Accepted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
+    $conversation_message->conversation_id = $conversation->id;
+    $conversation_message->msg_created_at = Carbon::now();
+    $conversation_message->json = ["type" => "ACTION", "status"=> "ACCEPTED"];
+    $conversation_message->save();
     
-    
-    if($payment_record_response == true) {
-
-      //save conversation 
-      $conversation = Conversation::find($conversation->id);
-      $conversation_message = new ConversationMessage();
-      $conversation_message->user_id = Auth::id();
-      $conversation_message->text = 'Accepted the offer for '.$conversation->json['offer'].'. The job offer for this job cannot be changed.';
-      $conversation_message->conversation_id = $conversation->id;
-      $conversation_message->msg_created_at = Carbon::now();
-      $conversation_message->json = ["type" => "ACTION", "status"=> "ACCEPTED"];
-      $conversation_message->save();
-      
-      $job->status = 'APPROVED';
-      $job->service_provider_id = $conversation->service_provider_id;
-      $job->save();
-      $conversations = Conversation::where('job_id', $job->id)
-                      ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-                      ->get();
-              //send notification
-              $this->send_notification_job_offer_accepted($conversation);
-              return redirect()->route('service_seeker_job', $job->id);
-    } 
-
-  return redirect()->back();
+    $job->status = 'APPROVED';
+    $job->service_provider_id = $conversation->service_provider_id;
+    $job->save();
+    $conversations = Conversation::where('job_id', $job->id)
+                    ->join('users', 'conversations.service_provider_id', '=', 'users.id')
+                    ->get();
+    //send notification
+    $this->send_notification_job_offer_accepted($conversation);
+    return redirect()->route('service_seeker_job', $job->id);
   
   }
-
-
-
-
-
-
-
-
-
 
 
   protected function reject_offer($job_id, $conversation_id){

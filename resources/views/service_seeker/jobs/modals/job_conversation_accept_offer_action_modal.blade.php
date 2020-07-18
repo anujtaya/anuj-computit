@@ -53,51 +53,12 @@
                      </span>
                   </div>
                </div>
-               <div class="rounded mt-3">
-                  <h6 class=""><strong>Select a Payment Source</strong>  </h6>
-                  @php
-                  $stripe_payment_source = Auth::user()->service_seeker_stripe_payment;
-                  $card_sources = [];
-                  if($stripe_payment_source != null) {
-                   $card_sources = $stripe_payment_source->sss_payment_sources;
-                  }
-                  @endphp
-                  <div class="m-0">
-                     @if(count($card_sources) != 0)
-                     <h6>Stripe</h6>
-                     <!-- source list with default selection  -->
-                     <div class="m-0">
-                        <ul class="list-group mb-2">
-                           @foreach($card_sources as $source)
-                              @if($source->is_default)
-                                 <li class="list-group-item fs--1 p-0">
-                                    <div class="radio">
-                                       <input type="radio" id="radio-{{$source->id}}" name="stripe_payment_source_id" value="{{$source->id}}"  @if($source->is_default) checked @endif>     
-                                       <label for="radio-{{$source->id}}" class="radio-label fs--1 " > {{$source->brand}} **{{$source->last_4}} Expires:{{date('m/Y', strtotime($source->expiry))}}</label>
-                                    </div>
-                                 </li>
-                              @endif
-                           @endforeach
-                        </ul>
-                        <a href="{{route('service_seeker_more_wallet')}}?job_id={{$job->id}}&sp_id={{$conversation->service_provider_id}}" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>
-                     </div>
-                     @else
-                     <span class="text-danger">Oh Snap! You don't have a payment source set up for your account. Please tap here to set-up a payment source. We will need a payment source before you can accept Service Provider offers.</span>
-                     <br> <br>
-                     <a href="{{route('service_seeker_more_wallet')}}?job_id={{$job->id}}&sp_id={{$conversation->service_provider_id}}" class="theme-color mt-2" onclick="toggle_animation(true)">Add/Remove Credit</a>
-                     @endif
-                  </div>
-               </div>
                <div class="row mt-3 ml-0 mr-0">
                   <div class="col-12 mb-2 p-0">
                      By clicking the button "Confirm to Prceed" you agree to LocaL2LocaL offer acceptance T&Cs. To view our T&C, please tap here.
                   </div>
                   <div class="col-12 mt-2 p-0">
-                     @if(count($card_sources) != 0)
                      <button  type="submit" class="btn btn-block btn-success fs--1 text-white shadow">Confirm to Proceed</button>
-                     @else
-                     <button  type="submit" class="btn btn-block btn-secondary fs--1 text-white shadow" disabled>Confirm to Proceed</button>
-                     @endif
                   </div>
                </div>
             </div>

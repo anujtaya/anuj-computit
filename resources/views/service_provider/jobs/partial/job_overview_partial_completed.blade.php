@@ -27,7 +27,30 @@
 
       @php
          $job_payment = $job->job_payments;
+         //dd($job_payment);
       @endphp
+
+      @if($job_payment->status == 'UNPAID')
+      <div class="alert alert-danger">
+            We are currently waiting for Service Seeker approval for this job invoice. Once the Service Seeker approves the invoice we will transfer the money in your nominated bank account.  
+      </div>
+      <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+         <div class="p-2 bd-highlight">Total Job Price</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
+      </div>
+      <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+         <div class="p-2 bd-highlight">GST Included</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
+      </div>
+      <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+         <div class="p-2 bd-highlight">L2L Service Fee ({{number_format($job_payment->service_fee_percentage, 2)}})</div>
+         <div class="ml-auto p-2 bd-highlight text-danger"> ${{number_format($job_payment->service_fee_price, 2)}}</div>
+      </div>
+      <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+         <div class="p-2 bd-highlight">You Get</div>
+         <div class="ml-auto p-2 bd-highlight text-success"> ${{number_format($job_payment->service_provider_gets, 2)}}</div>
+      </div>
+      @else
 
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
@@ -61,8 +84,6 @@
          <div class="p-2 bd-highlight">Payment Reference Number</div>
          <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_reference_number}}</div>
       </div>
-   </div>
-   <div class="p-2">
       <span class="font-weight-bolder">Rate Your Service Seeker</span> <br> <br>
       <form action="{{route('service_provider_job_update_rating')}}" method="POST" onsubmit="toggle_animation(true);">
          @csrf 
@@ -96,7 +117,8 @@
          </div>
          <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Update Rating</button>
       </form>
-   </div>
+      @endif
+   </div>  
 </div>
 
 <script>
