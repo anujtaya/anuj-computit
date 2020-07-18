@@ -12,12 +12,20 @@
             <span class=""> @if($conversation->rating != null) {{number_format($conversation->rating,2)}} @else 5.00 @endif <i class="fas fa-star fs--2 text-warning"></i> </span>
          </div>
          <div class="ml-auto p-0 bd-highlight text-right">
-            <span class="text-success fs--1"><span class="fs--1">$</span>{{number_format($conversation->json['offer'],2)}}</span> 
+            <span class="text-success fs--1"><span class="fs--1">
+            @if($conversation->json != null)
+               $</span>{{number_format($conversation->json['offer'],2)}}
+            @endif
+            </span> 
             <span class="theme-color fs--1 font-weight-normal">({{ number_format($conversation->distance,2)}} kms)</span>
          </div>
       </div>
       <div class="text-muted bg-light p-2 mb-1 fs--2 rounded">
-         <i>{{$conversation->json['offer_description']}}</i>
+         @if($conversation->json != null)
+            <i>{{$conversation->json['offer_description']}}</i>
+         @else
+            <i>No job offer available.</i>
+         @endif
       </div>
       <span class="text-muted font-weight-normal fs--2 p-1">{{count($conversation->conversation_messages)}} messages</span>
    </li>

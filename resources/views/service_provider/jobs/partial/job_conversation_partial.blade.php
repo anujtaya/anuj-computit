@@ -4,7 +4,11 @@
    <div class="media fs--2 w-100 ml-auto  mb-1">
       <div class="media-body ml-2">
          <div class="bg-secondary text-white  py-2 px-3 mb-2 rounded">
+         @if($conversation->json != null)
             You have offered to complete this job for ${{number_format($conversation->json['offer'],2)}}. Offer Description: {{$conversation->json['offer_description']}}.
+         @else
+            You haven't made any job offer. Please tap on the Change Offer button to make a job offer or contact Service Provider if you have any questions.
+         @endif
          </div>
       </div>
    </div>
@@ -93,7 +97,8 @@
                "job_id":job_id,
              },
              success: function(results){
-               if(results){
+                console.log(results);
+               if(results['json'] != null){
                  $("#job_offer").val(results['json']['offer']);
                  $("#job_offer_description").val(results['json']['offer_description']);
                }

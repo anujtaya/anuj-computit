@@ -163,6 +163,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::post('/service_provider/services/location/update',  'ServiceProviderController@services_location_update')->name('service_provider_services_location_update');
   //Service Provider Job Routes
   Route::get('/service_provider/jobs/job/{id}', 'ServiceProviderJobController@show_job')->name('service_provider_job');
+
+
+  //start a conversation without an offer
+  Route::post('/service_provider/jobs/job/coversation/create', 'ServiceProviderJobController@create_conversation_without_offer')->name('service_provider_job_conversation_create');
   Route::post('/service_provider/jobs/job/offer', 'ServiceProviderJobController@make_offer')->name('service_provider_job_make_offer');
   Route::post('/service_provider/jobs/job/offer/duplicate', 'ServiceProviderJobController@check_offer_exists')->name('service_provider_offer_exists');
   Route::post('/service_provider/jobs/job/offer/accept/check', 'ServiceProviderJobController@check_if_offer_accepted')->name('service_provider_offer_accept_check');

@@ -96,6 +96,26 @@ class ServiceProviderJobController extends Controller
 		}
 	}
 
+
+	//the function below creates a conversation object without any job offer. 
+	protected function create_conversation_without_offer(Request $request) {
+		$input = (object) $request->all();
+		$job = Job::find($input->job_id);
+		$service_provider_id  = $input->service_provider_id;
+		if($job != null && $service_provider_id != '') {
+			if($job->status == "OPEN"){
+				$conversation_exists = Conversation::where('job_id', $job->id)->where('service_provider_id', $service_provider_id)->first();
+				if($conversation_exists == null) {
+					$conversation = new Conversation();
+					$conversation->job_id = $job->id;
+					$conversation->service_provider_id = $service_provider_id;
+					$conversation->status = "OPEN";
+					$conversation->save();
+				}
+			}
+		}
+		return redirect()->back();
+	}
 	
 	//make a job offer to service seeker job request. The job status must be OPEN.
 	protected function make_offer(Request $request){

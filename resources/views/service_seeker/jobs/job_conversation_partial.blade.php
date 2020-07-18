@@ -4,8 +4,13 @@
    <div class="media fs--2 w-100 ml-auto ">
       <div class="media-body ml-2">
          <div class="bg-secondary text-white  py-2 px-3 mb-2 rounded" style="color:white!important;">
-            Service Provider {{$conversation->service_provider_profile->first}} has offered to complete this job for ${{number_format($conversation->json['offer'],2)}}.
-            Offer Description: {{$conversation->json['offer_description']}}.
+            @if($conversation->json != null)
+               Service Provider {{$conversation->service_provider_profile->first}} has offered to complete this job for ${{number_format($conversation->json['offer'],2)}}.
+               Offer Description: {{$conversation->json['offer_description']}}.
+            @else
+               It looks like Service Provider {{$conversation->service_provider_profile->first}} is interested in doing this job but hasn't made any offer. You can send him messages and ask any questions that 
+               you might have.
+            @endif
          </div>
       </div>
    </div>
