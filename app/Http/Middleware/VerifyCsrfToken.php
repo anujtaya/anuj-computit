@@ -19,6 +19,12 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        //copied from previous versions of LocaL2LocaL application
+        '/notify',
+        '/serviceLatLng',
+        '/android_login',
+        '/notifyAndro',
+        '/serviceLatLng2',
+        '/addRating'
     ];
 }

@@ -261,6 +261,15 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
 });
 
 
+//mobile interface controller. Used for handling notification channels and other mobile realted requests.
+Route::post('android_login', array('as' => 'user.android_login', 'uses' => 'MobileInterfaceController@android_login'));
+// Route::post('serviceLatLng', array('as' => 'serviceLatLng', 'uses' => 'AjaxController@serviceLatLng'));
+// Route::post('serviceLatLng2', array('as' => 'serviceLatLng2', 'uses' => 'AjaxController@serviceLatLng2'));
+// Route::get('/94663', 'ServiceController@getIphoneMail');
+Route::post('/notify', 'NotificationController@pushNoti');
+Route::post('/notifyAndro', 'NotificationController@pushNotiAndro');
+
+
 Route::get('testing/test', 'TestController@test');
 Route::post('paypal', 'PaymentController@payWithpaypal');
 // route for check status of the payment

@@ -367,8 +367,8 @@ function prepare_user_address_object(address_object, new_lat, new_lng) {
         } else if (address_type == "locality") {
             current_address_string.suburb = val;
         }
-        current_address_string.lng = new_lat;
-        current_address_string.lat = new_lng;
+        current_address_string.lat = new_lat;
+        current_address_string.lng = new_lng;
 
         document.getElementById('json_location_object').value = JSON.stringify(current_address_string);
     }

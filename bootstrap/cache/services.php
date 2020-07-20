@@ -36,6 +36,7 @@
     32 => 'App\\Providers\\EventServiceProvider',
     33 => 'App\\Providers\\RouteServiceProvider',
     34 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    35 => 'LaravelFCM\\FCMServiceProvider',
   ),
   'eager' => 
   array (
