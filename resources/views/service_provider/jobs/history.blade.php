@@ -18,7 +18,7 @@
          <div class="d-flex  bd-highlight">
             <div class="fs--1 p-1 bd-highlight">
                <a class="btn btn-sm theme-background-color border-0 fs--1 card-1" style="border-radius:20px;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fas fa-sort-amount-up-alt"></i> Filter
+               <i class="fas fa-sort-amount-up-alt"></i> Sort
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
@@ -65,7 +65,7 @@ var service_provider_jobs_filter_url = "{{route('service_provider_jobs_filter')}
             }
             toggle_animation(false);
 			var filterAnchorTag = document.getElementById('sp_jobs_filter');
-			filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.text().trim()+")</small>";
+			filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data.text().trim()+")</small>";
           },
           error: function(results, status, err) {
               console.log(err);

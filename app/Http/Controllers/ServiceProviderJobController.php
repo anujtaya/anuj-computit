@@ -482,7 +482,7 @@ class ServiceProviderJobController extends Controller
 		//print('Final price is: '. $final_price);print('<br>');
 		$service_fee_without_extras =    $this->calcualte_final_job_total_without_extras($job->id);    
 		//print('Final price without extras is: '. $service_fee_without_extras);print('<br>');
-		$service_fee_percentage = 12.00;
+		$service_fee_percentage = 9.00;
 		//print('LocaL2LocaL service fee percentage is: '. $service_fee_percentage);print('<br>');
 		$service_fee_price = round(round((($service_fee_percentage/100)*$service_fee_without_extras),2),2);
 		//print('LocaL2LocaL service fee price is: '. $service_fee_price);print('<br>');
