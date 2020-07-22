@@ -186,6 +186,7 @@ function initMap() {
 
 var is_first_request = true;
 
+var markerCluster;
 
 function display_job_markers() {
     markers = [];
@@ -208,7 +209,7 @@ function display_job_markers() {
         markers.push(serviceMarker);
 
     }
-    var markerCluster = new MarkerClusterer(map, markers, {
+    markerCluster = new MarkerClusterer(map, markers, {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
     setMapOnAll(map);
@@ -238,9 +239,10 @@ function setMapOnAll(map) {
 }
 
 function resetLocation() {
-    map.setCenter(current_sp_marker.position);
-    map.panTo(current_sp_marker.position);
-    map.setZoom(15);
+    //map.setCenter(current_sp_marker.position);
+    //map.panTo(current_sp_marker.position);
+    //map.setZoom(15);
+    set_display_bounds();
 }
 
 //populates the text values in map job detail modal

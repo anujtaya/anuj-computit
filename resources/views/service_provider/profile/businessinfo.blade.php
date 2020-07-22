@@ -59,7 +59,7 @@ input:checked + .slider:before {
             <div class="slider round"></div>
          </label>
       </div>
-      <div class="@if($current_business_info->gst_enabled) d-block @else d-none @endif col-lg-12 p-0" id="business_info_details">
+      <div class="@if($current_business_info->gst_enabled) d-block @else    @error('business_abn') d-block @enderror d-none @endif col-lg-12 p-0" id="business_info_details">
          <div class="col-md-12 mb-3">
             <label for="business_name">Business Name</label>
             <input id="business_name" type="text" class="form-control form-control-sm  @error('business_name') is-invalid @enderror" name="business_name" value="{{ $current_business_info->business_name }}"  autocomplete="business_name"  autofocus>

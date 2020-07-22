@@ -83,7 +83,7 @@
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom">
             <div class="d-flex fs--2 bd-highlight">
-               <div class="p-2 bd-highlight" onclick="update_sp_location();" id="user_current_saved_location">
+               <div class="p-2 bd-highlight" onclick="handle_automatc_loc_update_failure();" id="user_current_saved_location">
                   @if(Auth::user()->user_lat != null)
                   <i class="fas fa-map-marker-alt"></i> 
                   <span class="theme-color">
@@ -121,7 +121,7 @@
             <!-- <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
             <i class="fas fa-crosshairs"></i> Reset
             </button> -->
-            <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
+            <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="resetLocation();" id="map_reset_btn" style="border-radius:20px;" >
             <i class="fas fa-redo-alt"></i> Update
             </button>
          </div>
@@ -194,11 +194,11 @@
 <div class="modal fade" id="user_location_modal_manual_popup" tabindex="-1" role="dialog" aria-labelledby="user_location_modal_manual_popup_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
       <div class="modal-content border-0 shadow">
-         <div class="modal-body text-center" style="min-height:500px;">
-            <i class="fas fa-exclamation-triangle display-1 text-danger"></i>
+         <div class="modal-body" style="min-height:300px;">
+            <i class="fas fa-map-marker-alt display-1 text-danger"></i>
             <br><br>
-            <p>Unable to update location automatically, please type in your address below.</p>
-            <input type="text" class="form form-control" id="user_location_modal_manual_popup_input" onFocus="initAutocomplete()"/>
+            <p>Please provide your current location: </p>
+            <input type="text" class="form form-control" id="user_location_modal_manual_popup_input" placeholder="Enter your location here.." onFocus="initAutocomplete()"/>
          </div>
       </div>
    </div>
