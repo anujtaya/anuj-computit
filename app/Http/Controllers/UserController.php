@@ -15,7 +15,7 @@ use Input;
 use Validator;
 use Auth;
 use App\User;
-use Session;
+use App\UserCurrentLocation;
 use Illuminate\Support\Facades\Hash;
 use Image;
 use Storage;
@@ -51,6 +51,10 @@ class UserController extends Controller
           $new_user->user_type = 1; // 1 is service seeker; 2 is service provider;
           $new_user->password = Hash::make($data['password']);
           if($new_user->save()) {
+              //create an empty current locatin object
+              $current_location = new UserCurrentLocation();
+              $current_location->user_id = $new_user->id;
+              $current_location->save();
               Auth::loginUsingId($new_user->id);
               //once the user is logged in send the user a new account created email notification
               Auth::user()->notify(new AccountCreated($new_user->first));
@@ -91,6 +95,7 @@ class UserController extends Controller
                 }    
             }
             if($user->save()) {
+
                 Session::put('status' ,  'Your account updated succesfully.');
             }
             return redirect()->back();

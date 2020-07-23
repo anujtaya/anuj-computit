@@ -262,12 +262,13 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
 
 
 //mobile interface controller. Used for handling notification channels and other mobile realted requests.
-Route::post('android_login', array('as' => 'user.android_login', 'uses' => 'MobileInterfaceController@android_login'));
-// Route::post('serviceLatLng', array('as' => 'serviceLatLng', 'uses' => 'AjaxController@serviceLatLng'));
-// Route::post('serviceLatLng2', array('as' => 'serviceLatLng2', 'uses' => 'AjaxController@serviceLatLng2'));
-// Route::get('/94663', 'ServiceController@getIphoneMail');
-Route::post('/notify', 'NotificationController@pushNoti');
-Route::post('/notifyAndro', 'NotificationController@pushNotiAndro');
+Route::post('android_login', 'MobileInterfaceController@android_login')->name('app_mobile_api_android_login');
+Route::post('serviceLatLng', 'MobileInterfaceController@iOS_location_receiver')->name('app_mobile_api_iOS_location_receiver');
+Route::post('serviceLatLng2', 'MobileInterfaceController@android_location_receiver')->name('app_mobile_api_android_location_receiver');
+Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
+Route::post('/notify', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
+Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
+
 
 
 Route::get('testing/test', 'TestController@test');
