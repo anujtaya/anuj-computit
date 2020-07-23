@@ -1,5 +1,20 @@
+
 <ul id="service_seeker_job_filter_offer_ul" class="list-group">
+@php
+$reject_count = 0;
+foreach($conversations as $conversation) {
+   if($conversation->status == 'CLOSED') {
+      $reject_count += 1;
+   }
+}
+@endphp
+@if($reject_count > 0)
+<div class="m-2 fs--2 bg-secondary p-2 rounded text-white">
+   You have rejected {{$reject_count}} offer so far for this job.
+</div>
+@endif
    @foreach($conversations as $conversation)
+   @if($conversation->status == 'OPEN')
    <li class="list-group-item ml-1 mr-1 mt-1 card-1 fs--1 border-0" onclick="location.href= '{{route('service_seeker_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}';toggle_animation(true);" >
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 mt-1 bd-highlight">
@@ -29,6 +44,7 @@
       </div>
       <span class="text-muted font-weight-normal fs--2 p-1">{{count($conversation->conversation_messages)}} messages</span>
    </li>
+   @endif
    @endforeach
    @if(count($conversations) == 0)
    <style>

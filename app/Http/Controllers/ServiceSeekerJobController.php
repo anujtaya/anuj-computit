@@ -148,7 +148,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            ->where('conversations.status', 'OPEN')
+            //->where('conversations.status', 'OPEN')
             ->get();
             $conversations = $conversations->sortByDesc('created_at');
             $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
@@ -162,7 +162,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            ->where('conversations.status', 'OPEN')
+            //->where('conversations.status', 'OPEN')
             ->get();
 
             $conversations = $conversations->sortByDesc('json.offer');
@@ -178,7 +178,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            ->where('conversations.status', 'OPEN')
+          //  ->where('conversations.status', 'OPEN')
             ->get();
 
             $conversations = $conversations->sortBy('json.offer');
@@ -194,7 +194,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            ->where('conversations.status', 'OPEN')
+            //->where('conversations.status', 'OPEN')
             ->orderBy('rating', 'desc')
             ->get();
 
@@ -211,7 +211,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            ->where('conversations.status', 'OPEN')
+           // ->where('conversations.status', 'OPEN')
             ->orderBy('distance', 'asc')
             ->get();
 
