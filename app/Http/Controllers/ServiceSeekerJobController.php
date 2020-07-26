@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use View;
 use App\Job;
-use App\Bid;
 use App\Conversation;
 use App\ConversationMessage;
 use App\User;

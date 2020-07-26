@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   //jobs routes
   Route::get('/service_seeker/jobs/history', 'ServiceSeekerJobController@show_jobs')->name('service_seeker_jobs');
   Route::get('/service_seeker/jobs/job/{id}', 'ServiceSeekerJobController@show_job')->name('service_seeker_job');
+  Route::get('/service_seeker/jobs/jobpay', 'JobPaymentController@process_job_payment')->name('service_seeker_process_job_payment');
+  Route::post('/service_seeker/jobs/jobpay/pay_with_stripe', 'JobPaymentController@process_stripe_job_payment')->name('service_seeker_process_job_payment_pay_with_stripe');
   Route::post('/service_seeker/jobs/request/type/board/submit', 'ServiceSeekerJobController@job_request_type_board')->name('service_seeker_jobs_request_type_board_subimt');
   Route::post('/service_seeker/jobs/filter', 'ServiceSeekerJobController@filter_jobs')->name('service_seeker_jobs_filter');
   //individual job routes
