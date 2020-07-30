@@ -81,6 +81,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/jobs/job/{id}', 'ServiceSeekerJobController@show_job')->name('service_seeker_job');
   Route::get('/service_seeker/jobs/jobpay', 'JobPaymentController@process_job_payment')->name('service_seeker_process_job_payment');
   Route::post('/service_seeker/jobs/jobpay/pay_with_stripe', 'JobPaymentController@process_stripe_job_payment')->name('service_seeker_process_job_payment_pay_with_stripe');
+  Route::post('/service_seeker/jobs/jobpay/pay_with_paypal', 'JobPaymentController@payWithpaypal')->name('service_seeker_process_job_payment_pay_with_paypal');
+  Route::get('/service_seeker/jobs/jobpay/pay_with_paypal/status', 'JobPaymentController@getPaymentStatus')->name('service_seeker_process_job_payment_pay_with_paypal_status');
+  
+
   Route::post('/service_seeker/jobs/request/type/board/submit', 'ServiceSeekerJobController@job_request_type_board')->name('service_seeker_jobs_request_type_board_subimt');
   Route::post('/service_seeker/jobs/filter', 'ServiceSeekerJobController@filter_jobs')->name('service_seeker_jobs_filter');
   //individual job routes
@@ -267,14 +271,6 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
 Route::post('android_login', 'MobileInterfaceController@android_login')->name('app_mobile_api_android_login');
 Route::post('serviceLatLng', 'MobileInterfaceController@iOS_location_receiver')->name('app_mobile_api_iOS_location_receiver');
 Route::post('serviceLatLng2', 'MobileInterfaceController@android_location_receiver')->name('app_mobile_api_android_location_receiver');
-Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
 Route::post('/notify', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
-
-
-
-Route::get('testing/test', 'TestController@test');
-Route::post('paypal', 'PaymentController@payWithpaypal');
-// route for check status of the payment
-Route::get('status', 'PaymentController@getPaymentStatus');
-Route::get('paypal', 'PaymentController@index');
+Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id')->middleware('auth');

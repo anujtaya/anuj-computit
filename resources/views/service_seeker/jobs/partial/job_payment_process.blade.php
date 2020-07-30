@@ -25,6 +25,8 @@ $job_payment = $job->job_payments;
             @else
                 @if($payment_method == 'STRIPE')
                     @include('service_seeker.jobs.partial.job_payment_process_mode_stripe')
+                @elseif($payment_method == 'PAYPAL')
+                    @include('service_seeker.jobs.partial.job_payment_process_mode_paypal')
                 @endif
             @endif
          </div>

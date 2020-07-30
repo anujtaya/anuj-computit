@@ -17,7 +17,7 @@
       <label for="radio-1" class="radio-label  fs--1" >Credit/Debit Card</label>
    </div>
    <div class="radio">
-      <input id="radio-2" name="payment_mode" value="PAYPAL" type="radio" disabled>
+      <input id="radio-2" name="payment_mode" value="PAYPAL" type="radio">
       <label for="radio-2" class="radio-label">Paypal</label>
    </div>
    <div class="radio">

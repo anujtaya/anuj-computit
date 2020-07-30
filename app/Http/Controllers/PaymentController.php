@@ -40,7 +40,7 @@ class PaymentController extends Controller
     }
     public function index()
     {
-        return view('test.paywithpaypal');
+        return view('test.paywithpaypalsmart');
     }
     public function payWithpaypal(Request $request)
     {
@@ -115,5 +115,12 @@ class PaymentController extends Controller
         }
         \Session::put('error', 'Payment failed');
         return Redirect::to('/');
+    }
+
+
+    function dump_transation_details() {
+        $payment_id = "PAYID-L4RIMZA9V13634748401271W";
+        $payment = Payment::get($payment_id, $this->_api_context);
+        dd($payment);
     }
 }
