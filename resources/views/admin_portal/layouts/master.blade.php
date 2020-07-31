@@ -9,7 +9,13 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
       <!-- google font -->
-      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Arimo|Poppins&display=swap" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+      <script src="{{asset('scripts/jquery.form.min.js')}}?v=2"></script>
       @stack('header-style')
       <script src="{{asset('lib/fa/js/all.js')}}"></script>
       <!-- theme css -->
@@ -18,31 +24,55 @@
       @stack('header-script')
       <style>
 
-         html,body {
-         font-family: 'Varela Round', sans-serif!important;
-         color: #575757!important;
-         background:#f7f7f9!important;
+         html, body {
+         height: 100%;
+         font-family: 'Arimo', sans-serif;
+         font-size:13px!important;
          }
          html {
          scroll-behavior: smooth;
          }
+         .svg-inline--fa{
+            font-size:18px;
+         }
       </style>
    </head>
-   <body>
-      <div class="container">
+   <body class="bg-light">
+   <nav  class="navbar  navbar-expand-lg bg-dark  card-1   sticky-top">
+         <div class="container-fluid p-0">
+            <a class="navbar-brand" href="{{route('app_portal_provider_home')}}"> 
+            <img class="p-1 rounded-circle bg-white"  src="{{asset('/images/brand/l2l-logo-svg.svg')}}" height="40" width="40px" /> 
+            </a>
+            <button type="button" id="sidebarCollapse" class="btn btn-light rounded-0 border m-0">
+            <i class="fas fa-bars"></i> 
+            </button>
+         </div>
+      </nav>
+      <div class="wrapper">
+         <nav id="sidebar" class="p-1 bg-white border-rights card-1 "> 
+           
           @include('admin_portal.layouts.side_nav')
-         <div class="content">
-            @include('admin_portal.layouts.top_nav')
+         </nav>
+         <!-- Page Content -->
+         <div id="content" class=" ">
+         
             @yield('content')
          </div>
       </div>
-      
       @include('partial.loader')
       <script>
       @yield('customjavascripts')
-      </script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      $(document).ready(function () {
+         
+         $('#sidebarCollapse').on('click', function () {
+         $('#sidebar').toggleClass('active');
+         });
+         
+         });
+   </script>
+   
+
+   
 
    </body>
 </html>

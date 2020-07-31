@@ -16,7 +16,7 @@
 <div class="form-group row">
    <label for="inputPassword" class="col-sm-4 col-form-label"></label>
    <div class="col-sm-6">
-      <button class="btn btn-secondary card-1" onclick="chart_fetch_monthly(document.getElementById('start_date_input').value, document.getElementById('end_date_input').value);">Update Chart</button>
+      <button class="btn btn-primary btn-sm rounded-0" onclick="chart_fetch_monthly(document.getElementById('start_date_input').value, document.getElementById('end_date_input').value);">Update Chart</button>
    </div>
 </div>
 <script>

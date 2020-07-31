@@ -1,10 +1,10 @@
 @extends('admin_portal.layouts.master')
 @section('title', 'Admin Portal User Managment')
 @section('content')
-<div class="row">
+<div class="row m-2">
    <div class="col-lg-12 p-1">
       <div class="card h-100 rounded-0 bg-white ">
-         <div class="card-header bg-secondary text-white">
+         <div class="card-header">
             Search User
          </div>
          <div class="card-body">
@@ -21,15 +21,15 @@
                   </div>
                </div>
                <br>
-               <button type="submit" class="btn btn-secondary card-1">Search</button>
-               <a href="{{route('app_portal_admin_users_all')}}" class="btn btn-warning card-1">Reset Results</a>
+               <button type="submit" class="btn btn-primary btn-sm rounded-0">Search</button>
+               <a href="{{route('app_portal_admin_users_all')}}" class="btn btn-primary btn-sm rounded-0">Reset Results</a>
             </form>
          </div>
       </div>
    </div>
    <div class="col-lg-12 p-1">
       <div class="card h-100 rounded-0 bg-white ">
-         <div class="card-header bg-secondary text-white">
+         <div class="card-header">
             All System Users
          </div>
          <div class="card-body">
