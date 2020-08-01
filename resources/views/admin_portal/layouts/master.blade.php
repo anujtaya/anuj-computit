@@ -55,7 +55,21 @@
          </nav>
          <!-- Page Content -->
          <div id="content" class=" ">
-         
+            <div class="row m-2">
+               @if(Session::has('status'))
+
+                  <div class="col-lg-12 p-3">
+                     <div class="alert alert-info">{{Session::pull('status')}}</div>
+                  </div>
+               @endif
+               @if(Session::has('error'))
+
+<div class="col-lg-12 p-2">
+   <div class="alert alert-danger">{{Session::pull('error')}}</div>
+</div>
+@endif
+            
+            </div>
             @yield('content')
          </div>
       </div>

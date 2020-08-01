@@ -20,7 +20,15 @@
       <a  class="list-group-item animation_redirect {{ request()->is('app/portal/admin/users/all') ? 'active' : '' }} {{ request()->is('app/portal/admin/users/*') ? 'active' : '' }}" href="{{route('app_portal_admin_users_all')}}">
       <i class="fas fa-users p-1" style="min-width:30px!important;"></i> User Management
       </a>
-    
+      <a  class="list-group-item animation_redirect {{ request()->is('portal/admin/jobs/') ? 'active' : '' }}"  href="{{route('app_portal_admin_jobs')}}">
+      <i class="fas fa-history p-1" style="min-width:30px!important;"></i> Job History
+      </a>
+      <a class="list-group-item animation_redirect {{ request()->is('admin/service_managment') ? 'active' : '' }}" >
+      <i class="fas fa-tasks p-1" style="min-width:30px!important;"></i> Service Management
+      </a>
+      <a  class="list-group-item animation_redirect {{ request()->is('admin/heatmap') ? 'active' : '' }}">
+      <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Heat Maps
+      </a>
       <form action="{{route('logout')}}" style="display:none" method="post" id="logout_form">@csrf</form>
       <a class="list-group-item text-danger animation_redirect" href="#" onclick="$('#logout_form').submit();">
       <i class="fas fa-sign-out-alt p-1" style="min-width:30px!important;"></i> Logout

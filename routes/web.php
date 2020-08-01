@@ -262,6 +262,16 @@ Route::get('/app/session/set/user_offline_consent', 'SessionController@set_user_
 Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
   Route::get('/app/portal/admin/home', 'AdminController@home')->name('app_portal_admin_home');
   Route::get('/app/portal/admin/users/all', 'AdminController@users_all')->name('app_portal_admin_users_all');
+  Route::get('/app/portal/admin/users/profile/{id}', 'AdminController@user_profile')->name('app_portal_admin_users_profile');
+  Route::post('/app/portal/admin/users/update_user_profile_info/', 'AdminController@update_user_profile_info')->name('app_portal_admin_users_update_user_profile_info');
+  Route::post('/app/portal/admin/users/update_user_online_status/', 'AdminController@user_update_online_status')->name('app_portal_admin_users_update_user_online_status');
+  Route::post('/app/portal/admin/users/update_user_account_status/', 'AdminController@user_update_account_status')->name('app_portal_admin_users_update_user_account_status');
+  Route::get('/app/portal/admin/users/update_user_send_welcome_email/{id}', 'AdminController@user_send_welcome_email')->name('app_portal_admin_users_update_user_send_welcome_email');
+  Route::get('/app/portal/admin/jobs/', 'AdminController@jobs_all')->name('app_portal_admin_jobs');
+  Route::get('/app/portal/admin/jobs/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
+  Route::post('/app/portal/admin/jobs/search', 'AdminController@jobs_search')->name('app_portal_admin_jobs_search');
+
+
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
 });

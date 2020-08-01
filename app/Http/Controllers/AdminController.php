@@ -14,6 +14,8 @@ use URL;
 use Notifiable;
 use Carbon\Carbon;
 use Response;
+use App\Notifications\AccountCreated;
+use App\Job;
 
 class AdminController extends Controller
 {
@@ -22,7 +24,7 @@ class AdminController extends Controller
     }
 
     function users_all(){
-        $users = User::paginate(3);
+        $users = User::paginate(10);
         return view('admin_portal.modules.user_management.users' , ['users' => $users]);
     }
 
@@ -37,6 +39,12 @@ class AdminController extends Controller
         }
         
         return view('admin_portal.modules.user_management.users' , ['users' => $users]);
+    }
+
+
+    function user_profile($id){
+        $user = User::find($id);
+        return view('admin_portal.modules.user_management.user' , ['user' => $user]);
     }
 
 
@@ -65,4 +73,96 @@ class AdminController extends Controller
         }
         return Response::json($objects);
     }
+
+    //update user online offline status
+	function user_update_online_status(Request $request){
+		$input = Input::all();
+		$user = User::findorfail($input['user_id']);
+		if($user != null) {
+			$user->is_online = $input['user_profile_online_status'];
+			$user->save();
+			Session::put('status', 'User profile is updated successfully.');
+		} else {
+			Session::put('error', 'Unable to find the user. User profile update is failed.');
+		}
+		return redirect()->back();
+    }
+    
+    //update user online offline status
+	function user_update_account_status(Request $request){
+		$input = Input::all();
+		$user = User::findorfail($input['user_id']);
+		if($user != null) {
+			$user->status = $input['user_profile_account_status'];
+			$user->save();
+			Session::put('status', 'User profile is updated successfully.');
+		} else {
+			Session::put('error', 'Unable to find the user. User profile update is failed.');
+		}
+		return redirect()->back();
+    }
+    
+    //send welcome email to user
+    function user_send_welcome_email($id) {
+        try {
+            $user = User::findOrFail($id);
+            $user->notify(new AccountCreated($user->first));
+            Session::put('status', 'Welcome email sent.');
+        } catch (\Exception  $e) {
+            Session::put('error', $e->getMessage());
+        }
+        return redirect()->back();
+    }
+
+
+    //update user profile information via admin console 
+    protected function update_user_profile_info(Request $request) {
+        $input = (object) $request->all();
+        $validator =  Validator::make($request->all(), [
+            'first' => 'required|min:3|max:255',
+            'last' => 'required|min:3|max:255',
+            'id' => 'required',
+            'phone' => 'required',
+            'id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+        } else {
+            $user = User::find($input->id);
+            if($user == null) {
+                return redirect()->back();
+            }
+
+            $user->first = $input->first;
+            $user->last = $input->last;
+            $user->phone = $input->phone;
+            $user->work_radius = $input->work_radius;
+            $user->car_rego = $input->car_rego;
+            $user->save();
+            Session::put('status', 'User profile information updated.');
+            return redirect()->back();
+        }
+    }
+
+
+    //jobs function
+    function jobs_all(){
+        $jobs = Job::paginate(10);
+        return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
+    }
+
+    //jobs search with id
+    function jobs_search(Request $request) {
+        $input = $request->all();
+        $jobs = [];
+        if($input['search_job_id'] != '') {
+            $jobs = Job::where('id',  $input['search_job_id'])->get();
+        }
+        
+        return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
+    }
+    
 }

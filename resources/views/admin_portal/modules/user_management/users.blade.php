@@ -2,7 +2,7 @@
 @section('title', 'Admin Portal User Managment')
 @section('content')
 <div class="row m-2">
-   <div class="col-lg-12 p-1">
+   <div class="col-lg-4 p-1">
       <div class="card h-100 rounded-0 bg-white ">
          <div class="card-header">
             Search User
@@ -11,11 +11,11 @@
             <form action="{{route('app_portal_admin_users_search')}}" method="POST">
                @csrf
                <div class="row">
-                  <div class="col-6">
+                  <div class="col-12">
                      <label for="email">Email</label>
                      <input id="email" type="text" class="form-control" value="{{old('email')}}" name="email" placeholder="Enter email here">
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 mt-3">
                      <label for="user_id">User ID</label>
                      <input id="user_id" type="number" class="form-control" value="{{old('user_id')}}" name="user_id" placeholder="Enter user id here">
                   </div>
@@ -26,6 +26,8 @@
             </form>
          </div>
       </div>
+   </div>
+   <div class="col-lg-8 p-1">
    </div>
    <div class="col-lg-12 p-1">
       <div class="card h-100 rounded-0 bg-white ">
@@ -67,7 +69,7 @@
                      <td>{{$user->user_postcode}}</td>
                      <td>{{$user->user_city}}</td>
                      <td>{{ date('d/m/Y h:ia', strtotime($user->created_at)) }}</td>
-                     <td>  </td>
+                     <td> <a href="{{route('app_portal_admin_users_profile', $user->id)}}">View</a> </td>
                   </tr>
                   @endforeach
                </tbody>

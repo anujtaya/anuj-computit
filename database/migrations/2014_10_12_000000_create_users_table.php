@@ -38,6 +38,7 @@ class CreateUsersTable extends Migration
             $table->string('user_city')->nullable();
             $table->string('user_suburb')->nullable();
             $table->string('user_postcode')->nullable();
+            $table->string('car_rego')->nullable();
             $table->string('user_full_address')->nullable();
             $table->string('push_notification_token')->nullable();
             //user bio route
