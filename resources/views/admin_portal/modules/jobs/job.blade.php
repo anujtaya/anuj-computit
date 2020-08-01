@@ -80,7 +80,7 @@
       </div>
    </div>
    <div class="col-lg-2  p-3">
-      <div class="card h-100 bg-white">
+      <div class="card h-100 bg-white text-center">
          <div class="card-header">
             Service Provider Information
          </div>
@@ -89,9 +89,9 @@
                $service_provider =  $job->service_provider_profile;
             @endphp
             @if($service_provider != null)
-            <img src="{{url('/')}}/storage/images/profile/{{$service_provider->profile_image_path}}"  alt="Service Provider Profile" height="100" width="100" class="w3-circle"/>
+            <img src="{{url('/')}}/storage/images/profile/{{$service_provider->profile_image_path}}"  alt="Service Provider Profile" height="100" width="100" class="rounded-circle"/>
             <br><br>
-            <a href="{{route('app_portal_admin_users_profile', $service_provider->id)}}" target="_blank" class="text-uppercase"{{$service_provider->first}} {{$service_provider->last}}</a>
+            <a href="{{route('app_portal_admin_users_profile', $service_provider->id)}}" target="_blank" class="text-uppercase">{{$service_provider->first}} {{$service_provider->last}}</a>
             @else
                No info available.
             @endif
@@ -222,7 +222,11 @@
                            <span class="badge badge-secondary font-weight-normal">Not Available</span>
                         @endif  
                      </td>
-                  </tr>
+                     </tr>
+                     <tr>
+                        <th>Total Transfer Amount</th>
+                        <td>${{number_format($job_paylog->total_amount, 2)}}</td>
+                     </tr>
                      <tr>
                         <th>Created at</th>
                         <td>{{ date('d/m/Y h:ia', strtotime($job_paylog->created_at)) }}</td>
