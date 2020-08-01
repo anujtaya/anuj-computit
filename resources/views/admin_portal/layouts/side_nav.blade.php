@@ -26,7 +26,7 @@
       <a class="list-group-item animation_redirect {{ request()->is('admin/service_managment') ? 'active' : '' }}" >
       <i class="fas fa-tasks p-1" style="min-width:30px!important;"></i> Service Management
       </a>
-      <a  class="list-group-item animation_redirect {{ request()->is('admin/heatmap') ? 'active' : '' }}">
+      <a  class="list-group-item animation_redirect {{ request()->is('admin/maps/*') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_heatmap')}}">
       <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Heat Maps
       </a>
       <form action="{{route('logout')}}" style="display:none" method="post" id="logout_form">@csrf</form>

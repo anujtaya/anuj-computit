@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Response;
 use App\Notifications\AccountCreated;
 use App\Job;
+use DB;
 
 class AdminController extends Controller
 {
@@ -148,7 +149,8 @@ class AdminController extends Controller
     }
 
 
-    //jobs function
+    //jobs module function
+    //show all jobs list
     function jobs_all(){
         $jobs = Job::paginate(10);
         return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
@@ -164,14 +166,45 @@ class AdminController extends Controller
         return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
     }
 
+
+    //show a job profile for given id
     protected function job_profile($id) {
         $job = Job::find($id);
         if($job != null) {
             return view('admin_portal.modules.jobs.job' , ['job' => $job]);
         }
-
         Session::put('error', 'Job with id #'.$id.' does not exists in the database.');
         return redirect()->route('app_portal_admin_jobs');
     }
+
+    //maps module functions
+    //show heatmap view without data
+    protected function show_heatmap(){
+        return view('admin_portal.modules.map.heatmap');
+    }
+
+    //fetch heatmap data
+    public function fetch_heatmap_locations() {
+        $lat = $_POST['lat'];
+        $lng = $_POST['lng'];
+        $radius = $_POST['radius'];
+        if($radius < 5) {
+            $radius = 5;
+        }
+        $d =  DB::table("users")
+        ->select("users.*" ,DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
+            * cos(radians(users.user_lat)) 
+            * cos(radians(users.user_lng) - radians(" . $lng . ")) 
+            + sin(radians(" .$lat. ")) 
+            * sin(radians(users.user_lat))) AS distance"))
+            //->where('users.is_online', true)
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance', 'asc')
+            ->get(); 
+        return Response::json($d);
+    }
+
+
+
     
 }

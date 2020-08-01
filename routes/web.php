@@ -270,9 +270,12 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
   Route::get('/app/portal/admin/jobs/', 'AdminController@jobs_all')->name('app_portal_admin_jobs');
   Route::get('/app/portal/admin/jobs/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
   Route::post('/app/portal/admin/jobs/search', 'AdminController@jobs_search')->name('app_portal_admin_jobs_search');
-
-
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
+
+  //map module
+  Route::get('/app/portal/admin/maps/heatmap', 'AdminController@show_heatmap')->name('app_portal_admin_maps_heatmap');
+  Route::post('/app/portal/admin/maps/heatmap/api/fetch', 'AdminController@fetch_heatmap_locations')->name('app_portal_admin_maps_heatmap_api_fetch');
+  //charts module
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
 });
 
