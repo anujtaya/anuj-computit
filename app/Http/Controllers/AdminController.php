@@ -161,8 +161,17 @@ class AdminController extends Controller
         if($input['search_job_id'] != '') {
             $jobs = Job::where('id',  $input['search_job_id'])->get();
         }
-        
         return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
+    }
+
+    protected function job_profile($id) {
+        $job = Job::find($id);
+        if($job != null) {
+            return view('admin_portal.modules.jobs.job' , ['job' => $job]);
+        }
+
+        Session::put('error', 'Job with id #'.$id.' does not exists in the database.');
+        return redirect()->route('app_portal_admin_jobs');
     }
     
 }

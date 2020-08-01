@@ -50,20 +50,20 @@
                      <td>{{$job->id}}</td>
                      <td>
                         @if($job->status == 'OPEN')
-                        <span class="badge  badge-success  p-2 fs--2 font-weight-normal">Open</span>
+                           <span class="badge badge-success font-weight-normal">Open</span>
                         @elseif($job->status == 'APPROVED')
-                           <span class="badge  badge-success  p-2 fs--2 font-weight-normal">Approved</span>
+                           <span class="badge badge-success font-weight-normal">Approved</span>
                         @elseif($job->status == 'ONTRIP')"
-                           <span class="badge  badge-warning  p-2 fs--2 font-weight-normal ">On-Trip</span>
+                           <span class="badge badge-warning font-weight-normal ">On-Trip</span>
                         @elseif($job->status == 'ARRIVED')
-                           <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal ">Arrived</span>
+                           <span class="badge badge-secondary font-weight-normal ">Arrived</span>
                         @elseif($job->status == 'STARTED')
-                           <span class="badge  badge-warning  p-2 fs--2 font-weight-normal ">In-Progress</span>
+                           <span class="badge badge-warning font-weight-normal ">In-Progress</span>
                         @elseif($job->status == 'COMPLETED')
-                           <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal ">COMPLETED</span>
+                           <span class="badge badge-secondary font-weight-normal ">COMPLETED</span>
                         @elseif($job->status == 'CANCELLED')
-                           <span class="badge  badge-danger  p-2 fs--2 font-weight-normal">CANCELLED</span>
-                        @endif   
+                           <span class="badge badge-danger font-weight-normal">CANCELLED</span>
+                        @endif    
                      </td>
                      <td>{{$job->service_seeker_id}}</td>
                      <td>{{$job->service_provider_id}}</td>
