@@ -24,7 +24,7 @@
       <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/images/favicon/favicon-16x16.png')}}">
       <link rel="manifest" href="{{asset('/images/favicon/manifest.json')}}">
       @stack('header-style')
-      <script src="{{asset('lib/fa/js/all.js')}}"></script>
+      <script src="{{asset('lib/fa/js/all.min.js')}}"></script>
       <!-- theme css -->
       <link rel="stylesheet" href="{{asset('css/backend/main.css')}}?v={{rand(10,10000)}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">

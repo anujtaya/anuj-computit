@@ -11,7 +11,7 @@
       <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> -->
       <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
       @stack('header-style')
-      <script src="{{asset('lib/fa/js/all.js')}}"></script>
+      <script src="{{asset('lib/fa/js/all.min.js')}}"></script>
       <!-- theme css -->
       <link rel="stylesheet" href="{{asset('css/backend/main_sp.css')}}?v={{rand(100,10000)}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
