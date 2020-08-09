@@ -259,7 +259,7 @@ Route::get('/app/session/set/user_offline_consent', 'SessionController@set_user_
 
 
 //Service Provider Portal routes
-Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
+Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , function () {
   Route::get('/app/portal/admin/home', 'AdminController@home')->name('app_portal_admin_home');
   Route::get('/app/portal/admin/users/all', 'AdminController@users_all')->name('app_portal_admin_users_all');
   Route::get('/app/portal/admin/users/profile/{id}', 'AdminController@user_profile')->name('app_portal_admin_users_profile');

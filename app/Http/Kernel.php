@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'isPhoneVerified' => \App\Http\Middleware\PhoneVerified::class,
         'isServiceProvider' => \App\Http\Middleware\IsServiceProvider::class,
         'forceHttpsProtocol' => \App\Http\Middleware\ForceHttpsProtocol::class,
+        'admin_routes' => \App\Http\Middleware\AdminOnlyRoutes::class,
     ];
 
     /**
