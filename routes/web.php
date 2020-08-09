@@ -267,8 +267,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
   Route::post('/app/portal/admin/users/update_user_online_status/', 'AdminController@user_update_online_status')->name('app_portal_admin_users_update_user_online_status');
   Route::post('/app/portal/admin/users/update_user_account_status/', 'AdminController@user_update_account_status')->name('app_portal_admin_users_update_user_account_status');
   Route::get('/app/portal/admin/users/update_user_send_welcome_email/{id}', 'AdminController@user_send_welcome_email')->name('app_portal_admin_users_update_user_send_welcome_email');
-  Route::get('/app/portal/admin/jobs/', 'AdminController@jobs_all')->name('app_portal_admin_jobs');
-  Route::get('/app/portal/admin/jobs/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
+  Route::get('/app/portal/admin/jobs/all', 'AdminController@jobs_all')->name('app_portal_admin_jobs');
+  Route::get('/app/portal/admin/jobs/job/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
   Route::post('/app/portal/admin/jobs/search', 'AdminController@jobs_search')->name('app_portal_admin_jobs_search');
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
 
@@ -277,6 +277,16 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified',]] , function () {
   Route::post('/app/portal/admin/maps/heatmap/api/fetch', 'AdminController@fetch_heatmap_locations')->name('app_portal_admin_maps_heatmap_api_fetch');
   //charts module
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
+  //service manager routes
+  Route::get('/app/portal/admin/service_managment/editview', 'ServiceManagementController@display_admin_edit_view')->name('app_portal_admin_service_management');
+  Route::post('/app/portal/admin/service_managment/update_major_priority_list', 'ServiceManagementController@update_major_priority_list')->name('app_portal_admin_update_major_priority_list');
+  Route::post('/app/portal/admin/service_managment/update_minor_priority_list', 'ServiceManagementController@update_minor_priority_list')->name('app_portal_admin_update_minor_priority_list');
+  Route::post('/app/portal/admin/service_managment/fetch_minor_cat_list', 'ServiceManagementController@fetch_minor_cat_list')->name('app_portal_admin_fetch_minor_cat_list');
+  Route::post('/app/portal/admin/service_managment/admin_update_major_name', 'ServiceManagementController@update_major_name')->name('app_portal_admin_update_major_name');
+  Route::post('/app/portal/admin/service_managment/admin_update_minor_name', 'ServiceManagementController@update_minor_name')->name('app_portal_admin_update_minor_name');
+  Route::post('/app/portal/admin/service_managment/add_category', 'ServiceManagementController@add_category')->name('app_portal_admin_add_category');
+  Route::post('/app/portal/admin/service_managment/add_sub_category', 'ServiceManagementController@add_sub_category')->name('app_portal_admin_add_sub_category');
+
 });
 
 
