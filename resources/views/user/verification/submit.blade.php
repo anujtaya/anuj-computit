@@ -3,6 +3,11 @@
 <style></style>
 <div class="container">
    <div class="row  justify-content-center" >
+      <div class="col-lg-12  sticky-top bg-white p-0">
+         <div class="row ml-2">
+            <div class="col-4 p-3"><a href="{{route('user_verify_phone_send')}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left theme-color fs-1" ></i> </a> </div>
+         </div>
+      </div>
       <div class="col-lg-4  ">
          <div class="row   " >
             <div class="col-md-12 h-100  " >
@@ -10,7 +15,7 @@
                   <!-- page main title -->
                   <div class="text-center mt-4">
                      <h1 class="fs-1">Enter the PIN sent to: <br> <br>
-                     <span class="fs--1">+{{Auth::user()->phone}}  <a class="text-danger fs--1" href="{{ route('user_verify_phone_send')}}" onclick="toggle_animation(true);">(Change)</a></span></h1>
+                     <span class="fs--1 text-muted">+{{Auth::user()->phone}}  <br><br> <a class="fs--1" style="color:#1DC2FF!important;" href="{{ route('user_verify_phone_send')}}" onclick="toggle_animation(true);">(Change)</a></span></h1>
                     
                      <br>
                      @if(Session::has('status'))
@@ -34,10 +39,10 @@
                      </div>
                      <!-- start page footer -->
                      <div class="text-center mt-4">
-                        <button type="submit" class="btn rounded-3 mt-3 theme-background-color text-white fs--1 card-1" width="221px" height="47px" id="">
+                        <button type="submit" class="btn rounded-3 mt-3 text-white fs--1" style="background-color:#2E92D1;-webkit-box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46);-moz-box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46); box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46);"  width="221px" height="47px" id="">
                         {{ __('Verify') }}
                         </button>
-                        <a href="#" onclick="generate_request_code();" class="btn mt-3 btn-warning text-white fs--1 card-1">Resend Code</a>
+                        <a href="#" onclick="generate_request_code();" class="btn mt-3 text-white fs--1" style="background-color:#1DC2FF;-webkit-box-shadow: 0px 17px 33px -8px rgba(29, 194, 255, 0.46);-moz-box-shadow: 0px 17px 33px -8px rgba(29, 194, 255, 0.46); box-shadow: 0px 17px 33px -8px rgba(29, 194, 255, 0.46);" >Resend Code</a>
                      </div>
                   </form>
                </div>
@@ -124,12 +129,12 @@
        console.log('The number should contain one of the sting format [0,61,+61] and must be atleast 10 digits. Details:' + msg)
    }
 </script>
-<div class="progress fixed-top rounded-0" style="height: 10px;">
+<!-- <div class="progress fixed-top rounded-0" style="height: 10px;">
    <div class="progress-bar theme-background-color" role="progressbar" style="width:50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 <script>
    $(".progress-bar").animate({
    width: "80%"
    }, 100);
-</script>
+</script> -->
 @endsection

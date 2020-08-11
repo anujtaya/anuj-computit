@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="container  text-white   mt-0 p-0">
-   <div class="row  justify-content-center" >
+<div class="container text-white mt-0 p-0">
+   <div class="row justify-content-center" >
       <div class="col-lg-12  sticky-top bg-white p-0">
          <div class="row ml-4 mt-4">
             <div class="col-4 pl-4"><a href="{{route('login')}}" onclick="toggle_animation(true);"><i class="fas fa-arrow-left theme-color fs-1" ></i> </a> </div>
