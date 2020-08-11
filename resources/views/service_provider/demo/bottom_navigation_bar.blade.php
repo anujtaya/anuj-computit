@@ -29,7 +29,7 @@
 <!-- end bottom nav  -->
 <!-- No user account modal -->
 <div class="modal fade" id="user_no_account_message_modal" tabindex="-1" role="dialog" aria-labelledby="user_no_account_message_title" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered-d" role="document">
+   <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0 card-1">
          <div class="modal-body text-center" style="min-height:300px;">
             <img src="{{asset('/images/svg/l2l_add_user_sp.svg')}}" class="img-fluid" style="width:250px;" alt="Service Seeker - Add User Account">
