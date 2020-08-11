@@ -38,6 +38,7 @@
                      @csrf
                      <input type="hidden" value="@if(Auth::user()->is_online) offline @else online @endif" name="target_status" required>
                   </form>
+                  {{--
                   @if(Auth::user()->is_online)
                      <button class="btn text-success shadow-sm border-0 fs--1 bg-white" style="border-radius:20px;" onclick="$('#update_availablity_form').submit();">
                         <i class="fas fa-circle animated infinite fadeIn fs--2 "></i>  Go Offline
@@ -47,6 +48,7 @@
                         <i class="fas fa-circle fs--2 "></i>  Go Online
                      </button>
                   @endif
+                  --}}
                   <!-- map view controls -->
                   <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="map_btn" onclick="switch_view_mode('MAP')">
                   Map View
@@ -237,31 +239,6 @@
   
 </script>
 
-
-@if(!Auth::user()->is_online && session('user_offline_consent') == null)
-<!-- Modal -->
-<div class="modal fade" id="user_online_check_modal_popup" tabindex="-1" role="dialog" aria-labelledby="user_online_check_modal_popup_title" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centereds" style="margin-top:60px;" role="document">
-      <div class="modal-content border-0 shadow">
-         <div class="modal-body ">
-            <i class="fas fa-hand-point-up display-1 theme-color"></i>
-            <br><br>
-            <p>Please Press "Go Online" button so the Service Seeker can see you on map. Being Online on LocaL2LocaL platform will let Service Seeker know that you ready to recieve job requests.</p>
-            <br>
-            <a class="btn text-danger shadow-sm border-0 fs--1 bg-white" href="{{route('app_session_set_user_offline_consent')}}" onclick="toggle_animation(true);" style="border-radius:20px;">     
-               <i class="fas fa-times fs--2 "></i> Dismiss Alert
-            </a>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end modal -->
-<script>
- window.onload = function() {
-      $("#user_online_check_modal_popup").modal("show");
-   }
-</script>
-@endif
 @include('service_provider.bottom_navigation_bar')
 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
