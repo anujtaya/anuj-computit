@@ -33,8 +33,8 @@
 </div>
 @endsection
 <div class="modal fade" style="left:-8px!important;" id="registerDialog" tabindex="-1" role="dialog" aria-labelledby="registerDialogTitle" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content " style=" background: rgba(76, 175, 80, 0.0); border:0px;">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style=" background: rgba(76, 175, 80, 0.0); border:0px;">
          <div class="m-3 borders bg-white  rounded">
             <div class="modal-header">
                <h5 class="modal-title fs--" id="registerDialog">Create an Account</h5>
