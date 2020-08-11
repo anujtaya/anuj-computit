@@ -23,6 +23,7 @@ use URL;
 use Notifiable;
 use App\Notification;
 use App\Notifications\AccountCreated;
+use Session;
 
 class UserController extends Controller
 {
