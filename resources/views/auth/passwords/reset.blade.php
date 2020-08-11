@@ -19,7 +19,7 @@
 <div class="container  text-white   mt-0 p-0">
    <div class="row  justify-content-center" >
       <div class="col-lg-4    col-md-12 p-0" style="">
-         <div class="p-4  theme-color rounded shadow m-4" style="border-radisus:55px; margin-top: 0px;">
+         <div class="p-4  theme-color rounded  m-4" style="border-radisus:55px; margin-top: 0px;">
             <div class="mb-4 text-dark fs-1">Reset Password</div>
             @if (session('status'))
             <div class="alert alert-success fs--1" role="alert">
@@ -54,8 +54,8 @@
                   <input id="password-confirm" type="password" class="form-control form-control-sm" name="password_confirmation" required autocomplete="new-password">
                </div>
                <div class="form-group row mb-0">
-                  <button type="submit" class="btn theme-background-color btn-sm fs--1 text-white shadow-none   m-3 mb-1">
-                  {{ __('Send Password Reset Link') }}
+                  <button type="submit" class="btn theme-background-color btn-sm fs--1 text-white shadow m-3 mb-1">
+                  {{ __('Done') }}
                   </button>
                </div>
             </form>
