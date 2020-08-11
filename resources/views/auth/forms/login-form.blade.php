@@ -20,7 +20,7 @@
          @enderror
       </div>
       <div class="col-md-12 text-left p-3">
-         <button class="btn theme-background-color fs--1 text-white" styles="border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:10px;padding-top:15px;padding-bottom:15px;"><i class="fas fa-lock"></i> Login </button>
+         <button class="btn theme-background-color fs--1 text-white shadow" styles="border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:10px;padding-top:15px;padding-bottom:15px;">Login</button>
          <br><br>
          <a href="{{route('password.request')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);"> Forgot Password</a>
          <br>
