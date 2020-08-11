@@ -52,7 +52,7 @@
                      <label for="radio-2" class="radio-label" style="font-size:16px;">I want to work . (Know as a 'Provider')</label>
                   </div>
                   <div class="mt-4">
-                     <button type="submit" class="btn theme-background-color fs--1 text-white" styles="border-radius:20px;padding-left:10px;padding-top:10px;padding-bottom:10px;" width="221px" height="47px" onclick="toggle_animation(true);">Continue</button>
+                     <button type="submit" class="btn theme-background-color fs--1 text-white custom_button_shadow" styles="border-radius:20px;padding-left:10px;padding-top:10px;padding-bottom:10px;" width="221px" height="47px" onclick="toggle_animation(true);">Continue</button>
                   </div>
                </form>
             </div>

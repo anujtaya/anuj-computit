@@ -22,7 +22,7 @@ class DemoController extends Controller
     
     function test_email(){
            $user = User::where('email', 'tayaanuj@gmail.com')->first();
-           $user->notify(new AccountCreated());
+           $user->notify(new AccountCreated($user->first));
     }
     
     

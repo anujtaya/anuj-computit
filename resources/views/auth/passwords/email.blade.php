@@ -31,13 +31,10 @@
                   </div>
                </div>
                <div class="form-group row mb-0">
-                  <button type="submit" class="btn theme-background-color btn-sm fs--1 text-white ml-3 shadow mb-1">
+                  <button type="submit" class="btn theme-background-color btn-sm fs--1 text-white ml-3 custom_button_shadow mb-1">
                      <i class="fas fa-paper-plane"></i> {{ __('Done') }}
                   </button>
                </div>
-               <a href="{{route('login')}}" class="btn theme-background-color btn-sm fs--1 text-white shadow mt-3   mb-1" onclick="toggle_animation(true);">
-                  <i class="fas fa-lock"></i> {{ __('Login') }}
-               </a>
             </form>
          </div>
       </div>
