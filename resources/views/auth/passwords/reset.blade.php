@@ -18,7 +18,7 @@
 </style>
 <div class="container  text-white   mt-0 p-0">
    <div class="row  justify-content-center" >
-      <div class="col-lg-4    col-md-12 p-0" style="">
+      <div class="col-lg-4   col-md-12 p-0" style="">
          <div class="p-4  theme-color rounded  m-4" style="border-radisus:55px; margin-top: 0px;">
             <div class="mb-4 text-dark fs-1">Reset Password</div>
             @if (session('status'))
