@@ -37,7 +37,7 @@
                   </div>
                   <!-- start page footer -->
                   <div class="text-center mt-3">
-                     <button type="submit" class="btn rounded-3 mt-3 text-white fs--1" style="background-color:#2E92D1;-webkit-box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46);-moz-box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46); box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46);"  width="221px" height="47px" id="">
+                     <button type="submit" class="btn rounded-3 mt-3 text-white fs--1" onclick="generate_request_code()" style="background-color:#2E92D1;-webkit-box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46);-moz-box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46); box-shadow: 0px 17px 33px -8px rgba(34, 94, 132, 0.46);"  width="221px" height="47px" id="">
                      {{ __('Continue') }}
                      </button>
                   </div>
