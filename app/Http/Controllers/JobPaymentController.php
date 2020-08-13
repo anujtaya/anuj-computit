@@ -79,10 +79,15 @@ class JobPaymentController extends Controller
             $payment_source = $job->job_payments;
 
             if($payment_source != null || $stripe_payment_source != null) {
-
-                $payable_job_final_value = $payment_source->job_price;
+                //calculte the final job price payable if paid using stripe.
+                $stripe_fixed_fee = 0.30;
+                $stripe_fixed_percentage = 1.75;
+                $job_price = $payment_source->job_price;
+                $credit_card_processing_fee =  round(($stripe_fixed_percentage/100)*($job_price),2);                    
+                $credit_card_processing_fee += $stripe_fixed_fee;
+                $payable_job_final_value = $job_price + $credit_card_processing_fee;
                 //try charging the money via stripe
-                $response = $this->stripe_make_new_charge($payment_source, $payable_job_final_value, $job, $stripe_payment_source);
+                $response = $this->stripe_make_new_charge($payment_source, $payable_job_final_value, $job, $stripe_payment_source,$credit_card_processing_fee);
 
                 if($response == true) {
                     $service_provider = $job->service_provider_profile;
@@ -100,7 +105,7 @@ class JobPaymentController extends Controller
 
 
     //stripe make charge request
-    protected function stripe_make_new_charge($payment_source,$payable_job_final_value,$job,$stripe_payment_customer_object){
+    protected function stripe_make_new_charge($payment_source,$payable_job_final_value,$job,$stripe_payment_customer_object,$credit_card_processing_fee){
 		$response = false;
 		try {
 			\Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
@@ -116,7 +121,9 @@ class JobPaymentController extends Controller
 				//record payment details
 				$payment_source->payment_reference_number =  $charge_response->id;
 				$payment_source->payment_method = 'STRIPE';
-				$payment_source->payable_job_price = $payable_job_final_value;
+                $payment_source->payable_job_price = $payable_job_final_value;
+                $payment_source->payable_job_price = $payable_job_final_value;
+                $payment_source->payment_processing_fee = $credit_card_processing_fee;
 				$payment_source->notes = 'FINAL PAYMENT CHARGED BY LOCAL2LOCAL';
 				$payment_source->status = 'PAID';
 				$payment_source->save();
@@ -173,6 +180,16 @@ class JobPaymentController extends Controller
 
         $job = Job::find($input->paypal_payment_job_id);
         $payment_source = $job->job_payments;
+
+
+        //calculte the final job price payable if paid using paypal.
+        $paypal_fixed_fee = 0.30;
+        $paypal_fixed_percentage = 2.60;
+        $job_price = $payment_source->job_price;
+        $credit_card_processing_fee =  round(($paypal_fixed_percentage/100)*($job_price),2);                    
+        $credit_card_processing_fee += $paypal_fixed_fee;
+        $final_payable_amount = $job_price + $credit_card_processing_fee;
+
         if($job == null) {
             return redirect()->back();
         }
@@ -188,12 +205,12 @@ class JobPaymentController extends Controller
         $item_1->setName('Payment for job with id #'.$job->id.' .'.$job->title) /** item name **/
             ->setCurrency('AUD')
             ->setQuantity(1)
-            ->setPrice($payment_source->job_price); /** unit price **/
+            ->setPrice($final_payable_amount); /** unit price **/
         $item_list = new ItemList();
         $item_list->setItems(array($item_1));
         $amount = new Amount();
         $amount->setCurrency('AUD')
-            ->setTotal($payment_source->job_price);
+            ->setTotal($final_payable_amount);
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($item_list)
@@ -230,6 +247,7 @@ class JobPaymentController extends Controller
         Session::put('paypal_payment_id', $payment->getId());
         Session::put('paypal_payment_fallback_url', route('service_seeker_process_job_payment').'?payment_job_id='.$job->id.'&payment_mode=PAYPAL');
         Session::put('paypal_payment_source_id', $payment_source->id);
+        Session::put('paypal_processing_fee', $credit_card_processing_fee);
         if (isset($redirect_url)) {
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
@@ -243,10 +261,12 @@ class JobPaymentController extends Controller
         $payment_id = Session::get('paypal_payment_id');
         $user_redirect_url =  Session::get('paypal_payment_fallback_url');
         $payment_source_id =  Session::get('paypal_payment_source_id');
+        $paypal_processing_fee =  Session::get('paypal_processing_fee');
         /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
         Session::forget('paypal_payment_fallback_url');
         Session::forget('paypal_payment_source_id');
+        Session::forget('paypal_processing_fee');
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
             \Session::put('error', 'Payment failed');
             return Redirect::to($user_redirect_url);
@@ -263,6 +283,7 @@ class JobPaymentController extends Controller
             if($payment_source != null) {
                 $payment_source->payment_reference_number =  $payment_id;
                 $payment_source->payment_method = 'PAYPAL';
+                $payment_source->payment_processing_fee = $paypal_processing_fee;
                 $payment_source->notes = 'FINAL PAYMENT CHARGED BY LOCAL2LOCAL';
                 $payment_source->status = 'PAID';
                 $payment_source->save();

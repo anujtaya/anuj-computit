@@ -97,7 +97,7 @@
                         Total Service Charges & Extras:
                      </div>
                      <div class="w3-col s6 font-weight-bolder">
-                        ${{number_format($job_payment->payable_job_price,2)}}
+                        ${{number_format($job_payment->payable_job_price + $job_payment->payment_processing_fee ,2)}}
                      </div>
                   </div>
                   <div class="w3-row">
@@ -105,7 +105,7 @@
                         Credit Card Fee:
                      </div>
                      <div class="w3-col s6">
-                        $0.00
+                        ${{number_format($job_payment->payment_processing_fee,2)}}
                      </div>
                   </div>
                   <div class="w3-row">

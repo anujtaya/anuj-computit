@@ -37,9 +37,14 @@
    <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_method}}</div>
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
-   <div class="p-2 bd-highlight">Payment Reference Number</div>
-   <div class="ml-auto p-2 bd-highlight"> {{$job_payment->payment_reference_number}}</div>
+   <div class="p-2 bd-highlight">Payment Ref. Number</div>
+   <div class="ml-auto p-2 bd-highlight fs--2 text-monospace"> {{substr($job_payment->payment_reference_number,0,15)}}...</div>
 </div>
+<div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+   <div class="p-2 bd-highlight">Total Price Paid Price</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->payment_processing_fee, 2)}}</div>
+</div>
+<br>
 <span class="font-weight-bolder">Rate Your Service Provider</span> <br> <br>
 <form action="{{route('service_seeker_job_update_rating')}}" method="POST" onsubmit="toggle_animation(true);">
    @csrf 
