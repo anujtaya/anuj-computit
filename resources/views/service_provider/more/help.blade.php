@@ -1,11 +1,37 @@
 @extends('layouts.service_provider_master')
 @section('content')
+
+<style>
+.seeker-help-new-bg{
+   background-color:rgb(93, 41, 186);
+}
+.helptext-new-color{
+   color:white!important;
+}
+.new-btn{
+   height:37px;
+   width:120px;
+   font-size:15px;
+}
+.form-group{
+margin-bottom:1.5rem;
+}
+
+.fa-arrow-left{
+   color:white!important;
+   margin-top:10px;
+}
+</style>
+
+
+
+
 <div class="container ">
    <div class="row  justify-content-center" >
-      <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
+      <div class="col-lg-12 shadow-sm sticky-top p-3 border-d seeker-help-new-bg">
          <div class="row">
             <div class="col-4">   <a href="{{route('service_provider_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
-            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Help <br><span class="fs--2 text-muted font-weight-normal">Help & Support</span></div>
+            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color helptext-new-color">Help <br><span class="fs--2 text-muted font-weight-normal helptext-new-color">Help & Support</span></div>
          </div>
       </div>
       <div class="col-lg-12  bg-white p-3 mt-2  border-d">
@@ -40,8 +66,8 @@
                   @enderror
                </div>
             </div>
-            <div class="form-group pl-3 pt-2 row">
-               <button class="btn theme-background-color btn-sm fs--1">Submit </button>
+            <div class="form-group pl-3 pt-2 row ">
+               <button class="btn theme-background-color btn-sm fs--1 new-btn">Submit </button>
             </div>
          </form>
       </div>
