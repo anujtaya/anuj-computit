@@ -249,7 +249,7 @@ function update_user_final_location(lat, lng, suburb, state, full_address) {
     current_lng = lng;
     map.panTo(new google.maps.LatLng(current_lat, current_lng));
     current_user_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
-    populate_random_job_markers();
+    //populate_random_job_markers();
 }
 
 //intit autocomplete for manual location update
