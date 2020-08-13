@@ -59,14 +59,14 @@ h5 {
                               </p>
                            </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                            <span class="sr-only">Previous</span> 
                            <i class="fas fa-chevron-left  fs-1 theme-color" aria-hidden="true"></i>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                            <span class="sr-only">Next</span>
                            <i class="fas fa-chevron-right  fs-1 theme-color"></i>
-                        </a>
+                        </a> -->
                      </div>
                     <br>
                     <a href="{{route('guest_service_provider_home')}}" onclick="toggle_animation(true);"  class="btn theme-background-color rounded-3 borders card-1 ml-4 mr-4 font-weight-normal custom_button_shadow_sp">Continue <i class="ml-2 fas fa-arrow-right"></i></a>
