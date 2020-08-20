@@ -16,6 +16,7 @@ use Response;
 use DB;
 use App\Notification;
 use App\Notifications\AccountCreated;
+use PDF;
 
 class DemoController extends Controller
 {
@@ -60,6 +61,12 @@ class DemoController extends Controller
     function test_sp_invoice_template_design($id) {
         return view('invoice.sp_invoice_template')->with('job_id', $id);
     }
+
+    function test_sp_invoice_template_pdf($id) {
+        $pdf = PDF::loadView('invoice.sp_invoice_template' , array('job_id' => $id));
+        return $pdf->stream();
+    }
+
 
     function test_ss_invoice_template_design($id) {
         return view('invoice.ss_invoice_template')->with('job_id', $id);

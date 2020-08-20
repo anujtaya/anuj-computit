@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="60" viewBox="0 0 36 60">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#399bdb"/>
+      <stop offset="1" stop-color="#6e329b"/>
+    </linearGradient>
+  </defs>
+  <g id="electrician-opt1" transform="translate(-14 -2)">
+    <path id="Path_63" data-name="Path 63" d="M25,30H24a1,1,0,0,0-1,1v3a1,1,0,0,0,.293.707L25,36.414V39a1,1,0,0,0,.105.447L27,43.236V47a1,1,0,0,0,1,1h1V61a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V48h1a1,1,0,0,0,1-1V43.236l1.9-3.789A1,1,0,0,0,39,39V36.414l1.707-1.707A1,1,0,0,0,41,34V31a1,1,0,0,0-1-1H39V21a1,1,0,0,0-1-1H34a1,1,0,0,0-1,1v9H31V21a1,1,0,0,0-1-1H26a1,1,0,0,0-1,1Zm8,30H31V52h2Zm0-10H31V48h2Zm2-4H29V44h6Zm0-24h2v8H35Zm-8,0h2v8H27ZM39,32v1.586l-1.707,1.707A1,1,0,0,0,37,36v2.764L35.382,42H28.618L27,38.764V36a1,1,0,0,0-.293-.707L25,33.586V32Z" fill="url(#linear-gradient)"/>
+    <path id="Path_64" data-name="Path 64" d="M29,34h6v2H29Z" fill="url(#linear-gradient)"/>
+    <path id="Path_65" data-name="Path 65" d="M29,38h6v2H29Z" fill="url(#linear-gradient)"/>
+    <path id="Path_66" data-name="Path 66" d="M36.87,2.507A1,1,0,0,0,36,2H31a1,1,0,0,0-.874.514l-5,9A1,1,0,0,0,26,13h4v4a1,1,0,0,0,1.789.614l7-9A1,1,0,0,0,38,7H34.767l2.09-3.485a1,1,0,0,0,.013-1.008ZM35.955,9,32,14.085V12a1,1,0,0,0-1-1H27.7l3.89-7h2.644l-2.09,3.485A1,1,0,0,0,33,9Z" fill="url(#linear-gradient)"/>
+    <path id="Path_67" data-name="Path 67" d="M14,24h5v2H14Z" fill="url(#linear-gradient)"/>
+    <path id="Path_68" data-name="Path 68" d="M17,17h2v5H17Z" transform="matrix(0.6, -0.8, 0.8, 0.6, -8.399, 22.205)" fill="url(#linear-gradient)"/>
+    <path id="Path_69" data-name="Path 69" d="M15.5,29.5h5v2h-5Z" transform="matrix(0.8, -0.6, 0.6, 0.8, -14.7, 16.9)" fill="url(#linear-gradient)"/>
+    <path id="Path_70" data-name="Path 70" d="M45,24h5v2H45Z" fill="url(#linear-gradient)"/>
+    <path id="Path_71" data-name="Path 71" d="M43.5,18.5h5v2h-5Z" transform="matrix(0.8, -0.6, 0.6, 0.8, -2.502, 31.491)" fill="url(#linear-gradient)"/>
+    <path id="Path_72" data-name="Path 72" d="M45,28h2v5H45Z" transform="matrix(0.6, -0.8, 0.8, 0.6, -5.996, 49.01)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
