@@ -141,7 +141,7 @@ class ServiceCatSeeder extends Seeder
         //22
         App\ServiceCategory::create([
           'service_name' => 'Support and Care',
-          'is_active' => true,
+          'is_active' => false,
           'created_at' => date('Y-m-d h:m:s'),
         ]);
         //23

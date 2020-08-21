@@ -24,7 +24,7 @@ class ServiceSeekerController extends Controller
   
   function service_seeker_home(Request $request){
       if($request->has('showBooking')){
-        $categories = ServiceCategory::all();
+        $categories = ServiceCategory::where('is_active', true)->get();
         return view("service_seeker.service_seeker_home_2")->with('categories', $categories);
       } else {
         $categories = ServiceCategory::all();
@@ -100,7 +100,7 @@ class ServiceSeekerController extends Controller
     protected function services_filter(){
       $search = $_POST['search'];
 
-      $services = ServiceCategory::where('service_name', 'LIKE', '%'.$search.'%')->get();
+      $services = ServiceCategory::where('service_name', 'LIKE', '%'.$search.'%')->where('is_active', true)->get();
 
       return Response::json($services);
     }
