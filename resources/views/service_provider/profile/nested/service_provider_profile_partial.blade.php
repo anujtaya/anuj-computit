@@ -136,15 +136,17 @@ border-radius:50%;
                {{$r->service_seeker_profile->first.' '.$r->service_seeker_profile->last}}
             </div>
             <div class="p-1 ml-auto bd-highlight">
-               @for($i=0;$i<intval($stats->rating);$i++)
+               @for($i=0;$i<intval($r->service_seeker_rating);$i++)
                <i class="fas fa-star text-warning"></i> 
                @endfor
             </div>
          </div>
+         </span>
          <i class="text-muted">{{$r->service_seeker_comment}}</i>
          </span>
-         @endforeach    
+          
       </div>
+      @endforeach   
    </div>
 </div>
 <script>

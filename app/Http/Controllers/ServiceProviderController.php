@@ -46,12 +46,19 @@ class ServiceProviderController extends Controller
             $percentage =  ($completed_jobs_count   / $total_jobs)  * 100;
         }
         $rating_records = $completed_jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
+      
+      
+      
         $rating_prefix = 5;
         $rating_count = 1 + count($rating_records);
         $rating_sum = intval($rating_records->sum('service_seeker_rating'));
         $rating_prefix += $rating_sum;
         $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
+
       
+      
+
+
         $stats = new \stdClass();
         $stats->percentage = $percentage;
         $stats->rating = $rating_user;

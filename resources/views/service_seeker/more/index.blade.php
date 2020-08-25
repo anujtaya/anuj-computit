@@ -37,7 +37,7 @@
             <div class="col-6 p-0">
                <div class="border m-2 theme-color rounded p-3" style="min-height:110px!important;">
                   <a href="{{route('service_provider_home')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
-                     <img src="{{asset('/images/service_seeker/switch.svg')}}" height="70px" width="70px" alt="">  <br><br>>
+                     <img src="{{asset('/images/service_seeker/switch.svg')}}" height="70px" width="70px" alt="">  <br><br>
                      Switch to Provider
                   </a>
                </div>
