@@ -157,7 +157,7 @@ class UserController extends Controller
                 $n_width = 200;
                 $n_height = 200/$width * $height;
             }
-            $image_resize->resize($n_width, $n_height);
+            $image_resize->fit(200);
 
             
             $filePath = '';

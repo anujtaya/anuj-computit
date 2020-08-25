@@ -30,7 +30,7 @@
    <div class="mt-2" id="service_provider_map_view" >
       <!-- map div -->
       <div class="" id="map_controls">
-         <div class="d-flex bd-highlight mb-2">
+         <!-- <div class="d-flex bd-highlight mb-2 ">
             <div class="mr-auto p-0 bd-highlight">
             </div>
             <div class="p-0 bd-highlight">
@@ -44,7 +44,7 @@
                <i class="fas fa-crosshairs"></i> Reset
                </button>
             </div>
-         </div>
+         </div> -->
       </div>
       <div id="map" class="text-center border border-light" style="min-width:900px important; min-height:550px!important; position: relative;overflow: hidden;">
       </div>

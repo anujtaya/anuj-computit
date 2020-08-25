@@ -138,7 +138,7 @@
                      </p>
                   </div>
                   <div class="input-group mt-2 mb-3">
-                     <input type="text" class="form-control p-4 fs--1" id="user_search_input" onKeyUp="populate_services();" placeholder="Enter keywords to search categories.." value="Boat and Jetski" aria-label="Username" aria-describedby="basic-addon1" >
+                     <input type="text" class="form-control p-4 fs--1" id="user_search_input" onKeyUp="populate_services();" placeholder="Enter keywords to search categories.." value="" aria-label="Username" aria-describedby="basic-addon1" >
                      <div class="input-group-append   fs--1">
                         <span class="input-group-text bg-white " id="basic-addon1"><i class="fas text-muted  fs--1 fa-search"></i></span>
                      </div>
