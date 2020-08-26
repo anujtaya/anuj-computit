@@ -3,7 +3,7 @@
    <div class="form-group row">
       <div class="col-md-12 p-3">
          <label for="email">Email</label>
-         <input id="email" type="email" class="@error('email') is-invalid @enderror form-control text " style="border-radiuss:20px!important;" name="email" value="{{ old('email') }}" required  placeholder="Email" >
+         <input id="email" type="search" class="@error('email') is-invalid @enderror form-control text " style="border-radiuss:20px!important;" name="email" value="{{ old('email') }}" required  autocomplete="email" splaceholder="Email" >
          @error('email')
          <span class="invalid-feedback" role="alert">
          <strong>{{ $message }}</strong>
