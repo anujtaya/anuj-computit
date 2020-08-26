@@ -35,9 +35,10 @@ class ServiceProviderController extends Controller
     //calcualte job stats for service provider. Also exists in Service Seeker Job Controller
     function calcualte_user_job_stats($user_id){
         $completed_jobs = Job::where('service_provider_id', $user_id)
-            ->orwhere('status','=' , 'COMPLETED')
+            ->where('status','=' , 'COMPLETED')
             ->take(200)
             ->get();
+            
         $cancelled_jobs = count(DB::table('service_provider_job_cancellations')->take(200)->get());
         $completed_jobs_count = count($completed_jobs->where('status', 'COMPLETED' ));
         $total_jobs = $cancelled_jobs + $completed_jobs_count;
