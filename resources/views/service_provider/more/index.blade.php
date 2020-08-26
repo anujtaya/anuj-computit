@@ -12,7 +12,7 @@
          <div class="row m-0 text-center fs--1">
             <div class="col-6 p-0">
                <div class="border m-2  theme-color rounded  p-3" style="min-height:110px!important;">
-                  <a href="{{route('service_provider_more_help')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none"><img src="{{asset('/images/service_seeker/help.svg')}}" height="70px" width="70px" alt=""> <br><br>
+                  <a href="{{route('service_provider_more_help')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none"><img src="{{asset('/images/service_seeker/help.svg')}}?v=2" height="50px" width="50px" alt=""> <br><br>
                   Help
                   </a>  
                </div>
@@ -20,7 +20,7 @@
             <div class="col-6   p-0">
                <div class="border m-2 theme-color  rounded p-3" style="min-height:110px!important;">
                   <a href="{{route('service_provider_more_faqs')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
-                  <img src="{{asset('/images/service_seeker/faqs.svg')}}" height="70px" width="70px" alt=""> <br><br>
+                  <img src="{{asset('/images/service_seeker/faqs.svg')}}?v=1" height="50px" width="50px" alt=""> <br><br>
                   FAQ's
                   </a>
                </div>
@@ -28,7 +28,7 @@
             <div class="col-6  p-0">
                <div class="border m-2  theme-color rounded p-3" style="min-height:110px!important;">
                   <a href="{{route('service_provider_more_wallet')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
-                  <img src="{{asset('/images/service_seeker/wallet.svg')}}" height="70px" width="70px" alt=""> <br><br>
+                  <img src="{{asset('/images/service_seeker/wallet.svg')}}?v=1" height="50px" width="50px" alt=""> <br><br>
                      Payouts
                   </a>
                </div>
@@ -36,7 +36,7 @@
             <div class="col-6 p-0">
                <div class="border m-2  theme-color rounded  p-3" style="min-height:110px!important;">
                   <a href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
-                  <img src="{{asset('/images/service_seeker/switch.svg')}}" height="70px" width="70px" alt=""> <br><br>
+                  <img src="{{asset('/images/service_seeker/switch.svg')}}?v=1" height="50px" width="50px" alt=""> <br><br>
                   Switch to Seeker
                   </a>
                </div>
