@@ -69,7 +69,7 @@
          <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
             <textarea type="text" class="form-control form-control-sm" onchange="create_draft_job();" rows="12" id="service_job_description" placeholder="Please enter your job description">@if($session_draft_job != null){{$session_draft_job->description}}@endif</textarea>
-            <small id="emailHelp" class="form-text text-muted">Provide as much as details you can.</small>
+            <small id="emailHelp" class="form-text text-muted">Provide as much details as you can.</small>
          </div>
       </div>
       <!-- end view -->

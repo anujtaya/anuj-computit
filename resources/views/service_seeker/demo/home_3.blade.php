@@ -73,7 +73,7 @@ window.onload = function() {
                <br><br>
                To continue, you will need to login or register an account with us.
             </p>
-            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Signup</a>
+            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
          </div>
       </div>
    </div>
@@ -90,7 +90,7 @@ window.onload = function() {
             <p class="text-left fs--1 mb-2">
                You are browsing LocaL2LocaL in guest mode with limited feature. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.
             </p>
-            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Signup</a>
+            <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
          </div>
       </div>
    </div>

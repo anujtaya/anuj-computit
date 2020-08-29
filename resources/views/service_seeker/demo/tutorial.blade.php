@@ -51,8 +51,8 @@ h5 {
                               <img src="{{asset('/images/svg/l2l_ss_time_management.svg')}}" style="height:200px!important;width:200px!important;"  class="img-fluid m-4" alt="">
                               <h5 class="fs-1 mt-2">Set your time and date</h5>
                               <p class="fs--1 mt-2 sub-text-color">
-                                 Once accepted, we hoe to have your job completed ASAP. You can scheule the time for immediately or sometime in the future. Our in app messaging
-                                 also allows you to contact the selected provider to negotiate a time that suits you both.
+                              Our in app messaging also allows you to contact the selected provider to negotiate a time that suits you both.
+
                               </p>
                            </div>
                            <div class="carousel-item p-2">

@@ -31,7 +31,7 @@
                </div>
                <div class="form-group  text-center mb-0">
                   <button type="submit" class="btn theme-background-color btn-sm fs--1 text-white  custom_button_shadow mb-1">
-                     <i class="fas fa-paper-plane"></i> {{ __('Done') }}
+                     <i class="fas fa-paper-plane"></i> {{ __('Reset Password') }}
                   </button>
                </div>
             </form>

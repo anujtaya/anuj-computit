@@ -218,7 +218,7 @@ function fetch_service_providers() {
             "_token": csrf_token,
         },
         success: function(results) {
-            $("#map_msg").html(results.length + ' Service Provider found nearby your job location.');
+            $("#map_msg").html('There are ' + results.length + ' Service Providers near your current location.');
             if (results.length != 0) {
                 console.log(results);
                 populate_markers(results);

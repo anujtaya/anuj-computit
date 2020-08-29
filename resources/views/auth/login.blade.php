@@ -22,7 +22,7 @@
       <div class="col-lg-4 col-md-12 p-0" style="">
          <div class="p-2 theme-color rounded shadows m-4" style="border-radisus:55px; margin-top: 0px;">
             <h5 class="fs-1 mb-3" style="font-family:'Varela Round'!important;font-size:35px;">Welcome</h5>
-            <h5 class="fs-1 mb-3" style="color:#B4B4B4!important;">Please login or Sign up</h5>
+            <h5 class="fs-1 mb-3" style="color:#B4B4B4!important;">Please Login or Sign Up</h5>
             @include('auth.forms.login-form')
          </div>
       </div>
@@ -45,11 +45,11 @@
                   @csrf
                   <div class="radio">
                      <input id="radio-1" name="demo_type" type="radio" value="ss" checked="">
-                     <label for="radio-1" class="radio-label  " style="font-size:16px;">I want work done. (Know as a 'Seeker')</label>
+                     <label for="radio-1" class="radio-label  " style="font-size:16px;">I want work done. (Known as a 'Seeker')</label>
                   </div>
                   <div class="radio">
                      <input id="radio-2" name="demo_type" value="sp" type="radio">
-                     <label for="radio-2" class="radio-label" style="font-size:16px;">I want to work . (Know as a 'Provider')</label>
+                     <label for="radio-2" class="radio-label" style="font-size:16px;">I want to work. (Known as a 'Provider')</label>
                   </div>
                   <div class="mt-4">
                      <button type="submit" class="btn theme-background-color fs--1 text-white custom_button_shadow" styles="border-radius:20px;padding-left:10px;padding-top:10px;padding-bottom:10px;" width="221px" height="47px" onclick="toggle_animation(true);">Continue</button>

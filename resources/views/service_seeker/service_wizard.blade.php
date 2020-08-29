@@ -69,7 +69,7 @@
          <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
             <textarea type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();" rows="12" id="service_job_description" placeholder="Please enter your job description"></textarea>
-            <small id="emailHelp" class="form-text text-muted">Provide as much as details you can.</small>
+            <small id="emailHelp" class="form-text text-muted">Provide as much detail as you can.</small>
          </div>
       </div>
       <!-- end view -->
