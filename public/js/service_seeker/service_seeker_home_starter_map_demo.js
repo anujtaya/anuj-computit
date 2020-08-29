@@ -199,21 +199,18 @@ function update_location_using_navigator(position) {
         lng: position.coords.longitude
     };
 
-    if (enable_geocoder) {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({
-            latLng: pos
-        }, function(responses) {
-            if (responses && responses.length > 0) {
-                suburb = responses[0]['address_components'][1]['long_name'];
-                state = responses[0]['address_components'][3]['short_name'];
-                full_address = responses[0].formatted_address;
-                update_user_final_location(pos.lat, pos.lng, suburb, state, full_address);
-            }
-        });
-    } else {
-        update_user_final_location(pos.lat, pos.lng, "Test Suburb", "Test State", "Test Full Address, 1234");
-    }
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+        latLng: pos
+    }, function(responses) {
+        if (responses && responses.length > 0) {
+            suburb = responses[0]['address_components'][1]['long_name'];
+            state = responses[0]['address_components'][3]['short_name'];
+            full_address = responses[0].formatted_address;
+            update_user_final_location(pos.lat, pos.lng, suburb, state, full_address);
+        }
+    });
+
 }
 
 

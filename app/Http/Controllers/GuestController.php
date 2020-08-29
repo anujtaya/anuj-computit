@@ -130,16 +130,14 @@ class GuestController extends Controller
           $session_draft_job->user_agent = $request->server('HTTP_USER_AGENT');
           $session_draft_job->job_date_time = $payload->job_date_time;
           //guest service seeker address
-          if(isset($payload->current_address_string[0])) {
-              $session_draft_job->street_number = $payload->current_address_string[0]->long_name;
-              $session_draft_job->street_name = $payload->current_address_string[1]->long_name;
-              $session_draft_job->state = $payload->current_address_string[4]->long_name;
-              $session_draft_job->postcode = $payload->current_address_string[6]->long_name;
-              $session_draft_job->city = $payload->current_address_string[3]->long_name;
-              $session_draft_job->suburb = $payload->current_address_string[2]->long_name;
-              $session_draft_job->job_lat = $payload->job_lat;
-              $session_draft_job->job_lng = $payload->job_lng;
-          }  
+          $session_draft_job->street_number = $payload->current_address_string->street_number;
+          $session_draft_job->street_name = $payload->current_address_string->street_name;
+          $session_draft_job->state = $payload->current_address_string->state;
+          $session_draft_job->postcode = $payload->current_address_string->postcode;
+          $session_draft_job->city =$payload->current_address_string->city;
+          $session_draft_job->suburb = $payload->current_address_string->suburb;
+          $session_draft_job->job_lat = $payload->job_lat;
+          $session_draft_job->job_lng = $payload->job_lng;
           $session_draft_job->service_category_id = $payload->service_category_id;
           $session_draft_job->service_category_name = $payload->service_category_name;
           $session_draft_job->service_subcategory_name = $payload->service_subcategory_name;
@@ -160,16 +158,14 @@ class GuestController extends Controller
           $session_draft_job->user_agent = $request->server('HTTP_USER_AGENT');
           $session_draft_job->job_date_time = $payload->job_date_time;
           //guest service seeker address
-          if(isset($payload->current_address_string[0])) {
-              $session_draft_job->street_number = $payload->current_address_string[0]->long_name;
-              $session_draft_job->street_name = $payload->current_address_string[1]->long_name;
-              $session_draft_job->state = $payload->current_address_string[4]->long_name;
-              $session_draft_job->postcode = $payload->current_address_string[6]->long_name;
-              $session_draft_job->city = $payload->current_address_string[3]->long_name;
-              $session_draft_job->suburb = $payload->current_address_string[2]->long_name;
-              $session_draft_job->job_lat = $payload->job_lat;
-              $session_draft_job->job_lng = $payload->job_lng;
-          }  
+          $session_draft_job->street_number = $payload->current_address_string->street_number;
+          $session_draft_job->street_name = $payload->current_address_string->street_name;
+          $session_draft_job->state = $payload->current_address_string->state;
+          $session_draft_job->postcode = $payload->current_address_string->postcode;
+          $session_draft_job->city =$payload->current_address_string->city;
+          $session_draft_job->suburb = $payload->current_address_string->suburb;
+          $session_draft_job->job_lat = $payload->job_lat;
+          $session_draft_job->job_lng = $payload->job_lng;
           $session_draft_job->service_category_id = $payload->service_category_id;
           $session_draft_job->service_category_name = $payload->service_category_name;
           $session_draft_job->service_subcategory_name = $payload->service_subcategory_name;

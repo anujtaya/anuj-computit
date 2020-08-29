@@ -1,7 +1,189 @@
+var map, current_user_marker, geocoder, placeSearch, autocomplete;
 var current_service_id = null;
 var current_service_node_id = null;
 var current_job_lat = null;
 var current_job_lng = null;
+var current_address_string = {
+    street_number: '',
+    street_name: '',
+    state: '',
+    postcode: '',
+    city: '',
+    suburb: ''
+}
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+
+            zoom: 12,
+            clickableIcons: false,
+            // disableDefaultUI: true,
+            gestureHandling: 'greedy',
+            disableDefaultUI: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            styles: [{
+                    "featureType": "all",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "weight": "2.00"
+                    }]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{
+                        "color": "#9c9c9c"
+                    }]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text",
+                    "stylers": [{
+                        "visibility": "on"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [{
+                        "color": "#f2f2f2"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                },
+                {
+                    "featureType": "landscape.man_made",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [{
+                            "saturation": -100
+                        },
+                        {
+                            "lightness": 45
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#eeeeee"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "color": "#7b7b7b"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "simplified"
+                    }]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.icon",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [{
+                            "color": "#46bcec"
+                        },
+                        {
+                            "visibility": "on"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#b5dae1"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "color": "#070707"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }]
+                }
+            ],
+        }),
+
+        current_user_marker = new google.maps.Marker({
+            map: map,
+            zIndex: 1,
+            //icon: icons,
+            icon: {
+                url: '/images/map/marker.svg',
+                scaledSize: new google.maps.Size(40, 40), // scaled size
+            },
+            draggable: true,
+        });
+
+    current_user_marker.addListener('click', function() {
+        map.panTo(current_user_marker.position);
+        map.setZoom(18);
+    });
+
+    //set new current location on marker drag
+    google.maps.event.addListener(current_user_marker, 'dragend', function(evt) {
+        geocodePosition(current_user_marker.getPosition());
+    });
+
+    geocoder = new google.maps.Geocoder();
+}
+
 
 function user_service_selection(service_id) {
     var service_name = $("#" + service_id).data("catname");
@@ -186,49 +368,17 @@ function initAutocomplete() {
         componentRestrictions: { country: 'au' }
     });
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-
         // Get the place details from the autocomplete object.
         place = autocomplete.getPlace();
-        current_address_string = place['address_components'];
-
-        //console.log(current_address_string);
+        prepare_user_address_object(place['address_components']);
         current_job_lat = place.geometry.location.lat();
         current_job_lng = place.geometry.location.lng();
-
-        for (var component in componentForm) {
-            document.getElementById(component).value = '';
-            document.getElementById(component).disabled = false;
-        }
-
-        var fullAddress = [];
-
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-            var addressType = place.address_components[i].types[0];
-            if (componentForm[addressType]) {
-                var val = place.address_components[i][componentForm[addressType]];
-                document.getElementById(addressType).value = val;
-            }
-            if (addressType == "street_number") {
-                fullAddress[0] = val;
-            } else if (addressType == "route") {
-                fullAddress[0] += " " + val;
-            }
-        }
-
-        document.getElementById('street_number').value = fullAddress.join(" ");
-        if (document.getElementById('street_number').value !== "") {
-            document.getElementById('street_number').disabled = false;
-        }
-
-
+        update_map_position(place.geometry.location);
     });
 }
 
 //draft job create routes
 var draft_obj = null;
-var current_address_string = null;
 var current_job_status = 'DRAFT';
 
 function create_draft_job() {
@@ -337,28 +487,51 @@ function geocodePosition(pos) {
         latLng: pos
     }, function(responses) {
         if (responses && responses.length > 0) {
-            console.log(responses[0]);
-            current_address_string = responses[0].address_components;
-            current_job_lat = pos.lat;
-            current_job_lng = pos.lng;
-            var fullAddress = [];
-            for (var i = 0; i < responses[0].address_components.length; i++) {
-                var addressType = responses[0].address_components[i].types[0];
-                if (componentForm[addressType]) {
-                    var val = responses[0].address_components[i][componentForm[addressType]];
-                    document.getElementById(addressType).value = val;
-                }
-                if (addressType == "street_number") {
-                    fullAddress[0] = val;
-                } else if (addressType == "route") {
-                    fullAddress[0] += " " + val;
-                }
-            }
-            document.getElementById('street_number').value = fullAddress.join(" ");
-            if (document.getElementById('street_number').value !== "") {
-                document.getElementById('street_number').disabled = false;
-            }
-
+            prepare_user_address_object(responses[0].address_components);
+            current_job_lat = responses[0].geometry.location.lat();
+            current_job_lng = responses[0].geometry.location.lng();
+            update_map_position(responses[0].geometry.location);
+            document.getElementById('street_number').value = responses[0].formatted_address;
         }
     });
+}
+
+
+//prepare user current address string for job booking object
+function prepare_user_address_object(address_object) {
+    //make default values null
+    current_address_string = {
+        street_number: '',
+        street_name: '',
+        state: '',
+        postcode: '',
+        city: '',
+        suburb: ''
+    }
+    for (var i = 0; i < address_object.length; i++) {
+        var address_type = address_object[i].types[0];
+
+        var val = address_object[i]['long_name']
+        if (address_type == "street_number") {
+            current_address_string.street_number = val;
+        } else if (address_type == "route") {
+            current_address_string.street_name = val;
+        } else if (address_type == "administrative_area_level_2") {
+            current_address_string.city = val;
+        } else if (address_type == "administrative_area_level_1") {
+            current_address_string.state = val;
+        } else if (address_type == "postal_code") {
+            current_address_string.postcode = val;
+        } else if (address_type == "postal_code") {
+            current_address_string.postcode = val;
+        } else if (address_type == "locality") {
+            current_address_string.suburb = val;
+        }
+    }
+}
+
+function update_map_position(location) {
+    map.panTo(location);
+    current_user_marker.setPosition(location);
+    map.setZoom(18);
 }

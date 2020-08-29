@@ -1,3 +1,0 @@
-var map;
-
-function initMap() {}
