@@ -20,7 +20,7 @@
         </div>
         <input type="number" id="job_offer" name="job_offer" value="" step="0.01" class="form-control" style="border-top-right-radius: 10px!important; border-bottom-right-radius: 10px!important;" aria-label="job_offer" aria-describedby="basic-addon1" required>
       </div>
-      <label class="pb-2">Your response to job</label>
+      <label class="pb-2">Your response to the job</label>
 			<textarea type="text" class="form-control form-control-sm" rows="4" id="job_offer_description" name="job_offer_description" style="/* border: 1px solid #5D29BA!important */" placeholder=""></textarea>
 		  </div>
 

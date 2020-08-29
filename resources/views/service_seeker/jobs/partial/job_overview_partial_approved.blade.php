@@ -14,7 +14,10 @@
    <div class="text-center p-3">
          <img src="{{asset('images/svg/l2l_waiting.svg')}}" alt="" style="opacity:0.4;"  width="250px" class="img-fluid" alt="Responsive image">
          <br><br>
-         <p>Please wait for your Service Provider to arrive at your location. You can track your Service Provider live location on the map. Thank you for trusting LocaL2LocaL!</p>
+         <p>
+            Please wait for your Service Provider to arrive at your location. 
+            You can track your Service Provider’s live location on the map. Thank you for trusting LocaL2LocaL!
+         </p>
       </div>
 </div>
 

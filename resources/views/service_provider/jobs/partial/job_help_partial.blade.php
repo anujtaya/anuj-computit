@@ -10,7 +10,7 @@
     </p>
     <p>
         If you have more questions about this job, please email us at
-        help@local2local.com.au or you can visit <a href="{{route('service_provider_more_help')}}" onclick="toggle_animation(true);" class="theme-color font-weight-bolder">help section</a>
+        help@local2local.com.au or you can visit <a href="{{route('service_provider_more_help')}}?gobackurl={{route('service_provider_job',$job->id)}}" onclick="toggle_animation(true);" class="theme-color font-weight-bolder">help section</a>
         of this app, to message us directly.
     </p>
    

@@ -32,7 +32,7 @@
 
       @if($job_payment->status == 'UNPAID')
       <div class="alert alert-danger">
-            We are currently waiting for Service Seeker approval for this job invoice. Once the Service Seeker approves the invoice we will transfer the money in your nominated bank account.  
+            We are currently waiting for Service Seeker approval for this job invoice. Once the Service Seeker approves the invoice we will transfer the money in to your nominated bank account.  
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Total Job Price</div>
@@ -114,7 +114,7 @@
             <label for="extra_description">Write Comments Below</label>
             <textarea class="form-control form-control-sm" id="extra_description" rows="3" name="sp_rating_description_value" placeholder="It was great helping you out.">{{$job->service_provider_comment}}</textarea>
          </div>
-         <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Update Rating</button>
+         <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Save Rating</button>
       </form>
       @endif
    </div>  

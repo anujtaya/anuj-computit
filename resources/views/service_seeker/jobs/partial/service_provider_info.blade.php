@@ -3,7 +3,7 @@
       @if($conversation->json != null)
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight">
-            <span class="text-success fs--1">{{$user->first}} {{$user->last}} has offer to do this job for: <span class="fs--1">$</span>{{number_format($conversation->json['offer'],2)}}</span> <br>
+            <span class="text-success fs--1">{{$user->first}} {{$user->last}} has offered to do this job for: <span class="fs--1">$</span>{{number_format($conversation->json['offer'],2)}}</span> <br>
          </div>
       </div>
       <div class="text-muted bg-light p-2 mb-1 fs--1rounded">
@@ -42,8 +42,10 @@
       Completion Rate
    </div>
    <div class="p-3 bd-highlight">
-      <span class="fs-2">{{$stats->rating}}   <i class="fas fa-star fs--2 text-warning mt-0"></i> </span> <br>
-      Rating
+      <span class="fs-2">{{$stats->rating}}   </span> <br>
+      @for($i=0;$i<intval($stats->rating);$i++)
+         <i class="fas fa-star text-warning"></i> 
+      @endfor
    </div>
 </div>
 @if($user->user_bio != null)

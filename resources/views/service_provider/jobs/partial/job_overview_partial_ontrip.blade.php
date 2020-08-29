@@ -14,7 +14,7 @@
          <img src="{{asset('images/svg/l2l_order_ride.svg')}}" alt="" style="opacity:0.4;"  width="150px" class="img-fluid" alt="Responsive image">
          <br>
          <br>
-         <span>You are now on your way to Service Seeker location. Please be there on time. <br> <br>
+         <span>You are now on your way to your Service Seeker location. Please be there on time. <br> <br>
             <span class="text-monospace-d font-weight-bolder">{{$job->street_number}} {{$job->street_name}}  ,{{$job->city}} ,{{$job->state}} {{$job->postcode}}</span>  
           </span> <br> <br>
          <button class="btn btn-sm btn-danger border-0 card-1 fs--1 text-white delay-2s mr-2" onclick="job_cancel_ontrip();">Cancel Trip <i class="fas fa-ban fs--2"></i></butotn>

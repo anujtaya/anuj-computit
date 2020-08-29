@@ -30,7 +30,13 @@ margin-bottom:1.5rem;
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm sticky-top p-3 border-d seeker-help-new-bg">
          <div class="row">
-            <div class="col-4">   <a href="{{route('service_provider_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
+            <div class="col-4">   
+               @if(request()->has('gobackurl'))
+               <a href="{{request()->gobackurl}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>
+               @else
+               <a href="{{route('service_provider_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> 
+               @endif 
+            </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color helptext-new-color">Help <br><span class="fs--2 text-muted font-weight-normal helptext-new-color">Help & Support</span></div>
          </div>
       </div>

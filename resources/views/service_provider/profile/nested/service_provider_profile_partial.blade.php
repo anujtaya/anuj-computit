@@ -117,7 +117,7 @@ border-radius:50%;
       </i>
       @else
       <i class="theme-color">
-         You haven't submitted any information in about me section. You are strongly encouraged to fill this section to attract more attention from Service Seeker.
+         You haven’t submitted any information in the about me section. You are strongly encouraged to fill out this section to attract more engagement from Service Seekers in your area.
       </i>
       @endif
    </p>

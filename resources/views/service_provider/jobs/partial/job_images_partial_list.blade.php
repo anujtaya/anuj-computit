@@ -166,7 +166,7 @@
             }
             }else{
             $("#message").css("display", "none");
-            element.innerHTML = "No Images Found. Any Image attachemnt will appear here.";
+            element.innerHTML = "No Images Found. Any image attachement will appear here.";
             }
          }
       });

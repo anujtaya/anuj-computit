@@ -1,5 +1,5 @@
 <div class="alert alert-info">
-   Service Provider has completed the job. Please pay the job total amount. You can choose to pay via Debit/Card, Paypal or ZipPay.   
+   The Service Provider has completed the job. Please pay the job total amount.You can choose to pay via Credit/Debit card or PayPal.
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">Total Job Price</div>
@@ -20,10 +20,10 @@
       <input id="radio-2" name="payment_mode" value="PAYPAL" type="radio">
       <label for="radio-2" class="radio-label">Paypal</label>
    </div>
-   <div class="radio">
+   <!-- <div class="radio">
       <input id="radio-2" name="payment_mode" value="ZIPPAY" type="radio" disabled>
       <label for="radio-2" class="radio-label">ZipPay</label>
-   </div>
+   </div> -->
    <!-- <div class="radio">
       <input id="radio-2" name="type" value="CASH" type="radio" disabled>
       <label for="radio-2" class="radio-label">Cash</label>

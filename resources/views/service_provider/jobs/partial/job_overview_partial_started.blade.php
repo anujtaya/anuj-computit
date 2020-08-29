@@ -105,7 +105,7 @@
         </button>
       </div>
       <div class="modal-body text-center">
-         <p>If you click 'YES' the job will be marked completed and the job total amount will be charged from Service Seeker account.</p>
+         <p>If you click 'YES' the job will be marked completed and the job total amount will be charged from the Service Seeker's account.</p>
          <br>
         <button class="btn btn-sm theme-background-color card-1 mr-3" onclick="$('#complete_job_form').submit();">Yes</button>
         <button class="btn btn-sm btn-danger text-white card-1" data-dismiss="modal" aria-label="Close">No</button>

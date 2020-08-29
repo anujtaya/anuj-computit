@@ -14,7 +14,7 @@
       <img src="{{asset('images/svg/l2l_vault.svg')}}" alt="" style="opacity:0.4;"  width="150px" class="img-fluid" alt="Responsive image">
       <br>
       <br>
-      <p class="fs--1">Please enter the pin code in the input field given below. Please ask for PIN code from Service Seeker.</p>
+      <p class="fs--1">Please ask for the Pin Code from your Service Seeker and enter the code below.</p>
       <form action="{{route('service_provider_job_update_status_mark_started')}}" class="text-center" method="POST" onsubmit="toggle_animation(true);">
          @csrf
          <!-- <label for="pin_code_input">Enter PIN Code Below</label> -->
@@ -29,7 +29,7 @@
             </span>
          @enderror
          <br> <br>
-         <button class="btn btn-sm theme-background-color border-0 card-1  fs--1 text-white  delay-2s mr-2" type="submit">Start Job <i class="fas fa-arrow-right fs--2"></i></button>
+         <button class="btn btn-sm theme-background-color border-0 card-1  fs--1 text-white  delay-2s mr-2" type="submit">Complete Job <i class="fas fa-arrow-right fs--2"></i></button>
       </form>
    </div>
 </div>

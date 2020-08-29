@@ -7,7 +7,7 @@
                We have succesfully delivered your offering price of <b>${{number_format($conversation->json['offer'],2)}}</b> to the Service Seeker.
                Please wait while we get a response from Service Seeker directly. Look for SMS, Push notification or Email alerts sent by us.
             @else
-               You haven't made any job offer. Please click on the conversation below to make a job offer or contact Service Provider if you have any questions.
+               You haven’t made any job offers for this job. Please click the conversation below to make an offer or contact the Service Seeker if you have any questions.
             @endif
          </div>
       </div>
@@ -43,7 +43,7 @@
       </li>
       @else 
       <div class="text-center">
-         <span>If you ready to submit a job offer please tap the 'Send Offer' button below.</span>
+         <span>If you are ready to submit a job offer, please tap the ‘Send Offer’ button below.</span>
          <br><br>
          @if($job->status != "APPROVED")
          <a  class="btn  theme-background-color border-0 btn-block fs--1 shadow" onclick="open_job_offer_modal();"  data-target="#job_make_offer" href="#" role="button"  aria-haspopup="true" aria-expanded="false">

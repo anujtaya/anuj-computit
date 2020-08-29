@@ -54,13 +54,6 @@
                   </ul>
                </div>
             </div>
-            <div class="mt-3 ml-1 mr-1">
-               <h6>Paypal</h6>
-               <!-- source list with default selection  -->
-               <div class="m-1">
-                     Coming Soon :)
-               </div>
-            </div>
          </div>
          <div class="p-2 shadow-sm rounded mt-2">
             <span>Add new Credit/Debit Source</span> <br> <br>

@@ -54,7 +54,7 @@
       <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;height:150px;" class="img-fluid" alt="Service provider empty jobs image art">
       <br>
       <br>
-      <span>Looks like you haven't offered any quote to Service Seeker recently. Please come back later.</span>
+      <span>Looks like you haven’t offered any quotes to eligible Service Seekers in your area. Please engage in a job and come back later.</span>
       <br><br>
   </div>
   @endif
