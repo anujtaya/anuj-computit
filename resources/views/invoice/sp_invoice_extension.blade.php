@@ -1,6 +1,3 @@
-<style>
-
-</style>
 <!-- invoice items and extra breakdown summary-->
 <div  class="pl-4 pr-4 pt-2">
    <div class="w3-row m-2">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Document - Tax Invoice</title>
+      <title>Document - Remittance</title>
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
       <meta charset="utf-8">
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -15,17 +15,15 @@
          body { margin: 0px; }
 
          .table td, .table th {
-     padding: 0rem;
-    }
-
-    #footer {
-position: fixed;
-left: 0px; right: 0px; bottom: 20px;
-text-align: center;
-height: 300px;
-bottom: 0px !important;
-}
-
+            padding: 0rem;
+         }
+         #footer {
+         position: fixed;
+         left: 0px; right: 0px; bottom: 20px;
+         text-align: center;
+         height: 300px;
+         bottom: 0px !important;
+         }
       </style>
    </head>
    <body>
