@@ -1,7 +1,7 @@
 <?php
 //app landing page
 Route::get('/', 'MarketController@market_home_main')->name('market_home');
-Route::get('/root', 'MarketController@market_home_main')->name('market_home');
+
 Route::get('/marketFAQ', 'MarketController@market_faq')->name('market_faq');
 Route::get('/marketServiceProviders', 'MarketController@market_serviceproviders');
 Route::get('/marketClients', 'MarketController@market_serviceseekers');
@@ -18,8 +18,9 @@ Route::get('/marketHelp', 'MarketController@market_help')->middleware('auth');
 
 Auth::routes();
 //guest routess
-Route::get('/app/root',  'GuestController@handle_landing_request')->name('handle_landing_request');
-Route::get('app/root',  'GuestController@handle_landing_request')->name('handle_landing_request');
+Route::get('/root', 'GuestController@mobile_landing_page')->name('market_home');
+Route::get('/app/root',  'GuestController@mobile_landing_page')->name('handle_landing_request');
+Route::get('app/root',  'GuestController@mobile_landing_page')->name('handle_landing_request');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('app/mobile/root', 'GuestController@mobile_landing_page')->name('guest_mobile_landing_page');
 Route::post('/guest/register', 'GuestController@handle_guest_register_request')->name('guest_register');
