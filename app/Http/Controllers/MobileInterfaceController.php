@@ -11,10 +11,13 @@ use Input;
 use Validator;
 use Auth;
 use App\User;
+use App\UserCurrentLocation;
 use Session;
 use Image;
 use Storage;
 use URL;
+use Response;
+use DB;
 
 class MobileInterfaceController extends Controller
 {
@@ -29,8 +32,8 @@ class MobileInterfaceController extends Controller
     //login android user
     protected function android_login(Request $request){
         $userdata = array(
-        'email' => Input::get('email') ,
-        'password' => Input::get('password')
+        'email' => $request->get('email'),// Input::get('email') ,
+        'password' => $request->get('password')
         );
         if(Auth::attempt($userdata)){
         return Response::json(Auth::id());
@@ -42,12 +45,19 @@ class MobileInterfaceController extends Controller
 
     //saves access token from android devices
     protected function save_android_device_token(Request $request){
-        $input = Input::all();
+        $input = $request->all();
         $user = User::find($input['id']);
+        $response = false;
         if($user != null){
             $user->push_notification_token = $input['token'];
-            $user->save();
+            if($user->save()) {
+                $response = true;
+            }
         }
+        if($response) {
+            return Response::json(true);
+        } 
+        return Response::json(false);
     }
 
     //save access token from iOS device
@@ -70,22 +80,76 @@ class MobileInterfaceController extends Controller
     // update the service provider co-ordinates in the database.
 	public function iOS_location_receiver() {
 		$lat = $_POST['latitude'];
-		$lng = $_POST['longitude'];
+        $lng = $_POST['longitude'];
+        $response = false;
 		if (Auth::user()) {
-			DB::table('user_current_locations')->where('user_id', Auth::id())->update(['lat' => $lat, 'lng' => $lng]); //can be used along with user model behaviour.
-			var_dump(http_response_code(200));
-		} else {
-			var_dump(http_response_code(403)); 
-		}
+            $user = User::find(Auth::id());
+            if($user != null) {
+                $current_location = $user->current_location;
+                if($current_location != null) {
+                    $current_location->lat = $lat;
+                    $current_location->lng = $lng;
+                    if($current_location->save()) {
+                        $user->user_lat = $lat;
+                        $user->user_lng = $lng;
+                        $user->save();
+                        $response = true;
+                    }
+                } else {
+                    $current_location = new UserCurrentLocation();
+                    $current_location->lat = $lat;
+                    $current_location->lng = $lng;
+                    $current_location->user_id = $user->id;
+                    if($current_location->save()) {
+                        $user->user_lat = $lat;
+                        $user->user_lng = $lng;
+                        $user->save();
+                        $response = true;
+                    }
+                }
+            }
+		} 
+        if($response) {
+            var_dump(http_response_code(200));
+        }
+		var_dump(http_response_code(403)); 
 	}
 
 	// ANDROID ONLY: update the service provider co-ordinates in the database.
 	public function android_location_receiver() {
 		$id = $_POST['id'];
 		$lat = $_POST['lat'];
-		$lng = $_POST['lng'];
-		DB::table('user_current_locations')->where('user_id', $id)->update(['lat' => $lat, 'lng' => $lng]);
-		return Response::json(true);
+        $lng = $_POST['lng'];
+        $user = User::find($id);
+        $response = false;
+        if($user != null) {
+            $current_location = $user->current_location;
+            if($current_location != null) {
+                $current_location->lat = $lat;
+                $current_location->lng = $lng;
+                if($current_location->save()) {
+                    $user->user_lat = $lat;
+                    $user->user_lng = $lng;
+                    $user->save();
+                    $response = true;
+                }
+            } else {
+                $current_location = new UserCurrentLocation();
+                $current_location->lat = $lat;
+                $current_location->lng = $lng;
+                $current_location->user_id = $user->id;
+                if($current_location->save()) {
+                    $user->user_lat = $lat;
+                    $user->user_lng = $lng;
+                    $user->save();
+                    $response = true;
+                }
+            }
+        }
+        if($response) {
+            return Response::json(true);
+        }
+		return Response::json(false);
 	}
 
 }

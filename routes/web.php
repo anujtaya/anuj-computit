@@ -292,9 +292,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
 
 
 //mobile interface controller. Used for handling notification channels and other mobile realted requests.
-Route::post('android_login', 'MobileInterfaceController@android_login')->name('app_mobile_api_android_login');
-Route::post('serviceLatLng', 'MobileInterfaceController@iOS_location_receiver')->name('app_mobile_api_iOS_location_receiver');
-Route::post('serviceLatLng2', 'MobileInterfaceController@android_location_receiver')->name('app_mobile_api_android_location_receiver');
+Route::post('/android_login', 'MobileInterfaceController@android_login')->name('app_mobile_api_android_login');
+Route::post('/serviceLatLng', 'MobileInterfaceController@iOS_location_receiver')->name('app_mobile_api_iOS_location_receiver');
+Route::post('/serviceLatLng2', 'MobileInterfaceController@android_location_receiver')->name('app_mobile_api_android_location_receiver');
 Route::post('/notify', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id')->middleware('auth');
