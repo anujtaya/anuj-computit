@@ -136,8 +136,34 @@
             Account Actions
          </div>
          <div class="card-body">
-            <a href="{{route('app_portal_admin_users_update_user_send_welcome_email', $user->id)}}">Send Welcome Email</a>
-            <br>
+            <div class="m-1 bg-light">
+               <span>Email Notification: </span><br>
+               <a href="{{route('app_portal_admin_users_update_user_send_welcome_email', $user->id)}}">Send Welcome Email</a>
+            </div><br>
+            <div class="m-1 bg-light">
+               <span>Mobile Push Notification: </span><br>
+               @if($user->push_notification_token != null)
+               <br>
+               <span>Use the form below to test push notification on user device.</span><br>
+               <form action="{{route('app_portal_admin_users_send_user_mobile_test_notification')}}" method="POST">
+                     @csrf
+                     <input type="hidden" name="user_id" value="{{$user->id}}" required>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label>Notification Title</label>
+                           <input type="text" class="form-control form-control-sm rounded-0" name="title" value="Test Notification Title" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                           <label>Notification Body Message</label>
+                           <textarea type="text" class="form-control form-control-sm rounded-0" name="body" required>Test Notification Body</textarea>
+                        </div>
+                     </div>
+                  <button type="submit" class="btn btn-primary btn-sm mt-3 rounded-0">Test Notification</button>
+               </form>
+               @else
+               <span class="text-danger">This user doesn't have push notification enabled. Please download LocaL2LocaL app on user device to set-up the push notification service.</span>
+               @endif
+            </div>
          </div>
       </div>
    </div>

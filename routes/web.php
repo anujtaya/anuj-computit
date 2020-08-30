@@ -268,6 +268,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/users/update_user_online_status/', 'AdminController@user_update_online_status')->name('app_portal_admin_users_update_user_online_status');
   Route::post('/app/portal/admin/users/update_user_account_status/', 'AdminController@user_update_account_status')->name('app_portal_admin_users_update_user_account_status');
   Route::get('/app/portal/admin/users/update_user_send_welcome_email/{id}', 'AdminController@user_send_welcome_email')->name('app_portal_admin_users_update_user_send_welcome_email');
+  Route::post('/app/portal/admin/users/send_user_mobile_test_notification/', 'AdminController@send_user_mobile_test_notification')->name('app_portal_admin_users_send_user_mobile_test_notification');
   Route::get('/app/portal/admin/jobs/all', 'AdminController@jobs_all')->name('app_portal_admin_jobs');
   Route::get('/app/portal/admin/jobs/job/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
   Route::post('/app/portal/admin/jobs/search', 'AdminController@jobs_search')->name('app_portal_admin_jobs_search');

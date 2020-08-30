@@ -17,6 +17,10 @@ use Response;
 use App\Notifications\AccountCreated;
 use App\Job;
 use DB;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
 
 class AdminController extends Controller
 {
@@ -202,6 +206,46 @@ class AdminController extends Controller
             ->orderBy('distance', 'asc')
             ->get(); 
         return Response::json($d);
+    }
+
+
+    //user mobile notification routes
+    protected function send_user_mobile_test_notification(Request $request) {
+        $input = (object) $request->all();
+        $user  = User::find($input->user_id); 
+        $title = $input->title;
+        $message = $input->body;
+        if($user != null){
+            if($user->push_notification_token != null) {
+                //prepare notification
+                $optionBuilder = new OptionsBuilder();
+                $optionBuilder->setTimeToLive(60*20);
+                $notificationBuilder = new PayloadNotificationBuilder($title);
+                $notificationBuilder->setBody($message)->setSound('discreet');
+                $option = $optionBuilder->build();
+                $notification = $notificationBuilder->build();
+                $downstreamResponse = FCM::sendTo($user->push_notification_token, $option, $notification);
+                if(count($downstreamResponse->tokensToDelete()) > 0) {
+                    $user->push_notification_token = null;
+                    $user->save();
+                    Session::put('error', 'Firebase alerted to delete the token. System deleted the token on demand.');
+                }
+                if($downstreamResponse->numberSuccess() > 0) {
+                    Session::put('success', 'Mobile nottification sent successfully. Token is healthy.');
+                }
+                if(count($downstreamResponse->tokensToModify()) > 0) {
+                    $tokens = $downstreamResponse->tokensToModify();
+                    $user->push_notification_token = $tokens[0]['value'];
+                    $user->save();
+                    Session::put('success', 'Mobile nottification sent successfully and token is updated.');
+                }
+            } else {
+                Session::put('error', 'User fcm token is empty.');
+            }
+        } else {
+            Session::put('error', 'User not found.');
+        }
+        return redirect()->back();
     }
 
 
