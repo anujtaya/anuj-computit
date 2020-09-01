@@ -18,9 +18,8 @@ Route::get('/marketHelp', 'MarketController@market_help')->middleware('auth');
 
 Auth::routes();
 //guest routess
-Route::get('/root', 'GuestController@mobile_landing_page')->name('market_home');
+Route::get('/root', 'GuestController@mobile_landing_page');
 Route::get('/app/root',  'GuestController@mobile_landing_page')->name('handle_landing_request');
-Route::get('app/root',  'GuestController@mobile_landing_page')->name('handle_landing_request');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('app/mobile/root', 'GuestController@mobile_landing_page')->name('guest_mobile_landing_page');
 Route::post('/guest/register', 'GuestController@handle_guest_register_request')->name('guest_register');
@@ -297,6 +296,6 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
 Route::post('/android_login', 'MobileInterfaceController@android_login')->name('app_mobile_api_android_login');
 Route::post('/serviceLatLng', 'MobileInterfaceController@iOS_location_receiver')->name('app_mobile_api_iOS_location_receiver');
 Route::post('/serviceLatLng2', 'MobileInterfaceController@android_location_receiver')->name('app_mobile_api_android_location_receiver');
-Route::post('/notify', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
+Route::post('/notify', 'MobileInterfaceController@save_ios_device_token')->name('app_mobile_api_save_save_ios_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id')->middleware('auth');

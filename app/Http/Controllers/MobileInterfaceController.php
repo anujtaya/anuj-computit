@@ -43,6 +43,16 @@ class MobileInterfaceController extends Controller
     }
 
 
+    //save access token from ios device
+    protected function save_ios_device_token(Request $request){
+        $input = $request->all();
+        $user = User::find($input['user_id']);
+        $response = false;
+        if($user != null){
+            $user->push_notification_token = $input['token'];
+            $user->save();
+        }
+    }
     //saves access token from android devices
     protected function save_android_device_token(Request $request){
         $input = $request->all();
