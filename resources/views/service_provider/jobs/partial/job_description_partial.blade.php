@@ -66,7 +66,9 @@
 </div>
 <script>
    function geocodeLatLng2(lat, lng) {
-      window.location.href = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng;
+
+      window.open("https://www.google.com/maps/search/?api=1&query="+ lat + "," + lng);//47.5951518,-122.3316393
+     // window.location.href = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng;
    }
    
    function geocodeLatLng3(lat, lng) {
