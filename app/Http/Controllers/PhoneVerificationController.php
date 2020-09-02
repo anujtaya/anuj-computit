@@ -40,7 +40,7 @@ class PhoneVerificationController extends Controller
             $user = User::find(Auth::id());
             $user->phone = substr($input['target_phone_number'],1);
             $user->is_verified = 0;
-            if(!app()->isLocal() || app()->isLocaL()) {
+            if(!app()->isLocal()) {
             $token = \Config::get("services.twilio.TWILIO_AUTH_TOKEN");
             $twilio_sid = \Config::get("services.twilio.TWILIO_SID");
             $twilio_verify_sid = \Config::get("services.twilio.TWILIO_VERIFY_SID");
