@@ -42,8 +42,12 @@ border-radius:50%;
       <span></span>
    </div>
    <div class="p-3 bd-highlight">
-      <span class="fs-2">{{$stats->rating}}   <i class="fas fa-star fs--2 text-warning mt-0"></i> </span> <br>
-      Your Ratings
+      <span class="fs-2">{{$stats->rating}} </span> <br>
+      <span class="text-warning">
+         @for($i=0;$i<intval($stats->rating);$i++)
+            <i class="fas fa-star mt-0"></i> 
+         @endfor
+      </span>
    </div>
 </div>
 <div class="m-2 p-2 rounded card-1">

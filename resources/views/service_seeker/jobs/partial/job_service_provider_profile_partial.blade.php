@@ -15,8 +15,7 @@
          Completion Rate
       </div>
       <div class="p-3 bd-highlight">
-         <span class="fs-2">{{$stats->rating}}   <i class="fas fa-star fs--2 text-warning mt-0"></i> </span> <br>
-         Your Ratings
+         <span class="fs-2">{{$stats->rating}} </span> <br>
          <span class="text-warning">
            @for($i=0;$i<intval($stats->rating);$i++)
                <i class="fas fa-star mt-0"></i> 
