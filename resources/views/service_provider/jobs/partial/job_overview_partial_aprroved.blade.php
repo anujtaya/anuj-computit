@@ -14,7 +14,11 @@
          <img src="{{asset('images/svg/l2l_map_dark.svg')}}" alt="" style="opacity:0.4;"  width="250px" class="img-fluid" alt="Responsive image">
          <br>
          <br>
-         <span>Congratulations! Your offer was accepted by The Service Seeker.You can use the button below to get directions to your Seekers Location. Click the button below to get started.</span>
+         <span>
+            Congratulations! 
+            Your offer was accepted by the Service Seeker. You can use the button below to get directions to your Seekers location. 
+            Click the button below to get started.
+         </span>
          <br><br>
          @if($job->status != 'OPEN')
             <?php

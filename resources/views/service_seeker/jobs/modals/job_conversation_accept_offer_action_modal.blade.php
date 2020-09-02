@@ -55,7 +55,7 @@
                </div>
                <div class="row mt-3 ml-0 mr-0">
                   <div class="col-12 mb-2 p-0">
-                     By clicking the button "Confirm to Prceed" you agree to LocaL2LocaL offer acceptance T&Cs. To view our T&C, please tap here.
+                     By clicking the button "Confirm to Proceed" you agree to LocaL2LocaL offer acceptance T&Cs.
                   </div>
                   <div class="col-12 mt-2 p-0">
                      <button  type="submit" class="btn btn-block btn-success fs--1 text-white shadow">Confirm to Proceed</button>

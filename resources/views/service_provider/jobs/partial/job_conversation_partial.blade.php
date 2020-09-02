@@ -7,7 +7,7 @@
          @if($conversation->json != null)
             You have offered to complete this job for ${{number_format($conversation->json['offer'],2)}}. Offer Description: {{$conversation->json['offer_description']}}.
          @else
-            You haven’t made any job offers for this job. Please click the conversation below to make an offer or contact the Service Seeker if you have any questions.
+            You haven’t made any job offers for this job. Please click the Change Offer button to make an offer or use our in app messaging service if you have any questions.
          @endif
          </div>
       </div>

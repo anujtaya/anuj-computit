@@ -46,7 +46,7 @@ h5 {
                               <h5 class="fs-1">Make an Offer</h5>
                               <p class="fs--1  sub-text-color">
                                  Once you find the job for you, It's time to make an offer. Start by describing why you would be the right one 
-                                 for the job by adding your skills, qualifications.
+                                 for the job by adding your skills and qualitifications.
                               </p>
                            </div>
                            <div class="carousel-item p-2">

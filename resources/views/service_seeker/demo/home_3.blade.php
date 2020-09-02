@@ -69,9 +69,7 @@ window.onload = function() {
             <br>
             <br>
             <p class="text-left fs--1 mb-2">
-               Now you can post your job if couldn't find any Service Provider online. We will notify you when Service Provider respond to your job with price quote. Usually Service provider respond to job within an hour of posting the job on Job board.
-               <br><br>
-               To continue, you will need to login or register an account with us.
+               To post a job you will need to login or register a new account with us to enable this feature.  We will notify you when a Service Provider responds to your job with a price quote.
             </p>
             <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
          </div>
@@ -88,7 +86,7 @@ window.onload = function() {
             <br>
             <br>
             <p class="text-left fs--1 mb-2">
-               You are browsing LocaL2LocaL in guest mode with limited feature. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.
+               You are browsing LocaL2LocaL in guest mode with limited features. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.
             </p>
             <a class="btn theme-background-color text-white card-1" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
          </div>

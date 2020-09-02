@@ -32,7 +32,7 @@
             <img src="{{asset('/images/svg/l2l_add_user_ss.svg')}}" class="img-fluid" style="width:250px;" alt="Service Seeker - Add User Account">
             <br>
             <br>
-            <p>To post a job you will need to login or register a new account with us to enable this feature.  We will notify you when a Service Provider responds to your job with a price quote.</p>
+            <p>You are browsing LocaL2LocaL in guest mode with limited features. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.</p>
             <a class="btn theme-background-color text-white" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
          </div>
       </div>
