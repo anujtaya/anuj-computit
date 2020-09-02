@@ -66,8 +66,9 @@
 </div>
 <script>
    function geocodeLatLng2(lat, lng) {
-
-      window.open("https://www.google.com/maps/search/?api=1&query="+ lat + "," + lng);//47.5951518,-122.3316393
+      window.open("https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination="+ lat + "," + lng);//47.5951518,-122.3316393
+    //  https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=[YOUR_LAT],[YOUR_LNG]")
+     // window.open("https://www.google.com/maps/search/?api=1&query="+ lat + "," + lng);//47.5951518,-122.3316393
      // window.location.href = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng;
    }
    
