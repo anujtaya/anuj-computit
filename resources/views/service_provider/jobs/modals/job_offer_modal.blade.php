@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="job_make_offer_modal" tabindex="-1" role="dialog" aria-labelledby="job_make_offer_modalLabel" aria-hidden="true">
+<div class="modal fade" style="z-index:10000!important;" id="job_make_offer_modal" tabindex="-1" role="dialog" aria-labelledby="job_make_offer_modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none;">
