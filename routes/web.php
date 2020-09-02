@@ -298,4 +298,4 @@ Route::post('/serviceLatLng', 'MobileInterfaceController@iOS_location_receiver')
 Route::post('/serviceLatLng2', 'MobileInterfaceController@android_location_receiver')->name('app_mobile_api_android_location_receiver');
 Route::post('/notify', 'MobileInterfaceController@save_ios_device_token')->name('app_mobile_api_save_save_ios_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
-Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id')->middleware('auth');
+Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
