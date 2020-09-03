@@ -136,10 +136,10 @@
                var col = document.createElement('div');
                col.classList = "col-xm-3 bd-highlight";
                var img  = document.createElement('img')
-               img.src = app_job_image_url +  '/storage/job_attachments/' + data[i]['path'];
-               img.classList = "pb-0 ml-1 mt-1 p-1   shadow-sm float-center";
-               img.style.height = "90px";
-               img.style.width = "90px";
+               img.src =  app_job_image_url + '/fetch/job_attachments/' + data[i]['id'];
+               img.classList = "pb-0 ml-1 mt-1 p-1 shadow-sm float-center";
+               img.style.height = "67px";
+               img.style.width = "67px";
                img.id = 'img-' + data[i]['id'];
                img.addEventListener('click', function (e) {
                display_image_model(this.id);
@@ -155,7 +155,7 @@
                   slide1.classList = "carousel-item p-2";
                }
                var img2  = document.createElement('img')
-               img2.src =  app_job_image_url + '/storage/job_attachments/' + data[i]['path'];
+               img2.src =  app_job_image_url + '/fetch/job_attachments/' + data[i]['id'];
                img2.classList = "img-fluid p-2 border border-light";
                //img2.style.width = "220px";
                var btn = document.createElement('button')

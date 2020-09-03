@@ -104,7 +104,7 @@
                   var col = document.createElement('div');
                   col.classList = "col-xm-3 bd-highlight";
                   var img  = document.createElement('img')
-                  img.src =  app_url + '/storage/job_attachments/' + data[i]['path'];
+                  img.src =  app_url + '/fetch/job_attachments/' + data[i]['id'];
                   img.classList = "pb-0 ml-1 mt-1 p-1 shadow-sm float-center";
                   img.style.height = "67px";
                   img.style.width = "67px";

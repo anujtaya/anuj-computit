@@ -15,6 +15,7 @@ use Validator;
 use Response;
 use Image;
 use Storage;
+use URL;
 
 class JobAttachmentController extends Controller
 {
@@ -46,7 +47,7 @@ class JobAttachmentController extends Controller
           $image_alteration->orientate();
 
           //create a unique file path name
-          $file_path = 'job_attachments/'.rand() . '.' . $img->getClientOriginalExtension();
+          $file_path =  'job_attachments/'.$request->all()['current_job_id'].'-job_image-'.time().'.' . $img->getClientOriginalExtension();
 
           //create a streamable image re
           $resource = $image_alteration->stream()->detach();
@@ -64,7 +65,7 @@ class JobAttachmentController extends Controller
 
           return response()->json([
            'message'   => 'Image Upload Successfully',
-           'uploaded_image' => '<img src="https://s3-ap-southeast-2.amazonaws.com/l2l-resources/'.$file_path.'" class="img-thumbnail" width="300" />',
+           'uploaded_image' => '<img src="'.URL::to('/').'/fetch/job_attachments/'.$file_path.'" class="img-thumbnail" width="300" />',
            'class_name'  => 'alert-success'
           ]);
          }

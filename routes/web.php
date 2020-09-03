@@ -208,9 +208,8 @@ Route::group(['middleware' => 'auth' ], function () {
   Route::post('imageservice/images/delete/', 'JobAttachmentController@remove_job_images')->name('imageservice_images_delete');
   Route::post('imageservice/images/user/profile_image_upload', 'UserController@upload_user_profile_image')->name('imageservice_images_user_profile_image_upload');
   //storage directory links
-  Route::get('storage/images/profile/{filename}', 'ImageStorageController@make_profile_image_link');
-  Route::get('storage/images/profile/', 'ImageStorageController@make_profile_image_link_default');
-  Route::get('storage/job_attachments/{filename}', 'ImageStorageController@make_job_attachment_image_link');
+
+  Route::get('/fetch/job_attachments/{id}', 'ImageStorageController@make_job_attachment_image_link');
 });
 
 
