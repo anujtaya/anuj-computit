@@ -26,6 +26,9 @@
       <a class="list-group-item {{ request()->is('app/portal/admin/service_management/*') ? 'active' : '' }}" href="{{route('app_portal_admin_service_management')}}">
       <i class="fas fa-tasks p-1" style="min-width:30px!important;"></i> Service Management
       </a>
+      <a class="list-group-item {{ request()->is('app/portal/admin/data/*') ? 'active' : '' }}" href="{{route('app_portal_admin_data_import_index')}}">
+      <i class="fas fa-tasks p-1" style="min-width:30px!important;"></i> Data Import/Export
+      </a>
       <a  class="list-group-item {{ request()->is('app/portal/admin/maps/*') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_heatmap')}}">
       <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Heat Maps
       </a>

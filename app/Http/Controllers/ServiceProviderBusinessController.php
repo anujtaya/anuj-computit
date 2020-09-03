@@ -52,7 +52,7 @@ class ServiceProviderBusinessController extends Controller
             }
             if($new_business_info->save()){
               $user = User::find(Auth::id());
-              $user->user_type = 2;
+              $user->user_type = 1;
               if($user->save()) {
                 return redirect()->route('service_provider_register_services');
               }
@@ -63,7 +63,7 @@ class ServiceProviderBusinessController extends Controller
 
     function service_registration_page(){
         $user = User::find(Auth::id());
-        $user->user_type = 2;
+        $user->user_type = 1;
         $user->save();
         return view('service_provider.business.service_registration_page');
     }

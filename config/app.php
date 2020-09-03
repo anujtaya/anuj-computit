@@ -15,6 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'short_name' => env('APP_SHORT_NAME', ''),
+    'file_access_url' => env('FILE_ACCESS_URL'),
 
     /*
     |--------------------------------------------------------------------------

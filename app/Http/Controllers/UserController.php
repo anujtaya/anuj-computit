@@ -49,7 +49,7 @@ class UserController extends Controller
           $new_user->last = $data['last'];
           $new_user->email = $data['email'];
           $new_user->phone = $data['phone'];
-          $new_user->user_type = 1; // 1 is service seeker; 2 is service provider;
+          $new_user->user_type = 2; // 2 is service seeker; 1 is service provider;
           $new_user->password = Hash::make($data['password']);
           if($new_user->save()) {
               //create an empty current locatin object
@@ -139,7 +139,7 @@ class UserController extends Controller
             //prepate image to be stored
             $img      = $request->file('file');
             $img_ext  = $img->getClientOriginalExtension();
-            $img_name = Auth::id().''.time().'.' .$img->getClientOriginalExtension();
+            $img_name = Auth::id().'-profile_image-'.time().'.'.$img_ext;
             
             
             $data = getimagesize($img);
@@ -163,27 +163,27 @@ class UserController extends Controller
             $filePath = '';
             $response = false;
             if(app()->isLocal()) {
-                $filePath = '/public/images/profile/'.$img_name;
+                $filePath = 'user_images_testing/'.$img_name;
                 $resource = $image_resize->stream()->detach();
-                $response = Storage::disk('local')->put($filePath, $resource);
+                $response = Storage::disk('s3')->put($filePath, $resource, 'public');
                 if($response) {
-                    $delete_response = Storage::disk('local')->delete('/public/images/profile/'.$old_file_delete_path);
+                    $delete_response = Storage::disk('s3')->delete($old_file_delete_path);
                 }
-            } else{
-                $filePath = '/public/images/profile/'.$img_name;
+            } else {
+                $filePath = 'user_images/'.$img_name;
                 $resource = $image_resize->stream()->detach();
-                $response = Storage::disk('local')->put($filePath, $resource);
+                $response = Storage::disk('s3')->put($filePath, $resource, 'public');
                 if($response) {
-                    $delete_response = Storage::disk('local')->delete('/public/images/profile/'.$old_file_delete_path);
+                    $delete_response = Storage::disk('s3')->delete($old_file_delete_path);
                 }
             }
 
             if($response) {
-                $user->profile_image_path = $img_name;
+                $user->profile_image_path = $filePath;
                 $user->save();
                 return response()->json([
                     'message'   => 'Profile Photo uploaded Successfully.',
-                    'uploaded_image' => '<img src="'.url('/').'/storage/images/profile/'.$img_name.'" class="border-white card-2" height="60" width="60" alt="User profile image display" id="trigger_image" style="border-radius:50%;"/>',
+                    'uploaded_image' => '<img src="https://s3-ap-southeast-2.amazonaws.com/l2l-resources/'.$filePath.'" class="border-white card-2" height="60" width="60" alt="User profile image display" id="trigger_image" style="border-radius:50%;"/>',
                     'class_name'  => 'alert-success'
                 ]);
             }else {

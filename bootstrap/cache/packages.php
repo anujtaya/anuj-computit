@@ -10,6 +10,17 @@
       'PDF' => 'Barryvdh\\DomPDF\\Facade',
     ),
   ),
+  'bayareawebpro/laravel-simple-csv' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'BayAreaWebPro\\SimpleCsv\\SimpleCsvServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'SimpleCsv' => 'BayAreaWebPro\\SimpleCsv\\SimpleCsvFacade',
+    ),
+  ),
   'beyondcode/laravel-dump-server' => 
   array (
     'providers' => 

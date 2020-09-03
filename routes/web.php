@@ -289,6 +289,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/service_managment/add_category', 'ServiceManagementController@add_category')->name('app_portal_admin_add_category');
   Route::post('/app/portal/admin/service_managment/add_sub_category', 'ServiceManagementController@add_sub_category')->name('app_portal_admin_add_sub_category');
 
+
+  Route::get('/app/portal/admin/data/import/index', 'DataImportController@index')->name('app_portal_admin_data_import_index');
+
 });
 
 
@@ -299,3 +302,7 @@ Route::post('/serviceLatLng2', 'MobileInterfaceController@android_location_recei
 Route::post('/notify', 'MobileInterfaceController@save_ios_device_token')->name('app_mobile_api_save_save_ios_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
+
+
+//dev only routes
+Route::get('dev/migrate_users', 'DataImportController@import_users')->name('app_portal_admin_data_import_index');

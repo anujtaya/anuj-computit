@@ -16,7 +16,7 @@ class IsServiceProvider
      */
     public function handle($request, Closure $next)
     {
-      if(Auth::user()->user_type == 2){
+      if(Auth::user()->user_type == 1){
         return $next($request);
       }else{
         return redirect()->route('service_provider_register_business');

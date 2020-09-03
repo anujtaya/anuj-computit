@@ -63,6 +63,27 @@ return [
             ]) : [],
         ],
 
+        
+        'mysql2' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_TWO', ''),
+            'port' => env('DB_PORT_TWO', ''),
+            'database' => env('DB_DATABASE_TWO', 'forge'),
+            'username' => env('DB_USERNAME_TWO', 'forge'),
+            'password' => env('DB_PASSWORD_TWO', ''),
+            'unix_socket' => env('DB_SOCKET_TWO', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false, //changed for quick fix Anuj Taya
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
