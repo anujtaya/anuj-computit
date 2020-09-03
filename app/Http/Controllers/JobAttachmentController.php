@@ -46,11 +46,11 @@ class JobAttachmentController extends Controller
           $image_alteration->orientate();
 
           //create a unique file path name
-          $file_path = rand() . '.' . $img->getClientOriginalExtension();
+          $file_path = 'job_attachments/'.rand() . '.' . $img->getClientOriginalExtension();
 
           //create a streamable image re
           $resource = $image_alteration->stream()->detach();
-          $response = Storage::disk('local')->put('/public/job_attachments/'.$file_path, $resource);
+          $response = Storage::disk('s3')->put($file_path, $resource);
 
           //store the job attachment
           $new_image_attachment = new JobAttachment();
@@ -64,7 +64,7 @@ class JobAttachmentController extends Controller
 
           return response()->json([
            'message'   => 'Image Upload Successfully',
-           'uploaded_image' => '<img src="/storage/job_attachments/'.$file_path.'" class="img-thumbnail" width="300" />',
+           'uploaded_image' => '<img src="https://s3-ap-southeast-2.amazonaws.com/l2l-resources/'.$file_path.'" class="img-thumbnail" width="300" />',
            'class_name'  => 'alert-success'
           ]);
          }
@@ -92,7 +92,7 @@ class JobAttachmentController extends Controller
     $response = false;
     if($attachment != null){
       if($attachment->path != null && $attachment->upload_user_id == Auth::id()) { 
-        $delete_response = Storage::disk('local')->delete('/public/job_attachments/'.$attachment->path);
+        $delete_response = Storage::disk('s3')->delete($attachment->path);
 
         if($delete_response){
             $attachment->delete();
