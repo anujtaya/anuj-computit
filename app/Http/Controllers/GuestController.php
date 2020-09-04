@@ -325,4 +325,24 @@ class GuestController extends Controller
       return Response::json(true);
     }
 
+    //fetch nearby service providers
+    function fetch_service_provider_nearby(){
+      $lat = $_POST['user_current_lat'];
+      $lng = $_POST['user_current_lng'];
+      $radius = 100;
+      
+      $users =  DB::table("users")
+            ->select("users.user_lat","users.user_lng","users.id","users.profile_image_path","users.first","users.last" ,DB::raw("6371 * acos(cos(radians(" . $lat . ")) 
+            * cos(radians(users.user_lat)) 
+            * cos(radians(users.user_lng) - radians(" . $lng . ")) 
+            + sin(radians(" .$lat. ")) 
+            * sin(radians(users.user_lat))) AS distance"))
+            //->where('users.is_online', true)
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance', 'asc')
+            ->take(10)
+            ->get(); 
+      return Response::json($users);
+    }
+
 }

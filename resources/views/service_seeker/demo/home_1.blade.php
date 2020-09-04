@@ -33,6 +33,36 @@
    .modal{
    z-index: 20;   
    }
+
+   .gm-style .gm-style-iw-c {
+   
+    background-color: #5D29BA!important;
+    color: white!important;
+    padding: 14px!important;
+    -webkit-box-shadow: 0 1rem 4rem rgba(0, 0, 0, .175)!important;
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, .175)!important;
+}
+
+.gm-style .gm-style-iw-t::after {
+    background: #5D29BA!important;
+    box-shadow: none!important;
+}
+
+
+.gm-style .gm-style-iw-d + button  {
+   margin: 5px!important;
+   
+}
+
+.gm-style .gm-style-iw-d + button::after  {
+   content:"X"!important;
+   color:white!important;
+   
+}
+.gm-style .gm-style-iw-d + button > img  {
+   display: none!important;
+   
+}
 </style>
 <!-- end style  -->
 <div class="wrapper">

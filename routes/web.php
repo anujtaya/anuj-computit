@@ -25,6 +25,7 @@ Route::get('app/mobile/root', 'GuestController@mobile_landing_page')->name('gues
 Route::post('/guest/register', 'GuestController@handle_guest_register_request')->name('guest_register');
 Route::get('/app/register', 'RegisterHomeController@register')->name('app_register');
 Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')->name('guest_service_seeker_home');
+Route::post('/guest/service_seeker/services/service_providers_nearby/fetch', 'GuestController@fetch_service_provider_nearby')->name('guest_service_seeker_services_service_providers_nearby_fetch');
 Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
 Route::post('/guest/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
 Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('guest_service_seeker_services_filter');

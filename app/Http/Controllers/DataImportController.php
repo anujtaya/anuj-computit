@@ -29,31 +29,42 @@ class DataImportController extends Controller
     
     //import user into the system.
     function import_users(Request $request){
-        $input = (object) $request->all();
 
-        $users = DB::connection('mysql2')->table('users')->select('id','firstName','lastName','abn','phone','email','lat','lng','onService','isVerified','status', 'role', 'userImage','password','created_at','updated_at')->take(40)->get();
-        foreach($users as $user) {
-            $new_user = new User();
-            $new_user->first = $user->firstName;
-            $new_user->last = $user->lastName;
-            $new_user->email = $user->email;
-            $new_user->phone = $user->phone;
-            $new_user->user_type = $user->role;
-            if($user->password != null) {
-                $new_user->password = $user->password;
+        if($request->has('key')) {
+
+            if($request->get('key') == '9034150116') {
+
+         
+                ini_set('max_execution_time', 300);
+
+                $input = (object) $request->all();
+                $users = DB::connection('mysql2')->table('users')->select('id','firstName','lastName','abn','phone','email','lat','lng','onService','isVerified','status', 'role', 'userImage','password','created_at','updated_at')->take(400)->get();
+                foreach($users as $user) {
+                    $new_user = new User();
+                    $new_user->first = $user->firstName;
+                    $new_user->last = $user->lastName;
+                    $new_user->email = $user->email;
+                    $new_user->phone = $user->phone;
+                    $new_user->user_type = $user->role;
+                    if($user->password != null) {
+                        $new_user->password = $user->password;
+                    }
+                    $new_user->user_lat = $user->lat;
+                    $new_user->user_lng = $user->lng;
+                    $new_user->is_online = $user->onService;
+                    $new_user->status = $user->status;
+                    $new_user->is_verified = $user->isVerified;
+                    $new_user->profile_image_path = $user->userImage;
+                    $new_user->created_at = $user->created_at;
+                    $new_user->updated_at = $user->updated_at;
+                    $new_user->save();
+                }
+                dd('All user acount created successfully');
             }
-            $new_user->user_lat = $user->lat;
-            $new_user->user_lng = $user->lng;
-            $new_user->is_online = $user->onService;
-            $new_user->status = $user->status;
-            $new_user->is_verified = $user->isVerified;
-            $new_user->profile_image_path = $user->userImage;
-            $new_user->created_at = $user->created_at;
-            $new_user->updated_at = $user->updated_at;
-            $new_user->save();
-
         }
-        dd('All user acount created successfully');
+
+        abort(403,'Not allowed.');
+        
     }
 
     //generate a old user csv file

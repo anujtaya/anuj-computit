@@ -246,7 +246,7 @@ function update_user_final_location(lat, lng, suburb, state, full_address) {
     current_lng = lng;
     map.panTo(new google.maps.LatLng(current_lat, current_lng));
     current_user_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
-    //populate_random_job_markers();
+    fetch_marker_data(lat, lng);
 }
 
 //intit autocomplete for manual location update
@@ -346,7 +346,25 @@ function setMapOnAll(map) {
         markers[i].addListener('click', function() {
             //map.panTo(this.position);
             //map.setZoom(15);
-            infowindow.setContent("<p class='p-3 text-primary'>This provider offer services in <b>" + this.custom_data + "</b></p>")
+            //infowindow.setContent("<p class='p-3 text-primary'>This provider offer services in <b>" + this.custom_data + "</b></p>")
+            if (this.profile_image_path == 'user_image/no_user_image.png') {
+                infowindow.setContent("<div class='d-flex bd-highlight'>" +
+                    "<div class='p-1 bd-highlight'>" +
+
+                    "<span class='font-weight-bolder' style='font-size:1.3em;'>" + this.name + "</span>" +
+                    "<br><span class='font-weight-bolders' style='font-size:1em;'>" + this.service_name + "</span>" +
+                    "</div>" +
+                    "</div>");
+            } else {
+                infowindow.setContent("<div class='d-flex bd-highlight'><div class='p-1 bd-highlight'><img class='rounded-circle shadow-lg' height='40px' width='40px' src=" + "https://s3-ap-southeast-2.amazonaws.com/l2l-resources/" + this.profile_image_path + "></div>" +
+                    "<div class='p-1 bd-highlight'>" +
+
+                    "<span class='font-weight-bolder' style='font-size:1.3em;'>" + this.name + "</span>" +
+                    "<br><span class='font-weight-bolders' style='font-size:1em;'>" + this.service_name + "</span>" +
+                    "</div>" +
+                    "</div>");
+            }
+
             infowindow.open(map, this);
             //populate_map_job_detail_modal_popup(this.customMarkerJobId);
 
@@ -357,43 +375,71 @@ function setMapOnAll(map) {
     }
 }
 
-function populate_random_job_markers() {
+
+
+function fetch_marker_data(a, b) {
+    //get marker data from server close to user current location
+    $.ajax({
+        type: "POST",
+        url: app_url + '/guest/service_seeker/services/service_providers_nearby/fetch',
+        data: {
+            "_token": csrf_token,
+            "user_current_lat": a,
+            "user_current_lng": b,
+        },
+        success: function(results) {
+            console.log(results);
+            populate_job_markers(results);
+        },
+        error: function(results, status, err) {
+            console.log(err);
+        }
+    });
+}
+
+function populate_job_markers(marker_data) {
     setMapOnAll(null);
     markers = [];
-    for (var i = 0; i < 10; i++) {
-        var coords = generate_random_coordinate();
+    for (var i = 0; i < marker_data.length; i++) {
+
         service_provider_conversation_marker = new google.maps.Marker({
-            position: new google.maps.LatLng(coords.lat, coords.lng),
+            position: new google.maps.LatLng(marker_data[i].user_lat, marker_data[i].user_lng),
             icon: {
                 //url: './images/dot.svg',
                 url: app_url + '/images/map/service_seeker_job_icon.svg',
                 scaledSize: new google.maps.Size(30, 30),
             },
-            custom_data: service_categories[Math.floor(Math.random() * (10 - 1) + 1)],
+            service_name: service_categories[Math.floor(Math.random() * (10 - 1) + 1)],
+            user_lat: marker_data[i].user_lat,
+            name: capitalizeFirstLetter(marker_data[i].first) + ' ' + capitalizeFirstLetter(marker_data[i].last),
+            profile_image_path: marker_data[i].profile_image_path,
         });
         markers.push(service_provider_conversation_marker);
         setMapOnAll(map);
     }
 }
 
-
-function generate_random_coordinate() {
-    var r = 5000 / 111300 // = 100 meters
-        ,
-        y0 = current_user_marker.getPosition().lat(),
-        x0 = current_user_marker.getPosition().lng(),
-        u = Math.random(),
-        v = Math.random(),
-        w = r * Math.sqrt(u),
-        t = 2 * Math.PI * v,
-        x = w * Math.cos(t),
-        y1 = w * Math.sin(t),
-        x1 = x / Math.cos(y0)
-    var coords = {
-        lat: y0 + y1,
-        lng: x0 + x1
-    };
-    //console.log(coords);
-
-    return coords;
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// function generate_random_coordinate() {
+//     var r = 5000 / 111300 // = 100 meters
+//         ,
+//         y0 = current_user_marker.getPosition().lat(),
+//         x0 = current_user_marker.getPosition().lng(),
+//         u = Math.random(),
+//         v = Math.random(),
+//         w = r * Math.sqrt(u),
+//         t = 2 * Math.PI * v,
+//         x = w * Math.cos(t),
+//         y1 = w * Math.sin(t),
+//         x1 = x / Math.cos(y0)
+//     var coords = {
+//         lat: y0 + y1,
+//         lng: x0 + x1
+//     };
+//     //console.log(coords);
+
+//     return coords;
+// }
