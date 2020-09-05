@@ -33,36 +33,27 @@
    .modal{
    z-index: 20;   
    }
-
    .gm-style .gm-style-iw-c {
-   
-    background-color: #5D29BA!important;
-    color: white!important;
-    padding: 14px!important;
-    -webkit-box-shadow: 0 1rem 4rem rgba(0, 0, 0, .175)!important;
-    box-shadow: 0 1rem 4rem rgba(0, 0, 0, .175)!important;
-}
-
-.gm-style .gm-style-iw-t::after {
-    background: #5D29BA!important;
-    box-shadow: none!important;
-}
-
-
-.gm-style .gm-style-iw-d + button  {
+   background-color: #5D29BA!important;
+   color: white!important;
+   padding: 14px!important;
+   -webkit-box-shadow: 0 1rem 4rem rgba(0, 0, 0, .175)!important;
+   box-shadow: 0 1rem 4rem rgba(0, 0, 0, .175)!important;
+   }
+   .gm-style .gm-style-iw-t::after {
+   background: #5D29BA!important;
+   box-shadow: none!important;
+   }
+   .gm-style .gm-style-iw-d + button  {
    margin: 5px!important;
-   
-}
-
-.gm-style .gm-style-iw-d + button::after  {
+   }
+   .gm-style .gm-style-iw-d + button::after  {
    content:"X"!important;
    color:white!important;
-   
-}
-.gm-style .gm-style-iw-d + button > img  {
+   }
+   .gm-style .gm-style-iw-d + button > img  {
    display: none!important;
-   
-}
+   }
 </style>
 <!-- end style  -->
 <div class="wrapper">
@@ -92,19 +83,19 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
 <!-- script to control the map function -->
 <script>
-var app_url = "{{URL::to('/')}}";
-var current_suburb = null;
-var current_lat = null;
-var current_lng = null;
-var update_location_on_load = true;
-var service_categories = @json($categories);
-var enable_geocoder = false;
-
-window.onload = function() {
-  if(update_location_on_load) {
-      update_user_location();
+   var app_url = "{{URL::to('/')}}";
+   var current_suburb = null;
+   var current_lat = null;
+   var current_lng = null;
+   var update_location_on_load = true;
+   var service_categories = @json($categories);
+   var enable_geocoder = false;
+   
+   window.onload = function() {
+     if(update_location_on_load) {
+         update_user_location();
+      }
    }
-}
 </script>
 <!-- end map control script  -->
 @endsection

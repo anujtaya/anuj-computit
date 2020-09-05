@@ -100,7 +100,8 @@ class GuestController extends Controller
       $session_draft_job = SessionDraftJob::where('id', Session::getID())->first();
   
       if($request->has('showSPSView')){
-        return view("service_seeker.demo.home_3")->with('session_draft_job', $session_draft_job);
+        $service_categories = $categories->pluck('service_name');
+        return view("service_seeker.demo.home_3")->with('categories', $service_categories)->with('session_draft_job', $session_draft_job);
       }
 
       if($request->has('showBooking')){
