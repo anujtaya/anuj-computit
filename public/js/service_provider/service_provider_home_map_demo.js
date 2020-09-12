@@ -184,7 +184,7 @@ function display_job_markers() {
         var serviceMarker = new google.maps.Marker({
             position: new google.maps.LatLng(jobs[i]['job_lat'], jobs[i]['job_lng']),
             icon: {
-                url: '/images/map/service_provider_job_icon.svg',
+                url: '/images/map/service_seeker_job_icon.svg',
                 scaledSize: new google.maps.Size(30, 30),
 
             },

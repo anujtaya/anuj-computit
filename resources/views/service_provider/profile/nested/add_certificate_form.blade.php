@@ -30,7 +30,7 @@
       </div>
       <div class="col-md-12 text-centers mb-0">
          <button type="submit" class="btn theme-background-color card-1 fs--1 font-weight-normal mt-0" id="" >
-         <i class="fas fa-arrow-up"></i>  {{ __('Upload') }}
+         <i class="fas fa-arrow-up"></i>  {{ __('Save') }}
          </button>
       </div>
    </div>

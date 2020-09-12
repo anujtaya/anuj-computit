@@ -11,7 +11,7 @@
                 Add Certificates
             </div>
             <div class="col-3 text-right">
-                <a href="{{route('service_provider_profile_nested')}}" class="theme-color font-weight-bold" onclick="toggle_animation(true);">Next</a>
+                <a href="{{route('service_provider_profile_nested')}}" class="theme-color font-weight-bold" onclick="toggle_animation(true);">Done</a>
             </div>
          </div>
       </div>

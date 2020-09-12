@@ -27,13 +27,13 @@ border-radius:50%;
       <span class="fs-2">
       @switch($stats->percentage)
       @case($stats->percentage > 80 && $stats->percentage <= 100)
-      <span class="text-success">{{$stats->percentage}}%</span> 
+      <span class="text-success">{{number_format($stats->percentage,2)}}%</span> 
       @break
       @case($stats->percentage > 40 && $stats->percentage < 80)
-      <span class="theme-color">{{$stats->percentage}}%</span>  
+      <span class="theme-color">{{number_format($stats->percentage,2)}}%</span>  
       @break
       @case( $stats->percentage < 40)
-      <span class="text-danger">{{$stats->percentage}}%</span>    
+      <span class="text-danger">{{number_format($stats->percentage,2)}}%</span>    
       @break
       @default
       @endswitch

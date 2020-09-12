@@ -336,7 +336,7 @@ function populate_job_markers(marker_data) {
             position: new google.maps.LatLng(marker_data[i].user_lat, marker_data[i].user_lng),
             icon: {
                 //url: './images/dot.svg',
-                url: app_url + '/images/map/service_seeker_job_icon.svg',
+                url: app_url + '/images/map/service_provider_job_icon.svg',
                 scaledSize: new google.maps.Size(30, 30),
             },
             service_name: service_categories[Math.floor(Math.random() * (10 - 1) + 1)],
