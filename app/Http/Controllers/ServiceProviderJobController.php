@@ -11,6 +11,7 @@ use Response;
 use App\ConversationMessage;
 use App\JobPayment;
 use Notification;
+use Notifiable;
 use App\Notifications\ServiceProviderEmailInvoice;
 use App\Notifications\JobQuoteOfferSend;
 use App\Notifications\JobConversationNewMessageServiceProvider;
@@ -25,6 +26,10 @@ use Stripe\Stripe;
 use Stripe\Charge;
 use Stripe\Customer;
 use App\ServiceProviderPaylog;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
 
 
 class ServiceProviderJobController extends Controller
@@ -146,7 +151,11 @@ class ServiceProviderJobController extends Controller
 						$msg->msg_created_at = Carbon::now();
 						$msg->save();
 						if($job->save()){
-							$this->send_notification_job_quote_offer($job,$conversation);
+							//email notification
+							//$this->send_notification_job_quote_offer($job,$conversation);
+							$title = 'New Message from your Service Provider - '.$conversation->service_provider_profile->first;
+							$message = $msg->text;
+							$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 						}
 					}
 				}else{
@@ -162,7 +171,11 @@ class ServiceProviderJobController extends Controller
 						$msg->msg_created_at = Carbon::now();
 						$msg->save();
 						if($job->save()){
-							$this->send_notification_job_quote_offer($job,$conversation_exists);
+							//email notification
+							//$this->send_notification_job_quote_offer($job,$conversation_exists);
+							$title = 'New Message from your Service Provider - '.$conversation->service_provider_profile->first;
+							$message = $msg->text;
+							$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 						}
 					}
 				}
@@ -243,7 +256,11 @@ class ServiceProviderJobController extends Controller
 		  $msg->msg_created_at = Carbon::now();
 		  $response = $msg->save();
 		  if($response) {
-			$this->send_notification_job_conversation_new_message($conversation,$message);
+			//email notification
+			//$this->send_notification_job_conversation_new_message($conversation,$message);
+			$title = 'New Message from your Service Provider - '.$conversation->service_provider_profile->first;
+			$message = $msg->text;
+			$this->send_user_mobile_notification($conversation->job->service_seeker_profile, $title, $message);
 		  }
 	  }
       return Response::json($response);
@@ -370,7 +387,10 @@ class ServiceProviderJobController extends Controller
 			if($conversation != null) {
 				$job->status = 'ONTRIP';
 				if($job->save()) {
-					app('App\Http\Controllers\JobNotificationController')->send_job_status_update_notification_to_service_seeker($job);
+					//app('App\Http\Controllers\JobNotificationController')->send_job_status_update_notification_to_service_seeker($job);
+					$title = 'LocaL2LocaL - Job Status Updated';
+					$message = 'The status of the job with id #'.$job->id.' has been changed to'.$job->status;
+					$this->send_user_mobile_notification($conversation->job->service_seeker_profile, $title, $message);
 					$response = true;
 				}
 			}
@@ -737,38 +757,91 @@ class ServiceProviderJobController extends Controller
 
 	//notification functions below
 	//job board notification
-	protected function send_notification_job_quote_offer($job,$conversation){
-		$user = User::find($job->service_seeker_id);
-		if($user != null) {
-			$service_provider_info = User::find($conversation->service_provider_id);
-			$data = new \stdClass();
-			$data->job_id = $job->id;
-			$data->service_seeker_name = $user->first;
-			$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
-			$data->service_name = $job->service_category_name.'-'.$job->service_subcategory_name;
-			$data->offer = $conversation->json['offer'];
-			//email
-			$user->notify(new JobQuoteOfferSend($data));
-			//sms
-			//push notification
-		}
-	}
+	// protected function send_notification_job_quote_offer($job,$conversation){
+	// 	$user = User::find($job->service_seeker_id);
+	// 	if($user != null) {
+	// 		$service_provider_info = User::find($conversation->service_provider_id);
+	// 		$data = new \stdClass();
+	// 		$data->job_id = $job->id;
+	// 		$data->service_seeker_name = $user->first;
+	// 		$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+	// 		$data->service_name = $job->service_category_name.'-'.$job->service_subcategory_name;
+	// 		$data->offer = $conversation->json['offer'];
+	// 		//email
+	// 		$user->notify(new JobQuoteOfferSend($data));
+	// 		//sms
+	// 		//push notification
+	// 	}
+	// }
 
-	protected function send_notification_job_conversation_new_message($conversation,$message){
-		$user = User::find($conversation->job->service_seeker_id);
-		if($user != null) {
-			$service_provider_info = User::find($conversation->service_provider_id);
-			$data = new \stdClass();
-			$data->job_id = $conversation->job_id;
-			$data->service_seeker_name = $user->first;
-			$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
-			$data->message = $message;
-			//email
-			$user->notify(new JobConversationNewMessageServiceProvider($data));
-			//sms
-			//push notification
-		}
-	}
+	// protected function send_notification_job_conversation_new_message($conversation,$message){
+	// 	$user = User::find($conversation->job->service_seeker_id);
+	// 	if($user != null) {
+	// 		$service_provider_info = User::find($conversation->service_provider_id);
+	// 		$data = new \stdClass();
+	// 		$data->job_id = $conversation->job_id;
+	// 		$data->service_seeker_name = $user->first;
+	// 		$data->service_provider_name = $service_provider_info->first.' '.$service_provider_info->last;
+	// 		$data->message = $message;
+	// 		//email
+	// 		$user->notify(new JobConversationNewMessageServiceProvider($data));
+	// 		//sms
+	// 		//push notification
+	// 	}
+	// }
+  
+
+	//service seeker accepts service provider job offer
+	// protected function send_notification_job_offer_accepted($conversation){
+	// 	$user = User::find($conversation->job->service_seeker_id);
+	// 	if($user != null) {
+	// 	$service_provider_info = User::find($conversation->service_provider_id);
+	// 	$data = new \stdClass();
+	// 	$data->job_id = $conversation->job_id;
+	// 	$data->service_seeker_name = $user->first;
+	// 	$data->service_provider_name = $service_provider_info->first;
+	// 	$data->offer = $conversation->json['offer'];
+	// 	//email
+	// 	$service_provider_info->notify(new JobQuoteOfferAccepted($data));
+	// 	//sms
+	// 	//push notification
+	// 	}
+	// }
+  
+  
+  //user mobile notification routes
+  protected function send_user_mobile_notification($user, $title, $message) {
+	$response = false;
+	if($user != null){
+		if($user->push_notification_token != null) {
+			//prepare notification
+			$optionBuilder = new OptionsBuilder();
+			$optionBuilder->setTimeToLive(60*20);
+			$notificationBuilder = new PayloadNotificationBuilder($title);
+			$notificationBuilder->setBody($message)->setSound('discreet');
+			$option = $optionBuilder->build();
+			$notification = $notificationBuilder->build();
+			$downstreamResponse = FCM::sendTo($user->push_notification_token, $option, $notification);
+			if(count($downstreamResponse->tokensToDelete()) > 0) {
+				$user->push_notification_token = null;
+				$user->save();
+				//set the user token to empty
+			}
+			if($downstreamResponse->numberSuccess() > 0) {
+				$response = true;
+				//do nothing here
+			}
+			if(count($downstreamResponse->tokensToModify()) > 0) {
+				$tokens = $downstreamResponse->tokensToModify();
+				$user->push_notification_token = $tokens[0]['value'];
+				$user->save();
+				Session::put('success', 'Mobile nottification sent successfully and token is updated.');
+			}
+		} 
+	} 
+	return $response;
+	
+  }
   
 
 
