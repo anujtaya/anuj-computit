@@ -413,6 +413,9 @@ class ServiceProviderJobController extends Controller
 				$job->status = 'APPROVED';
 				if($job->save()) {
 					$response = true;
+					$title = 'LocaL2LocaL - Job has been cancelled.';
+					$message = 'A job with id #'.$job->id.' has been cancelled by your Service Provider';
+					$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 				}
 			}
 		}
@@ -434,6 +437,9 @@ class ServiceProviderJobController extends Controller
 				$job->status = 'ARRIVED';
 				if($job->save()) {
 					$response = true;
+					$title = 'LocaL2LocaL - Service Provider Arrived.';
+					$message = 'Service Provider has arrived for job with id #'.$job->id;
+					$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 				}
 			}
 		}
@@ -458,6 +464,9 @@ class ServiceProviderJobController extends Controller
 				if($job->job_pin == $data->pin_code_input) {
 					$job->status = 'STARTED';
 					$job->save();
+					$title = 'LocaL2LocaL - Job Started.';
+					$message = 'Service Provider has started for job with id #'.$job->id;
+					$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 				} else {
 					$validator->getMessageBag()->add('pin_code_input', 'The pin you have entered is invalid.');
 				}
@@ -484,6 +493,9 @@ class ServiceProviderJobController extends Controller
 				if($create_payment_record) {
 					$job->status = 'COMPLETED';
 					$job->save();
+					$title = 'LocaL2LocaL - Job Completed.';
+					$message = 'Service Provider has completed for job with id #'.$job->id;
+					$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 				}
 				
 			} 
