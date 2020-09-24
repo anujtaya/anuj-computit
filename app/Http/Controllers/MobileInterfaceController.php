@@ -125,6 +125,20 @@ class MobileInterfaceController extends Controller
 		var_dump(http_response_code(403)); 
 	}
 
+    //saves access token from android devices
+    protected function save_android_device_token_2(){
+        $id = $_POST['id'];
+		$token = $_POST['token'];
+        $user = User::find($id);
+        if($user != null){
+            $user->push_notification_token = $token;
+            $user->save();
+        }
+        return Response::json(true);
+    }
+
+
+
 	// ANDROID ONLY: update the service provider co-ordinates in the database.
 	public function android_location_receiver() {
 		$id = $_POST['id'];

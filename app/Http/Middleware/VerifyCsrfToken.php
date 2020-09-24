@@ -25,6 +25,7 @@ class VerifyCsrfToken extends Middleware
         '/android_login',
         '/notifyAndro',
         '/serviceLatLng2',
-        '/addRating'
+        '/addRating',
+        '/save_android_token'
     ];
 }

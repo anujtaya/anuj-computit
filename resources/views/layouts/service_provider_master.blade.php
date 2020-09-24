@@ -28,6 +28,8 @@
       </style>
    </head>
    <body>
+      <input type="hidden" name="android_user_id" id="android_user_id" value="'{'user_id':'{{Auth::id()}}','cat':'WP'}'">
+      <input type="hidden" name="android_csrf_token_id" id="android_csrf_token_id" value="{{csrf_token()}}" >
       <div id="app">
          <main class="py-0 d-lg-noneq">
             @yield('content')
