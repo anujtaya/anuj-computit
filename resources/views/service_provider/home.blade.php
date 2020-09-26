@@ -5,6 +5,7 @@
 <script src="{{asset('/js/service_provider/service_provider_home_renderer.js')}}?v={{rand(1,1000)}}"></script>
 <script src="{{asset('/js/service_provider/service_provider_home_map.js')}}?v={{rand(1,1000)}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script src="{{asset('/js/third/pulltorefresh.umd.js')}}"></script>
 @stack('header-style')
 <link rel="stylesheet" href="{{asset('css/common/preloader.css')}}?v=8"/>
 <style>
@@ -28,34 +29,23 @@
    z-index: 20;   
    }
 </style>
-<div class="container ">
-   <div class="row  justify-content-center" >
-      <div class="col-lg-12 theme-background-color shadow shadow-sms fixed-top bg-white pl-3 pr-3 border-d" style="z-index:19!important;">
+<div class="container p-0">
+   <div class="row m-0" >
+      <div class="col-lg-12 theme-background-color shadow shadow-sms fixed-top bg-white  border-d" style="z-index:19!important;">
          <div class="row">
             <div class="col-8 pl-2 pt-3 pb-3">
-                  <!-- online/offline controls -->
-                  <form action="{{route('service_provider_services_update_availablity_status')}}" method="POST" onsubmit="toggle_animation(true);" id="update_availablity_form" style="display:none;">
-                     @csrf
-                     <input type="hidden" value="@if(Auth::user()->is_online) offline @else online @endif" name="target_status" required>
-                  </form>
-                  {{--
-                  @if(Auth::user()->is_online)
-                     <button class="btn text-success shadow-sm border-0 fs--1 bg-white" style="border-radius:20px;" onclick="$('#update_availablity_form').submit();">
-                        <i class="fas fa-circle animated infinite fadeIn fs--2 "></i>  Go Offline
-                     </button>
-                  @else
-                     <button class="btn text-danger shadow-sm border-0 fs--1 bg-white" style="border-radius:20px;" onclick="$('#update_availablity_form').submit();">     
-                        <i class="fas fa-circle fs--2 "></i>  Go Online
-                     </button>
-                  @endif
-                  --}}
-                  <!-- map view controls -->
-                  <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="map_btn" onclick="switch_view_mode('MAP')">
-                  Map View
-                  </button>
-                  <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="list_btn" onclick="switch_view_mode('LIST')">
-                  List View
-                  </button>          
+               <!-- online/offline controls -->
+               <form action="{{route('service_provider_services_update_availablity_status')}}" method="POST" onsubmit="toggle_animation(true);" id="update_availablity_form" style="display:none;">
+                  @csrf
+                  <input type="hidden" value="@if(Auth::user()->is_online) offline @else online @endif" name="target_status" required>
+               </form>
+               <!-- map view controls -->
+               <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;display:none;" id="map_btn" onclick="switch_view_mode('MAP')">
+               Map View
+               </button>
+               <button class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="list_btn" onclick="switch_view_mode('LIST')">
+               List View
+               </button>          
             </div>
             <div class="col-4 text-right">
                <div class="nav-item dropdown">
@@ -78,84 +68,116 @@
             </div>
          </div>
       </div>
-   </div>
-   <!-- job list view window -->
-   <div class="col-lg-12 p-0" style="margin-top:60px!important;">
-      <div class="row mb-0  border-bottom">
-         <!-- location update  -->
-         <div class="col-12 p-0 border-bottom">
-            <div class="d-flex fs--2 bd-highlight">
-               <div class="p-2 bd-highlight" onclick="handle_automatc_loc_update_failure();" id="user_current_saved_location">
-                  @if(Auth::user()->user_lat != null)
-                  <i class="fas fa-map-marker-alt"></i> 
-                  <span class="theme-color">
+      <!-- job list view window -->
+      <div class="col-lg-12 p-0" style="margin-top:60px!important;">
+         <div class="row m-0  border-bottom">
+            <!-- location update  -->
+            <div class="col-12 p-0 border-bottom">
+               <div class="d-flex fs--2 bd-highlight">
+                  <div class="p-2 bd-highlight" onclick="handle_automatc_loc_update_failure();" id="user_current_saved_location">
+                     @if(Auth::user()->user_lat != null)
+                     <i class="fas fa-map-marker-alt"></i> 
+                     <span class="theme-color">
                      @if(Auth::user()->user_full_address != '') 
-                        {{Auth::user()->user_full_address}}
+                     {{Auth::user()->user_full_address}}
                      @endif
-                  </span> 
-                  @else
-                  <span class="text-danger">Please update your service location.</span>
-                  @endif      
+                     </span> 
+                     @else
+                     <span class="text-danger">Please update your service location.</span>
+                     @endif      
+                  </div>
+                  <!-- <div class="ml-auto p-2 bd-highlight"> 
+                     <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="update_sp_location();"  style="border-radius:20px;" >
+                     <i class="fas fa-redo-alt"></i> Update
+                     </button>
+                     </div> -->
                </div>
-               <!-- <div class="ml-auto p-2 bd-highlight"> 
-                  <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="update_sp_location();"  style="border-radius:20px;" >
-                  <i class="fas fa-redo-alt"></i> Update
-                  </button>
-               </div> -->
+            </div>
+            <!-- end location update div -->
+            <div class="col-6 pl-2 pr-2 pt-2 pb-2">
+               <a class="btn btn-sm theme-background-color border-0 fs--2 shadow" style="display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fas fa-sort-amount-up-alt"></i> Sort
+               </a>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
+               </div>
+               <!-- <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
+                  Refresh
+                  </a> -->
+            </div>
+            <div class="col-6 fs--2 pl-1 pt-1 pb-2  pr-2 text-right text-muted">
+               <span id="update_refresh_counter_el">0</span> sec ago.
+               <!-- <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
+                  <i class="fas fa-crosshairs"></i> Reset
+                  </button> -->
+               <button class="btn btn-sm  theme-background-color border-0 fs--2 shadow" onclick="resetLocation();" id="map_reset_btn">
+               <i class="fas fa-redo-alt"></i> Update
+               </button>
             </div>
          </div>
-         <!-- end location update div -->
-         <div class="col-6 pl-2 pt-2 pb-2">
-            <a class="btn btn-sm theme-background-color border-0 fs--2 shadow" style="border-radius:20px;display:none;" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-sort-amount-up-alt"></i> Sort
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-               <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
-               <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
-            </div>
-            <!-- <a  id="map_refresh_btn" class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="filter_service_provider_jobs(null,false);" style="border-radius:20px; cursor: pointer;" >
-            Refresh
-            </a> -->
-            
+
+         <div class="col-12 pl-1 pr-1">
+            <!-- preloader container display  -->
+            <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display">
+               <div class="timeline-wrapper">
+                  @for($i=0;$i<6;$i++)
+                  <div class="timeline-item shadow m-1 border-0">
+                     <div class="animated-background">
+                        <div class="background-masker header-top"></div>
+                        <div class="background-masker header-left"></div>
+                        <div class="background-masker header-right"></div>
+                        <div class="background-masker header-bottom"></div>
+                        <div class="background-masker subheader-left"></div>
+                        <div class="background-masker subheader-right"></div>
+                        <div class="background-masker subheader-bottom"></div>
+                        <div class="background-masker content-top"></div>
+                        <div class="background-masker content-first-end"></div>
+                        <div class="background-masker content-second-line"></div>
+                        <div class="background-masker content-second-end"></div>
+                        <div class="background-masker content-third-line"></div>
+                        <div class="background-masker content-third-end"></div>
+                     </div>
+                  </div>
+                  @endfor
+               </div>
+            </ul>
+            <!-- job list contianer display  -->
+            <ul class="list-group fs--2"  style="overflow:scroll;height:640px;display:none;" id="job_list_display">
+               <!-- autopupulate area  -->
+            </ul>
          </div>
-         <div class="col-6 fs--2 pt-2 pb-2 pr-2 text-right text-muted">
-            <span id="update_refresh_counter_el">0</span> sec ago.
-            <!-- <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="reset_map_position();" id="map_reset_btn" style="border-radius:20px;" >
-            <i class="fas fa-crosshairs"></i> Reset
-            </button> -->
-            <button class="btn btn-sm theme-background-color border-0 fs--2 shadow" onclick="resetLocation();" id="map_reset_btn" style="border-radius:20px;" >
-            <i class="fas fa-redo-alt"></i> Update
-            </button>
+         <div class="col-12 pl-1 pr-1">
+            <!-- preloader container display  -->
+            <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display">
+               <div class="timeline-wrapper">
+                  @for($i=0;$i<6;$i++)
+                  <div class="timeline-item shadow m-1 border-0">
+                     <div class="animated-background">
+                        <div class="background-masker header-top"></div>
+                        <div class="background-masker header-left"></div>
+                        <div class="background-masker header-right"></div>
+                        <div class="background-masker header-bottom"></div>
+                        <div class="background-masker subheader-left"></div>
+                        <div class="background-masker subheader-right"></div>
+                        <div class="background-masker subheader-bottom"></div>
+                        <div class="background-masker content-top"></div>
+                        <div class="background-masker content-first-end"></div>
+                        <div class="background-masker content-second-line"></div>
+                        <div class="background-masker content-second-end"></div>
+                        <div class="background-masker content-third-line"></div>
+                        <div class="background-masker content-third-end"></div>
+                     </div>
+                  </div>
+                  @endfor
+               </div>
+            </ul>
+            <!-- job list contianer display  -->
+            <ul class="list-group fs--2"  style="overflow:scroll;height:640px;display:none;" id="job_list_display">
+               <!-- autopupulate area  -->
+            </ul>
          </div>
       </div>
-      <!-- preloader container display  -->
-      <ul class="list-group fs--1 mt-1" style="display:none;" id="preloader_display">
-         <div class="timeline-wrapper">
-            @for($i=0;$i<6;$i++)
-            <div class="timeline-item shadow m-1 border-0">
-               <div class="animated-background">
-                  <div class="background-masker header-top"></div>
-                  <div class="background-masker header-left"></div>
-                  <div class="background-masker header-right"></div>
-                  <div class="background-masker header-bottom"></div>
-                  <div class="background-masker subheader-left"></div>
-                  <div class="background-masker subheader-right"></div>
-                  <div class="background-masker subheader-bottom"></div>
-                  <div class="background-masker content-top"></div>
-                  <div class="background-masker content-first-end"></div>
-                  <div class="background-masker content-second-line"></div>
-                  <div class="background-masker content-second-end"></div>
-                  <div class="background-masker content-third-line"></div>
-                  <div class="background-masker content-third-end"></div>
-               </div>
-            </div>
-            @endfor
-         </div>
-      </ul>
-      <!-- job list contianer display  -->
-      <ul class="list-group m-0 " style="overflow:scroll; height:640px;display:none;" id="job_list_display">
-         <!-- autopupulate area  -->
-      </ul>
    </div>
 </div>
 <div id="map_view_display" class="" style="margin-bottom:60px">
@@ -200,7 +222,12 @@
             <i class="fas fa-map-marker-alt display-1 text-danger"></i>
             <br><br>
             <p>Please provide your current location: </p>
-            <input type="text" class="form form-control" id="user_location_modal_manual_popup_input" placeholder="Enter your location here.." onFocus="initAutocomplete()"/>
+            <input type="text" class="form form-control form-control-sm" id="user_location_modal_manual_popup_input" placeholder="Enter your location here.." onFocus="initAutocomplete()"/>
+            <br>
+            <span>Or</span>
+            <br>
+            <br>
+            <button class="btn btn-sm  theme-background-color border-0 fs--1 shadow" onclick="update_sp_location();"><i class="fas fa-location-arrow"></i> Use Device Location</button>
          </div>
       </div>
    </div>
@@ -223,7 +250,7 @@
    var current_filter_choice = 'RECENT';
    
    window.onload = function() {
-      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 20000);
+      //update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 20000);
       setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup
     
@@ -236,9 +263,17 @@
       //switch_view_mode('MAP')
    }
    
-  
+   //pull to refresh code
+   PullToRefresh.init({
+   mainElement: '#job_list_display', // above which element?
+   onRefresh: function (done) {
+      setTimeout(function () {
+         done(); // end pull to refresh
+         filter_service_provider_jobs(current_filter_choice,false);
+      }, 2000);
+   }
+   });
 </script>
-
 @include('service_provider.bottom_navigation_bar')
 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>

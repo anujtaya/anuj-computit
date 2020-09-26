@@ -334,6 +334,8 @@ function update_location_using_navigator(position) {
             }
         }
         update_user_final_location(pos.lat, pos.lng, suburb, state, city, postcode, full_address);
+        $('#user_location_modal_manual_popup').modal('hide');
+
     });
 }
 
@@ -398,7 +400,7 @@ var placeSearch, autocomplete;
 
 var options = {
     types: ['geocode'],
-    componentRestrictions: { country: 'au' }
+    // componentRestrictions: { country: 'au' }
 };
 
 function initAutocomplete() {

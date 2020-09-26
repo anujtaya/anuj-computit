@@ -1,12 +1,13 @@
 @extends('layouts.service_seeker_master')
 @section('content')
+<script src="{{asset('/js/third/pulltorefresh.umd.js')}}"></script>
 <style>
    .pure-material-progress-linear {
    -webkit-appearance: none;
    -moz-appearance: none;
    appearance: none;
    border: none;
-   height: 0.25em;
+   height: 0.1em;
    color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
    background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.12);
    font-size: 16px;
@@ -77,7 +78,7 @@
          </div>
          <!-- end container -->   
       </div>
-      <div class="col-lg-12 pl-2 mt-2 border-d">
+      <div class="col-lg-12 pl-1 mt-2 border-d">
          <div class="d-flex  bd-highlight">
             <div class="fs1 p-1 bd-highlight">
                <a class="btn theme-background-color btn-sm shadow text-white"  href="#" role="button" id="ss_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,7 +100,7 @@
             </div>
          </div>
       </div>
-      <div class="col-lg-12 pl-2 pr-2 mt-2 border-d">
+      <div class="col-lg-12 pl-1 pr-1 mt-2 border-d">
          @include('service_seeker.jobs.jobs_templates.jobs_templates_list')
       </div>
    </div>
@@ -108,11 +109,11 @@
 <script>
    var service_seeker_jobs_filter_url = "{{route('service_seeker_jobs_filter')}}";
    var current_filter_choice = 'ALL';  
-   window.onload = function() {
-       setInterval(() => {
-        filter_service_seeker_jobs(current_filter_choice);
-       }, 10000);
-   }
+   // window.onload = function() {
+   //     setInterval(() => {
+   //      filter_service_seeker_jobs(current_filter_choice);
+   //     }, 30000);
+   // }
    
    function filter_service_seeker_jobs(data) {
     if (data != null) {
@@ -120,7 +121,7 @@
         make_filter_ajax_request(data);
     } else {
         data = current_filter_choice;
-        make_filter_ajax_request(data, isViewUpdateRequired);
+        make_filter_ajax_request(data);
     }
   }
 
@@ -162,5 +163,14 @@
       }
    }
 
+
+   //pull to refresh code
+   PullToRefresh.init({
+   mainElement: '#service_seeker_filter_ul_list', // above which element?
+   onRefresh: function (done) {
+      done(); // end pull to refresh
+      filter_service_seeker_jobs(null);  
+   }
+   });
 </script>
 @endsection

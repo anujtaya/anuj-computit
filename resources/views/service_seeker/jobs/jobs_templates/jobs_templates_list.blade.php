@@ -1,10 +1,10 @@
 <ul id="service_seeker_filter_ul_list" class="list-group fs--2" style="overflow:scroll; height:640px;">
    @foreach($jobs as $job)
-   <li class="list-group-item mb-2 ml-1 mr-1 border-0 shadow-sm p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);" style="cursor:pointer;">
+   <li class="list-group-item   border-0 rounded-0  shadow-sm p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);" style="border-left: 2px solid #399BDB!important;cursor:pointer;margin-bottom:0.2em;">
       <div class="d-flex pl-2 pr-2 pt-2 bd-highlight">
          <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{ucfirst($job->title)}}</div>
       </div>
-      <div class="d-flex pl-2 pr-2 bd-highlight">
+      <div class="d-flex pl-2 pr-2 pb-2 bd-highlight">
          <div class="p-0 bd-highlight" style="min-width:60%!important;">
             <span class="d-block">
             <i class="fas fa-map-marker-alt mr-1"></i>{{$job->suburb}}, {{$job->city}} {{$job->postcode}}
