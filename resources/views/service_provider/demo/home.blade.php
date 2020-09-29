@@ -1,4 +1,4 @@
-@extends('layouts.service_provider_master')
+@extends('layouts.service_provider_guest_master')
 @section('content')
 @stack('header-script')
 <script src="{{asset('/js/service_provider/service_provider_home_renderer_demo.js')}}?v={{rand(1,1000)}}"></script>

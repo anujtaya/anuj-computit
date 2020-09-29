@@ -1,4 +1,4 @@
-@extends('layouts.service_seeker_master')
+@extends('layouts.service_seeker_guest_master')
 @section('content')
 @push('header-script')
 <script src="{{asset('/js/service_seeker/service_seeker_home_demo.js')}}?v={{rand(1,100)}}"></script>

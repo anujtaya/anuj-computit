@@ -1,4 +1,4 @@
-@extends('layouts.service_seeker_master')
+@extends('layouts.service_seeker_guest_master')
 @section('content')
 @push('header-script')
 <script src="{{asset('/js/service_seeker/service_seeker_home_map_selector_demo.js')}}?v={{rand(1,100)}}"></script>
@@ -12,7 +12,7 @@
    background: #eee;
    }
    #wrapper { position: relative; margin-top:20%;}
-   #over_map_bottom { position: absolute; bottom: 2%; left: 0px; z-index: 99;min-width:100%;padding:10px; }
+   #over_map_bottom { position: absolute; bottom: 3%; left: 0px; z-index: 99;min-width:100%;padding:10px; }
    .modal-backdrop {
    position: fixed;
    top: 0;
@@ -60,8 +60,8 @@
 <div class="wrapper">
    <div id="map"  style="min-width:100%!important;"></div>
    <div id="over_map_bottom" class="">
-      <button class="float-right btn btn-sm bg-white fs--1 card-1" style="border-radius:20px;" onclick="reset_map_position();"><i class="fas fa-crosshairs"></i> Reset</button> <br>
-      <a class="btn btn-block  theme-background-color card-1 mt-2" id="post_to_job_board_btn" style="border-radius:20px;" onclick="$('#seeker_login_to_post_job_modal').modal('show');" href="#">Post to Job Board</a>
+      <button class="float-right btn btn-sm bg-white fs--1 card-1" onclick="reset_map_position();"><i class="fas fa-crosshairs"></i> Reset</button> <br>
+      <a class="btn btn-block  theme-background-color card-1 mt-2" id="post_to_job_board_btn" onclick="$('#seeker_login_to_post_job_modal').modal('show');" href="#">Post to Job Board</a>
    </div>
 </div>
 <script>

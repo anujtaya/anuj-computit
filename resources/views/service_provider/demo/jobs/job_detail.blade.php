@@ -1,4 +1,4 @@
-@extends('layouts.service_provider_master')
+@extends('layouts.service_provider_guest_master')
 @section('content')
 @push('header-script')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">

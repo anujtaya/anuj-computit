@@ -1,4 +1,4 @@
-@extends('layouts.service_provider_master')
+@extends('layouts.service_provider_guest_master')
 @section('content')
 @stack('header-script')
 <script src="{{asset('/js/service_provider/service_provider_home_renderer_list_demo.js')}}?v={{rand(1,1000)}}"></script>
@@ -143,7 +143,8 @@
       </div>
    </div>
 </div>
-<div id="map" style="display:none;"></div>
+<div id="map" style="display:none;">
+</div>
 <script>
    var app_url = "{{URL::to('/')}}";
    var service_provider_jobs_fetch_url = "{{route('guest_service_provider_jobs_fetch_all')}}";
