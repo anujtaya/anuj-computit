@@ -25,7 +25,7 @@
          <a href="{{route('password.request')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);"> Forgot Password</a>
          <br>
          <span class="text-dark">Don't have an account?</span>   
-         <a class="theme-color" style="cursor:pointer" data-toggle="modal" data-target="#registerDialog">
+         <a class="theme-color" style="cursor:pointer" href="{{route('app_register')}}" onclick="toggle_animation(true);">
             Sign Up
          </a>
       </div>

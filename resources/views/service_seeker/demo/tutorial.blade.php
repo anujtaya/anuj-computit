@@ -73,7 +73,7 @@ h5 {
                         </a> -->
                      </div>
                     <br>
-                    <a href="{{route('guest_service_seeker_home')}}" onclick="toggle_animation(true);"  class="btn theme-background-color rounded-3 borders card-1 ml-4 mr-4 custom_button_shadow font-weight-normal">Continue <i class="ml-2 fas fa-arrow-right"></i></a>
+                    <a href="{{route('guest_service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);"  class="btn theme-background-color rounded-3 borders card-1 ml-4 mr-4 custom_button_shadow font-weight-normal">Continue <i class="ml-2 fas fa-arrow-right"></i></a>
 
                </div>
             </div>

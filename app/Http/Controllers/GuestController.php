@@ -48,7 +48,18 @@ class GuestController extends Controller
     //service provider demo routes
     protected function service_provider_home(Request $request){
       $jobs = Job::where('status', '!=', 'DRAFT')->get();
-      return view("service_provider.demo.home")->with('jobs', $jobs);
+
+      //check if needs to show tutorial page first
+      if($request->has('showtutorial')){
+        return View::make("service_provider.demo.tutorial");
+      }
+
+      //check if the default view changes to list view
+      if($request->has('listview')){
+        return view("service_provider.demo.home-list-view");
+      }
+
+      return view("service_provider.demo.home");
     }
 
     
@@ -98,7 +109,11 @@ class GuestController extends Controller
     protected function service_seeker_home(Request $request) {
       $categories = ServiceCategory::all();
       $session_draft_job = SessionDraftJob::where('id', Session::getID())->first();
-  
+
+      if($request->has('showtutorial')){
+        return View::make("service_seeker.demo.tutorial");
+      }
+
       if($request->has('showSPSView')){
         $service_categories = $categories->pluck('service_name');
         return view("service_seeker.demo.home_3")->with('categories', $service_categories)->with('session_draft_job', $session_draft_job);

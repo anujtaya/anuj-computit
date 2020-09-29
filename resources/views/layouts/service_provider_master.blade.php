@@ -21,13 +21,16 @@
          html,body,h1,h2,h3,h5,h6,p,button,a,label {
          font-family: 'Varela Round', sans-serif!important;
          color: #575757!important;
+         
+         /* width: 100%; */
          }
          html {
          scroll-behavior: smooth;
+         height: 100%;
          }
       </style>
    </head>
-   <body>
+   <body >
       <input type="hidden" name="android_user_id" id="android_user_id" value="'{'user_id':'{{Auth::id()}}','cat':'WP'}'">
       <input type="hidden" name="android_csrf_token_id" id="android_csrf_token_id" value="{{csrf_token()}}" >
       <div id="app">

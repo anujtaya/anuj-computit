@@ -9,12 +9,13 @@
    #map {
    position: relative;
    width: 100%;
-   height: 90%;
+   height: 89%;
    background: #eee;
+   padding-bottom:2%;
    }
    #wrapper { position: relative; }
-   #over_map_bottom { position: absolute; bottom: 10%; left: 0px; z-index: 99;min-width:100%;padding:10px; }
-   #over_map_top { position: absolute; top: 2%; left: 0px; z-index: 99;min-width:100%;padding:10px; }
+   #over_map_bottom { position: absolute; bottom: 15%; left: 0px; z-index: 99;min-width:100%;padding:5px; }
+   #over_map_top { position: absolute; top:1%; left: 0px; z-index: 99;min-width:100%;padding: 5px; }
    .modal-backdrop {
    position: fixed;
    top: 0;
@@ -39,13 +40,13 @@
 <div class="wrapper">
    <div id="map"  style="min-width:100%!important;"></div>
    <div id="over_map_bottom" class="text-center">
-      <span id="user_current_saved_location" class="bg-white p-1 fs--1" style="border-radius:20px;">{{Auth::user()->user_full_address}}</span><br>
-      <a class="btn btn-block btn-sm theme-background-color card-1  mt-2" style="border-radius:20px;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
-      <a class="btn btn-block btn-sm text-white mt-2 card-1" style="border-radius:20px;background:#5D29BA!important;color:white!important;" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">Switch to Provider - I want to work</a>
+      <span id="user_current_saved_location" class="bg-white p-1 fs--2" >{{Auth::user()->user_full_address}}</span><br>
+      <a class="btn btn-block btn-sm theme-background-color card-1  mt-2"  href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">I want work done</a>
+      <a class="btn btn-block btn-sm text-white mt-2 card-1" style="background:#5D29BA!important;color:white!important;" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">Switch to Provider - I want to work</a>
    </div>
    <div id="over_map_top" >
       @if(count($jobs) > 0)
-         <div class="bg-white fs--1 card-1 theme-color p-3" style="border-radius:20px;">
+         <div class="bg-white fs--1 shadow-sm theme-color rounded p-3" >
             <a href="{{route('service_seeker_jobs')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);">You currently have jobs pending on your job board. Tap here to go to jobs tab <i class="fas fa-arrow-right"></i></a> 
          </div>
       @endif

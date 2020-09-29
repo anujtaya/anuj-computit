@@ -267,10 +267,8 @@
    PullToRefresh.init({
    mainElement: '#job_list_display', // above which element?
    onRefresh: function (done) {
-      setTimeout(function () {
-         done(); // end pull to refresh
-         filter_service_provider_jobs(current_filter_choice,false);
-      }, 2000);
+      done(); 
+      filter_service_provider_jobs(current_filter_choice,false);   
    }
    });
 </script>

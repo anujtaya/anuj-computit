@@ -1,21 +1,14 @@
-function filter_service_provider_jobs(data, isViewUpdateRequired) {
+function filter_service_provider_jobs(data) {
     if (data != null) {
-        data = data.attr('data-value');
-    }
-    if (data == null) {
-        //console.log('No sort requested!');
-        make_filter_ajax_request(data, isViewUpdateRequired);
-    } else if (data == 'Rating') {
-        make_filter_ajax_request(data, isViewUpdateRequired);
-        //console.log('Rating sort requested!');
-    } else if (data == 'Distance') {
-        make_filter_ajax_request(data, isViewUpdateRequired);
-        //console.log('Distance sort requested!');
+        current_filter_choice = data;
+        make_filter_ajax_request(data);
+    } else {
+        data = current_filter_choice;
+        make_filter_ajax_request(data);
     }
 }
 
-function make_filter_ajax_request(data, isViewUpdateRequired) {
-    //toggle_animation(true);
+function make_filter_ajax_request(data) {
     $.ajax({
         type: "POST",
         url: service_provider_jobs_fetch_url,
@@ -27,12 +20,18 @@ function make_filter_ajax_request(data, isViewUpdateRequired) {
         },
         success: function(results) {
             console.log(results['jobs']);
+            var myUl = $("#job_list_display");
             update_refresh_count = 0;
             update_refresh_count_display();
+            //console.log(results);      
+            myUl.html(results['html']);
             jobs = results['jobs'];
             display_job_markers();
             //toggle_animation(false);
-
+            if (data != null) {
+                var filterAnchorTag = document.getElementById('sp_jobs_filter');
+                filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + data.trim() + ")</small>";
+            }
         },
         error: function(results, status, err) {
             console.log('Jobs ajax error: ' + err);

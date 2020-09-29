@@ -33,7 +33,7 @@
             <br>
             <br>
             <p>You are browsing LocaL2LocaL in guest mode with limited features. Please click below if you want to login or register a new account with us to enable all LocaL2LocaL app features.</p>
-            <a class="btn theme-background-color text-white" href="{{route('app_register')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
+            <a class="btn theme-background-color text-white" href="{{route('login')}}" style="border-radius:30px;" onclick="toggle_animation(true);">Login or Sign Up</a>
          </div>
       </div>
    </div>
