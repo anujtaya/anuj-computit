@@ -1,8 +1,5 @@
 @extends('layouts.service_provider_master')
 @section('content')
-@push('header-script')
-<script src="{{asset('/js/third/pulltorefresh.umd.js')}}"></script>
-@endpush
 <div class="container ">
    <div class="row  justify-content-center" >
       <div class="col-lg-12 sticky-top shadow-sm bg-white p-3  border-d">
@@ -24,12 +21,12 @@
                <i class="fas fa-sort-amount-up-alt"></i> Sort
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs('ALL');" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs('ONTRIP');" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs('OPEN');" style="cursor: pointer"><i class="far fa-circle text-success"></i> Open</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs('APPROVED');" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs('STARTED');" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
-                  <span class="dropdown-item" onclick="filter_service_provider_jobs('COMPLETED');" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ALL" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="ONTRIP" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="OPEN" style="cursor: pointer"><i class="far fa-circle text-success"></i> Open</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="APPROVED" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="STARTED" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
+                  <span class="dropdown-item" onclick="filter_service_provider_jobs($(this));" data-value="COMPLETED" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">
@@ -40,10 +37,7 @@
          </div>
       </div>
       <div class="col-lg-12 pl-2 pr-2 mt-2 border-d">
-         <!-- job list contianer display  -->
-         <ul class="list-group fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
-            @include('service_provider.jobs.jobs_templates.jobs_templates_list')
-         </ul>   
+         @include('service_provider.jobs.jobs_templates.jobs_templates_list')
       </div>
    </div>
 </div>
@@ -60,7 +54,7 @@ var service_provider_jobs_filter_url = "{{route('service_provider_jobs_filter')}
           url: service_provider_jobs_filter_url,
           data: {
             "_token": csrf_token,
-            "filter_action": data,
+            "filter_action": data.attr('data-value'),
           },
           success: function(results){
             var myUl = $("#service_provider_filter_ul_list");
@@ -71,21 +65,12 @@ var service_provider_jobs_filter_url = "{{route('service_provider_jobs_filter')}
             }
             toggle_animation(false);
 			var filterAnchorTag = document.getElementById('sp_jobs_filter');
-			filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data +")</small>";
+			filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data.text().trim()+")</small>";
           },
           error: function(results, status, err) {
               console.log(err);
           }
       });
    }
-
-    //pull to refresh code
-   PullToRefresh.init({
-   mainElement: '#job_list_display', // above which element?
-   onRefresh: function (done) {
-      done(); 
-      filter_service_provider_jobs("ALL");   
-   }
-   });
 </script>
 @endsection

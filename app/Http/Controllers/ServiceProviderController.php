@@ -20,12 +20,11 @@ use Session;
 
 class ServiceProviderController extends Controller
 {
-    function home(){
-		// SULTAN - HOME - SERVICE PROVIDER HOME FUNCTION
-		// At the moment retrieve all jobs. But on the production version, show 10 or 15 jobs, and then when user scrolls down retrieve more jobs.
-		// Also, get most recently posted jobs
-		$jobs = Job::where('status', '!=', 'DRAFT')->get();
-        return view('service_provider.home')->with('jobs', $jobs);
+    function home(Request $request){
+        if($request->has('listview')){
+            return view("service_provider.home-list-view");
+        }    
+        return view('service_provider.home');
     }
 
     function  registration_completed(){

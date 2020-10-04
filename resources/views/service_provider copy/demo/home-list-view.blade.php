@@ -1,13 +1,14 @@
 @extends('layouts.service_provider_guest_master')
 @section('content')
 @stack('header-script')
-<script src="{{asset('/js/service_provider/service_provider_home_renderer_demo.js')}}?v={{rand(1,1000)}}"></script>
-<script src="{{asset('/js/service_provider/service_provider_home_map_demo.js')}}?v={{rand(1,1000)}}"></script>
+<script src="{{asset('/js/service_provider/service_provider_home_renderer_list_demo.js')}}?v={{rand(1,1000)}}"></script>
+<script src="{{asset('/js/service_provider/service_provider_home_map_list_view.js')}}?v={{rand(1,1000)}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script src="{{asset('/js/third/pulltorefresh.umd.js')}}"></script>
 @stack('header-style')
 <link rel="stylesheet" href="{{asset('css/common/preloader.css')}}?v=8"/>
 <style>
-  .modal-backdrop {
+   .modal-backdrop {
    position: fixed;
    top: 0;
    right: 0;
@@ -15,6 +16,13 @@
    left: 0;
    z-index: 10;
    background-color:transparent!important;
+   }
+   .pac-container {
+   background-color: #FFF;
+   z-index: 20;
+   position: fixed;
+   display: inline-block;
+   float: left;
    }
    .modal{
    z-index: 20;   
@@ -25,8 +33,8 @@
       <div class="row m-0">
          <div class="col-8 pl-2 pt-3 pb-3">
             <div class="p-0 bd-highlight">
-               <a class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" href="{{route('guest_service_provider_home')}}?listview=true">
-                  <i class="fas fa-list-ol"></i> List View
+               <a class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" href="{{route('guest_service_provider_home')}}">
+               <i class="fas fa-globe"></i> Map View
                </a>
             </div>
          </div>
@@ -49,7 +57,7 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 bg-white p-0" style="height:5%!important;z-index:2;">
+   <div class="col-lg-12 bg-white p-0" style="height:10%!important;z-index:2;">
       <div class="row mb-0 m-0 border-bottom">
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom bg-white">
@@ -61,22 +69,35 @@
                </div>
             </div>
          </div>
-         <div class="col-12 fs--2 pt-2 pb-2 pr-2 text-right text-muted bg-white">
-            Updated <span id="update_refresh_counter_el">0</span> sec ago.
-            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();" id="map_reset_btn"  >
-            <i class="fas fa-redo-alt"></i> Update
-            </button>
+         <div class="col-12 fs--2 pt-2 pb-2 pr-1 pl-1 text-muted bg-white">
+            <div class="d-flex bd-highlight">
+               <div class="flex-grow-1 bd-highlight">
+                  <a class="btn btn-sm theme-color border fs--2" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-sort-amount-up-alt"></i> Sort
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                     <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
+                     <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
+                  </div>
+               </div>
+               <div class=" bd-highlight">
+                  <span class="float-left">
+                  Updated <span id="update_refresh_counter_el">0</span> sec ago.
+                  </span>
+               </div>
+            </div>
          </div>
       </div>
    </div>
-   <div class="col-lg-12 p-0" style="height:60%!important;">
-         <div id="map" style=" width: 100%;height: 100%;">
-         </div>
+   <div class="col-lg-12 pl-1 pr-1" style="height:60%!important;">
+      <!-- job list contianer display  -->
+      <ul class="list-group  fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
+         <!-- autopupulate area  -->
+      </ul>
    </div>
-   <div  class="col-lg-12 p-0" style="height:20%!important;">
-   @include('service_provider.demo.bottom_navigation_bar')
+   <div  class="col-lg-12 p-0" style="height:18%!important;">
+      @include('service_provider.demo.bottom_navigation_bar')
    </div>
- 
 </div>
 <div class="modal fade" id="map_job_detail_modal_popup"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -122,6 +143,8 @@
       </div>
    </div>
 </div>
+<div id="map" style="display:none;">
+</div>
 <script>
    var app_url = "{{URL::to('/')}}";
    var service_provider_jobs_fetch_url = "{{route('guest_service_provider_jobs_fetch_all')}}";
@@ -135,17 +158,18 @@
    var current_lat = "";
    var current_lng = "";
    var enable_geocoder = false;
-   
+   var current_filter_choice = 'RECENT';
+
+
    window.onload = function() {
-      update_interval =  setInterval(function(){ filter_service_provider_jobs(null,false) }, 25000);
+      update_interval =  setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 25000);
       setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup
       if(current_lat == '') {
          update_sp_location();
       } else {
-         filter_service_provider_jobs(null,true);
+         filter_service_provider_jobs(current_filter_choice,true);
       }
-      
    }
    
    var filter_settings = {
@@ -153,9 +177,16 @@
       'ratings_filter' : false,
       'date_filter' : true
    }
-   
+
+   //pull to refresh code
+   PullToRefresh.init({
+   mainElement: '#job_list_display', // above which element?
+   onRefresh: function (done) {
+      done(); 
+      filter_service_provider_jobs(current_filter_choice,false);   
+   }
+   });
 </script>
-{{-- @include('service_provider.demo.bottom_navigation_bar') --}}
 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
 @endsection

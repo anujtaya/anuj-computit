@@ -342,17 +342,17 @@ function update_location_using_navigator(position) {
 function update_location_without_navigator(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
+            $("#user_current_saved_location").html('<span class="text-danger">Location Permission Denied</span>');
             console.log('NAVIGATOR: Permission Denied')
             break;
         case error.POSITION_UNAVAILABLE:
-            console.log('NAVIGATOR: Position Unavailable')
+            $("#user_current_saved_location").html('<span class="text-danger">Location Position Unavailable</span>');
             break;
         case error.TIMEOUT:
-            console.log('NAVIGATOR: Timeout')
-
+            $("#user_current_saved_location").html('<span class="text-danger">Location Timeout</span>');
             break;
         case error.UNKNOWN_ERROR:
-            console.log('NAVIGATOR: Unkown Error')
+            $("#user_current_saved_location").html('<span class="text-danger">Location Unkown Error</span>');
             break;
     }
     handle_automatc_loc_update_failure();

@@ -1,6 +1,7 @@
+<!-- board job types -->
 @foreach($jobs as $job)
-<li class="list-group-item   border-0 rounded-0  shadow-sm p-0"  style="border-left: 2px solid #5D29BA!important;cursor:pointer;margin-bottom:0.2em;" onclick="location.href= app_url + '/guest/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">
-<div class="d-flex bd-highlight pl-2 pr-2 pt-2">
+<li class="list-group-item   border-0 rounded-0  shadow-sm p-0"  style="border-left: 2px solid #5D29BA!important;cursor:pointer;margin-bottom:0.2em;" onclick="location.href= app_url + '/service_provider/jobs/job/{{$job->id}}';toggle_animation(true);">  
+    <div class="d-flex bd-highlight pl-2 pr-2 pt-2">
         <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{$job->title}}</div>
     </div>
     <div class="d-flex pl-2 pr-2 bd-highlight">
@@ -16,11 +17,10 @@
 @endforeach
 @if(count($jobs) == 0) 
 <div class="text-center p-3 fs--1">
-      <!-- <img src="{{asset('images/svg/l2l_empty.svg')}}" alt="" style="opacity:0.4;width:200px"  class="img-fluid" alt="Responsive image"> -->
       <i class="fas fa-circle-notch fs-2 theme-color fa-spin"></i>
       <br>
       <br>
-      <span>We are still looking for Job that matches your profile. Please stay tuned..</span>
+      <span>We are still looking for a Job that matches your profile. Please stay tuned..</span>
       <br><br>
   </div>
 @endif

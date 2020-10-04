@@ -57,7 +57,7 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 bg-white p-0" style="height:10%!important;z-index:2;">
+   <div class="col-lg-12 bg-white p-0" style="height:12%!important;z-index:2;">
       <div class="row mb-0 m-0 border-bottom">
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom bg-white">
@@ -89,9 +89,9 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 pl-1 pr-1" style="height:60%!important;">
+   <div class="col-lg-12 pl-1 pr-1" style="height:56%!important;">
       <!-- job list contianer display  -->
-      <ul class="list-group  fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
+      <ul class="list-group fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
          <!-- autopupulate area  -->
       </ul>
    </div>

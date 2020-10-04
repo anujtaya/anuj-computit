@@ -10,7 +10,6 @@ function filter_service_provider_jobs(data) {
 }
 
 function make_filter_ajax_request(data) {
-    //toggle_animation(true);
     $.ajax({
         type: "POST",
         url: service_provider_jobs_fetch_url,
@@ -22,10 +21,18 @@ function make_filter_ajax_request(data) {
         },
         success: function(results) {
             console.log(data);
+            var myUl = $("#job_list_display");
             update_refresh_count = 0;
             update_refresh_count_display();
+            //console.log(results);      
+            myUl.html(results['html']);
             jobs = results['jobs'];
             display_job_markers();
+            //toggle_animation(false);
+            if (data != null) {
+                var filterAnchorTag = document.getElementById('sp_jobs_filter');
+                filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data.trim() + ")</small>";
+            }
         },
         error: function(results, status, err) {
             console.log('Jobs ajax error: ' + err);

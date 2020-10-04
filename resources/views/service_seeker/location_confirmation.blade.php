@@ -7,7 +7,7 @@
    </div>
 </div>
 <div class="">
-   <p>Drag and drop the marker for precise location:</p>
-   <div id="map" style="width: 100%; height: 334px!important; position: s;">
+   <div id="map" style="width: 100%; height: 295px!important; position: s;">
    </div>
+   <p class="fs--2 mt-3">Drag and drop the marker for precise location:</p>
 </div>

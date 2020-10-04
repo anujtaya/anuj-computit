@@ -26,7 +26,7 @@
          <div class="col-8 pl-2 pt-3 pb-3">
             <div class="p-0 bd-highlight">
                <a class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" href="{{route('guest_service_provider_home')}}?listview=true">
-                  <i class="fas fa-list-ol"></i> List View
+               <i class="fas fa-list-ol"></i> List View
                </a>
             </div>
          </div>

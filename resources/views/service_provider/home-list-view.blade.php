@@ -1,12 +1,12 @@
 @extends('layouts.service_provider_master')
 @section('content')
-@push('header-script')
+@stack('header-script')
 <!-- <script src="{{asset('js/service_provider/service_provider_home.js')}}?v={{rand(1,1000)}}"></script> -->
-<script src="{{asset('/js/service_provider/service_provider_home_renderer.js')}}?v={{rand(1,1000)}}"></script>
+<script src="{{asset('/js/service_provider/service_provider_home_renderer_list.js')}}?v={{rand(1,1000)}}"></script>
 <script src="{{asset('/js/service_provider/service_provider_home_map.js')}}?v={{rand(1,1000)}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-@endpush
-@push('header-style')
+<script src="{{asset('/js/third/pulltorefresh.umd.js')}}"></script>
+@stack('header-style')
 <style>
    .modal-backdrop {
    position: fixed;
@@ -21,7 +21,6 @@
    z-index: 20;   
    }
 </style>
-@endpush
 <div class="row m-0" style="height:100%;">
    <div class="col-lg-12 theme-background-color shadow-sm bg-white p-0 border-d" style="z-index:19!important;height:10%!important;">
       <div class="row m-0">
@@ -32,8 +31,8 @@
                <input type="hidden" value="@if(Auth::user()->is_online) offline @else online @endif" name="target_status" required>
             </form>
             <!-- map view controls -->
-            <a class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="list_btn" href="{{route('service_provider_home')}}?listview=true">
-               <i class="fas fa-list-ol"></i> List View
+            <a class="btn theme-color  shadow-sm border-0 fs--1 bg-white text-muted" style="border-radius:20px;" id="list_btn" href="{{route('service_provider_home')}}">
+               <i class="fas fa-globe"></i> Map View
             </a>          
          </div>
          <div class="col-4 text-right">
@@ -58,7 +57,7 @@
       </div>
    </div>
    <!-- job list view window -->
-   <div class="col-lg-12 bg-white p-0" style="height:5%!important;z-index:2;">
+   <div class="col-lg-12 bg-white p-0" style="height:12%!important;z-index:2;">
       <div class="row m-0  border-bottom">
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom bg-white">
@@ -78,22 +77,36 @@
             </div>
          </div>
          <!-- end location update div -->
-         <div class="col-12 fs--2 pt-2 pb-2 pr-2 text-right text-muted bg-white">
-            <span id="update_refresh_counter_el">0</span> sec ago.
-               <button class="btn btn-sm  theme-background-color border-0 fs--2 shadow" onclick="resetLocation();" id="map_reset_btn">
-               <i class="fas fa-redo-alt"></i> Update
-            </button>
+         <div class="col-12 fs--2 pt-2 pb-2 pr-1 pl-1 text-muted bg-white">
+            <div class="d-flex bd-highlight">
+               <div class="flex-grow-1 bd-highlight">
+                  <a class="btn btn-sm theme-color border fs--2" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-sort-amount-up-alt"></i> Sort
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                     <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
+                     <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
+                  </div>
+               </div>
+               <div class=" bd-highlight">
+                  <span class="float-left">
+                  Updated <span id="update_refresh_counter_el">0</span> sec ago.
+                  </span>
+               </div>
+            </div>
          </div>
       </div>
    </div>
-   <div class="col-lg-12 p-0" style="height:60%!important;">
-      <div id="map" style=" width: 100%;height: 100%;">
-      </div>
+   <div class="col-lg-12 pl-1 pr-1" style="height:56%!important;">
+      <!-- job list contianer display  -->
+      <ul class="list-group fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
+         <!-- autopupulate area  -->
+      </ul>
    </div>
-   <div  class="col-lg-12 p-0" style="height:20%!important;">
+   <div  class="col-lg-12 p-0" style="height:18%!important;">
       <!-- bottom nav -->
-      <div class="fixed-bottoms">
-         <div class="row border-top pt-2 bg-white sticky-bottoms justify-content-center fs--1 text-center m-0">
+      <div>
+         <div class="row border-top bg-white justify-content-center fs--1 text-center m-0">
             @if(!request()->is('service_provider/more'))
             <div class="col-12 p-2">
                <a class="btn btn-block btn-sm text-white mt-2 shadow" style="background:#399BDB;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">Switch to Seeker - I want work done</a>
@@ -114,7 +127,7 @@
                Jobs
                </a> 
             </div>
-            <div class="col-2 p-2  ">
+            <div class="col-3 p-2  ">
                <a class=" text-decoration-none {{ (request()->is('service_provider/more')) ? 'theme-color' : '' }} text-muted" href="{{route('service_provider_more')}}" onclick="toggle_animation(true);"> 
                <i class="fas  fs-2 fa-plus mb-1"></i><br>
                More
@@ -125,8 +138,8 @@
       <!-- end bottom nav  -->
    </div>
 </div>
-<!-- bootstrap job modal -->
-<!-- Modal -->
+<div id="map" style="display:none;">
+</div>
 <div class="modal fade" id="map_job_detail_modal_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
       <div class="modal-content border-0 card-2">
@@ -202,6 +215,15 @@
          filter_service_provider_jobs(current_filter_choice,false);
       }
    }
+
+   //pull to refresh code
+   PullToRefresh.init({
+   mainElement: '#job_list_display', // above which element?
+   onRefresh: function (done) {
+      done(); 
+      filter_service_provider_jobs(current_filter_choice,false);   
+   }
+   });
    
 </script>
 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
