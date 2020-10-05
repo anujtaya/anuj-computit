@@ -1,19 +1,8 @@
 <?php
 //app landing page
-Route::get('/', 'MarketController@market_home_main')->name('market_home');
-
-Route::get('/marketFAQ', 'MarketController@market_faq')->name('market_faq');
-Route::get('/marketServiceProviders', 'MarketController@market_serviceproviders');
-Route::get('/marketClients', 'MarketController@market_serviceseekers');
-Route::get('/marketTerms', 'MarketController@market_terms');
-Route::get('/marketCategories', 'MarketController@market_categories');
-Route::get('/marketDownloadApp', 'MarketController@market_download_app');
-Route::get('/marketPolicy', 'MarketController@market_policy');
-Route::get('/marketSafety', 'MarketController@market_safety');
-Route::get('/marketAbout', 'MarketController@market_about');
-Route::get('/market_business', 'MarketController@market_business');
-Route::get('/legal', 'MarketController@market_legal');
-Route::get('/marketHelp', 'MarketController@market_help')->middleware('auth');
+Route::get('/', 'FrontendController@homepage')->name('app_frontend_homepage');
+Route::get('/faq', 'FrontendController@faq')->name('app_frontend_faq');
+Route::get('/support', 'FrontendController@support')->name('app_frontend_support');
 
 
 Auth::routes();
