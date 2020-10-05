@@ -319,53 +319,103 @@ class ServiceProviderJobController extends Controller
 		$filter_action = $_POST['filter'];
 		$user = Auth::user();	
 		
-		//based on distance 
-		if($filter_action == 'DISTANCE') {
-			$jobs = DB::table("jobs")
-			->select("jobs.*" , "jobs.id as job_id"
-				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
-				* cos(radians(jobs.job_lat)) 
-				* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
-				+ sin(radians(" .$_POST['current_lat']. ")) 
-				* sin(radians(jobs.job_lat))) AS distance"))
-				->where("jobs.status", "OPEN")
-				->where("jobs.service_seeker_id", '!=', $user->id)
-				->where("jobs.job_type", 'BOARD')
-				->having('distance', '<=', $user->work_radius)
-				->groupBy("job_id")
-				->orderBy('distance', 'asc')
-				->get();
-		} else if ($filter_action == 'RECENT') {
-			$jobs = DB::table("jobs")
-			->select("jobs.*" , "jobs.id as job_id"
-				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
-				* cos(radians(jobs.job_lat)) 
-				* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
-				+ sin(radians(" .$_POST['current_lat']. ")) 
-				* sin(radians(jobs.job_lat))) AS distance"))
-				->where("jobs.status", "OPEN")
-				->where("jobs.service_seeker_id", '!=',  $user->id)
-				->where("jobs.job_type", 'BOARD')
-				->having('distance', '<=', $user->work_radius)
-				->groupBy("job_id")
-				->orderBy('created_at', 'desc')
-				->get();
+		if($_POST['includes_keywords'] == '') {
+			//based on distance 
+			if($filter_action == 'DISTANCE') {
+				$jobs = DB::table("jobs")
+				->select("jobs.*" , "jobs.id as job_id"
+					,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+					* cos(radians(jobs.job_lat)) 
+					* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+					+ sin(radians(" .$_POST['current_lat']. ")) 
+					* sin(radians(jobs.job_lat))) AS distance"))
+					->where("jobs.status", "OPEN")
+					->where("jobs.service_seeker_id", '!=', $user->id)
+					->having('distance', '<=', $user->work_radius)
+					->groupBy("job_id")
+					->orderBy('distance', 'asc')
+					->get();
+			} else if ($filter_action == 'RECENT') {
+				$jobs = DB::table("jobs")
+				->select("jobs.*" , "jobs.id as job_id"
+					,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+					* cos(radians(jobs.job_lat)) 
+					* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+					+ sin(radians(" .$_POST['current_lat']. ")) 
+					* sin(radians(jobs.job_lat))) AS distance"))
+					->where("jobs.status", "OPEN")
+					->where("jobs.service_seeker_id", '!=',  $user->id)
+					->having('distance', '<=', $user->work_radius)
+					->groupBy("job_id")
+					->orderBy('created_at', 'desc')
+					->get();
+			} else {
+				$jobs = DB::table("jobs")
+				->select("jobs.*" , "jobs.id as job_id"
+					,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+					* cos(radians(jobs.job_lat)) 
+					* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+					+ sin(radians(" .$_POST['current_lat']. ")) 
+					* sin(radians(jobs.job_lat))) AS distance"))
+					->where("jobs.status", "OPEN")
+					->where("jobs.service_seeker_id", '!=',  $user->id)
+					->having('distance', '<=', $user->work_radius)
+					->groupBy("job_id")
+					->orderBy('jobs.created_at', 'asc')
+					->get();
+			}
 		} else {
-			$jobs = DB::table("jobs")
-			->select("jobs.*" , "jobs.id as job_id"
-				,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
-				* cos(radians(jobs.job_lat)) 
-				* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
-				+ sin(radians(" .$_POST['current_lat']. ")) 
-				* sin(radians(jobs.job_lat))) AS distance"))
-				->where("jobs.status", "OPEN")
-				->where("jobs.service_seeker_id", '!=',  $user->id)
-				->where("jobs.job_type", 'BOARD')
-				->having('distance', '<=', $user->work_radius)
-				->groupBy("job_id")
-				->orderBy('jobs.created_at', 'asc')
-				->get();
-		}
+			//based on distance 
+			if($filter_action == 'DISTANCE') {
+				$jobs = DB::table("jobs")
+				->select("jobs.*" , "jobs.id as job_id"
+					,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+					* cos(radians(jobs.job_lat)) 
+					* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+					+ sin(radians(" .$_POST['current_lat']. ")) 
+					* sin(radians(jobs.job_lat))) AS distance"))
+					->where("jobs.status", "OPEN")
+					->where("jobs.service_seeker_id", '!=', $user->id)
+					->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
+					->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
+					->having('distance', '<=', $user->work_radius)
+					->groupBy("job_id")
+					->orderBy('distance', 'asc')
+					->get();
+			} else if ($filter_action == 'RECENT') {
+				$jobs = DB::table("jobs")
+				->select("jobs.*" , "jobs.id as job_id"
+					,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+					* cos(radians(jobs.job_lat)) 
+					* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+					+ sin(radians(" .$_POST['current_lat']. ")) 
+					* sin(radians(jobs.job_lat))) AS distance"))
+					->where("jobs.status", "OPEN")
+					->where("jobs.service_seeker_id", '!=',  $user->id)
+					->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
+					->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
+					->having('distance', '<=', $user->work_radius)
+					->groupBy("job_id")
+					->orderBy('created_at', 'desc')
+					->get();
+			} else {
+				$jobs = DB::table("jobs")
+				->select("jobs.*" , "jobs.id as job_id"
+					,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+					* cos(radians(jobs.job_lat)) 
+					* cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+					+ sin(radians(" .$_POST['current_lat']. ")) 
+					* sin(radians(jobs.job_lat))) AS distance"))
+					->where("jobs.status", "OPEN")
+					->where("jobs.service_seeker_id", '!=',  $user->id)
+					->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
+					->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
+					->having('distance', '<=', $user->work_radius)
+					->groupBy("job_id")
+					->orderBy('jobs.created_at', 'asc')
+					->get();
+			}
+		}	
 		
 		//$jobs  = Job::where('status', 'OPEN')->get();
 		//render the html page.

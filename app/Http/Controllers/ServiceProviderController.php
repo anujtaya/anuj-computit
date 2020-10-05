@@ -47,17 +47,11 @@ class ServiceProviderController extends Controller
         }
         $rating_records = $completed_jobs->where('service_seeker_rating' , '!=', null)->where('status', 'COMPLETED');
       
-      
-      
         $rating_prefix = 5;
         $rating_count = 1 + count($rating_records);
         $rating_sum = intval($rating_records->sum('service_seeker_rating'));
         $rating_prefix += $rating_sum;
         $rating_user = number_format((float)$rating_prefix / $rating_count, 2, '.', '');
-
-      
-      
-
 
         $stats = new \stdClass();
         $stats->percentage = $percentage;
@@ -132,7 +126,7 @@ class ServiceProviderController extends Controller
             }
             if($new_business_info->save()){
                 $user = User::find(Auth::id());
-                $user->user_type = 2;
+                $user->user_type = 1;
                 $user->save();
             }
             return redirect()->back();

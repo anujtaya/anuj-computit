@@ -69,7 +69,7 @@
                </div>
             </div>
          </div>
-         <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
+         <div class="col-12 fs--2 pt-2 pb-2 pr-1 pl-1 text-muted bg-white">
             <div class="d-flex bd-highlight">
                <div class="flex-grow-1 bd-highlight">
                   <a class="btn btn-sm theme-color border fs--2" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,7 +87,7 @@
                </div>
             </div>
          </div>     
-         <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
+         <div class="col-12 fs--2 pt-2 pb-2 pr-1 pl-1 text-muted bg-white">
             <div class="input-group">
                <input type="text" class="form-control form-control-sm" placeholder="Enter keywords.." aria-label="Sort result by string search" aria-describedby="basic-search-1" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);">
                <div class="input-group-append">
@@ -147,6 +147,16 @@
             <br>
             <br>
             <button class="btn btn-sm  theme-background-color border-0 fs--1 shadow" onclick="update_sp_location();"><i class="fas fa-location-arrow"></i> Use Device Location</button>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="user_filter_choice_modal" tabindex="-1" role="dialog" aria-labelledby="user_filter_choice_modal_manual_popup_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 shadow">
+         <div class="modal-body" style="min-height:300px;">
+            
+            <button class="btn btn-sm  theme-background-color border-0 fs--1 shadow" onclick=""><i class="fas fa-location-arrow"></i> Apply Filters</button>
          </div>
       </div>
    </div>

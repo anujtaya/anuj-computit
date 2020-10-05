@@ -17,7 +17,8 @@ function make_filter_ajax_request(data) {
             "_token": csrf_token,
             "filter": data,
             "current_lat": current_lat,
-            "current_lng": current_lng
+            "current_lng": current_lng,
+            "includes_keywords": $('#basic-search-1').val(),
         },
         success: function(results) {
             console.log(data);
@@ -46,5 +47,3 @@ function update_refresh_count_display() {
     update_refresh_count = update_refresh_count + 5;
     $("#update_refresh_counter_el").html(update_refresh_count)
 }
-
-

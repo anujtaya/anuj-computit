@@ -378,7 +378,7 @@ function update_user_final_location(lat, lng, suburb, state, city, postcode, ful
         },
         success: function(results) {
             if (results) {
-                $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + full_address + "</span>");
+                $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + truncate(full_address, 50) + "</span>");
                 current_lat = lat;
                 current_lng = lng;
                 map.setCenter(new google.maps.LatLng(current_lat, current_lng));
@@ -394,6 +394,10 @@ function update_user_final_location(lat, lng, suburb, state, city, postcode, ful
     });
     //console.log('Location final updated to ' + suburb + ',' + state);
 }
+
+function truncate(str, n) {
+    return (str.length > n) ? str.substr(0, n - 1) + '&hellip;' : str;
+};
 
 //intit autocomplete for manual location update
 var placeSearch, autocomplete;

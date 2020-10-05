@@ -57,7 +57,7 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 bg-white p-0" style="height:18%!important;z-index:2;">
+   <div class="col-lg-12 bg-white p-0" style="height:12%!important;z-index:2;">
       <div class="row mb-0 m-0 border-bottom">
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom bg-white">
@@ -69,16 +69,12 @@
                </div>
             </div>
          </div>
-         <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
+         <div class="col-12 fs--2 pt-2 pb-2 pr-1 pl-1 text-muted bg-white">
             <div class="d-flex bd-highlight">
                <div class="flex-grow-1 bd-highlight">
-                  <a class="btn btn-sm theme-color border fs--2" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-sort-amount-up-alt"></i> Sort
+                  <a class="btn btn-sm theme-color border fs--2" href="#" role="button" onclick="$('#user_filter_choice_modal').modal('show');">
+                  <i class="fas fa-sort-amount-up-alt"></i> Search Filters
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                     <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
-                     <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
-                  </div>
                </div>
                <div class=" bd-highlight">
                   <span class="float-left">
@@ -86,18 +82,10 @@
                   </span>
                </div>
             </div>
-         </div>     
-         <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
-            <div class="input-group">
-               <input type="text" class="form-control form-control-sm" placeholder="Enter keywords.." aria-label="Sort result by string search" aria-describedby="basic-search-1" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);">
-               <div class="input-group-append">
-                  <span class="input-group-text fs--2" id="basic-search-1" onclick="$('#basic-search-1').val('')">Clear</span>
-               </div>
-            </div>
-         </div>
+         </div>   
       </div>
    </div>
-   <div class="col-lg-12 pl-1 pr-1" style="height:50%!important;">
+   <div class="col-lg-12 pl-1 pr-1" style="height:56%!important;">
       <!-- job list contianer display  -->
       <ul class="list-group fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
          <!-- autopupulate area  -->
@@ -151,6 +139,51 @@
       </div>
    </div>
 </div>
+<div class="modal fade" id="user_filter_choice_modal" tabindex="-1" role="dialog" aria-labelledby="user_filter_choice_modal_manual_popup_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centereds" role="document">
+      <div class="modal-content border-0 shadow">
+         <div class="modal-body" style="min-height:300px;">
+            <div class="d-flex bd-highlight">
+               <div class="flex-grow-1 bd-highlight">
+                  <span class="fs-1 text-muted">Adanced Filters</span>
+               </div>
+            </div>
+            <hr>
+            <div class="d-flex bd-highlight">
+               <div class="flex-grow-1 bd-highlight">
+                  <p class="text-muted fs--2">
+                     Select sort type from a dropdown list by tapping the button below. You can select between distance and most recent posted jobs.
+                  </p>
+                  <a class="btn btn-sm btn-block theme-color border fs--1 dropdown-toggle" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-sort-amount-up-alt"></i> Sort
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                     <span class="dropdown-item" onclick="filter_service_provider_jobs('DISTANCE',true);" style="cursor: pointer">DISTANCE</span>
+                     <span class="dropdown-item" onclick="filter_service_provider_jobs('RECENT',true);" style="cursor: pointer">RECENT</span>
+                  </div>
+               </div>
+            </div>
+            <hr>
+            <div class="d-flex bd-highlight">
+               <div class="flex-grow-1 bd-highlight">
+                  <p class="text-muted fs--2">
+                     Enter keywords to search for jobs with specific keywords in your area
+                  </p>
+                  <div class="input-group">
+                     <input type="text" class="form-control form-control-sm" placeholder="Enter keywords.." aria-label="Sort result by string search" aria-describedby="basic-search-1" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);">
+                     <div class="input-group-append">
+                        <span class="input-group-text fs--2" id="basic-search-1" onclick="$('#basic-search-1').val('')">Clear</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <br><br>
+            <button class="btn btn-sm btn-block theme-color border fs--1" onclick="">Apply Filters</button>
+            <button class="btn btn-sm btn-block text-muted border fs--1" onclick="">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
 <div id="map" style="display:none;">
 </div>
 <script>
@@ -180,6 +213,8 @@
       }
    }
    
+   
+
    var filter_settings = {
       'distance_filter' : true,
       'ratings_filter' : false,

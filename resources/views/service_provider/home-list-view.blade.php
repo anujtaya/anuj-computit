@@ -57,7 +57,7 @@
       </div>
    </div>
    <!-- job list view window -->
-   <div class="col-lg-12 bg-white p-0" style="height:12%!important;z-index:2;">
+   <div class="col-lg-12 bg-white p-0" style="height:18%!important;z-index:2;">
       <div class="row m-0  border-bottom">
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom bg-white">
@@ -77,7 +77,7 @@
             </div>
          </div>
          <!-- end location update div -->
-         <div class="col-12 fs--2 pt-2 pb-2 pr-1 pl-1 text-muted bg-white">
+         <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
             <div class="d-flex bd-highlight">
                <div class="flex-grow-1 bd-highlight">
                   <a class="btn btn-sm theme-color border fs--2" href="#" role="button" id="sp_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,10 +94,18 @@
                   </span>
                </div>
             </div>
+         </div>     
+         <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
+            <div class="input-group">
+               <input type="text" class="form-control form-control-sm" placeholder="Enter keywords.." aria-label="Sort result by string search" aria-describedby="basic-search-1" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);">
+               <div class="input-group-append">
+                  <span class="input-group-text fs--2" id="basic-search-1" onclick="$('#basic-search-1').val('')">Clear</span>
+               </div>
+            </div>
          </div>
       </div>
    </div>
-   <div class="col-lg-12 pl-1 pr-1" style="height:56%!important;">
+   <div class="col-lg-12 pl-1 pr-1" style="height:50%!important;">
       <!-- job list contianer display  -->
       <ul class="list-group fs--2" style="overflow:scroll;height:100%;" id="job_list_display">
          <!-- autopupulate area  -->
@@ -204,7 +212,7 @@
    var current_filter_choice = 'RECENT';
    
    window.onload = function() {
-      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 30000);
+      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice) }, 30000);
       setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup
     
@@ -212,7 +220,7 @@
       if(current_lat == '') {
          update_sp_location();
       } else {
-         filter_service_provider_jobs(current_filter_choice,false);
+         filter_service_provider_jobs(current_filter_choice);
       }
    }
 
@@ -221,7 +229,7 @@
    mainElement: '#job_list_display', // above which element?
    onRefresh: function (done) {
       done(); 
-      filter_service_provider_jobs(current_filter_choice,false);   
+      filter_service_provider_jobs(current_filter_choice);   
    }
    });
    

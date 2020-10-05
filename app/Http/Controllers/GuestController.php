@@ -67,7 +67,9 @@ class GuestController extends Controller
     protected function service_provider_fetch_all_jobs(){
       $filter_action = $_POST['filter_action'];
       //based on user distance from current location
-      $jobs = DB::table("jobs")
+      
+      if($_POST['includes_keywords'] == '') {
+        $jobs = DB::table("jobs")
         ->select("jobs.*" , "jobs.id as job_id"
           ,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
           * cos(radians(jobs.job_lat)) 
@@ -75,11 +77,33 @@ class GuestController extends Controller
           + sin(radians(" .$_POST['current_lat']. ")) 
           * sin(radians(jobs.job_lat))) AS distance"))
           ->where("jobs.status", "OPEN")
-          ->having('distance', '<=', 200)
+          ->having('distance', '<=', 100)
           ->groupBy("job_id")
           ->orderBy('distance', 'asc')
           ->get();
-		//render the html page.
+
+      } else {
+        $jobs = DB::table("jobs")
+        ->select("jobs.*" , "jobs.id as job_id"
+          ,DB::raw("6371 * acos(cos(radians(" . $_POST['current_lat'] . ")) 
+          * cos(radians(jobs.job_lat)) 
+          * cos(radians(jobs.job_lng) - radians(" . $_POST['current_lng'] . ")) 
+          + sin(radians(" .$_POST['current_lat']. ")) 
+          * sin(radians(jobs.job_lat))) AS distance"))
+          ->where("jobs.status", "OPEN")
+          ->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
+          ->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
+          ->having('distance', '<=', 100)
+          ->groupBy("job_id")
+          ->orderBy('distance', 'asc')
+          ->get();
+      }
+    //render the html page.
+    //$selected = []; 
+
+    
+    
+
 		$viewRendered = view('service_provider.demo.jobs.jobs_templates.jobs_homepgae_template_list', compact('jobs'))->render();
 		return Response::json(['html'=>$viewRendered, 'jobs'=>$jobs]);
     }
