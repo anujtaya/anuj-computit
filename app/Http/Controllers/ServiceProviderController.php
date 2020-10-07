@@ -11,6 +11,7 @@ use App\ConversationMessage;
 use App\UserCurrentLocation;
 use App\User;
 use App\BusinessInfo;
+use App\ServiceCategory;
 use Auth;
 use Response;
 use DB;
@@ -156,7 +157,8 @@ class ServiceProviderController extends Controller
 
     //add service provider services preferences
     function service_provider_update_service_preferences(){
-        return View::make("service_provider.profile.nested.add_services_partial");
+        $service_categories  = ServiceCategory::where('is_active', 1)->get();
+        return view("service_provider.profile.nested.add_services_partial")->with('service_categories', $service_categories);
     }
 
     //add service provider certificates preferences
