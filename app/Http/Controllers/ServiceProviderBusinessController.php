@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\BusinessInfo;
+use App\ServiceCategory;
 use Session;
 use Auth;
 use View;
@@ -65,7 +66,8 @@ class ServiceProviderBusinessController extends Controller
         $user = User::find(Auth::id());
         $user->user_type = 1;
         $user->save();
-        return view('service_provider.business.service_registration_page');
+        $service_categories  = ServiceCategory::where('is_active', 1)->get();
+        return view('service_provider.business.service_registration_page')->with('service_categories', $service_categories);
     }
 
 
