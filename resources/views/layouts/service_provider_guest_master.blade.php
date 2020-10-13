@@ -52,7 +52,7 @@
          </div>
       </div>
       <span class="fixed-top text-right pt-3 pr-2" style="position:fixed;top:0;right:0;z-index:10000!important;">
-         <a href="{{route('login')}}" onclick="toggle_animation(true);" class="bg-dark text-white rounded-circle p-2 fs--2" style="opacity:0.6;"> <i class="fas fa-times"></i></a>
+         <a href="{{route('login')}}" onclick="toggle_animation(true);" class="bg-dark text-white p-2 fs--2" style="opacity:0.6;">Login</a>
       </span>
       <script>
          @yield('customjavascripts')

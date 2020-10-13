@@ -27,7 +27,7 @@
          <a class=" text-decoration-none {{ (request()->is('service_seeker/jobs/history')) ? 'theme-color' : '' }} text-muted" href="{{route('service_seeker_jobs')}}" onclick="toggle_animation(true);">
            <i class="fas  fs-2  fa-briefcase mb-1"></i>
            <br>
-         Jobs
+           My Jobs
          </a>
       </div>
       <div class="col-3 p-2">

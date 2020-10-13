@@ -18,7 +18,7 @@
          <span class="text-muteds text-muted" style="opacity:0.2;" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2  fa-briefcase mb-1"></i>
          <br>
-         Jobs
+         My Jobs
          </sapn>
       </div>
       <div class="col-3 p-2  ">

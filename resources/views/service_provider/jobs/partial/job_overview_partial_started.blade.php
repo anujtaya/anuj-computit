@@ -6,11 +6,14 @@
    right: 0;
    bottom: 0;
    left: 0;
-   z-index: 0;
+   z-index: 1999;
    background-color:transparent;
    }
    .fade {
       transition: opacity .15s linear;
+   }
+   .modal {
+      z-index:2000!important;
    }
 
 </style>
@@ -34,7 +37,7 @@
          <form action="{{route('service_provider_job_update_status_mark_completed')}}" id="complete_job_form" onsubmit="toggle_animation(true);" method="POST">
             @csrf
             <input type="hidden" value="{{$job->id}}" name="started_job_id" required>
-            <a class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
+            <a class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal" onclick=" $('#complete_job_confirm_modal').modal('show');"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
          </form>
       </div>
       <ul class="list-group fs--1 border-light border" style="overflow:scroll; height:440px;">
@@ -96,7 +99,7 @@
 <!-- end add extra to job modal  -->
 <!-- job complete confirmation modal -->
 <div class="modal fade" id="complete_job_confirm_modal" tabindex="-1" role="dialog" aria-labelledby="complete_job_confirm_modal_label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content border-0 card-1">
       <div class="modal-header">
         <span class="modal-title fs--1" id="exampleModalLabel">Are you sure?</span>

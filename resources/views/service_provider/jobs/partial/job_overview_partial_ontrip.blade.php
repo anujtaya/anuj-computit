@@ -29,9 +29,9 @@
             $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
             ?>
          @if($iPhone)
-         <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})"><i class="far fa-location-arrow fs--1"></i> Get Directions</button>
+         <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
          @elseif($iPad)
-         <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})"><i class="far fa-location-arrow fs--1"></i> Get Directions</button>
+         <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
          @else
          <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})">Get Directions <i class="fas fa-location-arrow fs--2"></i></button>
          @endif

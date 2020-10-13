@@ -18,7 +18,7 @@
    background-color:transparent!important;
    }
    .modal{
-   z-index: 20;   
+   z-index: 20!important;   
    }
 </style>
 @endpush
@@ -111,7 +111,7 @@
             </div>
             <div class="col-3 p-2">
                <a class=" text-decoration-none {{ (request()->is('service_provider/jobs/history')) ? 'theme-color' : '' }} text-muted" href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);">  <i class="fas  fs-2  fa-briefcase mb-1"></i><br>
-               Jobs
+               My Jobs
                </a> 
             </div>
             <div class="col-2 p-2  ">

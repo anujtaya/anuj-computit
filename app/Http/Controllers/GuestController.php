@@ -19,6 +19,9 @@ class GuestController extends Controller
 
     //display the application landing page
     protected function mobile_landing_page(){
+      if(Auth::check()) {
+        return redirect()->route('service_provider_home');
+      }
       return view('auth.mobile.getting_started');
     }
 
@@ -26,7 +29,7 @@ class GuestController extends Controller
     //redirect user based on auth status
     protected function handle_landing_request(){
       if(Auth::check()){
-        return redirect()->route('login');
+        return redirect()->route('service_provider_home');
       } else{
         return redirect()->route('guest_mobile_landing_page');
       }
@@ -47,6 +50,11 @@ class GuestController extends Controller
 
     //service provider demo routes
     protected function service_provider_home(Request $request){
+
+      if(Auth::check()){
+        return redirect()->route('service_provider_home');
+      }
+
       $jobs = Job::where('status', '!=', 'DRAFT')->get();
 
       //check if needs to show tutorial page first
@@ -131,6 +139,12 @@ class GuestController extends Controller
 
     //service seeker home page query handler
     protected function service_seeker_home(Request $request) {
+
+      if(Auth::check()){
+        return redirect()->route('service_seeker_home');
+      }
+
+
       $categories = ServiceCategory::all();
       $session_draft_job = SessionDraftJob::where('id', Session::getID())->first();
 

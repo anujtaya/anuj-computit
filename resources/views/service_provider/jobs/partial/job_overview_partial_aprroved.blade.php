@@ -30,11 +30,11 @@
                $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
                ?>
             @if($iPhone)
-            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
+            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
             @elseif($iPad)
-            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
+            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
             @else
-            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}}); start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
+            <button class="btn bg-success card-1 fs--1 text-white animated headShake slow infinite" onclick="start_job_tracking();"><i class="fas fa-location-arrow"></i> Start Trip</button>
             @endif
          @endif
       </div>
