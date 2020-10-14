@@ -38,7 +38,7 @@ class DataImportController extends Controller
                 ini_set('max_execution_time', 300);
 
                 $input = (object) $request->all();
-                $users = DB::connection('mysql2')->table('users')->select('id','firstName','lastName','abn','phone','email','lat','lng','onService','isVerified','status', 'role', 'userImage','password','created_at','updated_at')->take(400)->get();
+                $users = DB::connection('mysql2')->table('users')->select('id','firstName','lastName','abn','phone','email','lat','lng','onService','isVerified','status', 'role', 'userImage','password','created_at','updated_at')->get();
                 foreach($users as $user) {
                     $new_user = new User();
                     $new_user->first = $user->firstName;
