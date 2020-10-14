@@ -46,14 +46,10 @@
 </div>
 <br>
 <span class="font-weight-bolder">Rate Your Service Provider</span> <br> <br>
-<form action="{{route('service_seeker_job_update_rating')}}" method="POST" onsubmit="toggle_animation(true);">
-   @csrf 
-   <input type="hidden" value="{{$job->id}}" name="rating_job_id" required>
-   <input type="hidden" value="{{$job->service_seeker_rating}}" id="ss_rating_start_value" name="ss_rating_start_value" required>
-   <div class="form-group">
-      <label for="">Select Rating Star</small></label>
+<div class="d-flex bd-highlight mb-3">
+   <div class="p-0 bd-highlight">
       <div class='rating-stars'>
-         <ul id='stars' class="fs-2">
+         <ul id='' class="fs--1">
             <li class='star @if($job->service_seeker_rating > 0) selected @endif' title='Poor' data-value='1'>
                <i class='fa fa-star fa-fw'></i>
             </li>
@@ -72,12 +68,60 @@
          </ul>
       </div>
    </div>
-   <div class="form-group">
-      <label for="ss_rating_description_value">Write Comments Below</label>
-      <textarea class="form-control form-control-sm" id="ss_rating_description_value" rows="3" name="ss_rating_description_value" placeholder="Thank you for your services.">{{$job->service_seeker_comment}}</textarea>
+   <div class="ml-auto p-0 bd-highlight">
+      <button  class="btn theme-background-color btn-sm  card-1 ml-2 fs--1 text-white" onclick="show_rating_modal();">
+      Edit Rating
+      </button>
    </div>
-   <button class="btn theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Save Rating</button>
-</form>
+</div>
+<div class="p-0 bd-highlight">
+   <span class="font-weight-bolder">Comments</span> <br><br>
+   <span><i>{{$job->service_seeker_comment}}</i></span>
+</div>
+<div class="modal fade" id="editjobratingmodal" tabindex="-1" role="dialog" aria-labelledby="editjobratingmodal" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content shadow-sm  border-0 p-3">
+         <div class="mb-3">
+            <span style="font-size:1.2rem">Edit Job Rating</span>
+            <button type="button" class="close" data-dismiss="modal" style="color: white!important;" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form action="{{route('service_seeker_job_update_rating')}}" method="POST" onsubmit="toggle_animation(true);">
+            @csrf 
+            <input type="hidden" value="{{$job->id}}" name="rating_job_id" required>
+            <input type="hidden" value="{{$job->service_seeker_rating}}" id="ss_rating_start_value" name="ss_rating_start_value" required>
+            <div class="form-group">
+               <label for="">Select Rating Star</small></label>
+               <div class='rating-stars'>
+                  <ul id='stars' class="fs-2">
+                     <li class='star @if($job->service_seeker_rating > 0) selected @endif' title='Poor' data-value='1'>
+                        <i class='fa fa-star fa-fw'></i>
+                     </li>
+                     <li class='star @if($job->service_seeker_rating > 1) selected @endif' title='Fair' data-value='2'>
+                        <i class='fa fa-star fa-fw'></i>
+                     </li>
+                     <li class='star @if($job->service_seeker_rating > 2) selected @endif' title='Good' data-value='3'>
+                        <i class='fa fa-star fa-fw'></i>
+                     </li>
+                     <li class='star @if($job->service_seeker_rating > 3) selected @endif' title='Excellent' data-value='4'>
+                        <i class='fa fa-star fa-fw'></i>
+                     </li>
+                     <li class='star @if($job->service_seeker_rating > 4) selected @endif' title='WOW!!!' data-value='5'>
+                        <i class='fa fa-star fa-fw'></i>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="ss_rating_description_value">Write Comments Below</label>
+               <textarea class="form-control form-control-sm" id="ss_rating_description_value" rows="3" name="ss_rating_description_value" placeholder="Thank you for your services.">{{$job->service_seeker_comment}}</textarea>
+            </div>
+            <button class="btn theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Save Rating</button>
+         </form>
+      </div>
+   </div>
+</div>
 <script>
    $(document).ready(function(){ 
      /* 1. Visualizing things on Hover - See next part for action on click */
@@ -116,5 +160,9 @@
    function responseMessage(msg) {
      $('.success-box').fadeIn(200);  
      $('.success-box div.text-message').html("<span>" + msg + "</span>");
+   }
+   
+   function show_rating_modal(){
+      $('#editjobratingmodal').modal('show');
    }
 </script>
