@@ -30,7 +30,7 @@
                <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
                <title>@yield('title')</title>
                <!-- Standard Favicon -->
-               <link rel="icon" href="img/fav.svg" />
+               <link rel="shortcut icon" href="{{config('app.frontend_resource_url')}}/img/fav/favicon.ico" />
                <!-- Touch Icons - iOS and Android 2.1+ -->
                <link rel="apple-touch-icon" href="{{config('app.frontend_resource_url')}}/img/fav/android-icon-48x48.png" />
                <link

@@ -594,9 +594,8 @@ LocaL2LocaL – Homepage
                      <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
                   </ul>
                   <h4>
-                     <a  href="blog_single2.html"
-                        >Top 6 Tips when Renovating for Profit</a
-                        >
+                  <a href="https://blog.local2local.com.au/top-6-tips-when-renovating-for-profit">Top 6 Tips
+                                when Renovating for Profit</a>
                   </h4>
                </div>
             </div>
@@ -615,9 +614,9 @@ LocaL2LocaL – Homepage
                      <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
                   </ul>
                   <h4>
-                     <a href="blog_single.html"
-                        >Did you catch us on 7 News Gold Coast?</a
-                        >
+                  <a
+                                href="https://blog.local2local.com.au/did-you-catch-local2local-featured-on-7-news-gold-coast">Did
+                                you catch us on 7 News Gold Coast?</a>
                   </h4>
                </div>
             </div>
@@ -636,9 +635,8 @@ LocaL2LocaL – Homepage
                      <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
                   </ul>
                   <h4>
-                     <a href="blog_single3.html"
-                        >How to Launch Your Own Business in 6 Simple Steps</a
-                        >
+                  <a href="https://blog.local2local.com.au/how-to-launch-your-own-business-in-6-simple-steps">How
+                                to Launch Your Own Business in 6 Simple Steps</a>
                   </h4>
                </div>
             </div>
