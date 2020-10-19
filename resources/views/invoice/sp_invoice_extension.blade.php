@@ -64,9 +64,8 @@
    <div class="w3-row m-2">
       <div class="w3-col s6">
          <p class="font-weight-bolder">Service Seeker</p>
-         <p class="mt-1">Peter Stack</p>
-         <p>55 Vataluka Parade,</p>
-         <p>Mermaid Waters, 4218</p>
+         <p class="mt-1">{{$service_seeker->first}} {{$service_seeker->last}}</p>
+         <p>{{$service_seeker->email}}</p>
       </div>
       <div class="w3-col s6">
             <table class="table table-sm table-borderless">
@@ -95,9 +94,8 @@
    <div class="w3-row m-2">
       <div class="w3-col s6">
          <p class="font-weight-bolder">Service Provider</p>
-         <p class="mt-1">Peter Stack</p>
-         <p>55 Vataluka Parade,</p>
-         <p>Mermaid Waters, 4218</p>
+         <p class="mt-1">{{$service_provider->first}} {{$service_provider->last}}</p>
+         <p>{{$service_provider->email}}</p>
       </div>
       <div class="w3-col s6 text-right">
       </div>

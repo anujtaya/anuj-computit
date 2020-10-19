@@ -173,7 +173,7 @@ class ServiceProviderJobController extends Controller
 						if($job->save()){
 							//email notification
 							//$this->send_notification_job_quote_offer($job,$conversation_exists);
-							$title = 'New Message from your Service Provider - '.$conversation->service_provider_profile->first;
+							$title = 'New Message from your Service Provider - '.$conversation_exists->service_provider_profile->first;
 							$message = $msg->text;
 							$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 						}
