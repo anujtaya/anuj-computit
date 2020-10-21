@@ -677,7 +677,7 @@ function record_job_payment($job, $conversation,$stripe_payment_customer_object,
   $charge_amount = $conversation->json['offer'];
   if($payment_method == 'STRIPE') {
     try {
-      \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+      \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
       $charge_response = \Stripe\Charge::create ( array (
                   "amount" => $charge_amount * 100,
                   "currency" => "aud",
@@ -717,7 +717,7 @@ function precharge_refund_job_payment($job_payment){
     if($job_payment != null) {
       if($job_payment->payment_method == 'STRIPE') {
         try {
-            \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+            \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
             $charge = \Stripe\Refund::create([
             'charge' => $job_payment->payment_reference_number,
             'reason' => 'requested_by_customer',

@@ -108,7 +108,7 @@ class JobPaymentController extends Controller
     protected function stripe_make_new_charge($payment_source,$payable_job_final_value,$job,$stripe_payment_customer_object,$credit_card_processing_fee){
 		$response = false;
 		try {
-			\Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+			\Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
 			$charge_response = \Stripe\Charge::create ( array (
 						"amount" => $payable_job_final_value * 100,
 						"currency" => "aud",

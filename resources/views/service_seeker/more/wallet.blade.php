@@ -81,7 +81,7 @@
 </div>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-   var stripe_key = 'pk_test_KzLzvd98slvJn3rAAg2O1gSj00dOddGE4U';
+   var stripe_key = "{{config('app.stripe_public_key')}}";
    var stripe = Stripe(stripe_key);
    var elements = stripe.elements();
    var style = {

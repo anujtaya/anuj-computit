@@ -18,7 +18,7 @@ class StripeConnectController extends Controller
             $input = Input::all();
             
             try {
-                \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
+                \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
                 $response = \Stripe\OAuth::token([
                     'grant_type' => 'authorization_code',
                     'code' => $input['code'],
@@ -61,7 +61,7 @@ class StripeConnectController extends Controller
     protected function single_sign_on_link(){
       $payment_source = Auth::user()->service_provider_payment;
       if($payment_source != null) {
-          \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
+          \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
           $response =  \Stripe\Account::createLoginLink(
               $payment_source->stripe_account_id
               );

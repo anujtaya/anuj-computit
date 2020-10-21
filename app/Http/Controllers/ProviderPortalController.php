@@ -53,7 +53,7 @@ class ProviderPortalController extends Controller
         if($request->has('full_stripe_info'))  {
             $payment_source = Auth::user()->service_provider_payment;
             if($payment_source != null) {
-                \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
+                \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
                 $account = $this->fetch_account($payment_source->stripe_account_id);
                 $balance = $this->fetch_balance($payment_source->stripe_account_id);
                 //dd($balance);

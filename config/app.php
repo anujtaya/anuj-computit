@@ -122,6 +122,10 @@ return [
     */
 
     'key' => env('APP_KEY'),
+    //stripe payment keys
+    'stripe_private_key' => env('STRIPE_PRIVATE_KEY'),
+    'stripe_public_key' => env('STRIPE_PUBLIC_KEY'),
+    
 
     'cipher' => 'AES-256-CBC',
 

@@ -190,7 +190,7 @@ class ServiceProviderController extends Controller
         $payment_source = Auth::user()->service_provider_payment;
         $balance = null;
         if($payment_source != null) {
-            \Stripe\Stripe::setApiKey('sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm');
+            \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
             $balance =\Stripe\Balance::retrieve(
                 ['stripe_account' => Auth::user()->service_provider_payment->stripe_account_id]
             );

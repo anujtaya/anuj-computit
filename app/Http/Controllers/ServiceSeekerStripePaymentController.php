@@ -22,7 +22,7 @@ class ServiceSeekerStripePaymentController extends Controller
     function create_customer(Request $request) {
         $input = Input::all();
         //check for existing user info, if exists use the customer ref number to push the account update.
-        \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+        \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
         $input = Input::all();
         $stripe_payment_record =   Auth::user()->service_seeker_stripe_payment;
         $response = false;
@@ -40,7 +40,7 @@ class ServiceSeekerStripePaymentController extends Controller
 
       //add stripe customer object 
       protected function add_stripe_customer_card_object($data){
-        \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+        \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
         $customer_object =  Auth::user()->service_seeker_stripe_payment;
         $card = false;
         $return_response = false;
@@ -75,7 +75,7 @@ class ServiceSeekerStripePaymentController extends Controller
 
    //retrieve stripe customer
    protected function stripe_retrive_cust($customer_id){
-      \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+      \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
       try {
       $cu = \Stripe\Customer::retrieve($customer_id);
       return $cu;
@@ -88,7 +88,7 @@ class ServiceSeekerStripePaymentController extends Controller
 
   //create new stripe customer object
   protected function create_new_stripe_customer_object($data){
-    \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+    \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
     $response = false;
     $customer_response = false;
     try {
@@ -135,7 +135,7 @@ class ServiceSeekerStripePaymentController extends Controller
 
    //attach card to stripe customer object
    protected function attach_payment_source($customer, $stripe_token) {
-      \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+      \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
       $response = null;
       try {
           $card = $customer->sources->create(array("source" => $stripe_token,));
@@ -155,7 +155,7 @@ class ServiceSeekerStripePaymentController extends Controller
 
   //deletes a stripe customer card
   protected function delete_customer_card($id){
-    \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+    \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
     $card = ServiceSeekerStripePaymentSource::find($id);
     $reutn_response = false;
     $customer = null;
@@ -199,7 +199,7 @@ class ServiceSeekerStripePaymentController extends Controller
     //find the customer object
     //change the default payment source to the request source
     //make other sources not-default
-    \Stripe\Stripe::setApiKey("sk_test_nsNpXzwR8VngENyceQiFTkdX00Tdv3sLsm");
+    \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
     $input = Input::all();
     $customer = null;
     $customer_object = Auth::user()->service_seeker_stripe_payment;
