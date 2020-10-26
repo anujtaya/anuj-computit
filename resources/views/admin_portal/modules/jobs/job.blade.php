@@ -174,7 +174,7 @@
                   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
                </div>
                <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
-                  <div class="p-2 bd-highlight">Service Fee ({{number_format($job_payment->service_fee_percentage, 2)}})</div>
+                  <div class="p-2 bd-highlight">Service Fee ({{number_format($job_payment->service_fee_percentage, 2)}}%)</div>
                   <div class="ml-auto p-2 bd-highlight text-danger"> ${{number_format($job_payment->service_fee_price, 2)}}</div>
                </div>
                <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
