@@ -646,6 +646,8 @@ class ServiceSeekerJobController extends Controller
 		if(file_exists($dest_path)){
             unlink($dest_path);
         }
+    $job->is_invoice_sent = true;
+    $job->save();
 		Session::put('status', 'An email has been sent.');
 		return redirect()->back();
   }

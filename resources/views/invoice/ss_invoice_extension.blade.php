@@ -71,19 +71,19 @@
             <table class="table table-sm table-borderless">
                <tr>
                   <td class="font-weight-bolder" style="padding: .1rem;">Sub Total:</td>
-                  <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->payable_job_price - $job_payment->service_fee_price ,2)}}</td>
+                  <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->job_price,2)}}</td>
                </tr>
                <tr>
-                  <td class="font-weight-bolder" style="padding: .1rem;">Credit Card Fee 1.75% + 30c:</td>
-                  <td class="text-right" style="padding: .1rem;">+ ${{number_format($job_payment->service_fee_price,2)}}</td>
+                  <td class="font-weight-bolder" style="padding: .1rem;">Credit Card Fee</td>
+                  <td class="text-right" style="padding: .1rem;">+ ${{number_format($job_payment->payment_processing_fee	,2)}}</td>
                </tr>
                <tr>
                   <td class="font-weight-bolder" style="padding: .1rem;">GST (10%):</td>
-                  <td class="text-right" style="padding: .1rem;"> ${{number_format($job_payment->gst_fee_value,2)}}</td>
+                  <td class="text-right" style="padding: .1rem;">+ ${{number_format($job_payment->gst_fee_value,2)}}</td>
                </tr>
                <tr>
                   <td class="font-weight-bolder" style="padding: .1rem;">Grand Total:</td>
-                  <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->payable_job_price,2)}}</td>
+                  <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->job_price + $job_payment->payment_processing_fee + $job_payment->gst_fee_value,2)}}</td>
                </tr>
             </table>
       </div>

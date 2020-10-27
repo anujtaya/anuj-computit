@@ -19,6 +19,20 @@
 
 <div class="fs--1" style="overflow:scroll; scroll-behavior: smooth;">
    <div class="p-2">
+
+      {{-- Code for sending invoice if the is_invoice_sent varibale is set to false. Runs Automatically --}}
+      @if(!$job->is_invoice_sent)
+      <div class="alert alert-info">
+         Thanks for working with LocaL2LocaL your invoice will appear in your designated mailbox shortly.
+      </div>
+      <script>
+         window.onload = function() {
+            generate_invoices();
+         };
+      </script>
+      @endif
+      {{-- end invoice auto send code --}}
+   
       @if(Session::has('status'))
          <div class="alert alert-info">
             {{Session::pull('status')}}
@@ -36,7 +50,7 @@
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Total Job Price</div>
-         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->gst_fee_value, 2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">GST Included</div>
@@ -61,7 +75,7 @@
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Total Job Price</div>
-         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->gst_fee_value, 2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">GST Included</div>
@@ -209,5 +223,37 @@ function responseMessage(msg) {
 
 function show_rating_modal(){
    $('#editjobratingmodal').modal('show');
+}
+
+//below function is called automatically if the invoice hasn't been sent to seeker already
+function generate_invoices(){
+   send_seeker_invoice();
+   send_provider_invoice();
+}
+
+function send_provider_invoice(){
+   $.ajax({
+      type: "GET",
+      url: "{{route('service_provider_job_email_invoice', $job->id)}}",
+      success: function(results) {
+         console.log('Provider Invoice Sent.')
+      },
+      error: function(result, status, err) {
+         console.log('Provider Invoice: ' + err);
+      }
+   });
+}
+
+function send_seeker_invoice(){
+   $.ajax({
+      type: "GET",
+      url: "{{route('service_seeker_job_email_invoice', $job->id)}}",
+      success: function(results) {
+         console.log('Seeker Invoice Sent.')
+      },
+      error: function(result, status, err) {
+         console.log('Seeker Invoice: ' + err);
+      }
+   });
 }
 </script>
