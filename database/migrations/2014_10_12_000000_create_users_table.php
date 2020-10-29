@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('default_timezone')->nullable();
             $table->tinyInteger('user_type')->nullable();
-            $table->integer('work_radius')->unsigned()->default(20)->nullable();
+            $table->integer('work_radius')->unsigned()->default(200)->nullable();
             $table->string('password');
             $table->string('profile_image_path')->nullable();
             $table->string('phone')->nullable();
