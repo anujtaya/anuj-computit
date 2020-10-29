@@ -74,7 +74,7 @@
                   <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->job_price,2)}}</td>
                </tr>
                <tr>
-                  <td class="font-weight-bolder" style="padding: .1rem;">Service Fee ({{number_format($job_payment->service_fee_percentage,2)}}%):</td>
+                  <td class="font-weight-bolder" style="padding: .1rem;">Service Fee ({{number_format($job_payment->service_fee_percentage,0)}}%):</td>
                   <td class="text-right" style="padding: .1rem;">- ${{number_format($job_payment->service_fee_price,2)}}</td>
                </tr>
                <tr>
