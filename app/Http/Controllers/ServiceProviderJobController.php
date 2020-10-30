@@ -764,7 +764,7 @@ class ServiceProviderJobController extends Controller
 		$job->is_invoice_sent = true;
 		$job->save();
 		//send push notification for invoice delivery
-		$this->send_user_mobile_notification($job->service_provider_profile, 'Invoice Delivered successfully'.'Invoice for job with id #'.$job->id.' delivered to your nominated email account.');
+		$this->send_user_mobile_notification($job->service_provider_profile, 'Invoice Delivered successfully','Invoice for job with id #'.$job->id.' delivered to your nominated email account.');
 		Session::put('status', 'An email has been sent.');
 		return redirect()->back();
 	}

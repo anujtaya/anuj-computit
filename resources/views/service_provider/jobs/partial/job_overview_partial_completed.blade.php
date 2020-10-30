@@ -22,9 +22,6 @@
 
       {{-- Code for sending invoice if the is_invoice_sent varibale is set to false. Runs Automatically --}}
       @if(!$job->is_invoice_sent)
-      <div class="alert alert-info">
-         Thanks for working with LocaL2LocaL your invoice will appear in your designated mailbox shortly.
-      </div>
       <script>
          window.onload = function() {
             generate_invoices();
@@ -179,6 +176,23 @@
       </div>
    </div>
 </div>
+<div class="modal fade" id="invoiceJobDeliveryNotification" tabindex="-1" role="dialog" aria-labelledby="invoiceJobDeliveryNotification" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content shadow-sm  border-0 p-3">
+         <div class="mb-3">
+            <span style="font-size:1.2rem">Processing Job Invoice</span>
+            <button type="button" class="close" data-dismiss="modal" style="color: white!important;" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <p>
+            We are preaparing invoice for this job and it will be delivered to Service Seeker and your nominated email address. We will let you know once the invoice is delivered.
+         </p>
+         <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal">Dismiss</a>
+         </form>
+      </div>
+   </div>
+</div>
 <script>
 $(document).ready(function(){ 
   /* 1. Visualizing things on Hover - See next part for action on click */
@@ -227,6 +241,9 @@ function show_rating_modal(){
 
 //below function is called automatically if the invoice hasn't been sent to seeker already
 function generate_invoices(){
+   //open modal notification until the invoice is delivered
+   $('#invoiceJobDeliveryNotification').modal('show');
+   console.log('Invoice deliver method triggered automatically.')
    send_seeker_invoice();
    send_provider_invoice();
 }
@@ -236,7 +253,8 @@ function send_provider_invoice(){
       type: "GET",
       url: "{{route('service_provider_job_email_invoice', $job->id)}}",
       success: function(results) {
-         console.log('Provider Invoice Sent.')
+         //console.log('Provider Invoice Sent.')
+         $('#invoiceJobDeliveryNotification').modal('hide');
       },
       error: function(result, status, err) {
          console.log('Provider Invoice: ' + err);
@@ -249,7 +267,7 @@ function send_seeker_invoice(){
       type: "GET",
       url: "{{route('service_seeker_job_email_invoice', $job->id)}}",
       success: function(results) {
-         console.log('Seeker Invoice Sent.')
+         //console.log('Seeker Invoice Sent.')
       },
       error: function(result, status, err) {
          console.log('Seeker Invoice: ' + err);
