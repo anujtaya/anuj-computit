@@ -86,7 +86,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content shadow-sm  border-0 p-3">
          <div class="mb-3">
-            <span style="font-size:1.2rem">Edit Job Rating</span>
+            <span style="font-size:1.2rem">Job Feedback</span>
             <button type="button" class="close" data-dismiss="modal" style="color: white!important;" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -121,12 +121,21 @@
                <label for="ss_rating_description_value">Write Comments Below</label>
                <textarea class="form-control form-control-sm" id="ss_rating_description_value" rows="3" name="ss_rating_description_value" placeholder="Thank you for your services.">{{$job->service_seeker_comment}}</textarea>
             </div>
-            <button class="btn theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Save Rating</button>
+            <button class="btn theme-background-color text-white card-1 fs--1">Save Rating</button>
             <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal">Dismiss</a>
          </form>
       </div>
    </div>
 </div>
+{{-- Code for display rating modal if rating is not provided by Service Seeker --}}
+   @if($job->service_seeker_rating ==  null)
+   <script>
+      window.onload = function() {
+         show_rating_modal();
+      };
+   </script>
+   @endif
+{{-- end rating modal display code --}}
 <script>
    $(document).ready(function(){ 
      /* 1. Visualizing things on Hover - See next part for action on click */
@@ -170,4 +179,5 @@
    function show_rating_modal(){
       $('#editjobratingmodal').modal('show');
    }
+
 </script>
