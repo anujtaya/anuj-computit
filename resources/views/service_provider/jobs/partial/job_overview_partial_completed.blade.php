@@ -128,6 +128,18 @@
          <span class="font-weight-bolder">Comments</span> <br><br>
          <span><i>{{$job->service_provider_comment}}</i></span>
       </div>
+
+      {{-- Code for display rating modal if rating is not provided by Service Provider --}}
+         @if($job->service_provider_rating ==  null)
+         <script>
+            window.onload = function() {
+               show_rating_modal();
+            };
+         </script>
+         @endif
+      {{-- end rating modal display code --}}
+
+
       @endif
    </div>  
 </div>
