@@ -22,6 +22,14 @@ $job_payment = $job->job_payments;
                     <br><br>
                     This job has been paid for. Please visit the job summary window to know more.
                 </div>
+               <!-- redirect the user back to the service seeker homepage after 1 seconds -->
+               <script>
+                  var homepage_url = "{{route('service_seeker_home')}}";
+                  window.onload = function() {
+                     toggle_animation(true);
+                     location.href=homepage_url;
+                  };
+               </script>
             @else
                 @if($payment_method == 'STRIPE')
                     @include('service_seeker.jobs.partial.job_payment_process_mode_stripe')
