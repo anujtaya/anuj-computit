@@ -74,7 +74,7 @@
 </div>
 <!-- payment button  -->
 <div class="m-1">
-   <form action="{{route('service_seeker_process_job_payment_pay_with_stripe')}}" method="POST">
+   <form action="{{route('service_seeker_process_job_payment_pay_with_stripe')}}" method="POST" onsubmit="toggle_animation(true);">
       @csrf
       <input type="hidden" name="stripe_payment_job_id" value="{{$job->id}}">
       <button type="submit" class="btn btn-success btn-block shadow text-white mt-4"   @if(count($card_sources) == 0) disabled @endif >Confirm Payment ${{number_format($final_payable_amount, 2)}}</button>
