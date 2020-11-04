@@ -39,7 +39,7 @@
       @if (Session::has('error'))
       <div class="alert alert-danger">{{ Session::pull('error')}}</div>
       @endif
-   <form action="{{route('service_seeker_process_job_payment_pay_with_paypal')}}" method="POST">
+   <form action="{{route('service_seeker_process_job_payment_pay_with_paypal')}}" method="POST" onsubmit="toggle_animation(true);">
       @csrf
       <input type="hidden" name="paypal_payment_job_id" value="{{$job->id}}">
       <button type="submit" class="btn btn-primary btn-block shadow text-white mt-4" >Checkout with PayPal ${{number_format($final_payable_amount, 2)}}</button>
