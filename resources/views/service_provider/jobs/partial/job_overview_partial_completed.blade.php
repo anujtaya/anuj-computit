@@ -61,6 +61,12 @@
          <div class="p-2 bd-highlight">You Get</div>
          <div class="ml-auto p-2 bd-highlight text-success"> ${{number_format($job_payment->service_provider_gets, 2)}}</div>
       </div>
+      <!-- refresh the page every 20 seconds -->
+      <script>
+            window.onload = function() {
+               setTimeout(function(){ location.reload(); }, 15000);
+            };
+      </script>
       @else
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
