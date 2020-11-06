@@ -13,9 +13,8 @@
          }
          @page { margin: 0px; }
          body { margin: 0px; }
-
          .table td, .table th {
-            padding: 0rem;
+         padding: 0rem;
          }
          #footer {
          position: fixed;
@@ -56,7 +55,6 @@
       <div class="pl-4 pr-4 pt-2" style="background:#E6E7EC!important;height:315px;">
          <div class="w3-row ml-2 mr-2 mt-4">
             <div class="w3-col s6">
-               
                <h4 class="font-weight-bolder mt-4">Tax Invoice</h4>
                <p style="font-size:1.1em;">#1725</p>
                <p style="font-size:1.1em;">DATE: FRI 29/09/2020</p>
@@ -76,7 +74,7 @@
          <div class="w3-row m-2">
             <div class="w3-col s6">
                <p class="font-weight-bolder">From: Service Provider</p>
-               <p class="mt-1">{{$service_provider->first}} {{$service_provider->last}}</p>      
+               <p class="mt-1">{{$service_provider->first}} {{$service_provider->last}}</p>
                @if($abn != '') 
                <p class="mt-1">{{$service_provider_business->business_name}}</p>
                @endif
@@ -86,7 +84,7 @@
             </div>
             <div class="w3-col s6 text-right">
             </div>
-         </div>    
+         </div>
       </div>
       <!-- data input for invoice -->
       @include('invoice.ss_invoice_extension')
@@ -106,10 +104,8 @@
             </div>
          </div>
       </div>
-
       <div id="footer">
-      <img src="{{public_path('images/brand/ribbon.png')}}" onerror="this.src='{{asset('/images/brand/ribbon.png')}}'" style="height:100%;width:100%" >
-</div>
-
+         <img src="{{public_path('images/brand/ribbon.png')}}" onerror="this.src='{{asset('/images/brand/ribbon.png')}}'" style="height:100%;width:100%" >
+      </div>
    </body>
 </html>
