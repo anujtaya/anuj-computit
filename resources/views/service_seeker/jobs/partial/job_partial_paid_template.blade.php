@@ -127,6 +127,8 @@
       </div>
    </div>
 </div>
+
+
 {{-- Code for display rating modal if rating is not provided by Service Seeker --}}
    @if($job->service_seeker_rating ==  null)
    <script>
@@ -136,6 +138,19 @@
    </script>
    @endif
 {{-- end rating modal display code --}}
+
+
+{{-- Code for sending invoice if the is_invoice_sent varibale is set to false. Runs Automatically --}}
+   @if(!$job->is_invoice_sent)
+   <script>
+      window.onload = function() {
+         generate_invoices();
+      };
+   </script>
+   @endif
+{{-- end invoice auto send code --}}
+
+
 <script>
    $(document).ready(function(){ 
      /* 1. Visualizing things on Hover - See next part for action on click */
@@ -180,4 +195,12 @@
       $('#editjobratingmodal').modal('show');
    }
 
+   //below function is called automatically if the invoice hasn't been sent to seeker already
+   function generate_invoices(){
+      //open modal notification until the invoice is delivered
+      $('#invoiceJobDeliveryNotification').modal('show');
+      console.log('Invoice deliver method triggered automatically.')
+      send_seeker_invoice();
+      send_provider_invoice();
+   }
 </script>
