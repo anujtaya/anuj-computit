@@ -13,9 +13,8 @@
          }
          @page { margin: 0px; }
          body { margin: 0px; }
-
          .table td, .table th {
-            padding: 0rem;
+         padding: 0rem;
          }
          #footer {
          position: fixed;
@@ -53,23 +52,37 @@
          //dd($extras);
          ?>
       <!-- header content -->
-      <div class="pl-4 pr-4 pt-2" style="background:#E6E7EC!important;height:240px;">
-         <div class="w3-row ml-3 mr-3 mt-4">
+      <div class="pl-4 pr-4 pt-2" style="background:#E6E7EC!important;height:315px;">
+         <div class="w3-row ml-2 mr-2 mt-4">
             <div class="w3-col s6">
-               <img src="{{public_path('images/brand/logo.png')}}?v=1" onerror="this.src='{{asset('/images/brand/logo.png')}}'" height=70" width="70">
                <h4 class="font-weight-bolder mt-4">Remittance</h4>
                <p style="font-size:1.1em;">#1725</p>
                <p style="font-size:1.1em;">DATE: FRI 29/09/2020</p>
             </div>
             <div class="w3-col s6 text-right">
-               <p class="">LocaL2LocaL Pty. Ltd. Australia</p>
-               <p>P.O. Box 6</p>
-               <p>Toowong QLD 4066</p>
-               <p>Australia</p>
-               <p>ABN: 67-625-654-613</p>
-               <div class=" mt-4">
-                  <span class="p-3 bg-dark w3-right text-white text-center font-weight-bolder">$ {{number_format($job_payment->service_provider_gets,2)}} AUD</span>
+               <div class="mt-4">
+                  <span class="p-4 bg-dark w3-right text-white text-center font-weight-bolder">$ {{number_format($job_payment->service_provider_gets,2)}} AUD</span>
                </div>
+            </div>
+         </div>
+         <div class="w3-row m-2">
+            <div class="w3-col s6">
+               <p class="font-weight-bolder">To: Service Provider</p>
+               <p class="mt-1">{{$service_provider->first}} {{$service_provider->last}}</p>      
+               @if($abn != '') 
+               <p class="mt-1">{{$service_provider_business->business_name}}</p>
+               @endif
+               @if($abn != '') 
+               <p class="mt-1">{{$abn}}</p>
+               @endif
+            </div>
+            <div class="w3-col s6 text-right">
+            </div>
+         </div>
+         <div class="w3-row m-2">
+            <div class="w3-col s12">
+               <p class="font-weight-bolder">From: Service Seeker</p>
+               <p class="mt-1">{{$service_seeker->first}} {{$service_seeker->last}}</p>
             </div>
          </div>
       </div>
@@ -79,8 +92,7 @@
       <div  class="pl-4 pr-4 pt-2">
          <div class="w3-row m-1">
             <div class="w3-col s12">
-               <p class="font-weight-bolder">Customer Service</p>
-              
+               <p class="font-weight-bolder"><img src="{{public_path('images/brand/l2l-logo-registered-min.png')}}?v=1"  class="mr-2" onerror="this.src='{{asset('/images/brand/l2l-logo-registered-min.png')}}'" height=50" width="50">Customer Service</p>
                <p class="mt-1">www.local2local.com.au | admin@local2local.com.au</p>
                <p>
                   This is an auto-generated invoice. <br>
@@ -92,10 +104,8 @@
             </div>
          </div>
       </div>
-
       <div id="footer">
-      <img src="{{public_path('images/brand/ribbon.png')}}" onerror="this.src='{{asset('/images/brand/ribbon.png')}}'" style="height:100%;width:100%" >
-</div>
-
+         <img src="{{public_path('images/brand/ribbon.png')}}" onerror="this.src='{{asset('/images/brand/ribbon.png')}}'" style="height:100%;width:100%" >
+      </div>
    </body>
 </html>

@@ -74,7 +74,7 @@
                   <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->job_price,2)}}</td>
                </tr>
                <tr>
-                  <td class="font-weight-bolder" style="padding: .1rem;">Service Fee (0%): <br>(Service fee waved for a limited time.)</td>
+                  <td class="font-weight-bolder" style="padding: .1rem;">Service Fee (0%): <br><small>(Service fee waved for a limited time.)</small></td>
                   <td class="text-right" style="padding: .1rem;">- ${{number_format($job_payment->service_fee_price,2)}}</td>
                </tr>
                <tr>
@@ -86,18 +86,6 @@
                   <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->service_provider_gets,2)}}</td>
                </tr>
             </table>
-      </div>
-   </div>
-</div>
-<!-- service provider info  -->
-<div  class="pl-4 pr-4 pt-2">
-   <div class="w3-row m-2">
-      <div class="w3-col s6">
-         <p class="font-weight-bolder">Service Provider</p>
-         <p class="mt-1">{{$service_provider->first}} {{$service_provider->last}}</p>
-         <p>{{$service_provider->email}}</p>
-      </div>
-      <div class="w3-col s6 text-right">
       </div>
    </div>
 </div>
