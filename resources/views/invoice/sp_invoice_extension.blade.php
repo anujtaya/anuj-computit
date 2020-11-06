@@ -62,10 +62,10 @@
 <!-- service seeker info and payment summary -->
 <div  class="pl-4 pr-4 pt-2">
    <div class="w3-row m-2">
-      <div class="w3-col s6">
-         <p class="font-weight-bolder">Service Seeker</p>
-         <p class="mt-1">{{$service_seeker->first}} {{$service_seeker->last}}</p>
-         <p>{{$service_seeker->email}}</p>
+      <div class="w3-col text-white s6">
+         <p class="font-weight-bolder">--------------</p>
+         <p class="mt-1">--------------</p>
+         <p>--------------</p>
       </div>
       <div class="w3-col s6">
             <table class="table table-sm table-borderless">
@@ -74,7 +74,7 @@
                   <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->job_price,2)}}</td>
                </tr>
                <tr>
-                  <td class="font-weight-bolder" style="padding: .1rem;">Service Fee (0%): <br><small>(Service fee waved for a limited time.)</small></td>
+                  <td class="font-weight-bolder" style="padding: .1rem;">Service Fee (9%): <br><small>(Service fee waved for a limited time.)</small></td>
                   <td class="text-right" style="padding: .1rem;">- ${{number_format($job_payment->service_fee_price,2)}}</td>
                </tr>
                <tr>

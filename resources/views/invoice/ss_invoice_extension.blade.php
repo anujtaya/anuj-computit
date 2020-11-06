@@ -63,9 +63,7 @@
 <div  class="pl-4 pr-4 pt-2">
    <div class="w3-row m-2">
       <div class="w3-col s6">
-         <p class="font-weight-bolder">Service Seeker</p>
-         <p class="mt-1">{{$service_seeker->first}} {{$service_seeker->last}}</p>
-         <p>{{$service_seeker->email}}</p>
+         <span class="text-white">Empty Data</span>
       </div>
       <div class="w3-col s6">
             <table class="table table-sm table-borderless">
@@ -86,18 +84,6 @@
                   <td class="text-right" style="padding: .1rem;">${{number_format($job_payment->job_price + $job_payment->payment_processing_fee + $job_payment->gst_fee_value,2)}}</td>
                </tr>
             </table>
-      </div>
-   </div>
-</div>
-<!-- service provider info  -->
-<div  class="pl-4 pr-4 pt-2">
-   <div class="w3-row m-2">
-      <div class="w3-col s6">
-         <p class="font-weight-bolder">Service Provider</p>
-         <p class="mt-1">{{$service_provider->first}} {{$service_provider->last}}</p>
-         <p>{{$service_provider->email}}</p>
-      </div>
-      <div class="w3-col s6 text-right">
       </div>
    </div>
 </div>

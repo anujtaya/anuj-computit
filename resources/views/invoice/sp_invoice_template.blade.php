@@ -92,7 +92,7 @@
       <div  class="pl-4 pr-4 pt-2">
          <div class="w3-row m-1">
             <div class="w3-col s12">
-               <p class="font-weight-bolder"><img src="{{public_path('images/brand/l2l-logo-registered-min.png')}}?v=1"  class="mr-2" onerror="this.src='{{asset('/images/brand/l2l-logo-registered-min.png')}}'" height=50" width="50">Customer Service</p>
+               <p class="font-weight-bolder"><img src="{{public_path('images/brand/l2l-logo-tm-min.png')}}?v=1"  class="mr-2" onerror="this.src='{{asset('/images/brand/l2l-logo-tm-min.png')}}'" height=50" width="50">Customer Service</p>
                <p class="mt-1">www.local2local.com.au | admin@local2local.com.au</p>
                <p>
                   This is an auto-generated invoice. <br>
