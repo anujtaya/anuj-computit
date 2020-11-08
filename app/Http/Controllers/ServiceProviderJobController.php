@@ -577,9 +577,11 @@ class ServiceProviderJobController extends Controller
 		}
 		//print('Is GST applicable: '. $is_gst_applicable);print('<br>');
 		$gst_fee_value = 0;
+
 		if($is_gst_applicable) {
 			$gst_fee_value = round(($final_price/11),2);
 		}
+		
 		//print('Total GST payable on final price is: '. $gst_fee_value);print('<br>');
 		$payable_job_final_value = $final_price + $gst_fee_value;
 		//print('Final amount payable by user: '. $payable_job_final_value);print('<br>');
