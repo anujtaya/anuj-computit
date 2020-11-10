@@ -6,8 +6,8 @@
    <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
-   <div class="p-2 bd-highlight">GST Included</div>
-   <div class="ml-auto p-2 bd-highlight"> ${{$job_payment->gst_fee_value}}</div>
+   <div class="p-2 bd-highlight">GST Included (if applicable)</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
 </div>
 <br>
 <form class="fs--1" action="{{route('service_seeker_process_job_payment')}}" method="get" class="m-0" onsubmit="toggle_animation(true);">

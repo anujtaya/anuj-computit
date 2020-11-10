@@ -78,7 +78,7 @@
                   <td class="text-right" style="padding: .1rem;">- ${{number_format($job_payment->service_fee_price,2)}}</td>
                </tr>
                <tr>
-                  <td class="font-weight-bolder" style="padding: .1rem;">GST (10%):</td>
+                  <td class="font-weight-bolder" style="padding: .1rem;">GST 10% (if applicable):</td>
                   <td class="text-right" style="padding: .1rem;">+ ${{number_format($job_payment->gst_fee_value,2)}}</td>
                </tr>
                <tr>

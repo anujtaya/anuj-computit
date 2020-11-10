@@ -26,11 +26,11 @@
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">Total Job Price</div>
-   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->gst_fee_value, 2)}}</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">GST Included</div>
-   <div class="ml-auto p-2 bd-highlight"> ${{$job_payment->gst_fee_value}}</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">Payment Mode</div>
@@ -46,7 +46,7 @@
 </div>
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">Total Price Paid Price</div>
-   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->payment_processing_fee + $job_payment->gst_fee_value, 2)}}</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->payment_processing_fee, 2)}}</div>
 </div>
 <br>
 <span class="font-weight-bolder">Rate Your Service Provider</span> <br> <br>

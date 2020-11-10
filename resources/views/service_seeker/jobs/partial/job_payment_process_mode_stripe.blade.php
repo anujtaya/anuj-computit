@@ -3,7 +3,12 @@
    $stripe_fixed_fee = 0.30;
    $stripe_fixed_percentage = 1.75;
    $job_price = $job_payment->job_price;
-   $credit_card_processing_fee =  round(($stripe_fixed_percentage/100)*($job_price),2);                    
+
+
+   //since there is no charge on gst on card processing fee. We will exclude it below
+   $stripe_job_price = $job_payment->job_price - $job_payment->gst_fee_value;
+   
+   $credit_card_processing_fee =  round(($stripe_fixed_percentage/100)*($stripe_job_price),2);                    
    $credit_card_processing_fee += $stripe_fixed_fee;
    $final_payable_amount = $job_price + $credit_card_processing_fee;
 @endphp
@@ -18,7 +23,11 @@
       <td class="text-right"> ${{number_format($job_price, 2)}} </td>
    </tr>
    <tr>
-      <td class="theme-color">Stripe Processing Fee: <small>({{$stripe_fixed_percentage}}% + {{number_format($stripe_fixed_fee,2)}}) </small> </td>
+      <td class="theme-color">GST Included (if applicable): </td>
+      <td class="text-right"> ${{number_format($job_payment->gst_fee_value,2)}}</td>
+   </tr>
+   <tr>
+      <td class="theme-color">Stripe Processing Fee:  <br><small>({{$stripe_fixed_percentage}}% + {{number_format($stripe_fixed_fee,2)}}) (Excluding GST component) </small> </td>
       <td class="text-right"> ${{number_format($credit_card_processing_fee, 2)}} </td>
    </tr>
    <tr>
@@ -60,7 +69,7 @@
          <span class="text-warning">No cards found. Please add a card using the form below.</span> 
          @endif
       </ul>
-      <br><br>
+      <br>
       <span>Add new Credit/Debit Source</span> <br> <br>
       <form action="{{route('service_seeker_more_wallet_stripe_create_customer')}}" class="my-form needs-validation"  method="post" id="payment-form">
          @csrf

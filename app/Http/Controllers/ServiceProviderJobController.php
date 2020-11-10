@@ -571,7 +571,7 @@ class ServiceProviderJobController extends Controller
 		//print('Final price without extras is: '. $service_fee_without_extras);print('<br>');
 		$service_fee_percentage = 0.00;
 		//print('LocaL2LocaL service fee percentage is: '. $service_fee_percentage);print('<br>');
-		$service_fee_price = round(round((($service_fee_percentage/100)*$service_fee_without_extras),2),2);
+		$service_fee_price = ($service_fee_percentage/100)*$service_fee_without_extras;
 		//print('LocaL2LocaL service fee price is: '. $service_fee_price);print('<br>');
 		$is_gst_applicable = false;
 		if($service_provider->business_info != null) {
@@ -583,14 +583,17 @@ class ServiceProviderJobController extends Controller
 		//print('Is GST applicable: '. $is_gst_applicable);print('<br>');
 		$gst_fee_value = 0;
 
+
 		if($is_gst_applicable) {
-			$gst_fee_value = round(($final_price/11),2);
+			$gst_fee_value = $final_price/11;
 		}
 		
+
+
 		//print('Total GST payable on final price is: '. $gst_fee_value);print('<br>');
-		$payable_job_final_value = $final_price + $gst_fee_value;
+		$payable_job_final_value = $final_price;
 		//print('Final amount payable by user: '. $payable_job_final_value);print('<br>');
-		$service_provider_payment_amount_total = $payable_job_final_value - $service_fee_price; 
+		$service_provider_payment_amount_total = $final_price - $service_fee_price; 
 		//print('Service Provider amount is: '. $service_provider_payment_amount_total);print('<br>');
 
 		$payment_source = new JobPayment();

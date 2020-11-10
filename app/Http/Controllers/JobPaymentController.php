@@ -83,7 +83,10 @@ class JobPaymentController extends Controller
                 $stripe_fixed_fee = 0.30;
                 $stripe_fixed_percentage = 1.75;
                 $job_price = $payment_source->job_price;
-                $credit_card_processing_fee =  round(($stripe_fixed_percentage/100)*($job_price),2);                    
+
+                $stripe_job_price = $payment_source->job_price - $payment_source->gst_fee_value;
+
+                $credit_card_processing_fee =  round(($stripe_fixed_percentage/100)*($stripe_job_price),2);                    
                 $credit_card_processing_fee += $stripe_fixed_fee;
                 $payable_job_final_value = $job_price + $credit_card_processing_fee;
                 //try charging the money via stripe
@@ -186,7 +189,8 @@ class JobPaymentController extends Controller
         $paypal_fixed_fee = 0.30;
         $paypal_fixed_percentage = 2.60;
         $job_price = $payment_source->job_price;
-        $credit_card_processing_fee =  round(($paypal_fixed_percentage/100)*($job_price),2);                    
+        $paypal_job_price = $payment_source->job_price - $payment_source->gst_fee_value;
+        $credit_card_processing_fee =  round(($paypal_fixed_percentage/100)*($paypal_job_price),2);                    
         $credit_card_processing_fee += $paypal_fixed_fee;
         $final_payable_amount = $job_price + $credit_card_processing_fee;
 

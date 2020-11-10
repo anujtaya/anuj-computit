@@ -56,7 +56,7 @@
          <div class="w3-row ml-2 mr-2 mt-4">
             <div class="w3-col s6">
                <h4 class="font-weight-bolder mt-4">Remittance</h4>
-               <p style="font-size:1.1em;">#1725</p>
+               <p style="font-size:1.1em;">#{{$job->id}}</p>
                <p style="font-size:1.1em;">DATE: FRI 29/09/2020</p>
             </div>
             <div class="w3-col s6 text-right">

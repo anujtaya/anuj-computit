@@ -3,7 +3,11 @@
    $paypal_fixed_fee = 0.30;
    $paypal_fixed_percentage = 2.60;
    $job_price = $job_payment->job_price;
-   $credit_card_processing_fee =  round(($paypal_fixed_percentage/100)*($job_price),2);                    
+
+   //since there is no charge on gst on card processing fee. We will exclude it below
+   $paypal_job_price = $job_payment->job_price - $job_payment->gst_fee_value;
+
+   $credit_card_processing_fee =  round(($paypal_fixed_percentage/100)*($paypal_job_price),2);                    
    $credit_card_processing_fee += $paypal_fixed_fee;
    $final_payable_amount = $job_price + $credit_card_processing_fee;
 @endphp
@@ -18,7 +22,11 @@
       <td class="text-right"> ${{number_format($job_price, 2)}} </td>
    </tr>
    <tr>
-      <td class="theme-color">Processing Fee: <small>({{$paypal_fixed_percentage}}% + {{number_format($paypal_fixed_fee,2)}}) </small> </td>
+      <td class="theme-color">GST Included (if applicable): </td>
+      <td class="text-right"> ${{number_format($job_payment->gst_fee_value,2)}}</td>
+   </tr>
+   <tr>
+      <td class="theme-color">Processing Fee: <br><small>({{$paypal_fixed_percentage}}% + {{number_format($paypal_fixed_fee,2)}}) (Excluding GST component) </small> </td>
       <td class="text-right"> ${{number_format($credit_card_processing_fee, 2)}} </td>
    </tr>
    <tr>
