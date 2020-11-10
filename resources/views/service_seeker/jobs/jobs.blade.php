@@ -109,11 +109,11 @@
 <script>
    var service_seeker_jobs_filter_url = "{{route('service_seeker_jobs_filter')}}";
    var current_filter_choice = 'ALL';  
-   // window.onload = function() {
-   //     setInterval(() => {
-   //      filter_service_seeker_jobs(current_filter_choice);
-   //     }, 30000);
-   // }
+   window.onload = function() {
+       setInterval(() => {
+        filter_service_seeker_jobs(current_filter_choice);
+       }, 15000);
+   }
    
    function filter_service_seeker_jobs(data) {
     if (data != null) {
