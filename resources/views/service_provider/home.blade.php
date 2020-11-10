@@ -193,13 +193,12 @@
    window.onload = function() {
       update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 30000);
       setInterval(update_refresh_count_display, 5000);
-      //initialize the service provider location setup
-    
-      //update_sp_location();    
+      //initialize the service provider location setup    
       if(current_lat == '') {
-         update_sp_location();
+         //update_sp_location();
       } else {
-         filter_service_provider_jobs(current_filter_choice,false);
+         //filter_service_provider_jobs(current_filter_choice,false);
+         update_sp_location();
       }
    }
    
