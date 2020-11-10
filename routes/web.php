@@ -211,25 +211,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
 });
 
 
-//demo/test route links
-Route::get('/demo/car_map_demo', 'DemoController@car_map_demo')->name('demo_car_map_demo');
-Route::get('/demo/test2', 'DemoController@test2');
-Route::get('/demo/dump_database', 'DemoController@dump_database');
-Route::get('/demo/create_demo_jobs', 'DemoController@create_demo_jobs');
-Route::get('/demo/test_sp_invoice_template_design/{id}', 'DemoController@test_sp_invoice_template_design');
-Route::get('/demo/test_sp_invoice_template_pdf/{id}', 'DemoController@test_sp_invoice_template_pdf');
-Route::get('/demo/test_ss_invoice_template_design/{id}', 'DemoController@test_ss_invoice_template_design');
-Route::get('/demo/button_demo', 'DemoController@button_demo');
-Route::get('/test_notification', 'JobNotificationController@test_template');
-Route::get('/demo/test_email', 'DemoController@test_email')->name('demo_test_email');
-
-
 //helpdesk routes
 Route::post('app/services/support/send_support_email', 'HelpdeskController@send_support_email')->name('app_services_support_send_support_email')->middleware('auth');
 
-
-//artisan admin routes
-Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->middleware('auth');
 
 
 //Service Provider Portal routes
@@ -263,6 +247,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::get('/app/portal/admin/jobs/job/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
   Route::post('/app/portal/admin/jobs/search', 'AdminController@jobs_search')->name('app_portal_admin_jobs_search');
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
+  Route::get('/app/portal/admin/jobs/job_invoice_provider/{id}', 'DemoController@test_sp_invoice_template_design')->name('app_portal_admin_jobs_job_invoice_provider');
+  Route::get('/app/portal/admin/jobs/job_invoice_seeker/{id}', 'DemoController@test_ss_invoice_template_design')->name('app_portal_admin_jobs_job_invoice_seeker');
 
   //map module
   Route::get('/app/portal/admin/maps/heatmap', 'AdminController@show_heatmap')->name('app_portal_admin_maps_heatmap');
@@ -282,6 +268,18 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
 
   Route::get('/app/portal/admin/data/import/index', 'DataImportController@index')->name('app_portal_admin_data_import_index');
 
+  //artisan admin routes
+  Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->middleware('auth');
+  //dev only routes
+  Route::get('dev/migrate_users', 'DataImportController@import_users')->name('app_portal_admin_data_import_index');
+  //demo/test route links
+  Route::get('/demo/car_map_demo', 'DemoController@car_map_demo')->name('demo_car_map_demo');
+  Route::get('/demo/test2', 'DemoController@test2');
+  Route::get('/demo/dump_database', 'DemoController@dump_database');
+  Route::get('/demo/create_demo_jobs', 'DemoController@create_demo_jobs');
+  Route::get('/demo/button_demo', 'DemoController@button_demo');
+  Route::get('/test_notification', 'JobNotificationController@test_template');
+  Route::get('/demo/test_email', 'DemoController@test_email')->name('demo_test_email');
 });
 
 
@@ -293,7 +291,3 @@ Route::post('/notify', 'MobileInterfaceController@save_ios_device_token')->name(
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::post('/save_android_token', 'MobileInterfaceController@save_android_device_token_2')->name('app_mobile_api_save_android_device_token_2');
 Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
-
-
-//dev only routes
-Route::get('dev/migrate_users', 'DataImportController@import_users')->name('app_portal_admin_data_import_index');
