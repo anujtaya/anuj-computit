@@ -18,7 +18,7 @@
       <td class="text-right"> ${{number_format($job_price, 2)}} </td>
    </tr>
    <tr>
-      <td class="theme-color">Processing Fee: <small>({{$stripe_fixed_percentage}}% + {{number_format($stripe_fixed_fee,2)}}) </small> </td>
+      <td class="theme-color">Stripe Processing Fee: <small>({{$stripe_fixed_percentage}}% + {{number_format($stripe_fixed_fee,2)}}) </small> </td>
       <td class="text-right"> ${{number_format($credit_card_processing_fee, 2)}} </td>
    </tr>
    <tr>
