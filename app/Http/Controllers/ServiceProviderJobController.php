@@ -546,6 +546,7 @@ class ServiceProviderJobController extends Controller
 					$title = 'LocaL2LocaL - Job Completed.';
 					$message = 'Service Provider has completed for job with id #'.$job->id;
 					$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
+					return redirect()->route('service_provider_home');
 				}
 				
 			} 
