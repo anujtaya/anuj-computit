@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <form action="{{route('service_seeker_reject_job',[$job->id ,$conversation->id])}}" method="post">
+         <form action="{{route('service_seeker_reject_job',[$job->id ,$conversation->id])}}" method="post" onsubmit="toggle_animation(true);">
             @csrf
             <div class="modal-body fs--1">
                <div class="">

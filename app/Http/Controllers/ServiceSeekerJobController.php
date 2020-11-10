@@ -512,7 +512,6 @@ class ServiceSeekerJobController extends Controller
     $title = 'Congratulations! Job Quote Offer Accepted by Service Seeker';
     $message = 'Please visit your Service Provider Jobs menu for more information. The job id is:#'.$job->id;
     $this->send_user_mobile_notification($conversation->service_provider_profile, $title, $message);
-
     return redirect()->route('service_seeker_job', $job->id);
   
   }

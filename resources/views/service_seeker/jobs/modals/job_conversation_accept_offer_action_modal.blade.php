@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <form action="{{route('service_seeker_accept_job')}}" method="post">
+         <form action="{{route('service_seeker_accept_job')}}" method="post" onsubmit="toggle_animation(true);">
             @csrf
             <input type="hidden" name="accept_job_id" value="{{$job->id}}" required>
             <input type="hidden" name="accept_conversation_id" value="{{$conversation->id}}" required>
