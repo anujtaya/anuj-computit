@@ -132,9 +132,9 @@
 {{-- Code for display rating modal if rating is not provided by Service Seeker --}}
    @if($job->service_seeker_rating ==  null)
    <script>
-      window.onload = function() {
+      $(function() {
          show_rating_modal();
-      };
+      });
    </script>
    @endif
 {{-- end rating modal display code --}}
@@ -143,9 +143,9 @@
 {{-- Code for sending invoice if the is_invoice_sent varibale is set to false. Runs Automatically --}}
    @if(!$job->is_invoice_sent)
    <script>
-      window.onload = function() {
+      $(function() {
          generate_invoices();
-      };
+      });
    </script>
    @endif
 {{-- end invoice auto send code --}}
@@ -202,5 +202,32 @@
       console.log('Invoice deliver method triggered automatically.')
       send_seeker_invoice();
       send_provider_invoice();
+   }
+
+   function send_provider_invoice(){
+      $.ajax({
+         type: "GET",
+         url: "{{route('service_provider_job_email_invoice', $job->id)}}",
+         success: function(results) {
+            //console.log('Provider Invoice Sent.')
+            $('#invoiceJobDeliveryNotification').modal('hide');
+         },
+         error: function(result, status, err) {
+            console.log('Provider Invoice: ' + err);
+         }
+      });
+   }
+
+   function send_seeker_invoice(){
+      $.ajax({
+         type: "GET",
+         url: "{{route('service_seeker_job_email_invoice', $job->id)}}",
+         success: function(results) {
+            //console.log('Seeker Invoice Sent.')
+         },
+         error: function(result, status, err) {
+            console.log('Seeker Invoice: ' + err);
+         }
+      });
    }
 </script>
