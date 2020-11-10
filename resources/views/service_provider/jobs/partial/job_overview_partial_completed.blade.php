@@ -187,7 +187,7 @@
                <textarea class="form-control form-control-sm" id="extra_description" rows="3" name="sp_rating_description_value" placeholder="It was great helping you out.">{{$job->service_provider_comment}}</textarea>
             </div>
             <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Save Rating</button>
-            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal">Dismiss</a>
+            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal" onclick="redirect_user_to_provider_home();">Dismiss</a>
          </form>
       </div>
    </div>
@@ -290,4 +290,9 @@ function send_seeker_invoice(){
       }
    });
 }
+
+function redirect_user_to_provider_home(){
+      toggle_animation(true);
+      location.href = "{{route('service_provider_home')}}";
+   }
 </script>

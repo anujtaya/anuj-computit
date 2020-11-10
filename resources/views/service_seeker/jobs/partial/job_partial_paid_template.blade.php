@@ -122,7 +122,7 @@
                <textarea class="form-control form-control-sm" id="ss_rating_description_value" rows="3" name="ss_rating_description_value" placeholder="Thank you for your services.">{{$job->service_seeker_comment}}</textarea>
             </div>
             <button class="btn theme-background-color text-white card-1 fs--1">Save Rating</button>
-            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal">Dismiss</a>
+            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal" onclick="redirect_user_to_seeker_home();">Dismiss</a>
          </form>
       </div>
    </div>
@@ -152,6 +152,7 @@
 
 
 <script>
+
    $(document).ready(function(){ 
      /* 1. Visualizing things on Hover - See next part for action on click */
      $('#stars li').on('mouseover', function(){
@@ -229,5 +230,10 @@
             console.log('Seeker Invoice: ' + err);
          }
       });
+   }
+
+   function redirect_user_to_seeker_home(){
+      toggle_animation(true);
+      location.href = "{{route('service_seeker_home')}}";
    }
 </script>

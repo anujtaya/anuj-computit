@@ -743,6 +743,7 @@ class ServiceProviderJobController extends Controller
 				$job->service_provider_rating = $data->sp_rating_start_value;
 				$job->service_provider_comment = $data->sp_rating_description_value;
 				$job->save();
+				return redirect()->route('service_provider_home');
 			} 
 			return redirect()->back()->withInput()->withErrors($validator);
 		}	
