@@ -39,7 +39,7 @@
          <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->gst_fee_value, 2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
-         <div class="p-2 bd-highlight">GST Included</div>
+         <div class="p-2 bd-highlight">GST Included (if applicable)</div>
          <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
@@ -79,7 +79,7 @@
          <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->gst_fee_value, 2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
-         <div class="p-2 bd-highlight">GST Included</div>
+         <div class="p-2 bd-highlight">GST Included (if applicable)</div>
          <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
