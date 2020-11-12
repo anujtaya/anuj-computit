@@ -57,7 +57,7 @@
             <div class="w3-col s6">
                <h4 class="font-weight-bolder mt-4">Remittance</h4>
                <p style="font-size:1.1em;">#{{$job->id}}</p>
-               <p style="font-size:1.1em;">DATE: {{date('d/m/Y', strtotime($job->job_date_time))}}</p>
+               <p style="font-size:1.1em;">DATE: {{date('D d/m/Y', strtotime($job->job_date_time))}}</p>
             </div>
             <div class="w3-col s6 text-right">
                <div class="mt-4">
