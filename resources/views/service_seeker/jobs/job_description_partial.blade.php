@@ -19,7 +19,6 @@
       Please note that this job is now approved and cannot be altered. If you need to change anything, you can cancel this job and create a new one.
    </div>
    @endif
-   
    <!-- end notice section display -->
    @if($job->status == 'OPEN')
          <br>
