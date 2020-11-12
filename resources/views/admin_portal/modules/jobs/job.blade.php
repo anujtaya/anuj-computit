@@ -64,6 +64,19 @@
                      <th>Job Start at</th>
                      <td>{{ date('d/m/Y h:ia', strtotime($job->job_date_time)) }}</td>
                   </tr>
+                  @if($job->status == 'APPROVED' || $job->status == 'INPROGRESS' || $job->status == 'ONTRIP' || $job->status == 'STARTED' || $job->status == 'OPEN' || $job->status == 'DRAFT')
+                  <!-- job cancellation form  -->
+                  <tr>
+                     <td>Cancel Job</td>
+                     <td>
+                        <form action="{{route('app_portal_admin_jobs_job_cancel')}}" method="POST">
+                           @csrf
+                           <input type="hidden" name="job_id" value="{{$job->id}}" required>
+                           <button class="btn btn-danger text-white btn-sm fs--2 shadow" type="submit">Cancel Job</button>
+                        </form>
+                     </td>
+                  </tr>
+                  @endif
                </tbody>
             </table>
          </div>

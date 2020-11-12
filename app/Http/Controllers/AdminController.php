@@ -248,6 +248,19 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    //cancel job
+    protected function job_cancel(Request $request) {
+        $input = (object) $request->all();
+        $job = Job::find($input->job_id);
+        if($job != null) {
+            $job->status = 'CANCELLED';
+            if($job->save()){
+                Session::put('success', 'Job Cancelled!');
+            }  
+        }
+        return redirect()->back();
+    }
+
 
 
     

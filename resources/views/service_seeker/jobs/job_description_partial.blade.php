@@ -76,7 +76,6 @@
       <input type="hidden" name="ss_job_cancel_id" value="{{$job->id}}" required>
       <a class="btn btn-danger text-white btn-sm fs--2 shadow" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
    </form>
-   
    <!-- job cancellation confirm dialog modal -->
    <div class="modal fade" id="job_cancel_confirm_modal" tabindex="-1" role="dialog" aria-labelledby="job_cancel_confirm_modal_title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered-d" role="document">

@@ -251,7 +251,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
   Route::get('/app/portal/admin/jobs/job_invoice_provider/{id}', 'DemoController@test_sp_invoice_template_design')->name('app_portal_admin_jobs_job_invoice_provider');
   Route::get('/app/portal/admin/jobs/job_invoice_seeker/{id}', 'DemoController@test_ss_invoice_template_design')->name('app_portal_admin_jobs_job_invoice_seeker');
-
+  Route::post('/app/portal/admin/jobs/job_cancel', 'AdminController@job_cancel')->name('app_portal_admin_jobs_job_cancel');
   //map module
   Route::get('/app/portal/admin/maps/heatmap', 'AdminController@show_heatmap')->name('app_portal_admin_maps_heatmap');
   Route::post('/app/portal/admin/maps/heatmap/api/fetch', 'AdminController@fetch_heatmap_locations')->name('app_portal_admin_maps_heatmap_api_fetch');
