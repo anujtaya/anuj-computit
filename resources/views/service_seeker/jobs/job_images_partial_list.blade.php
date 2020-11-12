@@ -5,15 +5,15 @@
       <input type="file" name="file" id="file" onchange="$('#upload_form').submit();" accept="image/*" />
       <input type="hidden" name="current_job_id" value="{{$job->id}}" id="current_job_id" />
    </form>
-   <br />
-   <!-- <span id="uploaded_image"></span> -->
-   <div >
+   <br>
+   <div class="m-0">
       @if($job->status != 'COMPLETED')
          @if($job->status != 'CANCELLED')
-            <button class="btn theme-background-color btn-sm  border fs--1  m-1" id="trigger_image" onclick="document.getElementById('file').click();"><i class="fas fa-camera"></i> Add Photo </button>
+            <span class="d-block">Please select only one photo for each upload.</span>
+            <button class="btn mt-1 theme-background-color btn-sm  border fs--1 bg-white" id="trigger_image" onclick="document.getElementById('file').click();"><i class="fas fa-camera"></i> Add Photo </button>
          @endif
       @endif
-      <div class="row  m-1 text-center" id="image-container">
+      <div class="row m-0 text-center" id="image-container">
       </div>
    </div>
 </div>

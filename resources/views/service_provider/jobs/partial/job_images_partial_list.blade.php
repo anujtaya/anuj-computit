@@ -7,15 +7,16 @@
    </form>
    <br />
    <!-- <span id="uploaded_image"></span> -->
-   <div >
+   <div class="m-0">
       @if($job->service_provider_id == Auth::id())
          @if($job->status != 'COMPLETED')
-            <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
+            <span class="d-block">Please select only one photo for each upload.</span>
+            <button class="btn mt-1 theme-color btn-sm  border fs--1 bg-white" id="trigger_image"><i class="fas fa-camera"></i> Add Photo </button>
          @endif
       @else
       <span class="d-none" id="trigger_image"></span>
       @endif
-      <div class="row  m-1 text-center" id="image-container">
+      <div class="row m-0 text-center" id="image-container">
       </div>
    </div>
 </div>

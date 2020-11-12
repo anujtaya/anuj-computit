@@ -1,15 +1,15 @@
-<div class=" fs--1 ">
+<div class="fs--1">
    <div class="alert" id="message" style="display: none"></div>
    <form method="post" id="upload_form" style="display:none" enctype="multipart/form-data">
       {{ csrf_field() }}
       <input type="file" name="file" id="file" onchange="$('#upload_form').submit();" accept="image/*" />
       <input type="hidden" name="current_session_id" id="current_session_id" value="{{Session::getId()}}" />
    </form>
-   <br />
-   <!-- <span id="uploaded_image"></span> -->
-   <div >
-      <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-upload"></i> Add Photo </button>
-      <div class="row  m-1 text-center" id="image-container">
+   <br>
+   <div class="m-0">
+      <span class="d-block">Please select only one photo for each upload.</span>
+      <button class="btn mt-1 theme-color btn-sm  border fs--1 bg-white" id="trigger_image"><i class="fas fa-upload"></i> Add Photo </button>
+      <div class="row m-0 text-center" id="image-container">
       </div>
    </div>
 </div>

@@ -1,25 +1,22 @@
-<div class=" fs--1 ">
+<div class="fs--1">
    <div class="alert" id="message" style="display: none"></div>
    <form method="post" id="upload_form" style="display:none" enctype="multipart/form-data">
       {{ csrf_field() }}
       <input type="file" name="file" id="file" onchange="$('#upload_form').submit();" accept="image/*" />
       <input type="hidden" name="current_job_id" id="current_job_id" />
    </form>
-   <br />
-   <!-- <span id="uploaded_image"></span> -->
-   <div >
-      <button class="btn theme-color btn-sm  border fs--1 bg-white text-muted m-1" id="trigger_image"><i class="fas fa-upload"></i> Add Photo </button>
-      <div class="row  m-1 text-center" id="image-container">
+   <div class="m-0">
+      <span class="d-block">Please select only one photo for each upload.</span>
+      <button class="btn mt-1 theme-color btn-sm  border fs--1 bg-white" id="trigger_image"><i class="fas fa-upload"></i> Add Photo </button>
+      <div class="row m-0 text-center" id="image-container">
       </div>
    </div>
 </div>
-
 <!-- image preview modal -->
 <div class="modal fade" id="job_image_preview_modal" tabindex="-1" role="dialog" aria-labelledby="job_image_preview_modal_label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -34,9 +31,6 @@
     </div>
   </div>
 </div>
-
-
-
 <script>
    $(document).ready(function(){
      $('#upload_form').on('submit', function(event){

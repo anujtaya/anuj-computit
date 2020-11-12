@@ -1,14 +1,13 @@
-<div class=" fs--1 ">
+<div class="fs--1">
    <div class="alert" id="message" style="display: none"></div>
    <form method="post" id="upload_form" style="display:none" enctype="multipart/form-data">
       {{ csrf_field() }}
       <input type="file" name="file" id="file" onchange="$('#upload_form').submit();" accept="image/*" />
       <input type="hidden" name="current_job_id" value="{{$job->id}}" id="current_job_id" />
    </form>
-   <br />
-   <!-- <span id="uploaded_image"></span> -->
-   <div >
-      <div class="row  m-1 text-center" id="image-container">
+   <br>
+   <div class="m-0">
+      <div class="row m-0 text-center" id="image-container">
       </div>
    </div>
 </div>
