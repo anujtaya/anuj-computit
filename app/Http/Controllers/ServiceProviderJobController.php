@@ -547,10 +547,12 @@ class ServiceProviderJobController extends Controller
 					$message = 'Service Provider has completed for job with id #'.$job->id;
 					$this->send_user_mobile_notification($job->service_seeker_profile, $title, $message);
 					$title1 = 'LocaL2LocaL - Job Completed.';
-					$message1 = 'Success! Time for your next job. Scan your homepage today';
+
+					//change it 11/11/2020
+					$message1 = 'Success! Time for your next job.';
 					$this->send_user_mobile_notification($job->service_provider_profile, $title1, $message1);
 					
-					return redirect()->route('service_provider_home');
+					//return redirect()->route('service_provider_home');
 				}
 				
 			} 
@@ -746,7 +748,7 @@ class ServiceProviderJobController extends Controller
 				$job->service_provider_rating = $data->sp_rating_start_value;
 				$job->service_provider_comment = $data->sp_rating_description_value;
 				$job->save();
-				return redirect()->route('service_provider_home');
+				//return redirect()->route('service_provider_home');
 			} 
 			return redirect()->back()->withInput()->withErrors($validator);
 		}	

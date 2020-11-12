@@ -619,7 +619,7 @@ class ServiceSeekerJobController extends Controller
 				$job->service_seeker_rating = $data->ss_rating_start_value;
 				$job->service_seeker_comment = $data->ss_rating_description_value;
         $job->save();
-        return redirect()->route('service_seeker_home');
+        //return redirect()->route('service_seeker_home');
 			} 
 			return redirect()->back()->withInput()->withErrors($validator);
 		}	

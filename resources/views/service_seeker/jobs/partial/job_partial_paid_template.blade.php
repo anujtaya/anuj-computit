@@ -77,10 +77,14 @@
       Edit Rating
       </button>
    </div>
+  
 </div>
-<div class="p-0 bd-highlight">
-   <span class="font-weight-bolder">Comments</span> <br><br>
-   <span><i>{{$job->service_seeker_comment}}</i></span>
+<div class="p-0 mb-2 bd-highlight">
+   <span class="font-weight-bolder">Comments</span> <br>
+   <p class="p-2 border"><i>{{$job->service_seeker_comment}}</i></p>
+</div>
+<div class="p-0 bd-highlight text-center">
+   <a href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);" class="btn btn-success btn-sm  card-1  fs--1 text-white btn-block">Finish Job</a>
 </div>
 <div class="modal fade" id="editjobratingmodal" tabindex="-1" role="dialog" aria-labelledby="editjobratingmodal" aria-hidden="true">
    <div class="modal-dialog" role="document">
@@ -122,7 +126,7 @@
                <textarea class="form-control form-control-sm" id="ss_rating_description_value" rows="3" name="ss_rating_description_value" placeholder="Thank you for your services.">{{$job->service_seeker_comment}}</textarea>
             </div>
             <button class="btn theme-background-color text-white card-1 fs--1">Save Rating</button>
-            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal" onclick="redirect_user_to_seeker_home();">Dismiss</a>
+            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal">Dismiss</a>
          </form>
       </div>
    </div>

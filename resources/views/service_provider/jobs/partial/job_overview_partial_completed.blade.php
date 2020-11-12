@@ -128,10 +128,13 @@
             </button>
          </div>
       </div>
-      <div class="p-0 bd-highlight">
+      <div class="p-0 mb-2 bd-highlight">
          <span class="font-weight-bolder">Comments</span> <br><br>
-         <span><i>{{$job->service_provider_comment}}</i></span>
+         <p class="p-2 border"><i>{{$job->service_provider_comment}}</i></p>
       </div>
+      <div class="p-0 bd-highlight text-center">
+   <a href="{{route('service_provider_home')}}" onclick="toggle_animation(true);" class="btn btn-success btn-sm  card-1  fs--1 text-white btn-block">Finish Job</a>
+</div>
 
       {{-- Code for display rating modal if rating is not provided by Service Provider --}}
          @if($job->service_provider_rating ==  null)
@@ -187,7 +190,7 @@
                <textarea class="form-control form-control-sm" id="extra_description" rows="3" name="sp_rating_description_value" placeholder="It was great helping you out.">{{$job->service_provider_comment}}</textarea>
             </div>
             <button class="btn btn-sm theme-background-color text-white card-1 fs--1"><i class="fas fa-redo fs--2"></i> Save Rating</button>
-            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal" onclick="redirect_user_to_provider_home();">Dismiss</a>
+            <a class="btn btn-secondary text-white card-1 fs--1" href="#" data-dismiss="modal" >Dismiss</a>
          </form>
       </div>
    </div>
