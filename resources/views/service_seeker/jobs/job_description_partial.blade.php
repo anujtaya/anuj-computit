@@ -23,15 +23,15 @@
    @if($job->status == 'OPEN')
          <br>
          <form action="{{route('service_seeker_job_location_update')}}" method="post" onsubmit="toggle_animation(true);" method="POST">
-                  @csrf
-                  <input type="hidden" name="update_location_job_id" value="{{$job->id}}">
-                  <div class="form-group">
-                     <label for="location_input">Change Location?</label>
-                     <input type="text" class="form-control form-control-sm" id="location_input" name="location_input" onFocus="initAutocomplete()" required/>
-                  </div>
-                  <input type="hidden" value="" id="json_location_object" name="json_location_object" required>
-                  <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Location</button>
-               </form>
+            @csrf
+            <input type="hidden" name="update_location_job_id" value="{{$job->id}}">
+            <div class="form-group">
+               <label for="location_input">Change Location?</label>
+               <input type="text" class="form-control form-control-sm" id="location_input" name="location_input" onFocus="initAutocomplete()" required/>
+            </div>
+            <input type="hidden" value="" id="json_location_object" name="json_location_object" required>
+            <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Location</button>
+         </form>
          @endif
    <form action="{{route('service_seeker_job_details_update')}}" method="post" onsubmit="toggle_animation(true);">
       @csrf
@@ -55,15 +55,17 @@
       @endif
       <div class="form-group">
          <label  class="font-weight-bold" for="update_job_title">Job Title</label> <br>
-         <input name="update_job_title" class="form-control form-control-sm" value="{{$job->title}}" onchange="$('#job_detail_save_btn').show();">
+         <input name="update_job_title" class="form-control form-control-sm" value="{{$job->title}}" onchange="$('#job_detail_save_btn').show();" @if($job->status != 'OPEN') readonly @endif>
       </div>
       <div class="form-group">
          <label class="font-weight-bold" for="update_job_description">Description</label> <br>
-         <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2" onchange="$('#job_detail_save_btn').show();">{{$job->description}}</textarea>
+         <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2" onchange="$('#job_detail_save_btn').show();" @if($job->status != 'OPEN') readonly @endif>{{$job->description}}</textarea>
       </div>
       <div class="form-group">
          @if($job->status == 'OPEN')
          <button class="btn btn-info btn-sm fs--2 font-weight-normal shadow" type="submit" id="job_detail_save_btn">Save Changes</button>
+         @else
+         <span class="d-block text-muted fs--2 mt-2">Job details cannot be changed if the job status is not listed as OPEN on job board.</span>
          @endif
       </div>
    </form>
