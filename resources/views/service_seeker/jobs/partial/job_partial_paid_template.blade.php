@@ -84,7 +84,12 @@
    <p class="p-2 border"><i>{{$job->service_seeker_comment}}</i></p>
 </div>
 <div class="p-0 bd-highlight text-center">
-   <a href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);" class="btn btn-success btn-sm  card-1  fs--1 text-white btn-block">Finish Job</a>
+   <form action="{{route('service_seeker_job_notify_job_completion')}}" method="POST">
+      @csrf
+      <input type="hidden" name="job_id" value="{{$job->id}}">
+      <input type="hidden" name="user_type" value="SS">
+      <button href="{{route('service_seeker_home')}}" onclick="toggle_animation(true);" type="submit" class="btn btn-success btn-sm  card-1  fs--1 text-white btn-block">Finish Job</button>
+   </form>
 </div>
 <div class="modal fade" id="editjobratingmodal" tabindex="-1" role="dialog" aria-labelledby="editjobratingmodal" aria-hidden="true">
    <div class="modal-dialog" role="document">

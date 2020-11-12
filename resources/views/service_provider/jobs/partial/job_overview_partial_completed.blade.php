@@ -133,9 +133,13 @@
          <p class="p-2 border"><i>{{$job->service_provider_comment}}</i></p>
       </div>
       <div class="p-0 bd-highlight text-center">
-   <a href="{{route('service_provider_home')}}" onclick="toggle_animation(true);" class="btn btn-success btn-sm  card-1  fs--1 text-white btn-block">Finish Job</a>
-</div>
-
+         <form action="{{route('service_provider_job_notify_job_completion')}}" method="POST">
+            @csrf
+            <input type="hidden" name="job_id" value="{{$job->id}}">
+            <input type="hidden" name="user_type" value="SP">
+            <button onclick="toggle_animation(true);" type="submit" class="btn btn-success btn-sm  card-1  fs--1 text-white btn-block">Finish Job</button>
+         </form>
+      </div>
       {{-- Code for display rating modal if rating is not provided by Service Provider --}}
          @if($job->service_provider_rating ==  null)
          <script>

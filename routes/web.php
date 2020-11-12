@@ -115,6 +115,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/more/wallet/stripe/create_customer',  'ServiceSeekerStripePaymentController@create_customer')->name('service_seeker_more_wallet_stripe_create_customer');
   Route::post('/service_seeker/more/wallet/stripe/change_customer_default_card',  'ServiceSeekerStripePaymentController@change_customer_default_card')->name('service_seeker_more_wallet_stripe_change_customer_default_card');
   Route::get('/service_seeker/more/wallet/stripe/delete_customer_card/{id}',  'ServiceSeekerStripePaymentController@delete_customer_card')->name('service_seeker_more_wallet_stripe_delete_customer_card');
+  //post job completion routes
+  Route::post('/service_seeker/jobs/job_notify_job_completion/', 'PostJobCompletionController@job_notify_completion_confirmation')->name('service_seeker_job_notify_job_completion');
 });
 
 
@@ -160,8 +162,6 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::post('/service_provider/services/location/update',  'ServiceProviderController@services_location_update')->name('service_provider_services_location_update');
   //Service Provider Job Routes
   Route::get('/service_provider/jobs/job/{id}', 'ServiceProviderJobController@show_job')->name('service_provider_job');
-
-
   //start a conversation without an offer
   Route::post('/service_provider/jobs/job/coversation/create', 'ServiceProviderJobController@create_conversation_without_offer')->name('service_provider_job_conversation_create');
   Route::post('/service_provider/jobs/job/offer', 'ServiceProviderJobController@make_offer')->name('service_provider_job_make_offer');
@@ -185,6 +185,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/service_provider/jobs/job/email_invoice/{id}', 'ServiceProviderJobController@service_provider_email_invoice' )->name('service_provider_job_email_invoice');
   //job cancel route
   Route::post('/service_provider/jobs/job/cancel', 'ServiceProviderJobController@service_provider_job_cancel')->name('service_provider_job_cancel');
+  //post job completion routes
+  Route::post('/service_provider/jobs/job_notify_job_completion/', 'PostJobCompletionController@job_notify_completion_confirmation')->name('service_provider_job_notify_job_completion');
 });
 
 
