@@ -28,6 +28,10 @@
          scroll-behavior: smooth;
          height: 100%;
          }
+         * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+         }
       </style>
    </head>
    <body >

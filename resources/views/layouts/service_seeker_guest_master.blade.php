@@ -25,6 +25,10 @@
          html {
          scroll-behavior: smooth;
          }
+         * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+         }
       </style>
    </head>
    <body>
