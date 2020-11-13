@@ -85,12 +85,13 @@
                <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ALL');" style="cursor: pointer"><i class="far fa-circle text-primary"></i> All</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ONTRIP');" style="cursor: pointer"><i class="far fa-circle text-primary"></i> On-Trip</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('OPEN');" style="cursor: pointer"><i class="far fa-circle text-success"></i> Open</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('APPROVED')" style="cursor: pointer"><i class="far fa-circle text-success"></i> Approved</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('STARTED');" style="cursor: pointer"><i class="far fa-circle text-warning"></i> In-Progress</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('COMPLETED');" style="cursor: pointer"><i class="far fa-circle text-dark"></i> Completed</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ALL');" style="cursor: pointer">All</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ONTRIP');" style="cursor: pointer">On-Trip</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('OPEN');" style="cursor: pointer">Open</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('APPROVED')" style="cursor: pointer">Approved</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('STARTED');" style="cursor: pointer">In-Progress</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('EXPIRED');" style="cursor: pointer">Expired</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('COMPLETED');" style="cursor: pointer">Completed</span>
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">

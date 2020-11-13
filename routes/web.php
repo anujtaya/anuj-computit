@@ -117,6 +117,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::get('/service_seeker/more/wallet/stripe/delete_customer_card/{id}',  'ServiceSeekerStripePaymentController@delete_customer_card')->name('service_seeker_more_wallet_stripe_delete_customer_card');
   //post job completion routes
   Route::post('/service_seeker/jobs/job_notify_job_completion/', 'PostJobCompletionController@job_notify_completion_confirmation')->name('service_seeker_job_notify_job_completion');
+
+
+  //expired job controllers
+  Route::post('/service_seeker/jobs/job/expired/prepare_repost_flow/', 'ExpiredJobController@prepare_job_repost_flow')->name('service_seeker_jobs_expired_prepare_job_repost_flow');
 });
 
 
@@ -282,6 +286,11 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::get('/demo/button_demo', 'DemoController@button_demo');
   Route::get('/test_notification', 'JobNotificationController@test_template');
   Route::get('/demo/test_email', 'DemoController@test_email')->name('demo_test_email');
+
+
+  //system manager routes
+  Route::post('/app/portal/admin/system/job_expiry_crone_manual', 'AdminSystemController@job_expiry_crone_manual')->name('app_portal_admin_system_job_expiry_crone_manual');
+  Route::get('/app/portal/admin/system/index', 'AdminSystemController@index')->name('app_portal_admin_system_index');
 });
 
 

@@ -7,11 +7,9 @@
    </form>
    <br>
    <div class="m-0">
-      @if($job->status != 'COMPLETED')
-         @if($job->status != 'CANCELLED')
-            <span class="d-block">Please select only one photo for each upload.</span>
-            <button class="btn mt-1 theme-background-color btn-sm  border fs--1 bg-white" id="trigger_image" onclick="document.getElementById('file').click();"><i class="fas fa-camera"></i> Add Photo </button>
-         @endif
+      @if($job->status == 'OPEN' || $job->status == 'INPROGRESS' || $job->status == 'STARTED' || $job->status == 'ARRIVED' || $job->status == 'ONTRIP' || $job->status == 'APPROVED')
+         <span class="d-block">Please select only one photo for each upload.</span>
+         <button class="btn mt-1 theme-background-color btn-sm  border fs--1 bg-white" id="trigger_image" onclick="document.getElementById('file').click();"><i class="fas fa-camera"></i> Add Photo </button>
       @endif
       <div class="row m-0 text-center" id="image-container">
       </div>

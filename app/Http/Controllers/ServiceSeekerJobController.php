@@ -61,7 +61,14 @@ class ServiceSeekerJobController extends Controller
         $conversations = null;
         $job_extras = $job->extras->where('status', 'ACTIVE');
         $job_price = 0.00;
-        if($job->status == 'OPEN' || $job->status == 'CANCELLED' ) {
+
+        //exit the flow and redirect user to expire job detail view
+        // if($job->status == 'EXPIRED') {
+        //   return redirect()->route('service_seeker_jobs_expired_job_display',$job->id);
+        // }
+
+
+        if($job->status == 'OPEN' || $job->status == 'CANCELLED' || $job->status == 'EXPIRED') {
           $conversations = [];
         } else {
           $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
@@ -349,7 +356,7 @@ class ServiceSeekerJobController extends Controller
               //$this->send_notification_job_board_notification($job);
               //mobile notification
               $title = 'We have successfully posted your job to job board.';
-              $message = 'We have succesfully posted the job on job board. Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$job->id;
+              $message = 'Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$job->id;
               $this->send_user_mobile_notification(Auth::user(), $title, $message);
             }
           } 
