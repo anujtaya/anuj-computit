@@ -60,7 +60,6 @@
          <div id="content" class=" ">
             <div class="row m-2">
                @if(Session::has('status'))
-
                   <div class="col-lg-12 p-3">
                      <div class="alert alert-info">{{Session::pull('status')}}</div>
                   </div>

@@ -40,7 +40,7 @@ class AdminSystemController extends Controller
         }
 
         Log::channel('crone')->info('Crone job succesffuly completed by manual run by user_id='.Auth::id());
-        Session::put('success', 'Crone job completed.');
+        Session::put('status', 'Crone job completed.');
         return redirect()->back();
     }
 
