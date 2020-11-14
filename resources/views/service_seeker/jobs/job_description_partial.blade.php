@@ -39,13 +39,13 @@
       <div class="form-group">
          <label  class="font-weight-bold" for="exampleInputEmail1">Job Location</label> <br>
          {{$job->street_number}} {{$job->street_name}} <br>
-         {{$job->city}}<br>{{$job->state}}, {{$job->postcode}}
+         {{$job->city ?: 'Unknown'}}<br>{{$job->state ?: 'Unknown'}}, {{$job->postcode ?: 'Unknown'}}
      
       </div>
       <div class="form-group">
          <label class="font-weight-bold" for="job_scheduled_for">Job Schedule Time</label>
          <br>
-         {{ date('d/m/Y h:ia', strtotime($job->job_date_time)) }}
+         {{ date('d/m/Y h:ia', strtotime($job->job_date_time))}}
       </div>
       @if($job->status == 'OPEN')
       <div class="form-group">
@@ -55,11 +55,11 @@
       @endif
       <div class="form-group">
          <label  class="font-weight-bold" for="update_job_title">Job Title</label> <br>
-         <input name="update_job_title" class="form-control form-control-sm" value="{{$job->title}}" onchange="$('#job_detail_save_btn').show();" @if($job->status != 'OPEN') readonly @endif>
+         <input name="update_job_title" class="form-control form-control-sm" value="{{$job->title ?: 'Unknown'}}" onchange="$('#job_detail_save_btn').show();" @if($job->status != 'OPEN') readonly @endif>
       </div>
       <div class="form-group">
          <label class="font-weight-bold" for="update_job_description">Description</label> <br>
-         <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2" onchange="$('#job_detail_save_btn').show();" @if($job->status != 'OPEN') readonly @endif>{{$job->description}}</textarea>
+         <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2" onchange="$('#job_detail_save_btn').show();" @if($job->status != 'OPEN') readonly @endif>{{$job->description ?: 'Unknown'}}</textarea>
       </div>
       <div class="form-group">
          @if($job->status == 'OPEN')

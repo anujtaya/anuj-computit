@@ -14,10 +14,10 @@
            @foreach($service_seeker_jobs as $job)
             <li class="list-group-item mb-2 ml-1 mr-1 border-0 shadow-sm p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);" style="cursor:pointer;">
                <div class="d-flex pl-2 pr-2 bd-highlight">
-                  <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{ucfirst($job->title)}}</div>
+                  <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold" style="font-size: 0.9rem;">{{ucfirst($job->title) ?: 'Unknown'}}</div>
                </div>
                <div class="d-flex pl-2 pr-2 fs--2 bd-highlight">
-                  <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt"></i> {{$job->city}}, {{$job->postcode}}</div>
+                  <div class="p-0 w-100 bd-highlight"><i class="fas fa-map-marker-alt"></i> {{$job->city ?: 'Unknown' }}, {{$job->postcode ?: 'Unknown'}}</div>
                   <div class="p-0 flex-shrink-1 bd-highlight text-secondary">
                      @if($job->status == 'APPROVED')
                         <span class="badge  badge-success pl-2 pr-2 fs--2 font-weight-normal " style="border-radius:20px!important;">Approved</span>
