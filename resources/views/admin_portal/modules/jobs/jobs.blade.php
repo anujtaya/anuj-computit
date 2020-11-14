@@ -61,12 +61,18 @@
                            <span class="badge badge-warning font-weight-normal ">In-Progress</span>
                         @elseif($job->status == 'COMPLETED')
                            <span class="badge badge-secondary font-weight-normal ">COMPLETED</span>
+                        @elseif($job->status == 'EXPIRED')
+                           <span class="badge badge-secondary font-weight-normal ">EXPIRED</span>
                         @elseif($job->status == 'CANCELLED')
                            <span class="badge badge-danger font-weight-normal">CANCELLED</span>
                         @endif    
                      </td>
-                     <td>{{$job->service_seeker_id}}</td>
-                     <td>{{$job->service_provider_id}}</td>
+                     <td><a href="{{route('app_portal_admin_users_profile', $job->service_seeker_id)}}">{{$job->service_seeker_id}}</a></td>
+                     <td>
+                        @if($job->service_provider_id != null)
+                           <a href="{{route('app_portal_admin_users_profile', $job->service_provider_id)}}">{{$job->service_provider_id}}</a>
+                        @endif
+                     </td>
                      <td>{{$job->title}}</td>
                      <td>{{ date('d/m/Y h:ia', strtotime($job->created_at)) }}</td>
                      <td>

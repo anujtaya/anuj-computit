@@ -179,7 +179,6 @@ class ServiceSeekerController extends Controller
                               ->where('status','!=' , 'OPEN')
                               ->orderby('job_date_time', 'asc')
                               ->get();
-      //dd($service_seeker_jobs);
       return View::make("service_seeker.jobs.full_history")->with('service_seeker_jobs', $service_seeker_jobs);
     }
 

@@ -29,6 +29,8 @@
                            <span class="badge badge-warning font-weight-normal ">In-Progress</span>
                         @elseif($job->status == 'COMPLETED')
                            <span class="badge badge-secondary font-weight-normal ">COMPLETED</span>
+                        @elseif($job->status == 'EXPIRED')
+                           <span class="badge badge-secondary font-weight-normal ">EXPIRED</span>
                         @elseif($job->status == 'CANCELLED')
                            <span class="badge badge-danger font-weight-normal">CANCELLED</span>
                         @endif  
