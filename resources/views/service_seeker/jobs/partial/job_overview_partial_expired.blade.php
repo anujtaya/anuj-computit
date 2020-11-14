@@ -9,9 +9,8 @@
             <br><br>
             Please proceed by clicking the button below to repost your job.
         </p>
-        <form action="{{route('service_seeker_jobs_expired_prepare_job_repost_flow')}}" method="POST" onsubmit="toggle_animation(true);">
+        <form action="{{route('service_seeker_jobs_expired_prepare_job_repost_flow', $job->id)}}" method="get" onsubmit="toggle_animation(true);">
             @csrf
-            <input type="hidden" name="job_id" value="{{$job->id}}">
             <button class="btn btn-success text-white card-1 animated swing btn-sm delay-3s" type="submit">Repost Job</button>
         </form>
     </div>

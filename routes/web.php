@@ -120,7 +120,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
 
 
   //expired job controllers
-  Route::post('/service_seeker/jobs/job/expired/prepare_repost_flow/', 'ExpiredJobController@prepare_job_repost_flow')->name('service_seeker_jobs_expired_prepare_job_repost_flow');
+  Route::get('/service_seeker/jobs/job/expired/prepare_repost_flow/id/{id}', 'ExpiredJobController@prepare_job_repost_flow')->name('service_seeker_jobs_expired_prepare_job_repost_flow');
+  Route::post('/service_seeker/jobs/job/expired/prepare_repost_flow/set_expired_job_to_open', 'ExpiredJobController@set_expired_job_to_open')->name('service_seeker_jobs_expired_prepare_job_repost_flow_set_expired_job_to_open');
+  
+  Route::post('/service_seeker/jobs/job/expired/prepare_repost_flow/update_location', 'ExpiredJobController@update_job_location')->name('service_seeker_jobs_expired_prepare_job_repost_flow_update_location');
 });
 
 
