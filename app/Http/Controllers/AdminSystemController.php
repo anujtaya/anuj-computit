@@ -30,7 +30,7 @@ class AdminSystemController extends Controller
         $jobs = Job::where('status', 'OPEN')->get();
         foreach($jobs as $job) {
             //check if the job is expired
-            if(Carbon::parse($job->job_date_times)->isPast()) {
+            if(Carbon::parse($job->job_date_times)->addDays(1)->isPast()) {
                 $job->status = 'EXPIRED';
                 if($job->save()) {
                     $this->send_user_mobile_notification($job->service_seeker_profile, 'Job Expired!','Your job listed under '.$job->service_category_name.' category has expired. Please revisit the job details page to repost the job with updated information.');
