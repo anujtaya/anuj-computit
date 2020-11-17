@@ -13,6 +13,11 @@ use Session;
 use Validator;
 use PDF;
 use DB;
+use Notifiable;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
 
 
 class ExpiredJobController extends Controller
