@@ -121,7 +121,7 @@ $currentUserTab = 'joboverview';
    <div class="row justify-content-center" >
       <div class="col-lg-12 shadow-sm-none bg-white p-0 border-d fixed-top">
          <div class="row pl-2 pr-2 pb-1 pt-3">
-            <div class="col-4">  <a href="{{route('service_seeker_job', $job->id)}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
+            <div class="col-4">  <a href="{{route('service_seeker_jobs')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">Unique ID #{{$job->id}}</span></div>
             <div class="col-4 text-right">
                @if($job->status == 'OPEN')
