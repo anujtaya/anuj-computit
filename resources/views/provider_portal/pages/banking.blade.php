@@ -95,7 +95,7 @@
                You can complete this step at any time but we recommend you to set up you Stripe Express account as soon as you complete your first job.
                Click the link below to connect your Stripe express accoumnt.
             </p>
-            <a href="https://connect.stripe.com/express/oauth/authorize?redirect_uri={{route('app_portal_provider_banking_stripe_onboarding')}}&client_id=ca_H5gc4uWCWZGB5mlo5anSnpNleRKQzorC&state={STATE_VALUE}&stripe_user[business_type]=individual&suggested_capabilities[]=transfers&stripe_user[email]={{Auth::user()->email}}&stripe_user[country]=AU&stripe_user[phone_number]={{substr('000000000000',2)}}&stripe_user[first_name]={{Auth::user()->first}}&stripe_user[last_name]={{Auth::user()->last}}" class="">
+            <a href="https://connect.stripe.com/express/oauth/authorize?redirect_uri={{route('app_portal_provider_banking_stripe_onboarding')}}&client_id=ca_CrfR8KbSh1WCjtNAhblWc9NCjpgiqo8a&state={STATE_VALUE}&stripe_user[business_type]=individual&suggested_capabilities[]=transfers&stripe_user[email]={{Auth::user()->email}}&stripe_user[country]=AU&stripe_user[phone_number]={{substr('000000000000',2)}}&stripe_user[first_name]={{Auth::user()->first}}&stripe_user[last_name]={{Auth::user()->last}}" class="">
             <img src="{{asset('images/stripe/light-on-dark@3x.png')}}" class="img-fluid" style="width:200px;" alt="Stripe Connect Button Image">
             </a>
          </div>
