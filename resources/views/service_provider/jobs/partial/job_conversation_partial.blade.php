@@ -50,13 +50,10 @@
    @endif
    @endforeach
 </div>
-<div class="p-2 sticky-bottom  bg-white border-top">
+<div class="p-2 sticky-bottom  bg-white border-top fs--1">
    <div class="d-flex bd-highlight mb-2">
-      <div class="p-2 flex-grow-1 bd-highlight"> </div>
-      <div class=" bd-highlight">
-         <button class="btn btn-sm theme-background-color  card-1 border-0 fs--1 text-white " style="border-radius:20px;" id="map_btn" onclick="send_message_provider({{$conversation->id}});">
-         <i class="fas fa-paper-plane"></i> Send
-         </button>
+      <div class="p-2 flex-grow-1 bd-highlight"> 
+         <div class="text-left" onclick="open_msg_box();"><i class="fas fa-comments theme-color"></i> Tap here to send message</div>
       </div>
       @if($job->status == "OPEN")
       <div class=" bd-highlight">
@@ -66,13 +63,11 @@
       </div>
       @endif
    </div>
-   <div class="form-group m-2" >
-      <textarea type="text" class="form-control form-control-sm" rows="3" id="service_provider_conversation_message" ></textarea>
-   </div>
 </div>
 <!-- add job offer modal window -->
 @include('service_provider.jobs.modals.job_offer_modal')
 @include('service_provider.jobs.modals.job_accepted_modal')
+@include('service_provider.jobs.modals.job_msg_modal')
 <script>
    var msgs = {!! json_encode($msgs) !!}; // SULTAN - HOME - ELOQUENT DATA FROM BLADE TO JAVASCRIPT
    var conversation_id = "{{$conversation->id}}";
@@ -86,6 +81,14 @@
         elem.scrollTop = elem.scrollHeight;
       });
    
+      function open_msg_box(){
+         $('#job_msg_modal').modal("show");    
+      }
+
+      function close_msg_box(){
+         $('#job_msg_modal').modal("hide");    
+      }
+
       function open_job_offer_modal(){
       	   toggle_animation(true);
       	   //check if the provider has already made an offer

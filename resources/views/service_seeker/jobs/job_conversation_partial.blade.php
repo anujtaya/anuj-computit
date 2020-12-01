@@ -53,28 +53,31 @@
    @endif
    @endforeach
 </div>
-<div class="p-2 sticky-bottom  bg-white border-top">
+@include('service_seeker.jobs.modals.job_msg_modal')
+<div class="p-2 sticky-bottom  bg-white border-top fs--1">
    <div class="d-flex bd-highlight mb-2">
-      <div class="p-2 flex-grow-1 bd-highlight">
-         <label for="">Reply</label>
+      <div class="p-2 flex-grow-1 bd-highlight"> 
+            <div class="text-left" onclick="open_msg_box();"><i class="fas fa-comments theme-color"></i> Tap here to send message</div>
       </div>
-      <div class=" bd-highlight">
-         <button class="btn btn-sm theme-background-color border-0 fs--1 text-white shadow" style="border-radius:20px;" id="map_btn" onclick="send_message({{$conversation->id}});">
-         <i class="fas fa-paper-plane"></i> Send
-         </button>
-      </div>
-   </div>
-   <div class="form-group m-2" >
-      <textarea type="text" class="form-control form-control-sm" rows="3" id="service_seeker_conversation_message" ></textarea>
    </div>
 </div>
 <script>
    var msgs = {!! json_encode($msgs) !!};
    var conversation_id = "{{$conversation->id}}";
-      $( document ).ready(function() {
-        var elem = document.getElementById('scroll-area');
-        elem.scrollTop = elem.scrollHeight;
-      });
+
+   $( document ).ready(function() {
+      var elem = document.getElementById('scroll-area');
+      elem.scrollTop = elem.scrollHeight;
+   });
+
+   function open_msg_box(){
+      $('#job_msg_modal').modal("show");    
+   }
+
+   function close_msg_box(){
+      $('#job_msg_modal').modal("hide");    
+   }
+
    let src = '{{asset('/sounds/soft_notification.mp3')}}';
    let audio = new Audio(src);
 </script>
