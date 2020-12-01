@@ -22,7 +22,7 @@ function make_filter_ajax_request(data) {
             "includes_keywords": '',
         },
         success: function(results) {
-            console.log(data);
+            //console.log(data);
             update_refresh_count = 0;
             update_refresh_count_display();
             jobs = results['jobs'];

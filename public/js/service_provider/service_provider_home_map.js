@@ -9,7 +9,7 @@ function initMap() {
     //service provider current location
     map = new google.maps.Map(document.getElementById('map'), {
 
-            zoom: 15,
+            zoom: 14,
             clickableIcons: false,
             // disableDefaultUI: true,
             gestureHandling: 'greedy',
@@ -381,9 +381,9 @@ function update_user_final_location(lat, lng, suburb, state, city, postcode, ful
                 $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + truncate(full_address, 50) + "</span>");
                 current_lat = lat;
                 current_lng = lng;
-                map.setCenter(new google.maps.LatLng(current_lat, current_lng));
+                //map.setCenter(new google.maps.LatLng(current_lat, current_lng));
                 current_sp_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
-                filter_service_provider_jobs(null, false);
+                //filter_service_provider_jobs(null, false);
             } else {
                 console.log('Location update notification should not be sent.');
             }
@@ -505,5 +505,5 @@ function set_display_bounds() {
     map.setCenter(current_sp_marker.position);
     zoomLevel = zoomLevel - 1;
     map.setZoom(zoomLevel);
-    console.log('Map zoom updated to: ' + zoomLevel);
+    //console.log('Map zoom updated to: ' + zoomLevel);
 }

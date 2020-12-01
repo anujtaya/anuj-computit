@@ -80,7 +80,7 @@
          <!-- end location update div -->
          <div class="col-12 fs--2 pt-2 pb-2 pr-2 text-right text-muted bg-white">
             <span id="update_refresh_counter_el">0</span> sec ago.
-               <button class="btn btn-sm  theme-background-color border-0 fs--2 shadow" onclick="update_sp_location();" id="map_reset_btn">
+               <button class="btn btn-sm  theme-background-color border-0 fs--2 shadow" onclick="filter_service_provider_jobs(current_filter_choice,false);" id="map_reset_btn">
                <i class="fas fa-redo-alt"></i> Update
             </button>
          </div>
@@ -191,7 +191,8 @@
    var current_filter_choice = 'RECENT';
    
    window.onload = function() {
-      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 30000);
+      filter_service_provider_jobs(current_filter_choice,false);
+      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 20000);
       setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup    
       if(current_lat == '') {
