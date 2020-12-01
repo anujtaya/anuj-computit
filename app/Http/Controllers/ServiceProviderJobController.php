@@ -769,6 +769,7 @@ class ServiceProviderJobController extends Controller
 		//create a email notification object
 		$temp = new \stdClass();
 		$temp->file_name = $dest_path;
+		$temp->user_name = $job->service_provider_profile->first;
 		$user = User::find($job->service_provider_id);
 		$user->notify(new ServiceProviderEmailInvoice($temp));
 		if(file_exists($dest_path)){

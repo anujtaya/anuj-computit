@@ -647,7 +647,8 @@ class ServiceSeekerJobController extends Controller
 		$pdf->save($dest_path);
 		//create a email notification object
 		$temp = new \stdClass();
-		$temp->file_name = $dest_path;
+    $temp->file_name = $dest_path;
+    $temp->user_name = $job->service_seeker_profile->first;
 		$user = User::find($job->service_seeker_id);
 		$user->notify(new ServiceSeekerEmailInvoice($temp));
 		if(file_exists($dest_path)){

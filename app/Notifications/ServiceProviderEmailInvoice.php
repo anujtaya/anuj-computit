@@ -44,7 +44,7 @@ class ServiceProviderEmailInvoice extends Notification
     {
         return (new MailMessage)
                     ->from('info@local2local.com.au')
-                    ->line('Dear LocaL2LocaL User,')
+                    ->greeting('Dear '.$this->data_array->user_name.',')
                     ->line('Your tax invoice has finished processing and is ready to download. Please see the attached file.')
                     ->attach($this->data_array->file_name, [
                         'as' => 'Invoice.pdf',
