@@ -7,7 +7,7 @@
                We have succesfully delivered your offering price of <b>${{number_format($conversation->json['offer'],2)}}</b> to the Service Seeker.
                Please wait while we get a response from Service Seeker directly. Look for SMS, Push notification or Email alerts sent by us.
             @else
-               You haven’t made any job offers for this job. Please click the conversation below to make an offer or contact the Service Seeker if you have any questions.
+            You haven’t made any job offers for this job. Please click the Service Seeker below to make an offer or ask a question.
             @endif
          </div>
       </div>
