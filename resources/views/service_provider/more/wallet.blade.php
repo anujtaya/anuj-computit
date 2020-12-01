@@ -63,7 +63,7 @@
                   </div>
                   <div class=" bd-highlight text-success font-weight-bolder">${{number_format($log->total_amount,2)}}</div>
                </div>
-               <div class="text-muted fs--2 mt-2">Date: {{date('d/m/Y h:i a', strtotime($log->updted_at))}}</div>
+               <div class="text-muted fs--2 mt-2">Date: {{date('d/m/Y h:i a', strtotime($log->created_at))}}</div>
             </li>
             @endforeach
          </ul>
