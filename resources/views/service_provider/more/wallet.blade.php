@@ -37,7 +37,7 @@
       @else
       <div class="p-2 shadow-sm m-1">
          <i class="fas fa-exclamation-circle display-4 text-danger"></i> <br><br>
-         Your do not have Stripe account set up with us. To enable payout please visit <a class="text-primary" href="{{URL::to('/')}}/banking">{{URL::to('/')}}/banking</a> in any secure browser. 
+         You do not have your Stripe Account set up. To enable payout please visit <a class="text-primary" href="{{URL::to('/')}}/banking">{{URL::to('/')}}/banking</a> in any secure browser. 
          Once you complete your Stripe account set-up, your account details will appear here.
       </div>
       @endif
