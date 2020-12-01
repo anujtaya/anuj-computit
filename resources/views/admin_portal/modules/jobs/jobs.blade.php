@@ -81,7 +81,7 @@
                   </tr>
                   @endforeach
                </tbody>
-               @if(request()->is('app/portal/admin/jobs'))
+               @if(request()->is('app/portal/admin/jobs/all'))
                {{ $jobs->links() }}
                @endif
             </table>
