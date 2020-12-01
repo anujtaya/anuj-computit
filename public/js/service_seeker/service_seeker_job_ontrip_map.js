@@ -229,7 +229,7 @@ function update_service_provider_location(data) {
 }
 
 
-var distance_matrix_service_limit = 4;
+var distance_matrix_service_limit = 120;
 var date = new Date();
 date.setDate(date.getDate() + 1);
 var DrivingOptions = {
@@ -262,16 +262,19 @@ function find_eta() {
                     var results = response.rows[i].elements;
                     for (var j = 0; j < results.length; j++) {
                         var element = results[j];
-                        var numeric_distance = element.duration_in_traffic.value / 60;
+                        //var numeric_distance = element.duration_in_traffic.value / 60;
                         var distance = element.distance.text;
                         var duration = element.duration_in_traffic.text;
-                        //console.log(element.duration_in_traffic.value);
-                        if (numeric_distance < 1) {
-                            document.getElementById("service_provider_eta").innerHTML = '<span class="text-success">Arrived</span>';
+                        //console.log(parseFloat(distance));
+                        if (parseFloat(distance) <= 0.3) {
+                            document.getElementById("service_provider_eta").innerHTML = '<span class="text-success">Service Provider has arrived.</span>';
                             send_proximity_alert_to_seeker();
                             distance_matrix_service_limit = 0;
+                        } else if (parseFloat(distance) > 0.3 && parseFloat(distance) < 5) {
+                            document.getElementById("service_provider_eta").innerHTML = 'ETA: ' + distance + " " + duration + ' <span class="text-info float-right">Nearby</span>';
+                            send_proximity_alert_to_seeker();
                         } else {
-                            document.getElementById("service_provider_eta").innerHTML = 'ETA: ' + distance + " " + duration;
+                            document.getElementById("service_provider_eta").innerHTML = 'ETA: ' + distance + " " + duration + ' <img width-d="25" height="10" class="float-right" src="https://www.animatedimages.org/data/media/67/animated-car-image-0021.gif" border="0" alt="animated-car-image-0021" />';
                         }
                     }
                 }
@@ -286,9 +289,4 @@ function find_eta() {
 //function reset map data
 function reset_map_data() {
     console.log('Map data reset completed.');
-}
-
-function send_proximity_alert_to_seeker() {
-    //delivers push notification to service seeker if the provider is close to the job location.
-    console.log('Proximity push notification triggered!');
 }

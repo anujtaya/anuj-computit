@@ -101,6 +101,20 @@ class ServiceSeekerJobController extends Controller
       }
     }
 
+    //service provider job cordinates job tracking information
+    protected function job_notify_arrival(){
+      $job = Job::find($_POST['job_tracking_id']);
+      if($job != null ) {
+        if(Auth::id() == $job->service_seeker_id) {
+          $title = 'Just 5 minutes away!';
+          $message = 'Your provider '.$job->service_provider_profile->first.' nearly here, please get ready for their arrival.';
+          $this->send_user_mobile_notification(Auth::user(), $title, $message);
+          return Response::json(true);
+        } 
+      } 
+      return Response::json(false); 
+    }
+
 
     //calcualtes job final job total when job extras and conversation with a offer value is provided. Please pass the correct data to this function to avoid any calculation errors.
     protected function calculate_job_price($extras, $conversation){
