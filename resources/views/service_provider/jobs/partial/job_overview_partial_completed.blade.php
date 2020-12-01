@@ -61,7 +61,7 @@
       @if(!$job->is_invoice_sent)
       <script>
          window.onload = function() {
-            generate_invoices();
+            //generate_invoices();
          };
       </script>
       @endif
