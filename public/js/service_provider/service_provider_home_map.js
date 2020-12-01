@@ -167,7 +167,7 @@ function initMap() {
 
     current_sp_marker.addListener('click', function() {
         map.panTo(current_sp_marker.position);
-        map.setZoom(15);
+        //map.setZoom(12);
     });
 
     if (current_lat != null) {
@@ -214,10 +214,10 @@ function display_job_markers() {
     });
     setMapOnAll(map);
     //find_closest_marker();
-    if (is_first_request) {
-        set_display_bounds();
-        is_first_request = false;
-    }
+    // if (is_first_request) {
+    //     set_display_bounds();
+    //     is_first_request = false;
+    // }
 
 }
 
@@ -381,8 +381,9 @@ function update_user_final_location(lat, lng, suburb, state, city, postcode, ful
                 $("#user_current_saved_location").html('<i class="fas fa-map-marker-alt"></i> <span class="theme-color">' + truncate(full_address, 50) + "</span>");
                 current_lat = lat;
                 current_lng = lng;
-                //map.setCenter(new google.maps.LatLng(current_lat, current_lng));
+                map.setCenter(new google.maps.LatLng(current_lat, current_lng));
                 current_sp_marker.setPosition(new google.maps.LatLng(current_lat, current_lng));
+                map.setZoom(14);
                 //filter_service_provider_jobs(null, false);
             } else {
                 console.log('Location update notification should not be sent.');
