@@ -11,7 +11,7 @@
       <!-- google font -->
       <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
       @stack('header-style')
-      <script src="{{asset('lib/fa/js/all.js')}}"></script>
+      <script src="{{asset('lib/fa/js/all.min.js')}}"></script>
       <!-- theme css -->
       <link rel="stylesheet" href="{{asset('css/backend/provider_portal.css')}}?v={{rand(10,10000)}}">
       <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
