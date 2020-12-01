@@ -9,7 +9,7 @@
          </div>
          <div class="card-body fs--1">
             <div class="alert alert-info">
-               Please click on the 'Download Invoice' button and wait for upto 60 seconds for Invoice PDF file. The download will start automatically.
+               Please click on the 'Download Invoice' button and wait for up to 60 seconds for Invoice PDF file. The download will start automatically.
             </div>
             <table class="table table-bordered table-striped table-sm fs--1">
                <thead>
