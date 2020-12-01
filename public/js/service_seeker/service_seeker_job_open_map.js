@@ -163,7 +163,7 @@ function initMap() {
         });
     current_job_marker.addListener('click', function() {
         map.panTo(current_job_marker.position);
-        map.setZoom(14);
+        map.setZoom(15);
     });
     map.setCenter(new google.maps.LatLng(job_lat, job_lng));
 }
@@ -205,8 +205,10 @@ function populate_conversation_map_data(data) {
         });
         markers.push(service_provider_conversation_marker);
         setMapOnAll(map);
-        set_display_bounds();
-
+        if (first_load) {
+            set_display_bounds();
+            first_load = false;
+        }
     }
 }
 
@@ -221,11 +223,10 @@ function set_display_bounds() {
     }
     map.fitBounds(bounds);
     zoomLevel = map.getZoom();
-    console.log(zoomLevel);
-    map.setCenter(current_job_marker.position);
+    //map.panTo(current_job_marker.position);
     zoomLevel = zoomLevel - 1;
     map.setZoom(zoomLevel);
-    console.log('Map zoom updated to: ' + zoomLevel);
+    //console.log('Map zoom updated to: ' + map.getZoom());
 }
 
 
@@ -275,7 +276,7 @@ function find_closest_marker() {
     }
     // (debug) The closest marker is:
     //map.panTo(markers[closest].position);
-    map.setZoom(16)
+    //map.setZoom(14)
     set_closest_marker_display_bounds(markers[closest]);
     //console.log(markers[closest]);
 }
@@ -311,16 +312,16 @@ function populate_map_con_detail_modal_popup(a) {
 
 var placeSearch, autocomplete
 var current_address_string = {
-    street_number: '',
-    street_name: '',
-    state: '',
-    postcode: '',
-    city: '',
-    suburb: '',
-    lng: '',
-    lat: ''
-}
-//new location update functions
+        street_number: '',
+        street_name: '',
+        state: '',
+        postcode: '',
+        city: '',
+        suburb: '',
+        lng: '',
+        lat: ''
+    }
+    //new location update functions
 function initAutocomplete() {
 
     autocomplete = new google.maps.places.Autocomplete(document.getElementById('location_input'), {
@@ -331,7 +332,7 @@ function initAutocomplete() {
         // Get the place details from the autocomplete object.
         place = autocomplete.getPlace();
         console.log(place);
-        prepare_user_address_object(place['address_components'],place.geometry.location.lat(),place.geometry.location.lng());
+        prepare_user_address_object(place['address_components'], place.geometry.location.lat(), place.geometry.location.lng());
     });
 }
 

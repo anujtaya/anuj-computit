@@ -70,6 +70,7 @@
    var job_lat = "{{$job->job_lat}}";
    var job_lng = "{{$job->job_lng}}";
    var job_id = "{{$job->id}}";
+   var first_load = true;
    
    window.onload = function() {
        //switch view to map for testing
@@ -78,7 +79,7 @@
        filter_service_seeker_job_offers(null);
        setInterval(() => {
           load_conversation_map_data();
-       }, 20000);
+       }, 5000);
    }
    
    function switch_view_mode(str) {
@@ -107,7 +108,7 @@
       } else {
          current_filter = data;
       }
-      console.log(current_filter);
+      //console.log(current_filter);
       prog_load_dis(true);
       $.ajax({
             type: "POST",
@@ -120,12 +121,12 @@
             "job_lng" : job_lng
             },
             success: function(results){
-               console.log(results);
-            var myUl = $("#service_seeker_job_filter_offer_ul");
-            myUl.html(results['html']);
-            prog_load_dis(false);
-            var filterAnchorTag = document.getElementById('ss_job_filter_offer_dropdown');
-            filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + current_filter +")</small>";
+               //console.log(results);
+               var myUl = $("#service_seeker_job_filter_offer_ul");
+               myUl.html(results['html']);
+               prog_load_dis(false);
+               var filterAnchorTag = document.getElementById('ss_job_filter_offer_dropdown');
+               filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Filter <small>(" + current_filter +")</small>";
             },
             error: function(results, status, err) {
                console.log(err);
@@ -158,6 +159,6 @@
   
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-<script src="{{asset('/js/service_seeker/service_seeker_job_open_map.js')}}?v={{rand(1,100)}}"></script>
+<script src="{{asset('/js/service_seeker/service_seeker_job_open_map.js')}}?v={{rand(1,1000)}}"></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=geometry&places&callback=initMap" async defer></script> -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfjwR-ajvv7LrNOgMRe4tOHZXmcjFjaU&libraries=places&callback=initMap" async defer></script>
