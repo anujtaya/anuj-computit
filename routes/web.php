@@ -263,6 +263,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   //map module
   Route::get('/app/portal/admin/maps/heatmap', 'AdminController@show_heatmap')->name('app_portal_admin_maps_heatmap');
   Route::post('/app/portal/admin/maps/heatmap/api/fetch', 'AdminController@fetch_heatmap_locations')->name('app_portal_admin_maps_heatmap_api_fetch');
+  Route::get('/app/portal/admin/maps/user_track', 'AdminController@show_user_track')->name('app_portal_admin_maps_user_track');
+  Route::post('/app/portal/admin/maps/user_track/api/fetch', 'AdminController@fetch_user_track_locations')->name('app_portal_admin_maps_user_track_api_fetch');
   //charts module
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
   //service manager routes

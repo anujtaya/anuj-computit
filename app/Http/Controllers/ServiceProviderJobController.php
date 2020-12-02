@@ -757,6 +757,8 @@ class ServiceProviderJobController extends Controller
 	//send an invocie to service provider account with onclick action
 	function service_provider_email_invoice($id){
 		$job = Job::find($id);
+		$job->is_invoice_sent = true;
+		$job->save();
 		$job_extras = $job->extras->where('status', 'ACTIVE');
 		$conversation = Conversation::where('job_id', $job->id)
 		          ->select('users.*', 'conversations.id as conversation_id', 'conversations.json', 'conversations.job_id', 'conversations.service_provider_id' )
@@ -775,8 +777,6 @@ class ServiceProviderJobController extends Controller
 		if(file_exists($dest_path)){
             unlink($dest_path);
 		}
-		$job->is_invoice_sent = true;
-		$job->save();
 		//send push notification for invoice delivery
 		$this->send_user_mobile_notification($job->service_provider_profile, 'Invoice Delivered successfully','Invoice for job with id #'.$job->id.' delivered to your nominated email account.');
 		Session::put('status', 'An email has been sent.');

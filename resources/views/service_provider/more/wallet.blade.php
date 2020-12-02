@@ -13,8 +13,7 @@
       @if(Auth::user()->service_provider_payment != null)
       <div class="p-2 shadow-sm m-1"> 
          <i class="fas fa-check-circle display-4 text-success"></i><br><br>
-         Your have succesfully connected your Stripe account with LocaL2LocaL. You should recieve payouts for your work. If we need more information from you in future, we will let you know. To know full
-         information about Stripe Account.
+         Your have succesfully connected your Stripe account with LocaL2LocaL. You should recieve payouts for your work. If we need more information from you in future, we will let you know.
       </div>
       <div class="p-2 shadow-sm m-1">
          <div class="fs-2 text-success"> 
@@ -37,7 +36,7 @@
       @else
       <div class="p-2 shadow-sm m-1">
          <i class="fas fa-exclamation-circle display-4 text-danger"></i> <br><br>
-         You do not have your Stripe Account set up. To enable payout please visit <a class="text-primary" href="{{URL::to('/')}}/banking">{{URL::to('/')}}/banking</a> in any secure browser. 
+         You do not have your Stripe Account set up. To enable payouts please visit <a class="text-primary" href="{{URL::to('/')}}/banking">{{URL::to('/')}}/banking</a> in any secure browser. 
          Once you complete your Stripe account set-up, your account details will appear here.
       </div>
       @endif
@@ -47,10 +46,10 @@
          <h1 class="fs--1">Recent Transctions</h1>
          <ul class="list-group list-group-flushd">
             <li class="list-group-item bg-info fs--1">
-               <a href="{{route('service_provider_more_help')}}" class="text-white" onclick="toggle_animation(true);">  Help is available if you're experiencing any payment issue related to the payouts. Please tap here and get the help.</a>
+               <a href="{{route('service_provider_more_help')}}" class="text-white" onclick="toggle_animation(true);">  Help is available if you’re experiencing any payment issues related to the payouts. Please tap here to get help</a>
             </li>
             @foreach(Auth::user()->service_provider_paylogs as $log)
-            <li class="list-group-item">
+            <li class="list-group-item" onclick="location.href='{{route('service_provider_job' , $log->job_id)}}'; toggle_animation(true);"> 
                <div class="d-flex bd-highlight">
                   <div class=" flex-grow-1 bd-highlight">
                      @if($log->status == "PENDING")

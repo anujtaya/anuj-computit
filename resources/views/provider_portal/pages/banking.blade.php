@@ -19,6 +19,8 @@
             <i class="fas fa-check-circle display-4 text-success"></i> <br> <br>
             Your have succesfully connected your Stripe account with LocaL2LocaL. You should recieve payouts for your work. If we need more information from you in future, we will let you know. To know the full information
             about your Stripe Account, please <a href="{{route('app_portal_provider_banking')}}?full_stripe_info=true">click here</a>.
+            <br>
+            <a href="{{secure_url('/')}}" class="btn theme-background-color text-white shadow-lg">Go to Homepage</a>
          </div>
       </div>
    </div>
@@ -90,10 +92,7 @@
          </div>
          <div class="card-body">
             <p class="fs--1 mt-2">
-               LocaL2LocaL uses Stripe payment gateway to process all our Service Provider Payouts.
-               If you all the information ready it will only take less than 2 minutes to set-up up your LocaL2LocaL stripe connect account.
-               You can complete this step at any time but we recommend you to set up you Stripe Express account as soon as you complete your first job.
-               Click the link below to connect your Stripe express accoumnt.
+            LocaL2LocaL uses Stripes Payment Gateway to process all our Service Provider Payouts. You can complete this step at any time but we recommend you set up your Stripe Express account as soon as you complete your first job. Click the link below to get started
             </p>
             <a href="https://connect.stripe.com/express/oauth/authorize?redirect_uri={{route('app_portal_provider_banking_stripe_onboarding')}}&client_id=ca_CrfR8KbSh1WCjtNAhblWc9NCjpgiqo8a&state={STATE_VALUE}&stripe_user[business_type]=individual&stripe_user[email]={{Auth::user()->email}}&stripe_user[country]=AU&stripe_user[phone_number]={{substr('000000000000',2)}}&stripe_user[first_name]={{Auth::user()->first}}&stripe_user[last_name]={{Auth::user()->last}}" class="">
             <img src="{{asset('images/stripe/light-on-dark@3x.png')}}" class="img-fluid" style="width:200px;" alt="Stripe Connect Button Image">

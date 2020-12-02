@@ -29,8 +29,11 @@
       <a class="list-group-item {{ request()->is('app/portal/admin/data/*') ? 'active' : '' }}" href="{{route('app_portal_admin_data_import_index')}}">
       <i class="fas fa-tasks p-1" style="min-width:30px!important;"></i> Data Import/Export
       </a>
-      <a  class="list-group-item {{ request()->is('app/portal/admin/maps/*') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_heatmap')}}">
+      <a  class="list-group-item {{ request()->is('app/portal/admin/maps/heatmap') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_heatmap')}}">
       <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Heat Maps
+      </a>
+      <a  class="list-group-item {{ request()->is('app/portal/admin/maps/user_track') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_user_track')}}">
+      <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Track User Location
       </a>
       <a  class="list-group-item {{ request()->is('app/portal/admin/system/*') ? 'active' : '' }}" href="{{route('app_portal_admin_system_index')}}">
       <i class="fas fa-cog p-1" style="min-width:30px!important;"></i> System Services

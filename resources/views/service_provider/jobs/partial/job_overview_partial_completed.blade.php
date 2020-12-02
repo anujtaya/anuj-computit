@@ -57,15 +57,6 @@
             };
       </script>
       @else
-      {{-- Code for sending invoice if the is_invoice_sent varibale is set to false. Runs Automatically --}}
-      @if(!$job->is_invoice_sent)
-      <script>
-         window.onload = function() {
-            //generate_invoices();
-         };
-      </script>
-      @endif
-      {{-- end invoice auto send code --}}
       <div class="d-flex bd-highlight mb-2">
          <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
          <div class="ml-auto p-0 bd-highlight"> 
@@ -263,13 +254,13 @@ function show_rating_modal(){
 }
 
 //below function is called automatically if the invoice hasn't been sent to seeker already
-function generate_invoices(){
-   //open modal notification until the invoice is delivered
-   $('#invoiceJobDeliveryNotification').modal('show');
-   console.log('Invoice deliver method triggered automatically.')
-   send_seeker_invoice();
-   send_provider_invoice();
-}
+// function generate_invoices(){
+//    //open modal notification until the invoice is delivered
+//    $('#invoiceJobDeliveryNotification').modal('show');
+//    console.log('Invoice deliver method triggered automatically.')
+//    send_seeker_invoice();
+//    send_provider_invoice();
+// }
 
 function send_provider_invoice(){
    $.ajax({

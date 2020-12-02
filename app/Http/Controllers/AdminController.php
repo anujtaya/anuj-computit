@@ -187,6 +187,20 @@ class AdminController extends Controller
         return view('admin_portal.modules.map.heatmap');
     }
 
+    protected function show_user_track(){
+        return view('admin_portal.modules.map.user_track');
+    }
+
+    //fetch heatmap data
+    public function fetch_user_track_locations() {
+        $user_id = $_POST['user_id'];
+        $user = User::find($user_id);
+        if($user != null) {
+            return Response::json($user->current_location);
+        }
+        return Response::json(false);
+    }
+
     //fetch heatmap data
     public function fetch_heatmap_locations() {
         $lat = $_POST['lat'];
