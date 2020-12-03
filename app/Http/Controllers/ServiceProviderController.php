@@ -205,6 +205,7 @@ class ServiceProviderController extends Controller
                                 ->where('jobs.status','!=' , 'DRAFT')
                                 ->where('jobs.status','!=' , 'COMPLETED')
                                 ->where('jobs.status','!=' , 'CANCELLED')
+                                ->where('jobs.status','!=' , 'EXPIRED')
                                 ->get();
         
         //dd($service_provider_jobs);
@@ -213,7 +214,10 @@ class ServiceProviderController extends Controller
 
 
     function service_provider_jobs_full_history(){
-        $service_provider_jobs = Job::where('service_provider_id', Auth::id())->where('status', '!=', 'CANCELED')->get();
+        $service_provider_jobs =  Job::where('service_provider_id', Auth::id())
+                                    ->where('status', '!=', 'CANCELED')
+                                    ->where('jobs.status','!=' , 'EXPIRED')
+                                    ->get();
         return View::make("service_provider.jobs.full_history")->with('service_provider_jobs', $service_provider_jobs);
     }
 

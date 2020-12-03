@@ -22,6 +22,8 @@
                     <span class="badge  badge-warning  p-2 fs--2 font-weight-normal " style="border-radius:20px!important;">In-Progress</span>
                   @elseif($job->status == 'COMPLETED')
                     <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Completed</span>
+                  @elseif($job->status == 'EXPIRED')
+                    <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Expired</span>
                   @endif 
               </div>
             </div>

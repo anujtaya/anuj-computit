@@ -30,7 +30,9 @@
                      @elseif($job->status == 'COMPLETED')
                         <span class="badge  badge-secondary pl-2 pr-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Completed</span>
                      @elseif($job->status == 'CANCELLED')
-                     <span class="badge  badge-danger pl-2 pr-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Cancelled</span>
+                        <span class="badge  badge-danger pl-2 pr-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Cancelled</span>
+                     @elseif($job->status == 'EXPIRED')
+                        <span class="badge  badge-secondary pl-2 pr-2 fs--2 font-weight-normal" style="border-radius:20px!important;">EXPIRED</span>
                      @endif 
                   </div>
                </div>

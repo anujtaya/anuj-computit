@@ -31,6 +31,8 @@
                      <span class="badge  badge-secondary p-2 card-1 fs--2 font-weight-normal" style="border-radius:20px!important;">Completed</span>
                      @elseif($job->status == 'CANCELLED')
                      <span class="badge  badge-danger p-2 card-1 fs--2 font-weight-normal" style="border-radius:20px!important;">Cancelled</span>
+                     @elseif($job->status == 'EXPIRED')
+                     <span class="badge  badge-secondary  p-2 fs--2 font-weight-normal" style="border-radius:20px!important;">Expired</span>
                      @endif 
                   </div>
                </div>
