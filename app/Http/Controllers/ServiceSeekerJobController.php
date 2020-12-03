@@ -106,10 +106,13 @@ class ServiceSeekerJobController extends Controller
       $job = Job::find($_POST['job_tracking_id']);
       if($job != null ) {
         if(Auth::id() == $job->service_seeker_id) {
-          $title = 'Just 5 minutes away!';
-          $message = 'Your provider '.$job->service_provider_profile->first.' nearly here, please get ready for their arrival.';
-          $this->send_user_mobile_notification(Auth::user(), $title, $message);
-          return Response::json(true);
+          if(!Session::has('sp_proximity_alert_sent')) {
+            $title = 'Your Provider is nearly here.';
+            $message = 'Your provider '.$job->service_provider_profile->first.' nearly here, please get ready for their arrival.';
+            $this->send_user_mobile_notification(Auth::user(), $title, $message);
+            Session::put('sp_proximity_alert_sent', 'yes');
+            return Response::json(true);
+          }
         } 
       } 
       return Response::json(false); 
