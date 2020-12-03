@@ -27,7 +27,6 @@
 
       @php
          $job_payment = $job->job_payments;
-         //dd($job_payment);
       @endphp
 
       @if($job_payment->status == 'UNPAID')
@@ -253,41 +252,7 @@ function show_rating_modal(){
    $('#editjobratingmodal').modal('show');
 }
 
-//below function is called automatically if the invoice hasn't been sent to seeker already
-// function generate_invoices(){
-//    //open modal notification until the invoice is delivered
-//    $('#invoiceJobDeliveryNotification').modal('show');
-//    console.log('Invoice deliver method triggered automatically.')
-//    send_seeker_invoice();
-//    send_provider_invoice();
-// }
 
-function send_provider_invoice(){
-   $.ajax({
-      type: "GET",
-      url: "{{route('service_provider_job_email_invoice', $job->id)}}",
-      success: function(results) {
-         //console.log('Provider Invoice Sent.')
-         $('#invoiceJobDeliveryNotification').modal('hide');
-      },
-      error: function(result, status, err) {
-         console.log('Provider Invoice: ' + err);
-      }
-   });
-}
-
-function send_seeker_invoice(){
-   $.ajax({
-      type: "GET",
-      url: "{{route('service_seeker_job_email_invoice', $job->id)}}",
-      success: function(results) {
-         //console.log('Seeker Invoice Sent.')
-      },
-      error: function(result, status, err) {
-         console.log('Seeker Invoice: ' + err);
-      }
-   });
-}
 
 function redirect_user_to_provider_home(){
       toggle_animation(true);

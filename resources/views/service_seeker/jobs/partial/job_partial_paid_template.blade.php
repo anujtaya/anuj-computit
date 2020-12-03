@@ -138,30 +138,25 @@
 </div>
 
 
-{{-- Code for display rating modal if rating is not provided by Service Seeker --}}
-   @if($job->service_seeker_rating ==  null)
-   <script>
-      $(function() {
-         show_rating_modal();
-      });
-   </script>
-   @endif
-{{-- end rating modal display code --}}
+@if($job->service_seeker_rating ==  null)
+<script>
+   $(function() {
+      show_rating_modal();
+   });
+</script>
+@endif
 
 
-{{-- Code for sending invoice if the is_invoice_sent varibale is set to false. Runs Automatically --}}
-   @if(!$job->is_invoice_sent)
-   <script>
-      $(function() {
-         generate_invoices();
-      });
-   </script>
-   @endif
-{{-- end invoice auto send code --}}
+@if($job->is_invoice_sent == 0)
+<script>
+   $(function() {
+      generate_invoices();
+   });
+</script>
+@endif
 
 
 <script>
-
    $(document).ready(function(){ 
      /* 1. Visualizing things on Hover - See next part for action on click */
      $('#stars li').on('mouseover', function(){
