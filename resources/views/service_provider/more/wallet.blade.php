@@ -49,7 +49,7 @@
                <a href="{{route('service_provider_more_help')}}" class="text-white" onclick="toggle_animation(true);">  Help is available if you’re experiencing any payment issues related to the payouts. Please tap here to get help</a>
             </li>
             @foreach(Auth::user()->service_provider_paylogs as $log)
-            <li class="list-group-item" onclick="location.href='{{route('service_provider_job' , $log->job_id)}}'; toggle_animation(true);"> 
+            <li class="list-group-item" onclick="location.href='{{route('service_provider_job' , $log->job_id)}}?gobackurl={{route('service_provider_more_wallet')}}'; toggle_animation(true);"> 
                <div class="d-flex bd-highlight">
                   <div class=" flex-grow-1 bd-highlight">
                      @if($log->status == "PENDING")

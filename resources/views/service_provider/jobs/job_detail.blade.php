@@ -27,7 +27,14 @@
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm-none bg-white p-0 border-d fixed-top">
          <div class="row p-3">
-            <div class="col-4">  <a href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>  </div>
+            <div class="col-4">
+               @if(request()->has('gobackurl'))
+                  <a href="{{request()->gobackurl}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a>
+               @else
+                  <a href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> 
+               @endif 
+              
+            </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Job <br><span class="fs--2 text-muted font-weight-normal">#JB-{{$job->id}}</span></div>
             <div class="col-4 text-right">
                @if($job->status == 'OPEN')
