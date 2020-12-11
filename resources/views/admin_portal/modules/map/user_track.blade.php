@@ -1,6 +1,6 @@
 @extends('admin_portal.layouts.master')
 @push('header-script')
-<script type="text/javascript" src="{{asset('js/admin/user_track.js')}}?v=12"></script>
+<script type="text/javascript" src="{{asset('js/admin/user_track.js')}}?v={{rand(1,1000)}}"></script>
 @endpush
 @section('title', 'Admin Portal User Managment -  Edit User')
 @section('content')

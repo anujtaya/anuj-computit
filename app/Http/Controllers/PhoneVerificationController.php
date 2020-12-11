@@ -40,7 +40,7 @@ class PhoneVerificationController extends Controller
             $user = User::find(Auth::id());
             $user->phone = substr($input['target_phone_number'],1);
             $user->is_verified = 0;
-            if(!app()->isLocal()) {
+            if(!app()->isLocal() || true) {
             $token = \Config::get("services.twilio.TWILIO_AUTH_TOKEN");
             $twilio_sid = \Config::get("services.twilio.TWILIO_SID");
             $twilio_verify_sid = \Config::get("services.twilio.TWILIO_VERIFY_SID");
@@ -80,7 +80,7 @@ class PhoneVerificationController extends Controller
 
        
             //if not test environment
-            if(!app()->isLocal()) {
+            if(!app()->isLocal() || true) {
                 try {
                     $verification = $twilio->verify->v2->services($twilio_verify_sid)
                         ->verificationChecks
@@ -108,8 +108,8 @@ class PhoneVerificationController extends Controller
                     } 
                 }
                 catch (\Exception $e) {
-                    dd($e);
-                    $validator->errors()->add('verification_code', $e->getCode(). ' : ' . 'Please request another code and try again!');
+                    //dd($e);
+                    $validator->errors()->add('verification_code', $e->getCode(). ' : ' . $e->getMessage());
                     return redirect()
                             ->back()
                             ->withErrors($validator)

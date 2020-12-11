@@ -71,6 +71,7 @@ function set_user_location(data) {
 
 
 function find_user_location() {
+    clearInterval(refresh_interval);
     current_user_id = document.getElementById('user_id').value;
     if (current_user_id == null || current_user_id == '') {
         output.innerHTML = "";
@@ -78,9 +79,8 @@ function find_user_location() {
 
     } else {
         output.innerHTML = "";
-        clearInterval(refresh_interval);
         fetch_user_location();
-        refresh_interval = setInterval(fetch_user_location, 5000);
+        refresh_interval = setInterval(fetch_user_location, 10000);
     }
 
 }
