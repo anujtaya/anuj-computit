@@ -26,6 +26,7 @@ LocaL2LocaL – Homepage
             <li><a href="https://blog.local2local.com.au">Blog</a></li>
             <li><a href="{{route('app_frontend_faq')}}">FAQ</a></li>
             <li><a href="{{route('app_frontend_support')}}">Support</a></li>
+            <li><a href="{{route('app_frontend_privacypolicy')}}">Privacy Policy</a></li>
          </ul>
       </li>
       <li>

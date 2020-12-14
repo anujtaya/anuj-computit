@@ -42,6 +42,13 @@
                </div>
             </div>
             <div class="col-12 p-0">
+               <div class="border m-2 rounded p-3">
+                  <a href="{{route('guest_partial_mobile_privacy_policy')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
+                     View Our Privacy Policy
+                  </a>  
+               </div>
+            </div>
+            <div class="col-12 p-0">
                <div class="border m-2  theme-color  rounded  p-3" style="min-height:50px!important;">
                   <a href="{{route('logout')}}" onclick="toggle_animation(true);" class="text-danger text-decoration-none">
                      <i class="fas fa-sign-out-alt"></i>   Logout

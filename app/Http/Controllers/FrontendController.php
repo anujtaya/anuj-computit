@@ -17,5 +17,9 @@ class FrontendController extends Controller
     function support(){
         return view('frontend.support');
     }
+
+    function privacypolicy(){
+        return view('frontend.privacypolicy');
+    }
    
 }

@@ -15,10 +15,17 @@ Route::get('app/mobile/root', 'GuestController@mobile_landing_page')->name('gues
 Route::post('/guest/register', 'GuestController@handle_guest_register_request')->name('guest_register');
 Route::get('/app/register', 'RegisterHomeController@register')->name('app_register');
 Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')->name('guest_service_seeker_home');
+Route::get('/guest/service_seeker/more', 'GuestController@service_seeker_more')->name('guest_service_seeker_more');
 Route::post('/guest/service_seeker/services/service_providers_nearby/fetch', 'GuestController@fetch_service_provider_nearby')->name('guest_service_seeker_services_service_providers_nearby_fetch');
 Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
 Route::post('/guest/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
 Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@services_filter')->name('guest_service_seeker_services_filter');
+
+
+
+//privacypolicyroutes
+Route::get('/privacypolicy', 'FrontendController@privacypolicy')->name('app_frontend_privacypolicy');
+Route::get('/guest/parital/mobile/privacypolicy', 'GuestController@mobile_privacy_policy')->name('guest_partial_mobile_privacy_policy');
 
 
 //manage service seeker draft job
@@ -30,6 +37,7 @@ Route::post('/guest/service_seeker/session/retrieve_session_draft_sp_info', 'Gue
 
 //service provider demo routes
 Route::get('/guest/service_provider/home', 'GuestController@service_provider_home')->name('guest_service_provider_home');
+Route::get('/guest/service_provider/more', 'GuestController@service_provider_more')->name('guest_service_provider_more');
 Route::post('/guest/service_provider/jobs/fetch/all', 'GuestController@service_provider_fetch_all_jobs')->name('guest_service_provider_jobs_fetch_all');
 Route::get('/guest/service_provider/jobs/job/{id}', 'GuestController@service_provider_show_job')->name('guest_service_provider_job');
 Route::post('/guest/imageservice/images/fetch/', 'JobAttachmentController@retrive_job_images')->name('guest_imageservice_images_fetch');

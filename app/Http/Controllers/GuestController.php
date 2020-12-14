@@ -167,6 +167,19 @@ class GuestController extends Controller
       }
     }
 
+
+    protected function service_seeker_more(){
+      return view("service_seeker.demo.more");
+    }
+
+    protected function service_provider_more(){
+      return view("service_provider.demo.more");
+    }
+
+    protected function mobile_privacy_policy(){
+      return view("partial.privacy_policy_mobile_view");
+    }
+
     
     //create session draft job
     protected function create_draft_job(Request $request){

@@ -1,9 +1,19 @@
 <div class="fixed-bottom bg-white" style="height:11%;">
    <div class="row border-top sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
+      @if(request()->is('guest/service_seeker/home') )
+         <div class="col-3 p-3">
+            <span class="{{ (request()->is('guest/service_seeker/home')) ? 'theme-color' : 'text-muted' }}  text-decoration-none"  onclick="update_user_location();" >        <i class="fas  fs-2 fa-home mb-1"></i> <br>
+            Home</span>
+         </div>
+      @else
       <div class="col-3 p-3">
-         <span class="{{ (request()->is('guest/service_seeker/home')) ? 'theme-color' : '' }}  text-decoration-none"  onclick="update_user_location();">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
-         Home</span>
-      </div>
+         <a class="text-muted" href="{{route('guest_service_seeker_home')}}" onclick="toggle_animation(true);">
+         <i class="fas  fs-2 fa-home mb-1"></i> <br>
+            Home
+         </a>
+         </div>
+      @endif
+     
       <div class="col-3 p-3">
          <span class="text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2 fa-user mb-1"></i><br>
@@ -17,11 +27,11 @@
          My Jobs
          </sapn>
       </div>
-      <div class="col-3 p-3  ">
-         <span class="text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
-         <i class="fas  fs-2 fa-plus mb-1"></i><br>
-         More
-         </sapn>
+      <div class="col-3 p-3">
+         <a class="{{ (request()->is('guest/service_seeker/more')) ? 'theme-color' : 'text-muted' }}" href="{{route('guest_service_seeker_more')}}" onclick="toggle_animation(true);">
+            <i class="fas  fs-2 fa-plus mb-1"></i><br>
+            More
+         </a>
       </div>
    </div>
 </div>
