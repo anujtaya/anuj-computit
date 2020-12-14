@@ -18,6 +18,9 @@ LocaL2LocaL – Homepage
          <a href="#pricing_id">Service Fee</a>
       </li>
       <li>
+         <a href="{{route('app_frontend_privacypolicy')}}">Privacy Policy</a>
+      </li>
+      <li>
          <a href="#screenshot_id">App</a>
       </li>
       <li>
