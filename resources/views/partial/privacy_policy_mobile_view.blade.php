@@ -7,8 +7,6 @@ LocaL2LocaL – Mobile Privacy Policy
 <a href="{{ url()->previous() }}" class="btn btn-primary btn-block text-white shadow-lg" onclick="toggle_animation(true);"><i class="fas fa-arrow-left"></i> Go Back</a>
 </div>
 <div class="container">
-
-    
-    @include('partial.termsOfUse') 
+    @include('partial.termsofuse') 
 </div>
 @endsection

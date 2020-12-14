@@ -89,7 +89,7 @@ LocaL2LocaL – Privacy Policy
 <!--blog-content-->
 <div class="container h1-title">
    <div class="mb-md">
-       @include('partial.termsOfUse') 
+       @include('partial.termsofuse') 
    </div>
 </div>
 @endsection
