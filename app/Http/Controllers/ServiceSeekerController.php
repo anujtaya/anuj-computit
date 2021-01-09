@@ -10,6 +10,7 @@ use App\ServiceCategory;
 use App\Job;
 use App\Rating;
 use App\Conversation;
+use Carbon\Carbon;
 use DB;
 use Response;
 use Auth;
@@ -107,23 +108,33 @@ class ServiceSeekerController extends Controller
 
     protected function service_seeker_job_details_update(Request $request){
       $input = $request->all();
+      Session::put('current_tab', 'jobdetail');
       $validation = Validator::make($request->all(), [
         'update_job_id' => 'required',
         'update_job_title' => 'required'
        ]);
        if($validation->passes()){
          $job = Job::find($input['update_job_id']);
-         if($job){
-           if($job->service_seeker_id == Auth::id() && $job->status == 'OPEN'){
-             $job->title = $input['update_job_title'];
-             $job->description = $input['update_job_description'];
-             $job->job_date_time = $input['update_job_datetime'];
-             $job->save();
-            Session::put('status', 'The job info has been successfully updated.');
-           }
-         }
+          if($job != NULL){
+            if($job->service_seeker_id == Auth::id() && $job->status == 'OPEN'){
+              
+              $carbon_date = Carbon::createFromFormat('h:i A d/m/Y', $input['update_job_datetime']);
+              $job->title = $input['update_job_title'];
+              $job->description = $input['update_job_description'];
+              
+              Session::put('status', 'The job info has been successfully updated.');
+              if($carbon_date->isPast()) {
+                Session::put('status','Job date time must be set to future.');
+                $job->save();
+                return redirect()->back(); 
+              } else {
+                $job->job_date_time = $carbon_date->toDateTimeString();
+                $job->save();
+              }
+            }
+          }
        }
-      Session::put('current_tab', 'jobdetail');
+   
       return redirect()->back();
     }
 

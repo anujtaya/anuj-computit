@@ -154,6 +154,4 @@ $currentUserTab = 'joboverview';
          </div>
       </div>
 </div>
-
-
 @endsection

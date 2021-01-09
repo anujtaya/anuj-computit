@@ -37,13 +37,14 @@ class ExpiredJobController extends Controller
     protected function set_expired_job_to_open(Request $request) {
         $input = (object)$request->all();
         $job = Job::find($input->job_id);
+        $carbon_date = Carbon::createFromFormat('h:i A d/m/Y', $input->job_date_time);
         if($job != null) {
             //display the expired job page
-            if(Carbon::parse($input->job_date_time)->isPast()) {
+            if($carbon_date->isPast()) {
                 Session::put('expired_job_error','Job date time must be set to future.');
                 return redirect()->back();
             }
-            $job->job_date_time = $input->job_date_time;
+            $job->job_date_time = $carbon_date->toDateTimeString();
             $job->title = $input->update_job_title;
             $job->description = $input->update_job_description;
             $job->status = "OPEN";

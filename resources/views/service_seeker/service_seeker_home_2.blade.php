@@ -3,7 +3,8 @@
 @push('header-script')
 <script src="{{asset('/js/service_seeker/service_seeker_home.js')}}?v={{rand(1,100)}}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-<link rel="stylesheet" href="{{asset('/css/third/flatpickr.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/lib/anypic/anypicker-all.min.css')}}" />
+<script type="text/javascript" src="{{asset('/lib/anypic/anypicker.min.js')}}"></script>
 @endpush
 <div class="container ">
    <div class="row  justify-content-center" >

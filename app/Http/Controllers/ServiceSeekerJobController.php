@@ -279,7 +279,7 @@ class ServiceSeekerJobController extends Controller
           $draft_job->service_category_id = $draft_obj->service_category_id;
           $draft_job->service_subcategory_id = $draft_obj->service_subcategory_id;
           if($draft_obj->job_date_time != null){
-            $draft_job->job_date_time = $draft_obj->job_date_time;
+            $draft_job->job_date_time =  Carbon::createFromFormat('h:i A d/m/Y', $draft_obj->job_date_time)->toDateTimeString();
           }
           $draft_job->job_lat = $draft_obj->job_lat;
           $draft_job->job_lng = $draft_obj->job_lng;
@@ -296,7 +296,7 @@ class ServiceSeekerJobController extends Controller
           $job->service_category_id = $draft_obj->service_category_id;
           $job->service_subcategory_id = $draft_obj->service_subcategory_id;
           if($job->job_date_time != null){
-            $job->job_date_time = $draft_obj->job_date_time;
+            $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $draft_obj->job_date_time)->toDateTimeString();
           }
           $job->service_seeker_id = $seeker_id;
           $job->job_lat = $draft_obj->job_lat;
@@ -348,7 +348,7 @@ class ServiceSeekerJobController extends Controller
           $job->title = $job_obj->title;
           $job->description = $job_obj->description;
           if($job_obj->job_date_time != null){
-            $job->job_date_time = $job_obj->job_date_time;
+            $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $job_obj->job_date_time)->toDateTimeString();
           }
           $job->service_seeker_id = $seeker_id;
           $job->street_number = $job_obj->current_address_string->street_number;
@@ -383,7 +383,7 @@ class ServiceSeekerJobController extends Controller
         $job->title = $job_obj->title;
         $job->description = $job_obj->description;
         if($job_obj->job_date_time != null){
-          $job->job_date_time = $job_obj->job_date_time;
+          $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $job_obj->job_date_time)->toDateTimeString();
         }
         $job->service_seeker_id = $seeker_id;
         $job->street_number = $job_obj->current_address_string->street_number;

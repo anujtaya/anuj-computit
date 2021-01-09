@@ -50,8 +50,27 @@
       @if($job->status == 'OPEN')
       <div class="form-group">
          <label class="font-weight-bold" for="update_job_datetime">Change Schedule Time</label>
-         <input type='datetime-local' class="form-control form-control-sm"  id="update_job_datetime" name="update_job_datetime" value="{{\Carbon\Carbon::parse($job->job_date_time)->format('Y-m-d\TH:i:s')}}" onchange="$('#job_detail_save_btn').show();">
+         <input type='text' class="form-control form-control-sm"  id="update_job_datetime" name="update_job_datetime" value="{{\Carbon\Carbon::parse($job->job_date_time)->format('h:i A d/m/Y')}}" readonly="readonly" required  onchange="$('#job_detail_save_btn').show();">
       </div> 
+      <link rel="stylesheet" type="text/css" href="{{asset('/lib/anypic/anypicker-all.min.css')}}" />
+      <script type="text/javascript" src="{{asset('/lib/anypic/anypicker.min.js')}}"></script>
+      <script>
+      $(document).ready(function()
+      {
+         $("#update_job_datetime").AnyPicker(
+         {
+            mode: "datetime",
+            showComponentLabel: true,
+            dateTimeFormat: "hh:mm AA d/M/yyyy",
+            onChange: function(iRow, iComp, oSelectedValues)
+            {
+                  //console.log("Changed Value : " + iRow + " " + iComp + " " + oSelectedValues);
+            },
+            theme: "Android"
+         });
+
+      });
+      </script>
       @endif
       <div class="form-group">
          <label  class="font-weight-bold" for="update_job_title">Job Title</label> <br>
