@@ -283,7 +283,7 @@ class ServiceProviderController extends Controller
         $current_user = User::find(Auth::id());
         $current_user->user_bio = $input['user_bio'];
         if($current_user->save()){
-            Session::put('status' , 'Your status updated.');
+            Session::put('status' , 'Your Bio has been updated.');
         }
         return redirect()->back();
     }

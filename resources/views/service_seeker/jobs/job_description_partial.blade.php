@@ -77,21 +77,6 @@
       <a class="btn btn-danger text-white btn-sm fs--2 shadow" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
    </form>
    <!-- job cancellation confirm dialog modal -->
-   <div class="modal fade" id="job_cancel_confirm_modal" tabindex="-1" role="dialog" aria-labelledby="job_cancel_confirm_modal_title" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered-d" role="document">
-         <div class="modal-content">
-            <div class="modal-body">
-               <span class="fs-1">Are you sure?</span>
-               <br>
-               <br>
-               <p>
-                  A cancellation fee of $10.00 may apply if the job is cancelled after being approved.
-               </p>
-               <button class="fs--2 btn-sm btn-danger text-white mr-2" onclick=" $( '#job_cancel_form' ).submit()">Proceed to Cancel</button>
-               <button class="fs--2 btn-sm btn-secondary text-white" data-dismiss="modal">Dismiss</button>
-            </div>
-         </div>
-      </div>
-   </div>
+   
    @endif
 </div>

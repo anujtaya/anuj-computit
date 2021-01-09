@@ -91,8 +91,12 @@ class UserController extends Controller
             }
            
             if(isset($data->user_job_radius)) {
-                if($data->user_job_radius > 19 && $data->user_job_radius <= 200) {
-                    $user->work_radius = $data->user_job_radius;     
+                if($data->user_job_radius >= 10 && $data->user_job_radius <= 200) {
+                    $user->work_radius = $data->user_job_radius; 
+                } else {
+                    $user->save();
+                    Session::put('error' ,  'Job radius must be between 10km to 200km range.');   
+                    return redirect()->back();
                 }    
             }
             if($user->save()) {
