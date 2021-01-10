@@ -9,6 +9,8 @@ function filter_service_provider_jobs(data) {
 
 }
 
+
+
 function make_filter_ajax_request(data) {
     $.ajax({
         type: "POST",
@@ -21,18 +23,29 @@ function make_filter_ajax_request(data) {
             "includes_keywords": $('#basic-search-1').val(),
         },
         success: function(results) {
-            console.log(data);
+            //console.log('Preparing job list...')
             var myUl = $("#job_list_display");
             update_refresh_count = 0;
             update_refresh_count_display();
-            //console.log(results);      
+            //console.log(results);
             myUl.html(results['html']);
             jobs = results['jobs'];
-            display_job_markers();
-            //toggle_animation(false);
+            //display_job_markers();
+            if (jobs.length == 0) {
+                console.log('No jobs found!');
+                if (search_box.value != "") {
+
+                } else {
+                    search_box.readOnly = true;
+                    search_box.placeholder = 'No jobs available in your area.';
+                }
+            } else {
+                console.log('Jobs found!');
+                search_box.readOnly = false;
+                search_box.placeholder = 'Enter keywords...';
+            }
             if (data != null) {
-                var filterAnchorTag = document.getElementById('sp_jobs_filter');
-                filterAnchorTag.innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data.trim() + ")</small>";
+                document.getElementById('sp_jobs_filter').innerHTML = "<i class='fas fa-sort-amount-up-alt'></i> Sort <small>(" + data.trim() + ")</small>";
             }
         },
         error: function(results, status, err) {
@@ -46,4 +59,15 @@ function update_refresh_count_display() {
     //console.log('Event: Refresh Time Counter Updated.')
     update_refresh_count = update_refresh_count + 5;
     $("#update_refresh_counter_el").html(update_refresh_count)
+}
+
+
+//the alert message will be displayed to the user if there are no jobs to be displayed and when search input is clicked.
+function display_empty_job_alert() {
+    if (search_box != null) {
+        if (search_box.readOnly == true) {
+            //console.log("No job alert triggered,");
+            $('#job_not_found_alert_modal').modal('show');
+        }
+    }
 }

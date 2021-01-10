@@ -17,9 +17,9 @@
 @endforeach
 @if(count($jobs) == 0) 
 <div class="text-center p-3 fs--1">
-      <i class="fas fa-circle-notch fs-2 theme-color fa-spin"></i>
+      <!-- <i class="fas fa-circle-notch fs-2 theme-color fa-spin"></i>
       <br>
-      <br>
+      <br> -->
       <span>We are still looking for a Job that matches your profile. Please stay tuned..</span>
       <br><br>
   </div>
