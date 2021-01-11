@@ -167,7 +167,7 @@ function initMap() {
 
     circle = new google.maps.Circle({
         map: map,
-        radius: parseInt(user_radius) * 100, // 10 miles in metres
+        radius: parseInt(user_radius) * 1000,
         strokeColor: "#5D29BA",
         strokeOpacity: 0.8,
         strokeWeight: 1,
@@ -214,11 +214,21 @@ function display_job_markers() {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
     setMapOnAll(map);
-    //find_closest_marker();
-    if (is_first_request) {
-        set_display_bounds();
-        is_first_request = false;
+
+    if (jobs.length == 0) {
+        set_display_circle_bounds();
+        console.log("Job length is set to 0 show bounds using mapradius.");
+        is_first_request = true;
+    } else {
+        //find_closest_marker();
+        if (is_first_request) {
+            set_display_bounds();
+            is_first_request = false;
+        }
     }
+
+
+
 
 }
 
@@ -502,4 +512,15 @@ function set_display_bounds() {
     map.setCenter(current_sp_marker.position);
     zoomLevel = zoomLevel - 1;
     map.setZoom(zoomLevel);
+}
+
+
+function set_display_circle_bounds() {
+    bounds = new google.maps.LatLngBounds();
+    bounds.union(circle.getBounds());
+    map.fitBounds(bounds);
+    //map.setCenter(current_sp_marker.position);
+    // zoomLevel = map.getZoom();
+    // zoomLevel = zoomLevel + 1;
+    // map.setZoom(zoomLevel);
 }
