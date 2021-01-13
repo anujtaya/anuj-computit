@@ -1,5 +1,8 @@
-<div class="fixed-bottom bg-white" style="height:11%;">
+<div class="fixed-bottom bg-white" style="height:21%;">
    <div class="row border-top sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
+   <div class="col-12 mb-2  p-2">
+            <a class="btn btn-block btn-sm text-white mt-2 shadow" style="background:#5D29BA!important;color:white!important;" href="{{route('guest_service_provider_home')}}?showtutorial=true" onclick="toggle_animation(true);">Switch to Provider - I want to work</a>
+         </div>
       @if(request()->is('guest/service_seeker/home') )
          <div class="col-3 p-3">
             <span class="{{ (request()->is('guest/service_seeker/home')) ? 'theme-color' : 'text-muted' }}  text-decoration-none"  onclick="update_user_location();" >        <i class="fas  fs-2 fa-home mb-1"></i> <br>
