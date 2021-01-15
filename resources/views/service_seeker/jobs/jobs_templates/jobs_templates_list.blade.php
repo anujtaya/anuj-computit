@@ -1,4 +1,4 @@
-<ul id="service_seeker_filter_ul_list" class="list-group fs--2" style="overflow:scroll; height:640px;">
+<ul id="service_seeker_filter_ul_list" class="list-group fs--2" style="overflow:scroll; min-height:1840px;">
    @foreach($jobs as $job)
    <li class="list-group-item   border-0 rounded-0  shadow-sm p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);" style="border-left: 2px solid #399BDB!important;cursor:pointer;margin-bottom:0.2em;">
       <div class="d-flex pl-2 pr-2 pt-2 bd-highlight">

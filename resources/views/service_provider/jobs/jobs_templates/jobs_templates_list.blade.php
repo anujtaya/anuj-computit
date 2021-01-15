@@ -1,4 +1,4 @@
-<ul class="list-group fs--1" id="service_provider_filter_ul_list" style="overflow:scroll; height:640px;">
+<ul class="list-group fs--1" id="service_provider_filter_ul_list" style="overflow:scroll; min-height:1840px;">
    <!-- board job type -->
   @foreach($jobs as $job)
     @if($job->service_provider_id != null)
