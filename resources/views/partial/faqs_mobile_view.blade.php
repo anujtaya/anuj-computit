@@ -1,14 +1,14 @@
-@extends('layouts.service_seeker_master')
+@extends('layouts.app')
+@section('title')
+LocaL2LocaL – FAQ's
+@endsection
 @section('content')
 <style>
-   .first-new-container{
-   background-color:#F8F8F8;
-   }
    .font-new-size{
    font-size:14px;
    font-weight:600;
    border-left-style: solid; 
-   border-color:#00B9FF;
+   border-color:#2c7be5;
    border-width:5px;
    padding-top: 20px;
    padding-bottom: 20px;
@@ -22,14 +22,11 @@
    margin-bottom: 0.7rem!important;
    }
 </style>
+<div class="p-2 sticky-top">
+   <a href="{{ url()->previous() }}" class="btn btn-primary btn-block text-white shadow-lg" onclick="toggle_animation(true);"><i class="fas fa-arrow-left"></i> Go Back</a>
+</div>
 <div class="container ">
    <div class="row  justify-content-center" >
-      <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
-         <div class="row">
-            <div class="col-4">   <a href="{{route('service_seeker_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
-            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">FAQ's <br><span class="fs--2 text-muted font-weight-normal"></span></div>
-         </div>
-      </div>
       <div class="col-lg-12 fs--1 bg-white p-2 mt-2  border-d">
          <div  id="accordion">
             <div class=" mb-2 shadow-sm first-new-container ">

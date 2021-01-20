@@ -12,8 +12,14 @@
          <div class="row m-0 text-center fs--1">
             <div class="col-12 p-0">
                <div class="border m-2 rounded p-3">
+                  <a href="{{route('guest_service_provider_more_faqs')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">           
+                     FAQ's
+                  </a>  
+               </div>
+            </div>
+            <div class="col-12 p-0">
+               <div class="border m-2 rounded p-3">
                   <a href="{{route('guest_partial_mobile_privacy_policy')}}" onclick="toggle_animation(true);" class="theme-color text-decoration-none">
-                     
                      View Our Privacy Policy
                   </a>  
                </div>

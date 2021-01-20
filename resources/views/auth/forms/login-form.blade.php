@@ -28,6 +28,8 @@
          <a class="theme-color" style="cursor:pointer" href="{{route('app_register')}}" onclick="toggle_animation(true);">
             Sign Up
          </a>
+         <br><br>
+         <a class="theme-color text-decoration-none" href="{{route('guest_service_seeker_home')}}" onclick="toggle_animation(true);">Try our app in guest mode.</a>
       </div>
       </span>
    </div>

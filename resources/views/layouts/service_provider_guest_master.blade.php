@@ -55,9 +55,9 @@
          <div class="text-center ml-4 mr-4 d-none" style="margin-top:20px;" id="anim-2">
          </div>
       </div>
-      <span class="fixed-top text-right pt-3 pr-2" style="position:fixed;top:0;right:0;z-index:10000!important;">
+      <!-- <span class="fixed-top text-right pt-3 pr-2" style="position:fixed;top:0;right:0;z-index:10000!important;">
          <a href="{{route('login')}}" onclick="toggle_animation(true);" class="bg-dark text-white p-2 fs--2" style="opacity:0.6;">Login</a>
-      </span>
+      </span> -->
       <script>
          @yield('customjavascripts')
 

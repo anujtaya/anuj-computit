@@ -1,4 +1,4 @@
-@extends('layouts.service_seeker_master')
+@extends('layouts.service_provider_guest_master')
 @section('content')
 <style>
    .first-new-container{
@@ -8,7 +8,7 @@
    font-size:14px;
    font-weight:600;
    border-left-style: solid; 
-   border-color:#00B9FF;
+   border-color:rgb(93, 41, 186);
    border-width:5px;
    padding-top: 20px;
    padding-bottom: 20px;
@@ -26,13 +26,13 @@
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
          <div class="row">
-            <div class="col-4">   <a href="{{route('service_seeker_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
+            <div class="col-4">   <a href="{{route('guest_service_provider_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">FAQ's <br><span class="fs--2 text-muted font-weight-normal"></span></div>
          </div>
       </div>
       <div class="col-lg-12 fs--1 bg-white p-2 mt-2  border-d">
          <div  id="accordion">
-            <div class=" mb-2 shadow-sm first-new-container ">
+            <div class=" mb-2 shadow-sm first-new-container">
                <div  class="font-new-size" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   1. What is LocaL2LocaL? <span class="w3-right"><a data-toggle="collapse" data-target="#collapseOne" href="#headingOne" role="button" aria-expanded="true" aria-controls="collapseOne"></a></span>
                </div>
@@ -42,9 +42,8 @@
                   </div>
                </div>
             </div>
-            <r>
-            <div class=" mb-2  shadow-sm first-new-container">
-               <div class="font-new-size" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <div class=" mb-2 shadow-sm first-new-container">
+               <div class=" font-new-size  " id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                   2. What type of jobs are available on LocaL2LocaL?<span class="w3-right"><a data-toggle="collapse" data-target="#collapseTwo" href="#headingTwo" role="button" aria-expanded="true" aria-controls="collapseTwo"></a></span>
                </div>
                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
@@ -54,8 +53,8 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
-               <div class="font-new-size " id="heading3" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class="  font-new-size  " id="heading3" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
                   3. Who can request a job?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse3" href="#heading3" role="button" aria-expanded="true" aria-controls="collapse3" ></a></span>
                </div>
                <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
@@ -64,8 +63,8 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
-               <div class="font-new-size  " id="heading4" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class=" font-new-size " id="heading4" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
                   4. Who is a Service Provider?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse4" href="#heading4" role="button" aria-expanded="true" aria-controls="collapse4"></a></span>
                </div>
                <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
@@ -74,8 +73,8 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
-               <div class="font-new-size  " id="heading9" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class="  font-new-size  " id="heading9" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
                   5. Who is a Service Seeker?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse9" href="#heading9" role="button" aria-expanded="true" aria-controls="collapse9"></a></span>
                </div>
                <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordion">
@@ -84,8 +83,8 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
-               <div class="font-new-size " id="heading5" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class=" font-new-size " id="heading5" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
                   6. What is unique about LocaL2LocaL?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse5" href="#heading5" role="button" aria-expanded="true" aria-controls="collapse5"></a></span>
                </div>
                <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
@@ -95,8 +94,8 @@
                   </div>
                </div>
             </div>
-            <div class="mb-2  shadow-sm first-new-container">
-               <div class="font-new-size  " id="heading7" data-toggle="collapse" data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class=" font-new-size " id="heading7" data-toggle="collapse" data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
                   7. When can a Service Seeker see that I am available?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse7" href="#heading7" role="button" aria-expanded="true" aria-controls="collapse7"></a></span>
                </div>
                <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion">
@@ -105,7 +104,7 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
+            <div class="mb-2 shadow-sm first-new-container">
                <div class="font-new-size" id="heading8" data-toggle="collapse" data-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
                   8. What if I don’t want to be available?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse8" href="#heading8" role="button" aria-expanded="true" aria-controls="collapse8"></a></span>
                </div>
@@ -115,12 +114,12 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
-               <div class="font-new-size " id="heading10" data-toggle="collapse" data-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class="  font-new-size  " id="heading10" data-toggle="collapse" data-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
                   9. What is the LocaL2LocaL Service Fee?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse10" href="#heading10" role="button" aria-expanded="true" aria-controls="collapse10"></a></span>
                </div>
                <div id="collapse10" class="collapse" aria-labelledby="heading10" data-parent="#accordion">
-                  <div class="card-body">
+                  <div class="card-body card-body-bgcolor-new">
                      The total Service Fee amount charged will always be clearly displayed. The Service Fee will only be payable once a job has been accepted by a Service Provider.
                      <li>All service fees are subject to GST, which will be clearly displayed on the invoice.</li>
                      <li>A Service fee is charged for all payments made through the LocaL2LocaL payment gateway (Stripe)</li>
@@ -128,8 +127,8 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2  shadow-sm first-new-container">
-               <div class="font-new-size  " id="heading6" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class=" font-new-size " id="heading6" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
                   10. What is Stripe?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse6" href="#heading6" role="button" aria-expanded="true" aria-controls="collapse6"></a></span>
                </div>
                <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion">
@@ -141,8 +140,8 @@
                   </div>
                </div>
             </div>
-            <div class=" mb-2 shadow-sm first-new-container">
-               <div class=" font-new-size " id="heading11" data-toggle="collapse" data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+            <div class="mb-2 shadow-sm first-new-container">
+               <div class="  font-new-size " id="heading11" data-toggle="collapse" data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
                   11. How much does LocaL2LocaL charge?<span class="w3-right"><a data-toggle="collapse" data-target="#collapse6" href="#heading6" role="button" aria-expanded="true" aria-controls="collapse6"></a></span>
                </div>
                <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordion">

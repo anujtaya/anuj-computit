@@ -8,11 +8,11 @@
    #map {
    position: relative;
    width: 100%;
-   height: 89%;
+   height: 79%;
    background: #eee;
    }
    #wrapper { position: relative; }
-   #over_map_bottom { position: absolute; bottom: 15%; left: 0px; z-index: 99;min-width:100%;padding:5px; }
+   #over_map_bottom { position: absolute; bottom: 25%; left: 0px; z-index: 99;min-width:100%;padding:5px; }
    #over_map_top { position: absolute; top:1%; left: 0px; z-index: 99;min-width:100%;padding: 5px; }
    .modal-backdrop {
    position: fixed;
@@ -61,7 +61,7 @@
    <div id="over_map_bottom" class="text-center">
       <span id="user_current_saved_location" class="bg-white p-1 fs--2"></span><br>
       <a class="btn btn-block btn-sm theme-background-color card-1 mt-2" href="{{route('guest_service_seeker_home')}}?showBooking=on&showtutorial=true" onclick="toggle_animation(true);">Service Seeker - I want work done</a>
-      <a class="btn btn-block btn-sm card-1 mt-2" style="background:#5D29BA!important;color:white!important;" href="{{route('guest_service_provider_home')}}?showtutorial=true" onclick="toggle_animation(true);">Service Provider - I want to work.</a>
+      <!-- <a class="btn btn-block btn-sm card-1 mt-2" style="background:#5D29BA!important;color:white!important;" href="{{route('guest_service_provider_home')}}?showtutorial=true" onclick="toggle_animation(true);">Service Provider - I want to work.</a> -->
    </div>
 </div>
 <!-- Modal -->

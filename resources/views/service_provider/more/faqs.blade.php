@@ -1,12 +1,10 @@
 @extends('layouts.service_provider_master')
 @section('content')
-
 <style>
-.first-new-container{
+   .first-new-container{
    background-color:#F8F8F8;
-}
-
-.font-new-size{
+   }
+   .font-new-size{
    font-size:14px;
    font-weight:600;
    border-left-style: solid; 
@@ -15,20 +13,15 @@
    padding-top: 20px;
    padding-bottom: 20px;
    padding-left: 5px;
-}
-.card-body-bgcolor-new{
- background-color:#FCFDFF!important;
- padding-left:10px;
-}
-.mb-2{
+   }
+   .card-body-bgcolor-new{
+   background-color:#FCFDFF!important;
+   padding-left:10px;
+   }
+   .mb-2{
    margin-bottom: 0.7rem!important;
-}
+   }
 </style>
-
-
-
-
-
 <div class="container ">
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
