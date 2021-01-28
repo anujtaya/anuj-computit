@@ -285,7 +285,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/service_managment/admin_update_minor_name', 'ServiceManagementController@update_minor_name')->name('app_portal_admin_update_minor_name');
   Route::post('/app/portal/admin/service_managment/add_category', 'ServiceManagementController@add_category')->name('app_portal_admin_add_category');
   Route::post('/app/portal/admin/service_managment/add_sub_category', 'ServiceManagementController@add_sub_category')->name('app_portal_admin_add_sub_category');
-
+  //admin reports routes
+  Route::get('/app/portal/admin/reports/all', 'ReportController@all')->name('app_portal_admin_reports_all');
+  Route::get('/app/portal/admin/reports/user_login_analytics', 'ReportController@user_login_analytics')->name('app_portal_admin_reports_user_login_analytics');
+  Route::get('/app/portal/admin/reports/jobs_analytics', 'ReportController@jobs_analytics')->name('app_portal_admin_reports_jobs_analytics');
 
   Route::get('/app/portal/admin/data/import/index', 'DataImportController@index')->name('app_portal_admin_data_import_index');
 

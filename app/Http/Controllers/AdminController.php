@@ -156,7 +156,7 @@ class AdminController extends Controller
     //jobs module function
     //show all jobs list
     function jobs_all(){
-        $jobs = Job::paginate(2);
+        $jobs = Job::paginate(10);
         return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
     }
 
