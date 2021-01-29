@@ -7,7 +7,6 @@ use App\ServiceProviderPayment;
 use Session;
 use Auth;
 use View;
-use Input;
 use Validator;
 
 class ServiceProviderPaymentController extends Controller

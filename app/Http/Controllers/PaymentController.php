@@ -16,7 +16,6 @@ use PayPal\Rest\ApiContext;
 use Redirect;
 use Session;
 use URL;
-use Input;
 use Response;
 
 
@@ -92,19 +91,19 @@ class PaymentController extends Controller
         \Session::put('error', 'Unknown error occurred');
         return Redirect::to('/');
     }
-    public function getPaymentStatus()
+    public function getPaymentStatus(Request $request)
     {
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
         /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
-        if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
+        if (empty($request->get('PayerID')) || empty($request->get('token'))) {
             \Session::put('error', 'Payment failed');
             return Redirect::to('/');
         }
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
-        $execution->setPayerId(Input::get('PayerID'));
+        $execution->setPayerId($request->get('PayerID'));
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {

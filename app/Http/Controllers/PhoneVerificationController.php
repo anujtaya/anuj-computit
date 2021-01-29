@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
-use Input;
 use Auth;
 use Response;
 use Session;
@@ -35,7 +34,7 @@ class PhoneVerificationController extends Controller
 
 
     public function requestcode(Request $request){
-        $input = Input::all();
+        $input = $request->all();
         if(Auth::user()->is_verified != 1) {
             $user = User::find(Auth::id());
             $user->phone = substr($input['target_phone_number'],1);
@@ -61,7 +60,7 @@ class PhoneVerificationController extends Controller
 
     public function verify(Request $request)
     {
-        $input = Input::all();
+        $input = $request->all();
         $validator =  Validator::make($request->all(), [
             'phone_number' => 'required',
             'verification_code' => 'required|min:4',

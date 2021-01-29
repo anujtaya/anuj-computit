@@ -289,7 +289,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::get('/app/portal/admin/reports/all', 'ReportController@all')->name('app_portal_admin_reports_all');
   Route::get('/app/portal/admin/reports/user_login_analytics', 'ReportController@user_login_analytics')->name('app_portal_admin_reports_user_login_analytics');
   Route::get('/app/portal/admin/reports/jobs_analytics', 'ReportController@jobs_analytics')->name('app_portal_admin_reports_jobs_analytics');
-
+  //admin marketing routes
+  Route::get('/app/portal/admin/marketing/home', 'MarketingController@home')->name('app_portal_admin_marketing_home');
+  Route::post('/app/portal/admin/marketing/generate_user_list', 'MarketingController@generate_user_list')->name('app_portal_admin_marketing_generate_user_list');
   Route::get('/app/portal/admin/data/import/index', 'DataImportController@index')->name('app_portal_admin_data_import_index');
 
   //artisan admin routes

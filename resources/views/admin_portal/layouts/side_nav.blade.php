@@ -41,6 +41,9 @@
       <a  class="list-group-item {{ request()->is('app/portal/admin/system/*') ? 'active' : '' }}" href="{{route('app_portal_admin_system_index')}}">
       <i class="fas fa-cog p-1" style="min-width:30px!important;"></i> System Services
       </a>
+      <a  class="list-group-item {{ request()->is('app/portal/admin/marketing/*') ? 'active' : '' }}" href="{{route('app_portal_admin_marketing_home')}}">
+      <i class="fas fa-cog p-1" style="min-width:30px!important;"></i> Marketing
+      </a>
       <form action="{{route('logout')}}" style="display:none" method="post" id="logout_form">@csrf</form>
       <a class="list-group-item text-danger" href="#" onclick="$('#logout_form').submit();">
       <i class="fas fa-sign-out-alt p-1" style="min-width:30px!important;"></i> Logout

@@ -16,7 +16,6 @@ use Auth;
 use Response;
 use DB;
 use Validator;
-use Input;
 use Session;
 
 class ServiceProviderController extends Controller
@@ -261,7 +260,7 @@ class ServiceProviderController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $data =  (object) Input::all();
+            $data =  (object) $request->all();
             $user = Auth::user();
             if($data->target_status == "online") {
                 $user->is_online = true;
@@ -279,7 +278,7 @@ class ServiceProviderController extends Controller
     }
 
     function service_provider_update_user_bio_save(Request $request){
-        $input = Input::all();
+        $input = $request->all();
         $current_user = User::find(Auth::id());
         $current_user->user_bio = $input['user_bio'];
         if($current_user->save()){

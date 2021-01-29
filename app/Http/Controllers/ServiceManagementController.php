@@ -7,7 +7,6 @@ use DB;
 use Response;
 use Notifiable;
 use Validator;
-use Input;
 use App\User;
 use URL;
 use Auth;
@@ -20,7 +19,7 @@ class ServiceManagementController extends Controller
 {
     //add catergory
     function add_category(Request $request){
-        $input = Input::all();
+        $input = $request->all();
         try {
             DB::table('service_categories')->insert([
                 'service_name' => $input['name'],
@@ -37,7 +36,7 @@ class ServiceManagementController extends Controller
 
     //add catergory
     function add_sub_category(Request $request){
-        $input = Input::all();
+        $input = $request->all();
         try {
              DB::table('service_subcategories')->insert([
                 'service_subname' => $input['minor_name'], 

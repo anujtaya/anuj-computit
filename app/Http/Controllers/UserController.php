@@ -11,7 +11,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
-use Input;
 use Validator;
 use Auth;
 use App\User;
@@ -42,7 +41,6 @@ class UserController extends Controller
                   ->withErrors($validator)
                   ->withInput();
       } else {
-          // $data =  (object) Input::all();
           $data = $request->all();
           $new_user = new User();
           $new_user->first = $data['first'];
@@ -80,7 +78,7 @@ class UserController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $data =  (object) Input::all();
+            $data =  (object) $request->all();
             $user = User::find(Auth::id());
             $user->first = $data->user_first_name;
             $user->last = $data->user_last_name;
@@ -119,7 +117,7 @@ class UserController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         } else {
-            $data =  (object) Input::all();
+            $data =  (object) $request->all();
             $user = User::find(Auth::id());
             $user->password = Hash::make($data->password);
             if($user->save()) {

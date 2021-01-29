@@ -15,7 +15,6 @@ use App\Notifications\ServiceProviderEmailInvoice;
 use App\Notifications\JobStatusUpdate;
 use App\User;
 use Carbon\Carbon;
-use Input;
 use Validator;
 use PDF;
 use Session;

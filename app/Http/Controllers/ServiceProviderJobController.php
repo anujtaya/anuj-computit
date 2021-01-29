@@ -17,7 +17,6 @@ use App\Notifications\JobQuoteOfferSend;
 use App\Notifications\JobConversationNewMessageServiceProvider;
 use App\User;
 use Carbon\Carbon;
-use Input;
 use Validator;
 use PDF;
 use Session;
@@ -505,7 +504,7 @@ class ServiceProviderJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->job_id);
             if($job != null) {
 				if($job->job_pin == $data->pin_code_input) {
@@ -533,7 +532,7 @@ class ServiceProviderJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->started_job_id);
             if($job ->status == 'STARTED') {
 				$create_payment_record = $this->create_payment_record($job);
@@ -739,7 +738,7 @@ class ServiceProviderJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->rating_job_id);
             if($job ->status == 'COMPLETED') {
 				$job->service_provider_rating = $data->sp_rating_start_value;
@@ -806,7 +805,7 @@ class ServiceProviderJobController extends Controller
 
 	//service provider cancel job handler
 	function service_provider_job_cancel(Request $request) {
-		$data =  (object) Input::all(); 
+		$data =  (object) $request->all(); 
 		$job = Job::find($data->sp_job_cancel_id);
 		
 		if($job != null) {

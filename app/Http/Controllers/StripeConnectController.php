@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Input;
 use Auth;
 use Session;
 use Stripe;
@@ -15,7 +14,7 @@ class StripeConnectController extends Controller
     protected function store_stripe_connect_account(Request $request) {
         //Access the connected account id in the response
         if(Auth::user()->service_provider_payment == null) {
-            $input = Input::all();
+            $input = $request->all();
             
             try {
                 \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));

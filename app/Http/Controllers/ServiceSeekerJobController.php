@@ -13,7 +13,6 @@ use Response;
 use Carbon\Carbon;
 use Session;
 use Validator;
-use Input;
 use App\Notifications\ServiceSeekerEmailInvoice;
 use PDF;
 use DB;
@@ -506,7 +505,7 @@ class ServiceSeekerJobController extends Controller
 
   //Service seeker job offer accept function. 
   protected function accept_offer(Request $request){
-    $input = Input::all();
+    $input = $request->all();
     $job = Job::find($input['accept_job_id']);
     $conversation = Conversation::find($input['accept_conversation_id']);
 
@@ -637,7 +636,7 @@ class ServiceSeekerJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->rating_job_id);
             if($job ->status == 'COMPLETED') {
 				$job->service_seeker_rating = $data->ss_rating_start_value;
@@ -685,7 +684,7 @@ class ServiceSeekerJobController extends Controller
   
   //service seeker cancel job handler
   function service_seeker_job_cancel(Request $request) {
-    $data =  (object) Input::all(); 
+    $data =  (object) $request->all();
     $job = Job::find($data->ss_job_cancel_id);
     if($job != null) {
       //for now refund the money

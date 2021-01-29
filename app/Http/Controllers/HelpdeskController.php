@@ -14,7 +14,6 @@ use Notification;
 use App\Notifications\SendSupportEmail;
 use App\User;
 use Carbon\Carbon;
-use Input;
 use Validator;
 use PDF;
 use Session;
@@ -28,7 +27,7 @@ class HelpdeskController extends Controller
             'support_message' => 'required|min:3'
            ]);
         if($validation->passes()){
-            $input = Input::all();
+            $input = $request->all();
             //send support notification
             $user = Auth::user();
             $user->support_type = $input['support_type'];
