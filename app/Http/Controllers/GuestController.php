@@ -180,6 +180,14 @@ class GuestController extends Controller
       return view("partial.privacy_policy_mobile_view");
     }
 
+    protected function service_seeker_more_faqs(){
+      return view("service_seeker.demo.faqs");
+    }
+
+    protected function service_provider_more_faqs(){
+      return view("service_provider.demo.faqs");
+    }
+
     
     //create session draft job
     protected function create_draft_job(Request $request){

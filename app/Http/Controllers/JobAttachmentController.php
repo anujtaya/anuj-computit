@@ -10,7 +10,6 @@ use App\Job;
 use Session;
 use Auth;
 use View;
-use Input;
 use Validator;
 use Response;
 use Image;

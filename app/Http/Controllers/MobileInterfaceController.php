@@ -7,7 +7,6 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
-use Input;
 use Validator;
 use Auth;
 use App\User;
@@ -32,7 +31,7 @@ class MobileInterfaceController extends Controller
     //login android user
     protected function android_login(Request $request){
         $userdata = array(
-        'email' => $request->get('email'),// Input::get('email') ,
+        'email' => $request->get('email'),
         'password' => $request->get('password')
         );
         if(Auth::attempt($userdata)){

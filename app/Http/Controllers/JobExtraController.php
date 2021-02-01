@@ -12,7 +12,6 @@ use Response;
 use App\ConversationMessage;
 use App\User;
 use Carbon\Carbon;
-use Input;
 use Validator;
 
 
@@ -32,7 +31,7 @@ class JobExtraController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} 
-        $data =  (object) Input::all();
+        $data =  (object) $request->all();
         $job = Job::find($data->extra_job_id);
         if($job->status == 'STARTED') {
             $extra = new JobExtra();

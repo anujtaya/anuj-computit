@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Input;
 use Validator;
 use Auth;
 use App\User;
@@ -34,7 +33,7 @@ class AdminController extends Controller
     }
 
     function users_search(Request $request) {
-        $input = Input::get();
+        $input = $request->all();
         $users = [];
         if($input['email'] != '') {
             $users = User::where('email', 'LIKE', '%'.$input['email'] .'%')->get();
@@ -81,7 +80,7 @@ class AdminController extends Controller
 
     //update user online offline status
 	function user_update_online_status(Request $request){
-		$input = Input::all();
+		$input = $request->all();
 		$user = User::findorfail($input['user_id']);
 		if($user != null) {
 			$user->is_online = $input['user_profile_online_status'];
@@ -95,7 +94,7 @@ class AdminController extends Controller
     
     //update user online offline status
 	function user_update_account_status(Request $request){
-		$input = Input::all();
+		$input = $request->all();
 		$user = User::findorfail($input['user_id']);
 		if($user != null) {
 			$user->status = $input['user_profile_account_status'];
@@ -156,7 +155,7 @@ class AdminController extends Controller
     //jobs module function
     //show all jobs list
     function jobs_all(){
-        $jobs = Job::paginate(2);
+        $jobs = Job::paginate(10);
         return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
     }
 

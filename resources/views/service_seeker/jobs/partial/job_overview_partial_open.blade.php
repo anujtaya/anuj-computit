@@ -24,7 +24,7 @@
          </button>
       </div>
    </div>
-   <div class="mt-2" id="service_provider_list_view" style="overflow:scroll;display:none;height:600px;scroll-behavior: smooth;">
+   <div class="mt-2" id="service_provider_list_view" style="overflow:scroll;display:none;height:550px;scroll-behavior: smooth;">
       @include('service_seeker/jobs/jobs_templates/job_filter_offer')
    </div>
    <div class="mt-2" id="service_provider_map_view" >

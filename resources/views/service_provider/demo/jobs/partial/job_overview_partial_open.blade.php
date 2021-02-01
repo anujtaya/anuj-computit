@@ -15,8 +15,8 @@
          <br>
          <span>You can send you price quote by clicking below.</span>
          <br><br>
-         <a class="btn theme-color shadow-sm border fs--1 bg-white text-muted" onclick="$('#user_no_account_message_modal').modal('show');"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
-            Send Offer
+         <a class="btn theme-background-color shadow-sm border fs--1 bg-white text-muted" onclick="$('#user_no_account_message_modal').modal('show');"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
+            Login/Register to Send Offer
          </a>
       </div>
    </div>

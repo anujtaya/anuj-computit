@@ -17,7 +17,6 @@ use App\Notifications\JobQuoteOfferSend;
 use App\Notifications\JobConversationNewMessageServiceProvider;
 use App\User;
 use Carbon\Carbon;
-use Input;
 use Validator;
 use PDF;
 use Session;
@@ -58,7 +57,11 @@ class ServiceProviderJobController extends Controller
 			$job_price = 0.00;
 			if($conversation != null) {
 				$reply_count = count(Conversation::find($conversation->conversation_id)->conversation_messages);
-				$job_price = $this->calculate_job_price($job_extras, $conversation);
+				$job_price = 0.00;
+				if($conversation->json != null) {
+					$job_price = $this->calculate_job_price($job_extras, $conversation);
+				} 
+				
 			}
 			 return View::make("service_provider.jobs.job_detail")
 					 ->with('job',$job)
@@ -76,6 +79,7 @@ class ServiceProviderJobController extends Controller
 	//calcualtes job final job total when job extras and conversation with a offer value is provided. Please pass the correct data to this function to avoid any calculation errors.
 	protected function calculate_job_price($extras, $conversation){
 		$final_price = 0.00;
+
 		$offer_price = floatval($conversation->json['offer']);
 		foreach($extras as $extra) {
 			$final_price += $extra->quantity * $extra->price;
@@ -240,7 +244,19 @@ class ServiceProviderJobController extends Controller
 				  ->with('conversation',$conversation)
 				  ->with('job', $job)
 				  ->with('service_seeker_profile', $service_seeker_profile);
-    }
+	}
+	
+	//mark conversation as deleted
+	protected function mark_conversation_deleted($job_id, $service_provider_id){
+		//make sure the messages are in right order
+		$conversation = Conversation::where('job_id', $job_id)
+						  ->where('service_provider_id', $service_provider_id)->first();
+		if($conversation != null) {
+			$conversation->status = 'CLOSED';
+			$conversation->save();
+		} 
+		return redirect()->route('service_provider_jobs_history');
+	  }
 
 
 	protected function send_message(){
@@ -377,7 +393,6 @@ class ServiceProviderJobController extends Controller
 					->where("jobs.status", "OPEN")
 					->where("jobs.service_seeker_id", '!=', $user->id)
 					->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
-					->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
 					->having('distance', '<=', $user->work_radius)
 					->groupBy("job_id")
 					->orderBy('distance', 'asc')
@@ -393,7 +408,6 @@ class ServiceProviderJobController extends Controller
 					->where("jobs.status", "OPEN")
 					->where("jobs.service_seeker_id", '!=',  $user->id)
 					->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
-					->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
 					->having('distance', '<=', $user->work_radius)
 					->groupBy("job_id")
 					->orderBy('created_at', 'desc')
@@ -409,7 +423,6 @@ class ServiceProviderJobController extends Controller
 					->where("jobs.status", "OPEN")
 					->where("jobs.service_seeker_id", '!=',  $user->id)
 					->where('jobs.title', 'like', '%'.$_POST['includes_keywords'].'%')
-					->orwhere('jobs.description', 'like', '%'.$_POST['includes_keywords'].'%')
 					->having('distance', '<=', $user->work_radius)
 					->groupBy("job_id")
 					->orderBy('jobs.created_at', 'asc')
@@ -508,7 +521,7 @@ class ServiceProviderJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->job_id);
             if($job != null) {
 				if($job->job_pin == $data->pin_code_input) {
@@ -536,7 +549,7 @@ class ServiceProviderJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->started_job_id);
             if($job ->status == 'STARTED') {
 				$create_payment_record = $this->create_payment_record($job);
@@ -742,7 +755,7 @@ class ServiceProviderJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->rating_job_id);
             if($job ->status == 'COMPLETED') {
 				$job->service_provider_rating = $data->sp_rating_start_value;
@@ -809,7 +822,7 @@ class ServiceProviderJobController extends Controller
 
 	//service provider cancel job handler
 	function service_provider_job_cancel(Request $request) {
-		$data =  (object) Input::all(); 
+		$data =  (object) $request->all(); 
 		$job = Job::find($data->sp_job_cancel_id);
 		
 		if($job != null) {

@@ -62,7 +62,7 @@
          <!-- location update  -->
          <div class="col-12 p-0 border-bottom bg-white">
             <div class="d-flex fs--2 bd-highlight">
-               <div class="p-2 bd-highlight" onclick="handle_automatc_loc_update_failure();" id="user_current_saved_location">
+               <div class="p-2 bd-highlight" onclick="handle_automatc_loc_update_failure();$('#basic-search-1').val('');" id="user_current_saved_location">
                   @if(Auth::user()->user_lat != null)
                   <i class="fas fa-map-marker-alt"></i> 
                   <span class="theme-color">
@@ -97,9 +97,10 @@
          </div>     
          <div class="col-12 fs--2 pt-1 pb-1 pr-1 pl-1 text-muted bg-white">
             <div class="input-group">
-               <input type="text" class="form-control form-control-sm" placeholder="Enter keywords.." aria-label="Sort result by string search" aria-describedby="basic-search-1" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);">
+               <input type="text" class="form-control form-control-sm" placeholder="Loading..." readonly="readonly" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);" onclick="display_empty_job_alert();">
+               <!-- <input type="text" class="form-control form-control-sm" placeholder="Enter keywords.." aria-label="Sort result by string search" aria-describedby="basic-search-1" id="basic-search-1" onkeyup="filter_service_provider_jobs(current_filter_choice);"> -->
                <div class="input-group-append">
-                  <span class="input-group-text fs--2" id="basic-search-1" onclick="$('#basic-search-1').val('')">Clear</span>
+                  <span class="input-group-text fs--2" id="basic-search-1" onclick="$('#basic-search-1').val('');filter_service_provider_jobs(current_filter_choice);">Clear</span>
                </div>
             </div>
          </div>
@@ -195,6 +196,20 @@
    </div>
 </div>
 <!-- end modal -->
+<!-- No Job Found Alert Modal -->
+<div class="modal fade" id="job_not_found_alert_modal" tabindex="-1" role="dialog" aria-labelledby="job_not_found_alert_modal_titles" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centereds" role="document">
+      <div class="modal-content border-0 shadow">
+         <div class="modal-body text-center" style="min-height:250px;">
+            <i class="fas fa-exclamation-triangle display-1 text-danger"></i>
+            <br><br>
+            <p>No jobs available in your area!</p>
+            <p>Check back again soon, or add additional services to your profile</p>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal -->
 <script>
    var app_url = "{{URL::to('/')}}";
    var service_provider_location_update_url = "{{route('service_provider_services_location_update')}}";
@@ -206,12 +221,14 @@
    var update_refresh_count = 0;
    var update_interval;
    var current_suburb = "{{Auth::user()->user_city}}";
+   var user_radius = "{{Auth::user()->work_radius}}";
    var current_lat = "{{Auth::user()->user_lat}}";
    var current_lng = "{{Auth::user()->user_lng}}";
     //can be changed using session if wants to remember
    var current_filter_choice = 'RECENT';
-   
+   var search_box = document.getElementById('basic-search-1');
    window.onload = function() {
+      filter_service_provider_jobs(current_filter_choice,false);
       update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice) }, 30000);
       setInterval(update_refresh_count_display, 5000);
       //initialize the service provider location setup   

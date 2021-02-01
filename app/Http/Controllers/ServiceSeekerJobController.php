@@ -13,7 +13,6 @@ use Response;
 use Carbon\Carbon;
 use Session;
 use Validator;
-use Input;
 use App\Notifications\ServiceSeekerEmailInvoice;
 use PDF;
 use DB;
@@ -74,6 +73,10 @@ class ServiceSeekerJobController extends Controller
           $conversation_current = Conversation::where('job_id', $job->id)->where('service_provider_id', $job->service_provider_id)->first();
           $conversation_current->service_provider_information = $conversation_current->service_provider_profile;
           if($conversation_current!=null){
+            $job_price= 0.00;
+            if($conversation->json != null) {
+              $job_price = $this->calculate_job_price($job_extras, $conversation);
+            } 
             $job_price = $this->calculate_job_price($job_extras, $conversation_current);
           }
         }
@@ -175,7 +178,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            //->where('conversations.status', 'OPEN')
+            ->where('conversations.status', 'OPEN')
             ->get();
             $conversations = $conversations->sortByDesc('created_at');
             $viewRendered = view('service_seeker.jobs.jobs_templates.job_filter_offer')->with('conversations', $conversations)->render();
@@ -189,7 +192,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            //->where('conversations.status', 'OPEN')
+            ->where('conversations.status', 'OPEN')
             ->get();
 
             $conversations = $conversations->sortByDesc('json.offer');
@@ -205,7 +208,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-          //  ->where('conversations.status', 'OPEN')
+            ->where('conversations.status', 'OPEN')
             ->get();
 
             $conversations = $conversations->sortBy('json.offer');
@@ -221,7 +224,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-            //->where('conversations.status', 'OPEN')
+            ->where('conversations.status', 'OPEN')
             ->orderBy('rating', 'desc')
             ->get();
 
@@ -238,7 +241,7 @@ class ServiceSeekerJobController extends Controller
                     + sin(radians(" .$_POST['job_lat']. ")) 
                     * sin(radians(users.user_lat))) AS distance") )
             ->join('users', 'conversations.service_provider_id', '=', 'users.id')
-           // ->where('conversations.status', 'OPEN')
+            ->where('conversations.status', 'OPEN')
             ->orderBy('distance', 'asc')
             ->get();
 
@@ -279,7 +282,7 @@ class ServiceSeekerJobController extends Controller
           $draft_job->service_category_id = $draft_obj->service_category_id;
           $draft_job->service_subcategory_id = $draft_obj->service_subcategory_id;
           if($draft_obj->job_date_time != null){
-            $draft_job->job_date_time = $draft_obj->job_date_time;
+            $draft_job->job_date_time =  Carbon::createFromFormat('h:i A d/m/Y', $draft_obj->job_date_time)->toDateTimeString();
           }
           $draft_job->job_lat = $draft_obj->job_lat;
           $draft_job->job_lng = $draft_obj->job_lng;
@@ -296,7 +299,7 @@ class ServiceSeekerJobController extends Controller
           $job->service_category_id = $draft_obj->service_category_id;
           $job->service_subcategory_id = $draft_obj->service_subcategory_id;
           if($job->job_date_time != null){
-            $job->job_date_time = $draft_obj->job_date_time;
+            $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $draft_obj->job_date_time)->toDateTimeString();
           }
           $job->service_seeker_id = $seeker_id;
           $job->job_lat = $draft_obj->job_lat;
@@ -348,7 +351,7 @@ class ServiceSeekerJobController extends Controller
           $job->title = $job_obj->title;
           $job->description = $job_obj->description;
           if($job_obj->job_date_time != null){
-            $job->job_date_time = $job_obj->job_date_time;
+            $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $job_obj->job_date_time)->toDateTimeString();
           }
           $job->service_seeker_id = $seeker_id;
           $job->street_number = $job_obj->current_address_string->street_number;
@@ -383,7 +386,7 @@ class ServiceSeekerJobController extends Controller
         $job->title = $job_obj->title;
         $job->description = $job_obj->description;
         if($job_obj->job_date_time != null){
-          $job->job_date_time = $job_obj->job_date_time;
+          $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $job_obj->job_date_time)->toDateTimeString();
         }
         $job->service_seeker_id = $seeker_id;
         $job->street_number = $job_obj->current_address_string->street_number;
@@ -506,7 +509,7 @@ class ServiceSeekerJobController extends Controller
 
   //Service seeker job offer accept function. 
   protected function accept_offer(Request $request){
-    $input = Input::all();
+    $input = $request->all();
     $job = Job::find($input['accept_job_id']);
     $conversation = Conversation::find($input['accept_conversation_id']);
 
@@ -637,7 +640,7 @@ class ServiceSeekerJobController extends Controller
 					->withErrors($validator)
 					->withInput();
 		} else {
-			$data =  (object) Input::all();
+			$data =  (object) $request->all();
 			$job = Job::find($data->rating_job_id);
             if($job ->status == 'COMPLETED') {
 				$job->service_seeker_rating = $data->ss_rating_start_value;
@@ -685,7 +688,7 @@ class ServiceSeekerJobController extends Controller
   
   //service seeker cancel job handler
   function service_seeker_job_cancel(Request $request) {
-    $data =  (object) Input::all(); 
+    $data =  (object) $request->all();
     $job = Job::find($data->ss_job_cancel_id);
     if($job != null) {
       //for now refund the money

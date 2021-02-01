@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Input;
 use Auth;
 use Session;
 use Stripe\Stripe;
@@ -20,10 +19,9 @@ class ServiceSeekerStripePaymentController extends Controller
     
     //creates a new stripe customer record and saves it into database
     function create_customer(Request $request) {
-        $input = Input::all();
+        $input = $request->all();
         //check for existing user info, if exists use the customer ref number to push the account update.
         \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
-        $input = Input::all();
         $stripe_payment_record =   Auth::user()->service_seeker_stripe_payment;
         $response = false;
         if($stripe_payment_record != null){
@@ -200,7 +198,7 @@ class ServiceSeekerStripePaymentController extends Controller
     //change the default payment source to the request source
     //make other sources not-default
     \Stripe\Stripe::setApiKey(config('app.stripe_private_key'));
-    $input = Input::all();
+    $input = $request->all();
     $customer = null;
     $customer_object = Auth::user()->service_seeker_stripe_payment;
     $customer = $this->stripe_retrive_cust($customer_object->stripe_payment_token_id);

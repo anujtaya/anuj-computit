@@ -1,12 +1,10 @@
 @extends('layouts.service_seeker_master')
 @section('content')
-
 <style>
-.first-new-container{
+   .first-new-container{
    background-color:#F8F8F8;
-}
-
-.font-new-size{
+   }
+   .font-new-size{
    font-size:14px;
    font-weight:600;
    border-left-style: solid; 
@@ -15,18 +13,15 @@
    padding-top: 20px;
    padding-bottom: 20px;
    padding-left: 5px;
-}
-.card-body-bgcolor-new{
- background-color:#FCFDFF!important;
- padding-left:10px;
-}
-.mb-2{
+   }
+   .card-body-bgcolor-new{
+   background-color:#FCFDFF!important;
+   padding-left:10px;
+   }
+   .mb-2{
    margin-bottom: 0.7rem!important;
-}
+   }
 </style>
-
-
-
 <div class="container ">
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
@@ -46,7 +41,8 @@
                      An easy to use online platform that helps people to request services like car repairs,dog walking, house cleaning, parcel delivery, just to name a few, from people around them. LocaL2LocaL is a community-based real-time help service.
                   </div>
                </div>
-            </div><r>
+            </div>
+            <r>
             <div class=" mb-2  shadow-sm first-new-container">
                <div class="font-new-size" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                   2. What type of jobs are available on LocaL2LocaL?<span class="w3-right"><a data-toggle="collapse" data-target="#collapseTwo" href="#headingTwo" role="button" aria-expanded="true" aria-controls="collapseTwo"></a></span>

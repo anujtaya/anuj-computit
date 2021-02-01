@@ -8,7 +8,6 @@ use App\BusinessInfo;
 use Session;
 use Auth;
 use View;
-use Input;
 use Validator;
 use App\Certificate;
 

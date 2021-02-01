@@ -37,6 +37,8 @@
       </div>
    </div>
 </div>
-@include('service_seeker.jobs.modals.job_conversation_accept_offer_action_modal')
-@include('service_seeker.jobs.modals.job_conversation_reject_offer_action_modal')
+@if($conversation->json != null)
+   @include('service_seeker.jobs.modals.job_conversation_accept_offer_action_modal')
+   @include('service_seeker.jobs.modals.job_conversation_reject_offer_action_modal')
+@endif
 @endsection

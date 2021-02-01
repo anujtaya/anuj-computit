@@ -16,6 +16,7 @@ Route::post('/guest/register', 'GuestController@handle_guest_register_request')-
 Route::get('/app/register', 'RegisterHomeController@register')->name('app_register');
 Route::get('/guest/service_seeker/home', 'GuestController@service_seeker_home')->name('guest_service_seeker_home');
 Route::get('/guest/service_seeker/more', 'GuestController@service_seeker_more')->name('guest_service_seeker_more');
+Route::get('/guest/service_seeker/more/faqs', 'GuestController@service_seeker_more_faqs')->name('guest_service_seeker_more_faqs');
 Route::post('/guest/service_seeker/services/service_providers_nearby/fetch', 'GuestController@fetch_service_provider_nearby')->name('guest_service_seeker_services_service_providers_nearby_fetch');
 Route::post('/guest/register_user', 'UserController@register_user')->name('guest_register_user');
 Route::post('/guest/service_seeker/services/subcategories/fetch', 'ServiceSeekerController@fetch_service_sub_categories')->name('service_seeker_subcategories_fetch');
@@ -27,7 +28,6 @@ Route::post('/guest/service_seeker/services/filter', 'ServiceSeekerController@se
 Route::get('/privacypolicy', 'FrontendController@privacypolicy')->name('app_frontend_privacypolicy');
 Route::get('/guest/parital/mobile/privacypolicy', 'GuestController@mobile_privacy_policy')->name('guest_partial_mobile_privacy_policy');
 
-
 //manage service seeker draft job
 Route::post('/guest/service_seeker/session/create_draft_job', 'GuestController@create_draft_job')->name('guest_service_seeker_session_create_draft_job');
 Route::post('/guest/service_seeker/session/retrieve_session_draft_job', 'GuestController@retrieve_draft_job')->name('guest_service_seeker_session_retrieve_session_draft_job');
@@ -38,6 +38,7 @@ Route::post('/guest/service_seeker/session/retrieve_session_draft_sp_info', 'Gue
 //service provider demo routes
 Route::get('/guest/service_provider/home', 'GuestController@service_provider_home')->name('guest_service_provider_home');
 Route::get('/guest/service_provider/more', 'GuestController@service_provider_more')->name('guest_service_provider_more');
+Route::get('/guest/service_provider/more/faqs', 'GuestController@service_provider_more_faqs')->name('guest_service_provider_more_faqs');
 Route::post('/guest/service_provider/jobs/fetch/all', 'GuestController@service_provider_fetch_all_jobs')->name('guest_service_provider_jobs_fetch_all');
 Route::get('/guest/service_provider/jobs/job/{id}', 'GuestController@service_provider_show_job')->name('guest_service_provider_job');
 Route::post('/guest/imageservice/images/fetch/', 'JobAttachmentController@retrive_job_images')->name('guest_imageservice_images_fetch');
@@ -195,6 +196,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::post('/service_provider/jobs/job/update/rating', 'ServiceProviderJobController@update_rating')->name('service_provider_job_update_rating');
   //Route::get('/service_provider/jobs/job/conversation/{job_id}/{service_provider_id}', 'ServiceProviderJobController@show_job_detail_pending' )->name('service_provider_job_detail');
   Route::get('/service_provider/jobs/job/conversation/{job_id}/{service_provider_id}', 'ServiceProviderJobController@show_job_conversation' )->name('service_provider_job_conversation');
+  Route::get('/service_provider/jobs/job/conversation_mark_deleted/{job_id}/{service_provider_id}', 'ServiceProviderJobController@mark_conversation_deleted' )->name('service_provider_job_conversation_mark_conversation_deleted');
   Route::post('/service_provider/jobs/job/conversation/send_message', 'ServiceProviderJobController@send_message')->name('service_seeker_job_conversation_message_send');
   Route::post('/service_provider/jobs/job/conversation/check_new_messages', 'ServiceProviderJobController@check_new_messages')->name('service_provider_check_new_messages');
   //invocie routes
@@ -284,8 +286,13 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/service_managment/admin_update_minor_name', 'ServiceManagementController@update_minor_name')->name('app_portal_admin_update_minor_name');
   Route::post('/app/portal/admin/service_managment/add_category', 'ServiceManagementController@add_category')->name('app_portal_admin_add_category');
   Route::post('/app/portal/admin/service_managment/add_sub_category', 'ServiceManagementController@add_sub_category')->name('app_portal_admin_add_sub_category');
-
-
+  //admin reports routes
+  Route::get('/app/portal/admin/reports/all', 'ReportController@all')->name('app_portal_admin_reports_all');
+  Route::get('/app/portal/admin/reports/user_login_analytics', 'ReportController@user_login_analytics')->name('app_portal_admin_reports_user_login_analytics');
+  Route::get('/app/portal/admin/reports/jobs_analytics', 'ReportController@jobs_analytics')->name('app_portal_admin_reports_jobs_analytics');
+  //admin marketing routes
+  Route::get('/app/portal/admin/marketing/home', 'MarketingController@home')->name('app_portal_admin_marketing_home');
+  Route::post('/app/portal/admin/marketing/generate_user_list', 'MarketingController@generate_user_list')->name('app_portal_admin_marketing_generate_user_list');
   Route::get('/app/portal/admin/data/import/index', 'DataImportController@index')->name('app_portal_admin_data_import_index');
 
   //artisan admin routes

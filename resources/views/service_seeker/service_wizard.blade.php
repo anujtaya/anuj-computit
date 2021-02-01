@@ -114,7 +114,12 @@
       <div class="col-12 fs--1 p-2 p-3" >
          <div class="form-group">
             <label for="exampleInputEmail1">As soon as possible after this Date and Time:</label>
-            <input  type='datetime-local' onchange="create_seeker_job_draft();" class="form-control form-control-sm"  id="service_job_datetime" value="{{\Carbon\Carbon::now()->format('Y-m-d\TH:i')}}">
+            <div class="input-group input-group-sm mb-3">
+               <input class="form-control" type="text" onchange="create_seeker_job_draft();" class="form-control form-control-sm"  id="service_job_datetime" value="{{\Carbon\Carbon::now()->format('h:i A d/m/Y')}}" readonly="readonly" required>
+               <div class="input-group-append">
+                  <span class="input-group-text" id="inputGroup-sizing-sm"> <i class="fas fa-calendar fs-1"></i> </span>
+               </div>
+            </div>
             <small class="form-text text-muted">Please use plain english text.</small>
          </div>
 
@@ -186,5 +191,20 @@
 </div>
 <!-- end wizard 4 -->
 <script>
-var seeker_jobs_url = '{{route("service_seeker_jobs")}}';
+   var seeker_jobs_url = '{{route("service_seeker_jobs")}}';
+   $(document).ready(function()
+      {
+         $("#service_job_datetime").AnyPicker(
+         {
+            mode: "datetime",
+            showComponentLabel: true,
+            dateTimeFormat: "hh:mm AA d/M/yyyy",
+            onChange: function(iRow, iComp, oSelectedValues)
+            {
+                  //console.log("Changed Value : " + iRow + " " + iComp + " " + oSelectedValues);
+            },
+            theme: "Android"
+         });
+
+      });
 </script>

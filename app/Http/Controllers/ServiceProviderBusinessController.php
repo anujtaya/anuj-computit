@@ -9,7 +9,6 @@ use App\ServiceCategory;
 use Session;
 use Auth;
 use View;
-use Input;
 use Validator;
 
 class ServiceProviderBusinessController extends Controller

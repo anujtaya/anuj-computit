@@ -41,6 +41,9 @@
       @endif
       <span class="text-muted font-weight-normal fs--3 p-1">{{$conversation_reply_count}} messages</span>
       </li>
+      <li class="list-group-item m-1 border-0 card-1 fs--2" >
+         <a href="{{route('service_provider_job_conversation_mark_conversation_deleted', [$conversation->job_id, $conversation->service_provider_id])}}'" onclick="toggle_animation(true);" class=" btn theme-background-color btn-block card-1 text-white btn-sm">Delete this Job Conversation?</a>
+      </li>
       @else 
       <div class="text-center">
          <span>If you are ready to submit a job offer, please tap the ‘Send Offer’ button below.</span>

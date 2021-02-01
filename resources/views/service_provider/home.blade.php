@@ -185,6 +185,7 @@
    var update_refresh_count = 0;
    var update_interval;
    var current_suburb = "{{Auth::user()->user_city}}";
+   var user_radius = "{{Auth::user()->work_radius}}";
    var current_lat = "{{Auth::user()->user_lat}}";
    var current_lng = "{{Auth::user()->user_lng}}";
     //can be changed using session if wants to remember

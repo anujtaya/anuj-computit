@@ -8,8 +8,6 @@
       <title>Landing Page</title>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> -->
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
       @stack('header-style')
       <script src="{{asset('lib/fa/js/all.min.js')}}"></script>
       <!-- theme css -->
@@ -55,9 +53,9 @@
          <div class="text-center ml-4 mr-4 d-none" style="margin-top:20px;" id="anim-2">
          </div>
       </div>
-      <span class="fixed-top text-right pt-3 pr-2" style="position:fixed;top:0;right:0;z-index:10000!important;">
+      <!-- <span class="fixed-top text-right pt-3 pr-2" style="position:fixed;top:0;right:0;z-index:10000!important;">
          <a href="{{route('login')}}" onclick="toggle_animation(true);" class="bg-dark text-white p-2 fs--2" style="opacity:0.6;">Login</a>
-      </span>
+      </span> -->
       <script>
          @yield('customjavascripts')
 

@@ -22,7 +22,7 @@
                   </div> 
                   <div class="mt-2 text-centers">
                      <h1 class="fs-1">Select your language skills</h1>
-                     <p class="fs--1">If English isn't your first language please pick from the following below</p>
+                     <p class="fs--1">Other than English, select which language you are most fluent in.</p>
                   </div>
 
                   <div class="p-0">

@@ -14,7 +14,6 @@ use Response;
 use Carbon\Carbon;
 use Session;
 use Validator;
-use Input;
 use App\Notifications\ServiceSeekerEmailInvoice;
 use PDF;
 use DB;
@@ -259,7 +258,7 @@ class JobPaymentController extends Controller
         \Session::put('error', 'Unknown error occurred');
         return Redirect::to('/');
     }
-    public function getPaymentStatus()
+    public function getPaymentStatus(Request $request)
     {
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
@@ -271,13 +270,13 @@ class JobPaymentController extends Controller
         Session::forget('paypal_payment_fallback_url');
         Session::forget('paypal_payment_source_id');
         Session::forget('paypal_processing_fee');
-        if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
+        if (empty($request->get('PayerID')) || empty($request->get('token'))) {
             \Session::put('error', 'Payment failed');
             return Redirect::to($user_redirect_url);
         }
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
-        $execution->setPayerId(Input::get('PayerID'));
+        $execution->setPayerId($request->get('PayerID'));
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {

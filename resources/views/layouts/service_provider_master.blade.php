@@ -5,11 +5,10 @@
       <meta name="description" content="">
       <meta name="author" content="LocaL2LocaL - Anuj Taya (Computit Pty. Ltd.)">
       <meta name="generator" content="Jekyll v3.8.5">
+      <meta name="format-detection" content="telephone=no">
       <title>Landing Page</title>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> -->
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
       @stack('header-style')
       <script src="{{asset('lib/fa/js/all.min.js')}}"></script>
       <!-- theme css -->
@@ -30,6 +29,10 @@
          }
          * {
          -webkit-touch-callout: none;
+         }
+         a[x-apple-data-detectors=true]{
+            color: inherit !important;
+            text-decoration: inherit !important;
          }
       </style>
    </head>
