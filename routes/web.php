@@ -3,6 +3,8 @@
 Route::get('/', 'FrontendController@homepage')->name('app_frontend_homepage');
 Route::get('/faq', 'FrontendController@faq')->name('app_frontend_faq');
 Route::get('/support', 'FrontendController@support')->name('app_frontend_support');
+Route::get('/displayresetpwdconfirmation', 'FrontendController@displayresetpwdconfirmation')->name('app_frontend_displayresetpwdconfirmation');
+
 
 
 Auth::routes();

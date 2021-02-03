@@ -21,5 +21,9 @@ class FrontendController extends Controller
     function privacypolicy(){
         return view('frontend.privacypolicy');
     }
+
+    function displayresetpwdconfirmation(){
+        return view('frontend.displayresetpwdconfirmation');
+    }
    
 }

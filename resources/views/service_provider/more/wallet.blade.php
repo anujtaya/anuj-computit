@@ -22,7 +22,7 @@ if($paylogs != null) {
       @if(Auth::user()->service_provider_payment != null)
       <div class="p-2 shadow-sm m-1"> 
          <i class="fas fa-check-circle display-4 text-success"></i><br><br>
-         Your have succesfully connected your Stripe account with LocaL2LocaL. You should recieve payouts for your work. If we need more information from you in future, we will let you know.
+         Your have succesfully connected your Stripe account with LocaL2LocaL. You should recieve payouts for your work. If we need more information from you in the future, we will let you know.
       </div>
       @else
       <div class="p-2 shadow-sm m-1">
@@ -47,7 +47,7 @@ if($paylogs != null) {
                <a href="{{route('service_provider_more_help')}}" class="theme-color" onclick="toggle_animation(true);">  Help is available if you’re experiencing any payment issues related to the payouts. Please tap here to get help</a>
             </li>
             @foreach($paylogs as $log)
-            <li class="list-group-item" onclick="location.hrefs='{{route('service_provider_job' , $log->job_id)}}?gobackurl={{route('service_provider_more_wallet')}}'; toggle_animation(true);"> 
+            <li class="list-group-item" onclick="location.href='{{route('service_provider_job' , $log->job_id)}}?gobackurl={{route('service_provider_more_wallet')}}'; toggle_animation(true);"> 
                <div class="d-flex bd-highlight">
                   <div class=" flex-grow-1 bd-highlight">
                      @if($log->status == "PENDING")

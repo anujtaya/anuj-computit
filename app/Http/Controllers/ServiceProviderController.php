@@ -69,13 +69,20 @@ class ServiceProviderController extends Controller
         $languages =  Auth::user()->languages;
         $user_services = Auth::user()->service_provider_services;
         $stats = $this->calcualte_user_job_stats(Auth::id());
+        $current_business_info = Auth::user()->business_info;
+        if($current_business_info == null) {
+            $current_business_info = new BusinessInfo();
+            $current_business_info->user_id = Auth::id();
+            $current_business_info->save();
+        }
         //dd($stats);
         //find a way to store cached user rating
         return View::make("service_provider.profile.nested.index")
             ->with('certificates', $certificates)
             ->with('current_languages', $languages)
             ->with('user_services', $user_services)
-            ->with('stats', $stats);
+            ->with('stats', $stats)
+            ->with('current_business_info', $current_business_info);
     }
 
     function service_provider_profile_edit(){

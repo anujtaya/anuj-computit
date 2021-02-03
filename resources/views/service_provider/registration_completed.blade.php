@@ -45,7 +45,7 @@ h5 {
                               <img src="{{asset('/images/svg/l2l_user_laptop.svg')}}" style="height:200px!important;width:200px!important;" class="img-fluid m-4" alt="">
                               <h5 class="fs-1">Make an Offer</h5>
                               <p class="fs--1  sub-text-color">
-                                 Once you find the job for you, It's time to make an offer. Start by describing why you would be the right one 
+                                 Once you find the job for you, it's time to make an offer. Start by describing why you would be the right one 
                                  for the job by adding your skills and qualitifications.
                               </p>
                            </div>
@@ -76,5 +76,11 @@ h5 {
     $(".progress-bar").animate({
     width: "100%"
 }, 100);
+$(document).ready(function() {
+   $('.carousel').carousel({
+      interval: 12000
+      })
+});
+
 </script>
 @endsection

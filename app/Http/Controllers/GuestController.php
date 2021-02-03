@@ -73,7 +73,7 @@ class GuestController extends Controller
     
     //load all job based on user loction in demo mode
     protected function service_provider_fetch_all_jobs(){
-      $filter_action = $_POST['filter_action'];
+      $filter_action = $filter_action = $_POST['filter'];
       //based on user distance from current location
       
       if($_POST['includes_keywords'] == '') {

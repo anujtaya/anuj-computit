@@ -79,8 +79,14 @@
   <div class="progress-bar  theme-background-color" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 <script>
-    $(".progress-bar").animate({
-    width: "100%"
+$(".progress-bar").animate({
+   width: "100%"
 }, 100);
+$(document).ready(function() {
+   $('.carousel').carousel({
+      interval: 12000
+   })
+});
+
 </script>
 @endsection

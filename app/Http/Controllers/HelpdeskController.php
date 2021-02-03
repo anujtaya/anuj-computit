@@ -34,7 +34,7 @@ class HelpdeskController extends Controller
             $user->support_message = $input['support_message'];
             Notification::route('mail', 'info@local2local.com.au')
             ->notify(new SendSupportEmail($user));
-            Session::put('status', 'Your response is recieved. One of our support team member will resolve your issue shortly.');
+            Session::put('status', 'Your response is recieved. One of our support team members will resolve your issue shortly.');
             return redirect()->back();
         } else {
             return redirect()

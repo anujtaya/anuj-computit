@@ -20,7 +20,7 @@
       <!-- <i class="fas fa-circle-notch fs-2 theme-color fa-spin"></i>
       <br>
       <br> -->
-      <span>We are still looking for a Job that matches your profile. Please stay tuned..</span>
+      <span>There are no jobs available in your area. Please come back later.</span>
       <br><br>
   </div>
 @endif

@@ -197,7 +197,7 @@ $currentUserTab = 'joboverview';
             <br>
             <br>
             <p>
-               A cancellation fee of $10.00 may apply if the job is cancelled after being approved.
+               <!-- A cancellation fee of $10.00 may apply if the job is cancelled after being approved. -->
             </p>
             <button class="fs--2 btn-sm btn-danger text-white mr-2" onclick=" $( '#job_cancel_form' ).submit()">Proceed to Cancel</button>
             <button class="fs--2 btn-sm btn-secondary text-white" data-dismiss="modal">Dismiss</button>

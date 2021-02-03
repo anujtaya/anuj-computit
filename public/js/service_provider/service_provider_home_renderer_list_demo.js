@@ -14,7 +14,7 @@ function make_filter_ajax_request(data) {
         url: service_provider_jobs_fetch_url,
         data: {
             "_token": csrf_token,
-            "filter_action": data,
+            "filter": data,
             "current_lat": current_lat,
             "current_lng": current_lng,
             "includes_keywords": $('#basic-search-1').val(),

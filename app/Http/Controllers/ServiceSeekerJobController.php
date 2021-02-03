@@ -74,10 +74,9 @@ class ServiceSeekerJobController extends Controller
           $conversation_current->service_provider_information = $conversation_current->service_provider_profile;
           if($conversation_current!=null){
             $job_price= 0.00;
-            if($conversation->json != null) {
-              $job_price = $this->calculate_job_price($job_extras, $conversation);
+            if($conversation_current->json != null) {
+              $job_price = $this->calculate_job_price($job_extras, $conversation_current);
             } 
-            $job_price = $this->calculate_job_price($job_extras, $conversation_current);
           }
         }
        

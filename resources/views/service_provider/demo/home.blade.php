@@ -68,7 +68,7 @@
          </div>
          <div class="col-12 fs--2 pt-2 pb-2 pr-2 text-right text-muted bg-white">
             Updated <span id="update_refresh_counter_el">0</span> sec ago.
-            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="reset_map_position();" id="map_reset_btn"  >
+            <button   class="btn theme-color btn-sm  border fs--2 bg-white text-muted" onclick="set_display_bounds();filter_service_provider_jobs(current_filter_choice,false);" id="map_reset_btn"  >
             <i class="fas fa-redo-alt"></i> Update
             </button>
          </div>
@@ -140,16 +140,30 @@
    var current_lat = "";
    var current_lng = "";
    var enable_geocoder = false;
+   var current_filter_choice = 'RECENT';
    
    window.onload = function() {
-      update_interval =  setInterval(function(){ filter_service_provider_jobs(null,false) }, 25000);
+     
+      filter_service_provider_jobs(current_filter_choice,false);
+      update_interval = setInterval(function(){ filter_service_provider_jobs(current_filter_choice,false) }, 25000);
       setInterval(update_refresh_count_display, 5000);
-      //initialize the service provider location setup
+      //initialize the service provider location setup    
       if(current_lat == '') {
          update_sp_location();
       } else {
-         filter_service_provider_jobs(null,true);
+         //filter_service_provider_jobs(current_filter_choice,false);
+         //update_sp_location();
       }
+
+
+      // update_interval =  setInterval(function(){ filter_service_provider_jobs(null,false) }, 25000);
+      // setInterval(update_refresh_count_display, 5000);
+      // //initialize the service provider location setup
+      // if(current_lat == '') {
+      //    update_sp_location();
+      // } else {
+      //    filter_service_provider_jobs(null,true);
+      // }
       
    }
    
