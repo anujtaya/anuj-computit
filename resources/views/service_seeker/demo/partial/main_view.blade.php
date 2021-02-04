@@ -1,7 +1,7 @@
 <style>
-   body {
-   background:#f7f7f9!important;
-   }
+  body {
+      background:#f7f7f9!important;
+  }
 </style>
 <div class="border-top p-2">
    @if($session_draft_job != null)
@@ -32,12 +32,14 @@
       </div>
    </div>
    <div style="margin-bottom:30%;">
-      <div id="seeker_services_list_container" class="row text-center fs--1 m-0" >
+      <div id="seeker_services_list_container" class="row text-center m-0" style="font-size: 0.9rem;" >
         @foreach($categories as $category)
          <div  class="col-6 p-1">
-            <div class="rounded  bg-white p-1 text-center shadow-sms card-1" style="min-height:110px!important;" id="sid-{{$category->id}}" onclick="user_service_selection(this.id);" data-catname="{{$category->service_name}}">
-              <img src="{{asset('images/service_icons/'.strtolower(str_replace(' ', '',$category->service_name)).'.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:50px;" alt="">
-              <span>{{$category->service_name}}</span>
+            <div class="rounded  bg-white pt-3 pl-2 pr-2 text-center shadow-sms card-1" style="min-height:160px!important;" id="sid-{{$category->id}}" onclick="user_service_selection(this.id);" data-catname="{{$category->service_name}}">
+              
+              <img src="{{asset('images/service_icons/'.strtolower(str_replace(' ', '',$category->service_name)).'.svg')}}" class="rounded mx-auto d-block" style="height:60px;width:60px;" alt="">
+              
+              <div>{{$category->service_name}}</div>
             </div>
          </div>
         @endforeach
@@ -74,9 +76,10 @@
       var div_2 = document.createElement('div');
       var img = document.createElement('img');
 
-      div_1.classList = 'col-6 p-2';
-      div_2.classList = 'rounded bg-white p-1 text-center border';
+      div_1.classList = 'col-6 p-1';
+      div_2.classList = 'rounded  bg-white pt-3 pl-2 pr-2 text-center shadow-sms card-1';
       div_2.id = "sid-"+data[i]['id'];
+      div_2.style = "min-height:160px!important;";
       div_2.dataset.catname = data[i]['service_name'];
       div_2.addEventListener('click', function(){
         user_service_selection(this.id);
@@ -120,4 +123,3 @@
    
    }
 </script>
-@include('service_seeker.demo.bottom_navigation_bar')

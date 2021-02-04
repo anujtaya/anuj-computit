@@ -86,45 +86,16 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 p-0" style="height:60%!important;">
+   <div class="col-lg-12 p-0" style="height:69%!important;">
       <div id="map" style=" width: 100%;height: 100%;">
       </div>
    </div>
-   <div  class="col-lg-12 p-0" style="height:20%!important;">
-      <!-- bottom nav -->
-      <div class="fixed-bottoms">
-         <div class="row border-top pt-2 bg-white sticky-bottoms justify-content-center fs--1 text-center m-0">
-            @if(!request()->is('service_provider/more'))
-            <div class="col-12 p-2">
-               <a class="btn btn-block btn-sm text-white mt-2 shadow" style="background:#399BDB;" href="{{route('service_seeker_home')}}?showBooking=on" onclick="toggle_animation(true);">Switch to Seeker - I want work done</a>
-            </div>
-            @endif
-            <div class="col-3   p-2">
-               <a class="{{ (request()->is('service_provider/home')) ? 'theme-color' : '' }}  text-decoration-none text-muted" href="{{route('service_provider_home')}}" onclick="toggle_animation(true);">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
-               Home</a>   
-            </div>
-            <div class="col-3 p-2 ">
-               <a class="text-muted text-decoration-none {{ (request()->is('service_provider/profile/nested')) ? 'theme-color' : '' }} text-muted" href="{{route('service_provider_profile_nested')}}" onclick="toggle_animation(true);"> 
-               <i class="fas  fs-2 fa-user mb-1"></i><br>
-               Profile
-               </a>
-            </div>
-            <div class="col-3 p-2">
-               <a class=" text-decoration-none {{ (request()->is('service_provider/jobs/history')) ? 'theme-color' : '' }} text-muted" href="{{route('service_provider_jobs_history')}}" onclick="toggle_animation(true);">  <i class="fas  fs-2  fa-briefcase mb-1"></i><br>
-               My Jobs
-               </a> 
-            </div>
-            <div class="col-2 p-2  ">
-               <a class=" text-decoration-none {{ (request()->is('service_provider/more')) ? 'theme-color' : '' }} text-muted" href="{{route('service_provider_more')}}" onclick="toggle_animation(true);"> 
-               <i class="fas  fs-2 fa-plus mb-1"></i><br>
-               More
-               </a>
-            </div>
-         </div>
-      </div>
-      <!-- end bottom nav  -->
-   </div>
+ <div  class="col-lg-12 p-0" style="height:16%!important;">
+     
+   </div> 
 </div>
+
+@include('service_provider.bottom_navigation_bar')
 <!-- bootstrap job modal -->
 <!-- Modal -->
 <div class="modal fade" id="map_job_detail_modal_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

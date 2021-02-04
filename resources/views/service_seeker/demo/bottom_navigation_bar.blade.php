@@ -1,5 +1,5 @@
 <div class="fixed-bottom bg-white" style="height:21%;">
-   <div class="row border-top bg-white justify-content-center fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
+   <div class="row border-top sticky-bottom  fs--1 text-center m-0" style="border-color:#f7f7f9!important;">
       @if(request()->is('guest/service_seeker/home') )
       <div class="col-12 mb-2  p-2">
          <a class="btn btn-block btn-sm text-white mt-2 shadow d-none" style="background:#5D29BA!important;color:white!important;" href="{{route('guest_service_provider_home')}}?showtutorial=true" onclick="toggle_animation(true);">Switch to Provider - I want to work</a>
@@ -40,7 +40,7 @@
       </div>
    </div>
 </div>
-<div class="modal fade" style="z-index:10000;" id="user_no_account_message_modal" tabindex="-1" role="dialog" aria-labelledby="user_no_account_message_title" aria-hidden="true">
+<div class="modal fade" id="user_no_account_message_modal" tabindex="-1" role="dialog" aria-labelledby="user_no_account_message_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0 card-1">
          <div class="modal-body text-center" style="min-height:300px;">

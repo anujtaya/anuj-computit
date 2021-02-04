@@ -32,11 +32,11 @@
                <i class="fas fs-1 fa-times theme-color"></i>
                </a>
             </div>
-            <div class=" bd-highlight pt-3 pr-4 pb-3">
+            <!-- <div class=" bd-highlight pt-3 pr-4 pb-3">
                <a href="" onclick="wizard_switch('wizard_view_2');event.preventDefault();">
                <i class="fas fa-arrow-right theme-color fs-2"></i>
                </a>
-            </div>
+            </div> -->
          </div>
       </div>
    </div>

@@ -7,7 +7,7 @@
       <meta name="generator" content="Jekyll v3.8.5">
       <meta name="format-detection" content="telephone=no">
       <title>Landing Page</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{asset('bootstrap-4.3.1-dist/css/bootstrap.min.css')}}?v=1">
       <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
       @stack('header-style')
       <script src="{{asset('lib/fa/js/all.min.js')}}"></script>
@@ -38,14 +38,10 @@
       <input type="hidden" name="android_user_id" id="android_user_id" value="'{'user_id':'{{Auth::id()}}','cat':'WP'}'">
       <input type="hidden" name="android_csrf_token_id" id="android_csrf_token_id" value="{{csrf_token()}}" >
       <div id="app">
-         <main class="py-0 d-lg-none">
+         <main class="py-0">
             @yield('content')
          </main>
       </div>
-      <div class="d-none d-xl-block container text-danger p-3 mt-5 text-center">
-            <i class="fas fa-desktop display-1"></i> <br><br>
-            Desktop version not suported. Please switch to mobile or tablet view to see the content.
-         </div>
       <div id="anim-1" style="background:rgba(255, 252, 252, 0.88);position:fixed;top:0;left:0;z-index:10000!important;height:100%;width:100%;display:none!important;">
          <div class="text-center" style="margin-top:250px;">
             <img src="{{secure_url('/images/brand/l2l-logo-svg.svg')}}" class="fa-spin spin" height="60" width="60">
@@ -92,6 +88,6 @@
          }
       </script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="{{asset('bootstrap-4.3.1-dist/js/bootstrap.min.js')}}"></script>
    </body>
 </html>

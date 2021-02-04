@@ -50,6 +50,15 @@
             <a href="{{route('service_seeker_jobs')}}" class="text-decoration-none theme-color" onclick="toggle_animation(true);">You currently have jobs pending on your job board. Tap here to go to jobs tab <i class="fas fa-arrow-right"></i></a> 
          </div>
       @endif
+      @foreach($unpaid_jobs as $unpaid_job)
+         <div class="bg-white fs--1 shadow-sm theme-color rounded p-3" >
+            <div>
+               <h4 class="font-weight-bolder text-warning">Payment Due Reminder</h4>
+               <p>Your Job with id #{{$unpaid_job->id}} was marked completed by a Service Provider. </p>
+            </div>
+            <a href="{{route('service_seeker_job',$unpaid_job->id)}}" class="btn theme-background-color btn-sm card-1" onclick="toggle_animation(true);">Pay ${{number_format($unpaid_job->amount_due,2)}} <i class="fas fa-arrow-right"></i></a> 
+         </div>
+      @endforeach
    </div>
 </div>
 <!-- Modal -->

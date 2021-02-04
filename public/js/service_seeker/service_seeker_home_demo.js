@@ -340,9 +340,10 @@ function render_service_node_list(data) {
             li.dataset.subcatname = service_subname;
             li.addEventListener("click", function(e) {
                 //change sub category name in job page
-                $("#service_subselection_name_display").text(this.getAttribute('data-subcatname'));
-                set_current_node_id(this.id);
-                create_draft_job();
+                //$("#service_subselection_name_display").text(this.getAttribute('data-subcatname'));
+                //set_current_node_id(this.id);
+                show_login_modal();
+                //create_draft_job();
             }, true);
             li.innerHTML = service_subname;
             ul.appendChild(li);
@@ -534,4 +535,8 @@ function update_map_position(location) {
     map.panTo(location);
     current_user_marker.setPosition(location);
     map.setZoom(18);
+}
+
+function show_login_modal(){
+    $('#user_no_account_message_modal').modal('show');
 }

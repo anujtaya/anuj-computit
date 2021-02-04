@@ -1,27 +1,27 @@
 <!-- bottom nav -->
-<div class="fixed-bottom" >
-   <div class="row border-top bg-white justify-content-center fs--1 text-center m-0">
-      <div class="col-12  p-2">
+<div class="fixed-bottom" style="height:16%!important;">
+   <div class="row border-top  bg-white sticky-bottom justify-content-center fs--1 text-center m-0">
+      <div class="col-12  pl-2 mb-2 pr-2">
             <a class="btn btn-block btn-sm text-white mt-2 shadow" style="background:#399BDB;" href="{{route('guest_service_seeker_home')}}?showtutorial=true" onclick="toggle_animation(true);">Switch to Seeker - I want work done</a>
       </div>
-      <div class="col-3 p-2">
+      <div class="col-3 pl-2 pr-2">
          <a class="{{ (request()->is('guest/service_provider/home')) ? 'theme-color' : 'text-muted' }}  text-decoration-none" href="{{route('guest_service_provider_home')}}" onclick="toggle_animation(true);">        <i class="fas  fs-2 fa-home mb-1"></i> <br>
          Home</a>
       </div>
-      <div class="col-3 p-2">
+      <div class="col-3 pl-2 pr-2">
          <span class="text-muteds text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2 fa-user mb-1"></i><br>
          Profile
          </sapn>
       </div>
-      <div class="col-3 p-2">
+      <div class="col-3 pl-2 pr-2">
          <span class="text-muteds text-muted" onclick="$('#user_no_account_message_modal').modal('show');">
          <i class="fas  fs-2  fa-briefcase mb-1"></i>
          <br>
          My Jobs
          </sapn>
       </div>
-      <div class="col-3 p-2">
+      <div class="col-3 pl-2 pr-2">
          <a class="{{ (request()->is('guest/service_provider/more')) ? 'theme-color' : 'text-muted' }}" href="{{route('guest_service_provider_more')}}" onclick="toggle_animation(true);">
             <i class="fas  fs-2 fa-plus mb-1"></i><br>
             More

@@ -162,6 +162,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
 Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] , function () {
   //navigational routes
   Route::get('/service_provider/home',  'ServiceProviderController@home')->name('service_provider_home');
+  Route::get('/service_provider/profile/nested/reviews',  'ServiceProviderController@service_provider_profile_nested_reviews')->name('service_provider_profile_nested_reviews');
   Route::get('/service_provider/profile/nested',  'ServiceProviderController@service_provider_profile_nested')->name('service_provider_profile_nested');
   Route::get('/service_provider/profile/edit',  'ServiceProviderController@service_provider_profile_edit')->name('service_provider_profile_edit');
   Route::get('/sevrice_provider/profle/update_service_preferences', 'ServiceProviderController@service_provider_update_service_preferences')->name('service_provider_profile_update_service_preferences');

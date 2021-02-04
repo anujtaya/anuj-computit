@@ -30,9 +30,16 @@ class ServiceSeekerController extends Controller
       } else {
         $categories = ServiceCategory::all();
         $jobs = Job::where('service_seeker_id', Auth::id())->whereIn('status', ['OPEN', 'INPROGRESS', 'STARTED', 'ARRIVED', 'ONTRIP'])->get();
+        $unpaid_jobs = Job::select('jobs.*', 'job_payments.payable_job_price as amount_due')
+                      ->join('job_payments', 'jobs.id', '=', 'job_payments.job_id')
+                      ->where('jobs.service_seeker_id', Auth::id())->whereIn('jobs.status', ['COMPLETED'])
+                      ->where('job_payments.status', 'PAID')
+                      ->get();
+        //dd($unpaid_jobs);
         return view("service_seeker.service_seeker_home_1")
               ->with('categories', $categories)
-              ->with('jobs', $jobs);
+              ->with('jobs', $jobs)
+              ->with('unpaid_jobs', $unpaid_jobs);
       }
     
   }

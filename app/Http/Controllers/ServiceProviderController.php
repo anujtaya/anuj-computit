@@ -191,6 +191,12 @@ class ServiceProviderController extends Controller
         return View::make("service_provider.more.faqs");
     }
 
+    function service_provider_profile_nested_reviews(){
+        $stats = $this->calcualte_user_job_stats(Auth::id());
+        return view("service_provider.profile.nested.show_reviews_partial")
+                ->with('stats', $stats);
+    }
+
     function service_provider_more_wallet(){
         
         //$payment_source = Auth::user()->service_provider_payment;
