@@ -26,7 +26,7 @@
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm sticky-top bg-white p-3 border-d">
          <div class="row">
-            <div class="col-4">   <a href="{{route('service_seeker_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
+            <div class="col-4">   <a href="{{route('guest_service_seeker_more')}}" onclick="toggle_animation(true);">  <i class="fas theme-color fa-arrow-left fs-1"></i></a> </div>
             <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">FAQ's <br><span class="fs--2 text-muted font-weight-normal"></span></div>
          </div>
       </div>
