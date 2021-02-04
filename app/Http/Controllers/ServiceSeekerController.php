@@ -33,7 +33,7 @@ class ServiceSeekerController extends Controller
         $unpaid_jobs = Job::select('jobs.*', 'job_payments.payable_job_price as amount_due')
                       ->join('job_payments', 'jobs.id', '=', 'job_payments.job_id')
                       ->where('jobs.service_seeker_id', Auth::id())->whereIn('jobs.status', ['COMPLETED'])
-                      ->where('job_payments.status', 'PAID')
+                      ->where('job_payments.status', 'UNPAID')
                       ->get();
         //dd($unpaid_jobs);
         return view("service_seeker.service_seeker_home_1")

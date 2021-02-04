@@ -84,7 +84,7 @@
          @if($job->status == 'OPEN')
          <button class="btn btn-info btn-sm fs--2 font-weight-normal shadow" type="submit" id="job_detail_save_btn">Save Changes</button>
          @else
-         <span class="d-block text-muted fs--2 mt-2">Job details cannot be changed if the job status is not listed as OPEN on job board.</span>
+         <span class="d-block text-muted fs--2 mt-2">Job details cannot be changed if the job status is not marked as OPEN on job board.</span>
          @endif
       </div>
    </form>

@@ -129,7 +129,7 @@ $currentUserTab = 'joboverview';
                @endif 
             </div>
             <div class="col-12">
-               @if($job->status == 'APPROVED' || $job->status == 'INPROGRESS' || $job->status == 'ONTRIP' || $job->status == 'STARTED' || $job->status == 'OPEN')
+               @if($job->status == 'APPROVED' || $job->status == 'INPROGRESS' || $job->status == 'ONTRIP' || $job->status == 'STARTED' || $job->status == 'OPEN' ||  $job->status == 'EXPIRED')
                <!-- job cancellation form  -->
                <a class="btn btn-danger text-white btn-sm fs--1 card-1 float-right" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
                @endif
@@ -197,7 +197,7 @@ $currentUserTab = 'joboverview';
             <br>
             <br>
             <p>
-               <!-- A cancellation fee of $10.00 may apply if the job is cancelled after being approved. -->
+               This action cannot be undone. Proceed with caution.
             </p>
             <button class="fs--2 btn-sm btn-danger text-white mr-2" onclick=" $( '#job_cancel_form' ).submit()">Proceed to Cancel</button>
             <button class="fs--2 btn-sm btn-secondary text-white" data-dismiss="modal">Dismiss</button>
