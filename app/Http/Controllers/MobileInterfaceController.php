@@ -80,8 +80,12 @@ class MobileInterfaceController extends Controller
             return Response::json($post_data);
         } 
         else {
-            $post_data = array('user_id' => strval(0));
-            return Response::json($post_data);
+            //$post_data = array('user_id' => strval(0));
+            $returnData = array(
+                'status' => 'error',
+                'message' => 'An error occurred!'
+            );
+            return Response::json($returnData, 500);
         }
     }
 

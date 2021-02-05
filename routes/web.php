@@ -5,8 +5,6 @@ Route::get('/faq', 'FrontendController@faq')->name('app_frontend_faq');
 Route::get('/support', 'FrontendController@support')->name('app_frontend_support');
 Route::get('/displayresetpwdconfirmation', 'FrontendController@displayresetpwdconfirmation')->name('app_frontend_displayresetpwdconfirmation');
 
-
-
 Auth::routes();
 //guest routess
 Route::get('/root', 'GuestController@mobile_landing_page');
