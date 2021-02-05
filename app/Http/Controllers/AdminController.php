@@ -24,6 +24,7 @@ use FCM;
 class AdminController extends Controller
 {
     function home(){
+        //show home page
         return view('admin_portal.modules.home.home');
     }
 
