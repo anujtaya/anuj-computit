@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceseekerStripePaymentSource extends Model
+class ServiceSeekerStripePaymentSource extends Model
 {
     protected $table = "sss_payment_sources";
 

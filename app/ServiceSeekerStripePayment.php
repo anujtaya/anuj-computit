@@ -15,6 +15,6 @@ class ServiceSeekerStripePayment extends Model
     }
 
     public function sss_payment_sources(){
-        return $this->hasMany('App\ServiceseekerStripePaymentSource', 'sss_payment_id', 'id');
+        return $this->hasMany('App\ServiceSeekerStripePaymentSource', 'sss_payment_id', 'id');
     }
 }

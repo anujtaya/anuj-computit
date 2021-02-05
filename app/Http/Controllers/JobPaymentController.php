@@ -23,7 +23,7 @@ use App\Notifications\JobBoardNotification;
 use App\Notifications\JobConversationNewMessageServiceSeeker;
 use App\Notifications\JobQuoteOfferRejected;
 use App\Notifications\JobQuoteOfferAccepted;
-use App\ServiceseekerStripePaymentSource;
+use App\ServiceSeekerStripePaymentSource;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Stripe\Customer;
