@@ -11,6 +11,7 @@ use Image;
 use Storage;
 use URL;
 use Notifiable;
+use App\ServiceProviderPayment;
 use Carbon\Carbon;
 use Response;
 use App\Notifications\AccountCreated;
@@ -156,7 +157,7 @@ class AdminController extends Controller
     //jobs module function
     //show all jobs list
     function jobs_all(){
-        $jobs = Job::paginate(10);
+        $jobs = Job::orderby('updated_at', 'DESC')->paginate(10);
         return view('admin_portal.modules.jobs.jobs' , ['jobs' => $jobs]);
     }
 

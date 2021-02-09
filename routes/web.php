@@ -295,7 +295,13 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::get('/app/portal/admin/marketing/home', 'MarketingController@home')->name('app_portal_admin_marketing_home');
   Route::post('/app/portal/admin/marketing/generate_user_list', 'MarketingController@generate_user_list')->name('app_portal_admin_marketing_generate_user_list');
   Route::get('/app/portal/admin/data/import/index', 'DataImportController@index')->name('app_portal_admin_data_import_index');
+  //admin banking routes
+  Route::get('/app/portal/admin/banking/service_provider_paylog/index', 'AdminBankingController@banking_service_provider_paylog')->name('app_portal_admin_banking_service_provider_paylog_index');
+  Route::post('/app/portal/admin/banking/stripe_account_data', 'AdminBankingController@stripe_account_data')->name('app_portal_admin_banking_stripe_account_data');
+  Route::get('/app/portal/admin/banking/service_provider_paylog/payment_transfer/{id}', 'AdminBankingController@banking_service_provider_paylog_payment_transfer')->name('app_portal_admin_banking_service_provider_paylog_payment_transfer');
 
+
+  
   //artisan admin routes
   Route::get('/app/services/artisan/clear_log', 'ArtisanController@clear_log')->middleware('auth');
   //dev only routes

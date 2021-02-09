@@ -25,7 +25,8 @@
    </div>
    <div class="col-lg-6 p-1">
    </div>
-   <div class="col-lg-6 p-1">
+
+   <div class="col-lg-12 p-1">
       <div class="card h-100 rounded-0 bg-white ">
          <div class="card-header">
             All Jobs
@@ -37,17 +38,20 @@
                   <tr>
                      <th>ID</th>
                      <th>Status</th>
-                     <th>SeekerID</th>
-                     <th>ProviderID</th>
+                     <th>Seeker</th>
+                     <th>Provider</th>
                      <th>Title</th>
-                     <th>Created on</th>
+                     <th>Description</th>
+                     <th>Location</th>
+                     <th>Created at</th>
+                     <th>Updated at</th>
                      <th>Action</th>
                   </tr>
                </thead>
                <tbody>
                   @foreach($jobs as $job)
                   <tr>
-                     <td>{{$job->id}}</td>
+                     <td>#{{$job->id}}</td>
                      <td>
                         @if($job->status == 'OPEN')
                            <span class="badge badge-success font-weight-normal">Open</span>
@@ -63,6 +67,8 @@
                            <span class="badge badge-secondary font-weight-normal ">COMPLETED</span>
                         @elseif($job->status == 'EXPIRED')
                            <span class="badge badge-secondary font-weight-normal ">EXPIRED</span>
+                        @elseif($job->status == 'DRAFT')
+                           <span class="badge badge-secondary font-weight-normal ">DRAFT</span>
                         @elseif($job->status == 'CANCELLED')
                            <span class="badge badge-danger font-weight-normal">CANCELLED</span>
                         @endif    
@@ -73,8 +79,11 @@
                            <a href="{{route('app_portal_admin_users_profile', $job->service_provider_id)}}">{{$job->service_provider_id}}</a>
                         @endif
                      </td>
-                     <td>{{$job->title}}</td>
+                     <td>{{$job->title ?: 'NA'}}</td>
+                     <td>{{$job->description ?: 'NA'}}</td>
+                     <td>{{$job->suburb ?: 'NA'}}, {{$job->city ?: 'NA'}} {{$job->postcode ?: 'NA'}}</td>
                      <td>{{ date('d/m/Y h:ia', strtotime($job->created_at)) }}</td>
+                     <td>{{ date('d/m/Y h:ia', strtotime($job->updated_at)) }}</td>
                      <td>
                      <a href="{{route('app_portal_admin_jobs_job', $job->id)}}">View</a>
                      </td>

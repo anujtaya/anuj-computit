@@ -42,7 +42,10 @@
       <i class="fas fa-cog p-1" style="min-width:30px!important;"></i> System Services
       </a>
       <a  class="list-group-item {{ request()->is('app/portal/admin/marketing/*') ? 'active' : '' }}" href="{{route('app_portal_admin_marketing_home')}}">
-      <i class="fas fa-cog p-1" style="min-width:30px!important;"></i> Marketing
+      <i class="fas fa-star p-1" style="min-width:30px!important;"></i> Marketing
+      </a>
+      <a  class="list-group-item {{ request()->is('app/portal/admin/banking/*') ? 'active' : '' }}" href="{{route('app_portal_admin_banking_service_provider_paylog_index')}}">
+      <i class="fas fa-briefcase p-1" style="min-width:30px!important;"></i> Banking <span class="badge badge-pill badge-warning">NEW</span>
       </a>
       <form action="{{route('logout')}}" style="display:none" method="post" id="logout_form">@csrf</form>
       <a class="list-group-item text-danger" href="#" onclick="$('#logout_form').submit();">

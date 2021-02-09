@@ -78,6 +78,11 @@
       @include('partial.loader')
       <script>
       @yield('customjavascripts')
+      $.ajaxSetup({
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+         });
       $(document).ready(function () {
          
          $('#sidebarCollapse').on('click', function () {
