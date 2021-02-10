@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceSeekerStripePaymentSource extends Model
 {
     protected $table = "sss_payment_sources";
-
+    //kims comment
     public $timestamps = true;
 
     public function service_seeker_payment(){
