@@ -192,7 +192,7 @@ function initMap() {
 
 var is_first_request = true;
 
-var markerCluster;
+//var markerCluster;
 
 function display_job_markers() {
     markers = [];
@@ -210,9 +210,9 @@ function display_job_markers() {
         markers.push(serviceMarker);
 
     }
-    markerCluster = new MarkerClusterer(map, markers, {
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-    });
+    // markerCluster = new MarkerClusterer(map, markers, {
+    //     imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    // });
     setMapOnAll(map);
 
     if (jobs.length == 0) {

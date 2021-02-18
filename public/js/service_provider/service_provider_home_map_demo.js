@@ -198,9 +198,9 @@ function display_job_markers() {
         markers.push(serviceMarker);
 
     }
-    var markerCluster = new MarkerClusterer(map, markers, {
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-    });
+    // var markerCluster = new MarkerClusterer(map, markers, {
+    //     imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    // });
     setMapOnAll(map);
     find_closest_marker();
 }
