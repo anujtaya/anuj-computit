@@ -244,6 +244,8 @@ function user_service_selection(service_id) {
 
 function wizard_exit() {
     wizard_switch_2('wizard_view_1');
+    $("#service_job_title").val("");
+    $("#service_job_description").val("");
     $("#view_box_2").hide();
     $("#view_box_1").fadeIn();
     if (current_job_draft_id != null) {
