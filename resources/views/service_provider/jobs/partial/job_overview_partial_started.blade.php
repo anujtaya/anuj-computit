@@ -84,7 +84,7 @@
                </div>
                <div class="form-group">
                   <label for="extra_price">Unit Price</label>
-                  <input type="number"   class="form-control form-control-sm" id="extra_price" name="extra_price"  step="0.01" value="" placeholder="" required>
+                  <input type="number"   class="form-control form-control-sm" id="extra_price" name="extra_price"  step="0.01" value="" min="1" max="2000" placeholder="" required>
                </div>
                <div class="form-group">
                   <label for="extra_description">Description <small>(Optional)</small></label>
