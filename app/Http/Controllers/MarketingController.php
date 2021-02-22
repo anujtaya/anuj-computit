@@ -16,11 +16,11 @@ class MarketingController extends Controller
 
     function generate_user_list(Request $request) {
         $users = User::select(
-            'email as Email', 
-            'first as First Name',
-            'last as Last Name'
+            'email as email', 
+            'first as first_name',
+            'last as last_name'
         )->get();
-        return SimpleCsv::download( $users, 'download.csv');
+        return SimpleCsv::download( $users, 'downloadas.csv');
         dd($request);
     }
 }
