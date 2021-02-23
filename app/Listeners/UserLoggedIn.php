@@ -7,6 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Session;
 use App\UserLoginLog;
+use App\User;
 use Carbon\Carbon;
 
 class UserLoggedIn
@@ -43,6 +44,10 @@ class UserLoggedIn
             $log->save();
         }
         //send user mobile notification when login occurs.
-        app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($event->user,'L2L User Login Alert!','New User with id:#'.$event->user->id.' & Username: '.$event->user->first.' logged in just now.');
+        $marketing_user =  User::find(1910);
+        if($marketing_user != null ) {
+            app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($marketing_user,'L2L User Login Alert!','New User with id:#'.$event->user->id.' & Username: '.$event->user->first.' logged in just now.');
+        }
+       
     }
 }
