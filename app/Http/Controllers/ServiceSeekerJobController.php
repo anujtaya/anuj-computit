@@ -377,7 +377,7 @@ class ServiceSeekerJobController extends Controller
               $title = 'We have successfully posted your job to job board.';
               $message = 'Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$job->id;
               $this->send_user_mobile_notification(Auth::user(), $title, $message);
-              $marketing_user =  User::find(2);
+              $marketing_user =  User::find(1910);
               if($marketing_user != null ) {
                 $this->send_user_mobile_notification($marketing_user,'New Job Alert!','New job with id:#'.$job->id.' created just now.');
               }
@@ -416,7 +416,7 @@ class ServiceSeekerJobController extends Controller
             $message = 'We have succesfully posted the job on job board. Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$job->id;
             $this->send_user_mobile_notification(Auth::user(), $title, $message);
 
-            $marketing_user =  User::find(2);
+            $marketing_user =  User::find(1910);
             if($marketing_user != null ) {
               $this->send_user_mobile_notification($marketing_user,'New Job Alert!','New job with id:#'.$job->id.' created just now.');
             }
