@@ -42,5 +42,7 @@ class UserLoggedIn
             $log->user_id = $event->user->id;
             $log->save();
         }
+        //send user mobile notification when login occurs.
+        app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($event->user,'L2L User Login Alert!','New User with id:#'.$event->user->id.' & Username: '.$event->user->first.' logged in just now.');
     }
 }
