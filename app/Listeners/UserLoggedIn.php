@@ -44,7 +44,7 @@ class UserLoggedIn
             $log->save();
         }
         //send user mobile notification when login occurs except the people email listed in the exception array.
-        $marketing_user =  User::find(1);
+        $marketing_user =  User::find(1910);
         if($marketing_user != null ) {
             $exceptions = array("tayaanuj@gmail.com");
             if (!in_array($event->user->email, $exceptions)) {
