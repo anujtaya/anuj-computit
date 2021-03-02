@@ -20,7 +20,7 @@
          <i class="fas fa-globe-asia"></i> Map View
          </button>
          <button class="btn theme-background-color btn-sm  card-1 ml-2 fs--1   text-white"  id="list_btn" onclick="switch_view_mode('LIST')">
-         <i class="fas fa-list-ol"></i> List View
+         <i class="fas fa-list-ol"></i> Messages
          </button>
       </div>
    </div>
