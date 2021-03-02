@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'isServiceProvider' => \App\Http\Middleware\IsServiceProvider::class,
         'forceHttpsProtocol' => \App\Http\Middleware\ForceHttpsProtocol::class,
         'admin_routes' => \App\Http\Middleware\AdminOnlyRoutes::class,
+        'healthcheck' => \App\Http\Middleware\AmazonHealthCheck::class,
     ];
 
     /**

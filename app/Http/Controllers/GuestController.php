@@ -25,6 +25,12 @@ class GuestController extends Controller
       return view('auth.mobile.getting_started');
     }
 
+
+    //health check response dump
+    protected function healthcheckresponsedump() {
+      return response('Server working alright :)', 200)
+      ->header('Content-Type', 'text/plain');
+    }
     
     //redirect user based on auth status
     protected function handle_landing_request(){

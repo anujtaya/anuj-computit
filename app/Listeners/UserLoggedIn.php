@@ -43,10 +43,13 @@ class UserLoggedIn
             $log->user_id = $event->user->id;
             $log->save();
         }
-        //send user mobile notification when login occurs.
-        $marketing_user =  User::find(1910);
+        //send user mobile notification when login occurs except the people email listed in the exception array.
+        $marketing_user =  User::find(1);
         if($marketing_user != null ) {
-            app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($marketing_user,'L2L User Login Alert!','New User with id:#'.$event->user->id.' & Username: '.$event->user->first.' logged in just now.');
+            $exceptions = array("tayaanuj@gmail.com");
+            if (!in_array($event->user->email, $exceptions)) {
+                app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($marketing_user,'L2L User Login Alert!','New User with id:#'.$event->user->id.' & Username: '.$event->user->first.' logged in just now.');
+            } 
         }
        
     }

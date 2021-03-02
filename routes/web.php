@@ -4,6 +4,9 @@ Route::get('/', 'FrontendController@homepage')->name('app_frontend_homepage');
 Route::get('/faq', 'FrontendController@faq')->name('app_frontend_faq');
 Route::get('/support', 'FrontendController@support')->name('app_frontend_support');
 Route::get('/displayresetpwdconfirmation', 'FrontendController@displayresetpwdconfirmation')->name('app_frontend_displayresetpwdconfirmation');
+Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
+Route::get('/health-check','GuestController@healthcheckresponsedump')->middleware('healthcheck');
+
 
 Auth::routes();
 //guest routess
@@ -329,4 +332,3 @@ Route::post('/serviceLatLng2', 'MobileInterfaceController@android_location_recei
 Route::post('/notify', 'MobileInterfaceController@save_ios_device_token')->name('app_mobile_api_save_save_ios_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::post('/save_android_token', 'MobileInterfaceController@save_android_device_token_2')->name('app_mobile_api_save_android_device_token_2');
-Route::get('/94663', 'MobileInterfaceController@dump_iOS_user_id')->name('app_mobile_api_dump_iOS_user_id');
