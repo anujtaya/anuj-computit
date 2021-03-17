@@ -1,6 +1,69 @@
 @extends('admin_portal.layouts.master')
 @section('title', 'Admin Portal Job Managment -  View/Edit Job')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{asset('/lib/anypic/anypicker-all.min.css')}}" />
+<script type="text/javascript" src="{{asset('/lib/anypic/anypicker.min.js')}}"></script>
+@if($job->status == 'EXPIRED')
+<div class="row m-2">
+   <div class="col-lg-6 p-3">
+      <div class="card bg-white">
+         <div class="card-header">
+            Expired Job Re-activation Form
+         </div>
+         <div class="card-body">
+
+            Please submit the form below to repost the job. This will notify the Service Seeker via push notificatin that there job is reposted by LocaL2LocaL admin. 
+            <br>
+            <form action="{{route('app_portal_admin_jobs_job_expired_set_expired_job_to_open_admin')}}" method="post">
+               @csrf
+               <input type="hidden" name="job_id" value="{{$job->id}}">
+               <div class="form-group">
+                  <label  class="font-weight-bold" for="update_job_title">Job Title</label> <br>
+                  <input name="update_job_title" class="form-control form-control-sm" value="{{$job->title ?: 'Unknown'}}" >
+               </div>
+               <div class="form-group">
+                  <label class="font-weight-bold" for="update_job_description">Description</label> <br>
+                  <textarea name="update_job_description" class="form-control form-control-sm" id="update_job_description"  rows="2">{{$job->description ?: 'Unknown'}}</textarea>
+               </div>
+               <div class="form-group">
+                  <label for="exampleInputEmail1">As soon as possible after this Date and Time:</label>
+                  <!-- <input type='datetime-local' class="form-control form-control-sm"  name="job_date_time" value="{{\Carbon\Carbon::now()->addDays(1)->format('Y-m-d\TH:i')}}" required> -->
+                  <div class="input-group input-group-sm mb-3">
+                     <input class="form-control" type="text" id="ip-de-1" name="job_date_time" value="{{\Carbon\Carbon::now()->addDays(1)->format('h:i A d/m/Y')}}" readonly="readonly" required>
+                     <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"> <i class="fas fa-calendar fs-1"></i> </span>
+                     </div>
+                  </div>
+               </div>
+               <button class="btn btn-success text-white btn-sm fs--2 shadow">Repost Job</button>
+            </form>
+
+         
+         </div> 
+      </div>
+   </div>
+</div>
+
+<script>
+   $(document).ready(function()
+    {
+        $("#ip-de-1").AnyPicker(
+        {
+            mode: "datetime",
+            showComponentLabel: true,
+            dateTimeFormat: "hh:mm AA d/M/yyyy",
+            onChange: function(iRow, iComp, oSelectedValues)
+            {
+                //console.log("Changed Value : " + iRow + " " + iComp + " " + oSelectedValues);
+            },
+            theme: "Android"
+        });
+
+    });
+</script>
+
+@endif
+
 <div class="row m-2">
    <div class="col-lg-4 p-3">
       <div class="card h-100 bg-white">
@@ -278,62 +341,59 @@
             $conversatons = $job->conversations;
             @endphp
             <ul class="list-group">
-            @foreach($conversatons as $conversation)
-            <li class="list-group-item card-1 mt-3 rounded border-0 p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);">
-               <div class="p-2">
-                  @if($conversation->status == 'OPEN')
-                  <span class="badge card-1 badge-success font-weight-normal p-2">OPEN</span>
-                  @elseif($conversation->status == 'CLOSED')
-                  <span class="badge card-1 badge-danger font-weight-normal p-2">CLOSED/DELETED</span>
-                  @endif  
-               </div>
-               <div class="d-flex pl-2 pr-2 pt-2 bd-highlight">
-                  <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold">
-                     <h4> Service Provider: {{$conversation->service_provider_profile->first}} {{$conversation->service_provider_profile->last}}</h4>
+               @foreach($conversatons as $conversation)
+               <li class="list-group-item card-1 mt-3 rounded border-0 p-0" onclick="location.href= app_url + '/service_seeker/jobs/job/{{$job->id}}';toggle_animation(true);">
+                  <div class="p-2">
+                     @if($conversation->status == 'OPEN')
+                     <span class="badge card-1 badge-success font-weight-normal p-2">OPEN</span>
+                     @elseif($conversation->status == 'CLOSED')
+                     <span class="badge card-1 badge-danger font-weight-normal p-2">CLOSED/DELETED</span>
+                     @endif  
                   </div>
-               </div>
-               <div class=" p-2" >
-                  @if($conversation->json != null)
-                  {{$conversation->service_provider_profile->first}} has offered to complete this job for ${{number_format($conversation->json['offer'],2)}}. Offer Description: {{$conversation->json['offer_description']}}.
-                  @else
-                  {{$conversation->service_provider_profile->first}} hasn’t made any job offers for this job.
-                  @endif
-               </div>
-               <div class="p-2">
-               <span>Conversation information: </span> <br><br>
-               @php  
-                  $msgs = $conversation->conversation_messages;
-               @endphp
-               @foreach($msgs as $msg)
-                  <!-- Reciever Message  -->
-                       @if($job->service_seeker_id == $msg->user_id)
-                        <div class="media fs--2 w-50 ml-auto">
-                           <div class="media-body">
-                              <div class="py-2 px-3 mb-2 rounded" style="background:#399BDB!important;color:white!important;" >
-                                 <p class=" mb-0 text-white text-break">{{$msg->text}}</p>
-                              </div>
-                              <p class="float-right m1-2 small text-muted">{{date('d/m/Y h:i a', strtotime($msg->msg_created_at))}}</p>
-
+                  <div class="d-flex pl-2 pr-2 pt-2 bd-highlight">
+                     <div class="pb-2 w-100 bd-highlight theme-color font-weight-bold">
+                        <h4> Service Provider: {{$conversation->service_provider_profile->first}} {{$conversation->service_provider_profile->last}}</h4>
+                     </div>
+                  </div>
+                  <div class=" p-2" >
+                     @if($conversation->json != null)
+                     {{$conversation->service_provider_profile->first}} has offered to complete this job for ${{number_format($conversation->json['offer'],2)}}. Offer Description: {{$conversation->json['offer_description']}}.
+                     @else
+                     {{$conversation->service_provider_profile->first}} hasn’t made any job offers for this job.
+                     @endif
+                  </div>
+                  <div class="p-2">
+                     <span>Conversation information: </span> <br><br>
+                     @php  
+                     $msgs = $conversation->conversation_messages;
+                     @endphp
+                     @foreach($msgs as $msg)
+                     <!-- Reciever Message  -->
+                     @if($job->service_seeker_id == $msg->user_id)
+                     <div class="media fs--2 w-50 ml-auto">
+                        <div class="media-body">
+                           <div class="py-2 px-3 mb-2 rounded" style="background:#399BDB!important;color:white!important;" >
+                              <p class=" mb-0 text-white text-break">{{$msg->text}}</p>
                            </div>
+                           <p class="float-right m1-2 small text-muted">{{date('d/m/Y h:i a', strtotime($msg->msg_created_at))}}</p>
                         </div>
-                        @else
-                        <!-- sender message -->
-                        <div class="media fs--2 w-50 mb-1">
-                           <div class="media-body">
-                              <div class=" py-2 px-3 mb-2 rounded" style="background:#5D29BA!important;color:white!important;" >
-                                 <p class=" mb-0 text-white">{{$msg->text}}</p>
-                              </div>
-                              <p class="small ml-1 text-muted">{{date('d/m/Y h:i a', strtotime($msg->msg_created_at))}}</p>
+                     </div>
+                     @else
+                     <!-- sender message -->
+                     <div class="media fs--2 w-50 mb-1">
+                        <div class="media-body">
+                           <div class=" py-2 px-3 mb-2 rounded" style="background:#5D29BA!important;color:white!important;" >
+                              <p class=" mb-0 text-white">{{$msg->text}}</p>
                            </div>
+                           <p class="small ml-1 text-muted">{{date('d/m/Y h:i a', strtotime($msg->msg_created_at))}}</p>
                         </div>
-                        @endif
+                     </div>
+                     @endif
+                     @endforeach
+                  </div>
+               </li>
                @endforeach
-
-
-               </div>
-            </li>
-            @endforeach
-            <u/l>
+            </ul>
          </div>
       </div>
    </div>

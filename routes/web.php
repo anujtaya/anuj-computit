@@ -269,6 +269,9 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/users/send_user_mobile_test_notification/', 'AdminController@send_user_mobile_test_notification')->name('app_portal_admin_users_send_user_mobile_test_notification');
   Route::get('/app/portal/admin/jobs/all', 'AdminController@jobs_all')->name('app_portal_admin_jobs');
   Route::get('/app/portal/admin/jobs/job/{id}', 'AdminController@job_profile')->name('app_portal_admin_jobs_job');
+  Route::post('/app/portal/admin/jobs/job_expired/prepare_repost_flow/set_expired_job_to_open_admin', 'ExpiredJobController@set_expired_job_to_open_admin')->name('app_portal_admin_jobs_job_expired_set_expired_job_to_open_admin');
+
+
   Route::post('/app/portal/admin/jobs/search', 'AdminController@jobs_search')->name('app_portal_admin_jobs_search');
   Route::post('/app/portal/admin/users/search', 'AdminController@users_search')->name('app_portal_admin_users_search');
   Route::get('/app/portal/admin/jobs/job_invoice_provider/{id}', 'DemoController@test_sp_invoice_template_design')->name('app_portal_admin_jobs_job_invoice_provider');

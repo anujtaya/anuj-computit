@@ -57,6 +57,30 @@ class ExpiredJobController extends Controller
     }
 
 
+     //set the job to open on user demand
+     protected function set_expired_job_to_open_admin(Request $request) {
+        $input = (object)$request->all();
+        $job = Job::find($input->job_id);
+        $carbon_date = Carbon::createFromFormat('h:i A d/m/Y', $input->job_date_time);
+        if($job != null) {
+            //display the expired job page
+            if($carbon_date->isPast()) {
+                Session::put('expired_job_error','Job date time must be set to future.');
+                return redirect()->back();
+            }
+            $job->job_date_time = $carbon_date->toDateTimeString();
+            $job->title = $input->update_job_title;
+            $job->description = $input->update_job_description;
+            $job->status = "OPEN";
+            if($job->save()){
+                $this->send_user_mobile_notification($job->service_seeker_profile, 'We have successfully reposted your job to job board.','Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job.');
+                return redirect()->back();
+            }
+        }
+        return redirect()->back();
+    }
+
+
     //update location details
 
     protected function update_job_location(){
