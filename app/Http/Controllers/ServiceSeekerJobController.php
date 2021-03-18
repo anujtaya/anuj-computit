@@ -30,6 +30,8 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
+use App\ServiceCategory;
+use App\ServiceSubCategory;
 
 class ServiceSeekerJobController extends Controller
 {
@@ -280,6 +282,19 @@ class ServiceSeekerJobController extends Controller
           $draft_job->description = $draft_obj->description;
           $draft_job->service_category_id = $draft_obj->service_category_id;
           $draft_job->service_subcategory_id = $draft_obj->service_subcategory_id;
+
+          //record job category and sub cateogry information for draft jobs.
+          if($draft_obj->service_subcategory_id != null) {
+            $service = ServiceCategory::find($draft_obj->service_category_id);
+            $servicesub = ServiceSubCategory::find($draft_obj->service_subcategory_id);
+            if($service != null) {
+              $draft_job->service_category_name = $service->service_name;
+            }
+            if($servicesub != null) {
+              $draft_job->service_subcategory_name =  $servicesub->service_subname;
+            } 
+          }
+
           if($draft_obj->job_date_time != null){
             $draft_job->job_date_time =  Carbon::createFromFormat('h:i A d/m/Y', $draft_obj->job_date_time)->toDateTimeString();
           }
@@ -297,6 +312,19 @@ class ServiceSeekerJobController extends Controller
           $job->status = "DRAFT";
           $job->service_category_id = $draft_obj->service_category_id;
           $job->service_subcategory_id = $draft_obj->service_subcategory_id;
+         
+          //record job category and sub cateogry information for draft jobs.
+          if($draft_obj->service_subcategory_id != null) {
+            $service = ServiceCategory::find($draft_obj->service_category_id);
+            $servicesub = ServiceSubCategory::find($draft_obj->service_subcategory_id);
+            if($service != null) {
+              $job->service_category_name = $service->service_name;
+            }
+            if($servicesub != null) {
+              $job->service_subcategory_name =  $servicesub->service_subname;
+            } 
+          }
+          
           if($job->job_date_time != null){
             $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $draft_obj->job_date_time)->toDateTimeString();
           }
