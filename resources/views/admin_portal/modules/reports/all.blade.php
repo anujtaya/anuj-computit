@@ -23,6 +23,9 @@
                <a href="{{route('app_portal_admin_reports_jobs_analytics')}}" class="list-group-item list-group-item-action">
                   Jobs Analytics
                </a>
+               <a href="{{route('app_portal_admin_reports_messagepolicybreaches')}}" class="list-group-item list-group-item-action">
+                  Message Policy Breach Data
+               </a>
             </div>
          </div>
       </div>

@@ -16,6 +16,7 @@ use DB;
 use App\Notification;
 use App\Notifications\AccountCreated;
 use PDF;
+use App\Events\MessagePolicyBreachEvent;
 
 class DemoController extends Controller
 {
@@ -140,5 +141,19 @@ class DemoController extends Controller
 
     function button_demo(){
         return view('demo.button_demo');
+    }
+
+    function test_masking(){ 
+        $x = 'Hi, my phone is 0452610116 and email is jack@anujtaya123.com.au';
+        $x = preg_replace('/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i','[email hidden]',$x); // extract email
+        $x = preg_replace('/(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/','[phone hidden]',$x); // extract phonenumber
+        echo $x; // Hi, my phone is (phone hidden) and email is (email hidden)
+    }
+
+    function test_event() {
+        $data = new \stdClass();
+        $data->conversation_id = 1;
+        event(new MessagePolicyBreachEvent($data));
+        dd(true);
     }
 }

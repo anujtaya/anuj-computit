@@ -29,7 +29,7 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
-
+use App\Events\MessagePolicyBreachEvent;
 
 class ServiceProviderJobController extends Controller
 {
@@ -264,12 +264,31 @@ class ServiceProviderJobController extends Controller
 	  }
 
 
+	//sanitize the input and alert the webadmin if privacy policy is breached
+	protected function check_message_for_policy_breach($msg,$conversation_id) {
+		$x = $msg;
+        $x = preg_replace('/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i',' [email hidden] ',$x); // extract email
+        $x = preg_replace('/(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/',' [mobile hidden] ',$x); // extract phonenumber
+	
+		//check if any email or phone number replacements occured. If any changes detected fire the message policy breach event
+		if(strpos($x, '[email hidden]') !== false || strpos($x, '[mobile hidden]') !== false){
+			$data = new \stdClass();
+			$data->conversation_id = $conversation_id;
+			event(new MessagePolicyBreachEvent($data));
+		} 
+
+		return $x;
+	}
+
+
+	//process message request made by Service Provider to Seeker
 	protected function send_message(){
       $conversation_id = $_POST['conversation_id'];
 	  $message = $_POST['message'];
 	  $response = false;
 	  if($conversation_id != null && $message != null){
 		  $conversation = Conversation::where('id',$conversation_id)->first();
+		  $message = $this->check_message_for_policy_breach($message,$conversation->id);
 		  $msg = new ConversationMessage();
 		  $msg->user_id = Auth::id();
 		  $msg->conversation_id = $conversation->id;

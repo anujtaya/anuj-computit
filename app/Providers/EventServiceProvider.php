@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'App\Events\MessagePolicyBreachEvent' => [
+            'App\Listeners\MessagePolicyBreachListener',
+        ],
         'Illuminate\Auth\Events\Login' => ['App\Listeners\UserLoggedIn'],
     ];
 

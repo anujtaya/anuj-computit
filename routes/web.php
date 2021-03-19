@@ -297,6 +297,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::get('/app/portal/admin/reports/all', 'ReportController@all')->name('app_portal_admin_reports_all');
   Route::get('/app/portal/admin/reports/user_login_analytics', 'ReportController@user_login_analytics')->name('app_portal_admin_reports_user_login_analytics');
   Route::get('/app/portal/admin/reports/jobs_analytics', 'ReportController@jobs_analytics')->name('app_portal_admin_reports_jobs_analytics');
+  Route::get('/app/portal/admin/reports/messagepolicybreaches', 'ReportController@messagepolicybreaches')->name('app_portal_admin_reports_messagepolicybreaches');
+  Route::get('/app/portal/admin/reports/messagepolicybreachinfo/{id}', 'ReportController@messagepolicybreachinfo')->name('app_portal_admin_reports_messagepolicybreachinfo');
   //admin marketing routes
   Route::get('/app/portal/admin/marketing/home', 'MarketingController@home')->name('app_portal_admin_marketing_home');
   Route::post('/app/portal/admin/marketing/generate_user_list', 'MarketingController@generate_user_list')->name('app_portal_admin_marketing_generate_user_list');
@@ -320,7 +322,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::get('/demo/button_demo', 'DemoController@button_demo');
   Route::get('/test_notification', 'JobNotificationController@test_template');
   Route::get('/demo/test_email', 'DemoController@test_email')->name('demo_test_email');
-
+  Route::get('/demo/test_masking', 'DemoController@test_masking');
+  Route::get('/demo/test_event', 'DemoController@test_event');
 
   //system manager routes
   Route::post('/app/portal/admin/system/job_expiry_crone_manual', 'AdminSystemController@job_expiry_crone_manual')->name('app_portal_admin_system_job_expiry_crone_manual');

@@ -17,6 +17,7 @@ use App\Notifications\AccountCreated;
 use App\Job;
 use DB;
 use App\UserLoginLog;
+use App\MessagePolicyBreach;
 
 class ReportController extends Controller
 {
@@ -59,5 +60,20 @@ class ReportController extends Controller
         $analytics->jobs_completed = count($jobs_completed);
 
         return view('admin_portal.modules.reports.jobs_analytics')->with('jobs', $jobs)->with('analytics', $analytics);
+    }
+
+
+    function messagepolicybreaches(){
+        $logs = MessagePolicyBreach::orderBy('created_at', 'DESC')->paginate(10);  
+        return view('admin_portal.modules.reports.messagepolicybreach_all')->with('logs', $logs);
+    }
+
+    function messagepolicybreachinfo($id){
+        $log = MessagePolicyBreach::find($id);  
+        if($log != null) {
+            return view('admin_portal.modules.reports.messagepolicybreachinfo')->with('log', $log);
+        } else {
+            return redirect()->back();
+        }
     }
 }
