@@ -203,6 +203,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/service_provider/jobs/job/conversation_mark_deleted/{job_id}/{service_provider_id}', 'ServiceProviderJobController@mark_conversation_deleted' )->name('service_provider_job_conversation_mark_conversation_deleted');
   Route::post('/service_provider/jobs/job/conversation/send_message', 'ServiceProviderJobController@send_message')->name('service_seeker_job_conversation_message_send');
   Route::post('/service_provider/jobs/job/conversation/check_new_messages', 'ServiceProviderJobController@check_new_messages')->name('service_provider_check_new_messages');
+  Route::get('/service_provider/jobs/job/conversation_redirect_image/{job_id}', 'ServiceProviderJobController@conversation_redirect_image')->name('service_provider_conversation_redirect_image');
   //invocie routes
   Route::get('/service_provider/jobs/job/email_invoice/{id}', 'ServiceProviderJobController@service_provider_email_invoice' )->name('service_provider_job_email_invoice');
   //job cancel route

@@ -50,10 +50,17 @@ class ServiceSeekerJobController extends Controller
     }
 
 
-    protected function show_job($id){
+    protected function show_job(Request $request, $id){
       //get job details
       $job = Job::find($id);
       if($job){
+
+        //set the current tab
+        if($request->has('current_tab')){
+          Session::put('current_tab', $request->get('current_tab'));
+        } 
+
+
         if($job->service_seeker_id != Auth::id()) {
           abort(403, 'You are not authrised to access this resource.');
         }

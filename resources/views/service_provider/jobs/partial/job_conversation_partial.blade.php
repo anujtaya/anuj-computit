@@ -53,13 +53,20 @@
 <div class="p-2 sticky-bottom  bg-white border-top fs--1">
    <div class="d-flex bd-highlight mb-2">
       <div class="p-2 flex-grow-1 bd-highlight"> 
-         <div class="text-left" onclick="open_msg_box();"><i class="fas fa-comments theme-color"></i> Tap here to send message</div>
+         <div class="text-left" onclick="open_msg_box();"><i class="fas fa-comments theme-color"></i> Tap to message</div>
       </div>
       @if($job->status == "OPEN")
       <div class=" bd-highlight">
-         <button class="btn btn-sm theme-background-color  card-1 border-0 fs--1 text-white ml-2" style="border-radius:20px;" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
-         <i class="fas fa-exchange-alt"></i> Change  Offer
+         <button class="btn btn-sm theme-background-color card-1 border-0 fs--1 text-white ml-2" style="border-radius:20px;" onclick="open_job_offer_modal();"  data-target="#job_make_offer" style="border-radius:20px;" href="#" role="button"  aria-haspopup="true" aria-expanded="false">
+         <i class="fas fa-exchange-alt"></i> Change Offer
          </button>
+      </div>
+      @endif
+      @if($job->status != "OPEN")
+      <div class=" bd-highlight">
+         <a class="btn btn-sm theme-background-color card-1 border-0 fs--1 text-white ml-2" style="border-radius:20px;" onclick="toggle_animation(true);"  style="border-radius:20px;" href="{{route('service_provider_conversation_redirect_image',$job->id)}}">
+         <i class="fas fa-camera"></i> Add Photo
+         </a>
       </div>
       @endif
    </div>

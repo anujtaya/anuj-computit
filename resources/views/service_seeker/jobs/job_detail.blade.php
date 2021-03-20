@@ -143,7 +143,7 @@ $currentUserTab = 'joboverview';
                <a class="nav-link @if($currentUserTab  == 'jobdetail') active @endif"" id="jobdetail-tab" data-toggle="tab" href="#jobdetail" role="tab" aria-controls="jobdetail" aria-selected="false"> Details</a>
             </li>
             <li class="nav-item ">
-               <a class="nav-link " id="jobimages-tab" data-toggle="tab" href="#jobimages" role="tab" aria-controls="jobimages" aria-selected="false">Photos</a>
+               <a class="nav-link @if($currentUserTab  == 'jobimage') active @endif" id="jobimages-tab" data-toggle="tab" href="#jobimages" role="tab" aria-controls="jobimages" aria-selected="false">Photos</a>
             </li>
             <li class="nav-item ">
                <a class="nav-link" id="jobhelp-tab" data-toggle="tab" href="#jobhelp" role="tab" aria-controls="jobhelp" aria-selected="false">Help</a>
@@ -180,7 +180,7 @@ $currentUserTab = 'joboverview';
          <div class="tab-pane fade @if($currentUserTab  == 'jobdetail')show active @endif fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">
             @include('service_seeker.jobs.job_description_partial')
          </div>
-         <div class="tab-pane fade fs--1" id="jobimages" role="tabpanel" aria-labelledby="jobimages-tab">
+         <div class="tab-pane fade @if($currentUserTab  == 'jobimage')show active @endif fs--1" id="jobimages" role="tabpanel" aria-labelledby="jobimages-tab">
             @include('service_seeker.jobs.job_images_partial_list')
          </div>
          <div class="tab-pane fade  fs--1" id="jobhelp" role="tabpanel" aria-labelledby="jobhelp-tab">

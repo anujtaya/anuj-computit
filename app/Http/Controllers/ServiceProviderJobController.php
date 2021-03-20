@@ -33,9 +33,12 @@ use App\Events\MessagePolicyBreachEvent;
 
 class ServiceProviderJobController extends Controller
 {
-	
-	
-	protected function show_job($id){
+	protected function conversation_redirect_image($job_id){
+		Session::put('current_tab', 'jobimage');
+		return redirect()->route('service_provider_job' , $job_id);
+	}
+
+	protected function show_job(Request $request, $id){
 		$job = Job::find($id);
 		if($job != null){
 			//do not show the job to other service provider if the job is not open and service provider id is already assigned.
@@ -68,7 +71,7 @@ class ServiceProviderJobController extends Controller
 				} 
 				
 			}
-			 return View::make("service_provider.jobs.job_detail")
+			 return view("service_provider.jobs.job_detail")
 					 ->with('job',$job)
 					 ->with('conversation',$conversation)
 					 ->with('conversation_reply_count', $reply_count)

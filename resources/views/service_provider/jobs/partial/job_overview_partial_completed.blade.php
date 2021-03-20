@@ -18,6 +18,15 @@
 </style>
 
 <div class="fs--1" style="overflow:scroll; scroll-behavior: smooth;">
+   <div class="border-0  rounded shadow-sm-none" >
+      <div class="d-flex bd-highlight">
+         <div class="p-q bd-highlight">
+         </div>
+         <div class="ml-auto p-0 bd-highlight">
+            <a href="{{route('service_provider_job_conversation', [$conversation->job_id, $conversation->service_provider_id])}}"  class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="toggle_animation(true);"><i class="fas fa-comments-dollar"></i> Messages</a>
+         </div>
+      </div>
+   </div>
    <div class="p-2">
       @if(Session::has('status'))
          <div class="alert alert-info">

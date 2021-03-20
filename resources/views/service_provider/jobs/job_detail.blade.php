@@ -23,6 +23,17 @@
    transition: opacity .15s linear;
 }
 </style>
+<!-- php code to detect current tab  -->
+@if(Session::has('current_tab'))
+@php
+$currentUserTab = Session::pull('current_tab');
+@endphp
+@else
+@php
+$currentUserTab = 'joboverview';
+@endphp
+@endif
+<!-- end php code to detect current tab  -->
 <div class="container ">
    <div class="row  justify-content-center" >
       <div class="col-lg-12 shadow-sm-none bg-white p-0 border-d fixed-top">
@@ -83,14 +94,14 @@
          </div>
          <ul class="nav nav-pills shadow-sm p-2 nav-fill m-0 fs--1 " id="myTab" role="tablist">
             <li class="nav-item ">
-               <a class="nav-link active" id="joboverview-tab" data-toggle="tab" href="#joboverview" role="tab" aria-controls="joboverview" aria-selected="true">Overview</a>
+               <a class="nav-link @if($currentUserTab  == 'joboverview') active @endif" id="joboverview-tab" data-toggle="tab" href="#joboverview" role="tab" aria-controls="joboverview" aria-selected="true">Overview</a>
             </li>
             @if($job->status != 'CANCELLED')
             <li class="nav-item ">
-               <a class="nav-link " id="jobdetail-tab" data-toggle="tab" href="#jobdetail" role="tab" aria-controls="jobdetail" aria-selected="false"> Details</a>
+               <a class="nav-link @if($currentUserTab  == 'jobdetail') active @endif" id="jobdetail-tab" data-toggle="tab" href="#jobdetail" role="tab" aria-controls="jobdetail" aria-selected="false"> Details</a>
             </li>
             <li class="nav-item ">
-               <a class="nav-link " id="jobimages-tab" data-toggle="tab" href="#jobimages" role="tab" aria-controls="jobimages" aria-selected="false">Photos</a>
+               <a class="nav-link @if($currentUserTab  == 'jobimage') active @endif" id="jobimages-tab" data-toggle="tab" href="#jobimages" role="tab" aria-controls="jobimages" aria-selected="false">Photos</a>
             </li>
             <li class="nav-item ">
                <a class="nav-link" id="jobhelp-tab" data-toggle="tab" href="#jobhelp" role="tab" aria-controls="jobhelp" aria-selected="false">Help</a>
@@ -101,7 +112,7 @@
    </div>
    <div class="p-0" style="margin-top:160px;">
       <div class="tab-content  mt-3" id="myTabContent">
-            <div class="tab-pane fade show active  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab"> 
+            <div class="tab-pane fade @if($currentUserTab  == 'joboverview')show active @endif  fs--1" id="joboverview" role="tabpanel" aria-labelledby="joboverview-tab"> 
                @if($job->status == 'OPEN')
                   @include('service_provider.jobs.partial.job_overview_partial_open')
                @elseif($job->status == 'APPROVED')
@@ -119,10 +130,10 @@
                @endif
             </div>
             @if($job->status != 'CANCELLED')
-            <div class="tab-pane fade  fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">
+            <div class="tab-pane fade @if($currentUserTab  == 'jobdetail')show active @endif fs--1" id="jobdetail" role="tabpanel" aria-labelledby="jobdetail-tab">
                @include('service_provider.jobs.partial.job_description_partial')
             </div>
-            <div class="tab-pane fade fs--1 " id="jobimages" role="tabpanel" aria-labelledby="jobimages-tab">
+            <div class="tab-pane fade @if($currentUserTab  == 'jobimage')show active @endif fs--1 " id="jobimages" role="tabpanel" aria-labelledby="jobimages-tab">
                @include('service_provider.jobs.partial.job_images_partial_list')
             </div>
             <div class="tab-pane fade  fs--1" id="jobhelp" role="tabpanel" aria-labelledby="jobhelp-tab">

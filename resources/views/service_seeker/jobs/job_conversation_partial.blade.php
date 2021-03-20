@@ -57,7 +57,12 @@
 <div class="p-2 sticky-bottom  bg-white border-top fs--1">
    <div class="d-flex bd-highlight mb-2">
       <div class="p-2 flex-grow-1 bd-highlight"> 
-            <div class="text-left" onclick="open_msg_box();"><i class="fas fa-comments theme-color"></i> Tap here to send message</div>
+            <div class="text-left" onclick="open_msg_box();"><i class="fas fa-comments theme-color"></i> Tap to message</div>
+      </div>
+      <div class=" bd-highlight">
+         <a class="btn btn-sm theme-background-color  card-1 border-0 fs--1 text-white ml-2" style="border-radius:20px;" onclick="toggle_animation(true);"  style="border-radius:20px;" href="{{route('service_seeker_job',$job->id)}}?current_tab=jobimage">
+         <i class="fas fa-camera"></i> Add Photo
+         </a>
       </div>
    </div>
 </div>
