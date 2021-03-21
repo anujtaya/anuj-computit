@@ -448,7 +448,7 @@ LocaL2LocaL – Homepage
                         <h4 class="p">9%<small></small></h4>
                      </div>
                      <ul>
-                        <li>First 3 months free</li>
+                        <li>Try for FREE for 3 months</li>
                         <li>Be your own boss</li>
                         <li>Time Flexibility</li>
                         <li>Create Community</li>

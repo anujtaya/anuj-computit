@@ -272,9 +272,10 @@ class ServiceProviderJobController extends Controller
 		$x = $msg;
         $x = preg_replace('/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i',' [email hidden] ',$x); // extract email
         $x = preg_replace('/(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/',' [mobile hidden] ',$x); // extract phonenumber
-	
+		
+		$lower_case = strtolower($x);
 		//check if any email or phone number replacements occured. If any changes detected fire the message policy breach event
-		if(strpos($x, '[email hidden]') !== false || strpos($x, '[mobile hidden]') !== false){
+		if(strpos($lower_case, '[email hidden]') !== false || strpos($lower_case, '[mobile hidden]') !== false || strpos($lower_case, 'cash') !== false || strpos($lower_case, 'bsb') !== false || strpos($lower_case, 'account number') !== false ||  strpos($lower_case, 'number') !== false || strpos($lower_case, 'account') !== false){
 			$data = new \stdClass();
 			$data->conversation_id = $conversation_id;
 			event(new MessagePolicyBreachEvent($data));

@@ -14,7 +14,7 @@ $currentUserTab = 'userbasic';
 <div class="container " style="max-height: calc(100% - 60em);">
    <div class="row  justify-content-center" >
    
-      <div class="col-lg-12 mt-2 p-0" style="overflow:scroll;min-height:2000px;"> 
+      <div class="col-lg-12 mt-2 p-0" style="overflow:scroll;min-height:3000px;"> 
 
        
          @include('service_provider.profile.nested.service_provider_profile_partial')
