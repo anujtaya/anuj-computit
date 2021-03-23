@@ -445,7 +445,7 @@ LocaL2LocaL – Homepage
                      >
                      <div class="head">
                         <h4>Provider</h4>
-                        <h4 class="p">9%<small></small></h4>
+                        <h4 class="p" style=""><strike>9%</strile><small></small></h4>
                      </div>
                      <ul>
                         <li>Try for FREE for 3 months</li>

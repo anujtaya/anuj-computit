@@ -9,6 +9,7 @@
         </button>
       </div>
       <div class="modal-body" style="border:none">
+        <p class="fs--1">Please do not disclose personal information, e.g., Phone Number, Email, Full Name or Banking details.</p>
         <textarea type="text" class="form-control form-control-sm" rows="3" id="service_seeker_conversation_message" ></textarea>
       </div>
       <div class="modal-footer" style="text-align: center!important; border-top: none">
