@@ -32,6 +32,7 @@ use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
 use App\ServiceCategory;
 use App\ServiceSubCategory;
+use App\Events\MessagePolicyBreachEvent;
 
 class ServiceSeekerJobController extends Controller
 {
@@ -484,6 +485,23 @@ class ServiceSeekerJobController extends Controller
       return View::make("service_seeker.jobs.job_converstation")->with('msgs',$conversation_messages)->with('conversation',$conversation)->with('job', $job);
     }
 
+    //sanitize the input and alert the webadmin if privacy policy is breached
+    protected function check_message_for_policy_breach($msg,$conversation_id) {
+      $x = $msg;
+          $x = preg_replace('/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i',' [email hidden] ',$x); // extract email
+          $x = preg_replace('/(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/',' [mobile hidden] ',$x); // extract phonenumber
+      
+      $lower_case = strtolower($x);
+      //check if any email or phone number replacements occured. If any changes detected fire the message policy breach event
+      if(strpos($lower_case, '[email hidden]') !== false || strpos($lower_case, '[mobile hidden]') !== false || strpos($lower_case, 'cash') !== false || strpos($lower_case, 'bsb') !== false || strpos($lower_case, 'account number') !== false ||  strpos($lower_case, 'number') !== false || strpos($lower_case, 'account') !== false){
+        $data = new \stdClass();
+        $data->conversation_id = $conversation_id;
+        event(new MessagePolicyBreachEvent($data));
+      } 
+
+      return $x;
+    }
+
     protected function send_message(){
       // needs if guards; make sure the request ids and their relevant data in table exists before quering the data.
       $conversation_id = $_POST['conversation_id'];
@@ -491,6 +509,7 @@ class ServiceSeekerJobController extends Controller
       $response = false;
       if($conversation_id != null && $message != null){
         $conversation = Conversation::where('id',$conversation_id)->first();
+        $message = $this->check_message_for_policy_breach($message,$conversation->id);
         $msg = new ConversationMessage();
         $msg->user_id = Auth::id();
         $msg->conversation_id = $conversation->id;

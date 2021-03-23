@@ -17,6 +17,7 @@ return [
     'short_name' => env('APP_SHORT_NAME', ''),
     'file_access_url' => env('FILE_ACCESS_URL'),
     'frontend_resource_url' =>  env('APP_FRONTEND_RES_URL'),
+    'admin_alert_id' => env('ADMIN_ALERT_ID'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

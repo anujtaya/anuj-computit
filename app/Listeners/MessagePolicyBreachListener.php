@@ -44,11 +44,12 @@ class MessagePolicyBreachListener
                     $msg_breach_record->save();
                     //notify via push notification to admin
                     //send user mobile notification when login occurs except the people email listed in the exception array.
-                    $marketing_user =  User::find(1910);
-                    if($marketing_user != null ) {
-                        app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($marketing_user,'L2L Message Policy Breach Alert!','A new message policy breach is detected for conversation with id :#'.$event->event_data->conversation_id);
-                       
-                    }
+                   
+                }
+                $marketing_user =  User::find(config('app.admin_alert_id'));
+                if($marketing_user != null ) {
+                    app('App\Http\Controllers\NotificationController')->send_user_mobile_notification($marketing_user,'L2L Message Policy Breach Alert!','A new message policy breach is detected for conversation with id :#'.$event->event_data->conversation_id);
+                   
                 }
             }
         }
