@@ -445,7 +445,7 @@ LocaL2LocaL – Homepage
                      >
                      <div class="head">
                         <h4>Provider</h4>
-                        <h4 class="p" style=""><strike>9%</strike><small></small></h4>
+                        <h4 class="p" style=""> <img src="{{asset('/images/homepage-images/9percent.png')}}" width="70" height="50" alt="LocaL2LocaL 9 Percent discount image" style="margin-top: -15px;"></h4>
                      </div>
                      <ul>
                         <li>Try for FREE for 3 months</li>
