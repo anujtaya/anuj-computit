@@ -292,7 +292,7 @@ class ServiceProviderJobController extends Controller
 	  $response = false;
 	  if($conversation_id != null && $message != null){
 		  $conversation = Conversation::where('id',$conversation_id)->first();
-		  $message = $this->check_message_for_policy_breach($message,$conversation->id);
+		  //$message = $this->check_message_for_policy_breach($message,$conversation->id);
 		  $msg = new ConversationMessage();
 		  $msg->user_id = Auth::id();
 		  $msg->conversation_id = $conversation->id;
