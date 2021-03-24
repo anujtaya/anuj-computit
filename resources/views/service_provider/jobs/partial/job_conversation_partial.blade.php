@@ -96,6 +96,10 @@
          $('#job_msg_modal').modal("hide");    
       }
 
+      $('#service_provider_conversation_message').on('keyup', function (event) {
+         filter_text();
+      });
+
       function open_job_offer_modal(){
       	   toggle_animation(true);
       	   //check if the provider has already made an offer

@@ -19,7 +19,9 @@
             <div class="alert alert-info  fs--1">
                 When you sign up as a Service Provider remember to tell us a little bit about yourself in the ‘About Me’ section.
                 This information can include your qualifications and anything that you think will help a Service Seeker to select you.
+                <p class="fs--1 mt-2">Please do not disclose personal information, e.g., Phone Number, Email, Full Name or Banking details.</p>
             </div>
+           
             @if(Session::has('status'))
             <div class="alert alert-success fs--1">{{Session::pull('status')}}</div>
             @endif

@@ -1,5 +1,6 @@
 @extends('layouts.service_provider_master')
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <script src="{{asset('js/service_provider/service_provider_conversation.js')}}?v={{rand(1,1000)}}"></script>
 <div class="container ">
    <div class="row  justify-content-center" >

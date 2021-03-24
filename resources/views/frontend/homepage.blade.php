@@ -595,12 +595,9 @@ LocaL2LocaL – Homepage
                <div class="content">
                   <ul class="meta">
                      <li><i class="far fa-calendar-alt"></i> 29 Sep, 2020</li>
-                     <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
+                     <li><i class="fas fa-user"></i><a href="#">Admin</a></li>
                   </ul>
-                  <h4>
-                  <a href="https://blog.local2local.com.au/top-6-tips-when-renovating-for-profit">Top 6 Tips
-                                when Renovating for Profit</a>
-                  </h4>
+                  <h4><a href="https://blog.local2local.com.au/top-6-tips-when-renovating-for-profit">Top 6 Tips when Renovating for Profit</a></h4>
                </div>
             </div>
             <!--/.blog_single_in-->

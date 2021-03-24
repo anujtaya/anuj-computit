@@ -163,7 +163,7 @@
                             </div>
                             <div class="col my-auto text-right">
                                 <p>
-                                    2020 Copyright LocaL2LocaL <a href="#"></a> . All Rights
+                                    2021 Copyright LocaL2LocaL <a href="#"></a> . All Rights
                                     Reserved
                                 </p>
                             </div>

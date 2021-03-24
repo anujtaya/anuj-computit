@@ -75,6 +75,10 @@
       elem.scrollTop = elem.scrollHeight;
    });
 
+   $('#service_seeker_conversation_message').on('keyup', function (event) {
+      filter_text();
+   });
+
    function open_msg_box(){
       $('#job_msg_modal').modal("show");    
    }
