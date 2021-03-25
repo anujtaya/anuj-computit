@@ -69,15 +69,16 @@
 <script>
    var msgs = {!! json_encode($msgs) !!};
    var conversation_id = "{{$conversation->id}}";
-
+   var user_id = "{{Auth::id()}}";
+   
    $( document ).ready(function() {
       var elem = document.getElementById('scroll-area');
       elem.scrollTop = elem.scrollHeight;
    });
 
-   $('#service_seeker_conversation_message').on('keyup', function (event) {
-      filter_text();
-   });
+   // $('#service_seeker_conversation_message').on('keyup', function (event) {
+   //    filter_text();
+   // });
 
    function open_msg_box(){
       $('#job_msg_modal').modal("show");    

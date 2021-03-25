@@ -11,7 +11,7 @@
       <div class="modal-body" style="border:none">
         <p class="fs--1">Please do not disclose personal information, e.g., Phone Number, Email, Full Name or Banking details.</p>
         <textarea type="text" class="form-control form-control-sm" rows="3" id="service_provider_conversation_message"></textarea>
-        <span class="text-danger fs--2 d-none" id="msg-alert">You message contins keywords that violates our privacy policy.</span>
+        <span class="text-danger fs--2 d-none" id="msg-alert">You message contains keywords that violates our privacy policy.</span>
       </div>
       <div class="modal-footer" style="text-align: center!important; border-top: none">
         <button class="btn btn-sm theme-background-color  card-1 border-0 fs--1 text-white" onclick="send_message_provider({{$conversation->id}});">

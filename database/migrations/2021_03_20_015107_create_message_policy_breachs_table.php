@@ -16,7 +16,10 @@ class CreateMessagePolicyBreachsTable extends Migration
         Schema::create('message_policy_breachs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('status')->default('OPEN')->nullable(); //OPEN | CLOSED
+            $table->string('source')->nullable(); //Message | BIO
             $table->text('notes')->nullable(); 
+            $table->text('reported_message_text')->nullable(); 
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('conversation_id')->unsigned()->nullable();
             $table->foreign('conversation_id')->references('id')->on('conversations');
             $table->timestamps();

@@ -1,6 +1,6 @@
 @extends('layouts.service_seeker_master')
 @section('content')
-<script src="{{asset('js/service_seeker/service_seeker_conversation.js')}}?v={{rand(1,100)}}"></script>
+<script src="{{asset('js/service_seeker/service_seeker_conversation.js')}}?v={{rand(1,1000)}}"></script>
 <div class="container ">
    <div class="row  justify-content-center" >
       <div class="col-lg-12 sticky-top bg-white p-3 border-d">

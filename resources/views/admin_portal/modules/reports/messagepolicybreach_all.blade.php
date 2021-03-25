@@ -13,7 +13,7 @@
    </div>
 </div>
 <div class="row m-2">
-   <div class="col-lg-6 p-1">
+   <div class="col-lg-12 p-1">
       <div class="card h-100 rounded-0 bg-white ">
          <div class="card-header">
             All Reports List - Message Policy Breach Records
@@ -23,9 +23,11 @@
                <thead class="bg-light">
                   <tr>
                      <th>Status</th>
+                     <th>Source</th>
                      <th>Conversation ID</th>
+                     <th>User Id</th>
+                     <th>Message</th>
                      <th>Created on</th>
-                     <th>Action</th>
                   </tr>
                </thead>
                <tbody>
@@ -38,12 +40,25 @@
                            <span class="badge badge-secondary font-weight-normal">CLOSED</span>
                         @endif    
                      </td>
-                     <td>{{$log->conversation_id}}</td>
-                    
-                     <td>{{ date('d/m/Y h:iA', strtotime($log->created_at)) }}</td>
+                     <td>{{$log->source}}</td>
                      <td>
-                     <a href="{{route('app_portal_admin_reports_messagepolicybreachinfo', $log->id)}}">View Conversation Info</a>
+                        @if($log->conversation_id != null)
+                           <a href="{{route('app_portal_admin_reports_messagepolicybreachinfo', $log->id)}}" target="_blank">{{$log->conversation_id}}</a>
+                        @else
+                           NA
+                        @endif
                      </td>
+                     <td>
+                        @if($log->user_id != null)
+                           <a href="{{route('app_portal_admin_users_profile', $log->user_id)}}" target="_blank">{{$log->user_id}}</a>                         
+                        @else
+                           NA
+                        @endif
+                     </td>
+                     <td>
+                        {{$log->reported_message_text}}
+                     </td>
+                     <td>{{ date('d/m/Y h:iA', strtotime($log->created_at)) }}</td>
                   </tr>
                   @endforeach
                </tbody>

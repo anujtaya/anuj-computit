@@ -58,19 +58,18 @@
    <b>3. Protecting and Maintaining Personal Information</b><br>
    Your account is protected by a password for your privacy and security. We will take all reasonable steps to protect the information We hold about you from unauthorized access, use and disclosure, however We cannot guarantee the absolute security of that information, or that our systems will be completely free from third party interception or are incorruptible from viruses. We cannot and do not guarantee that information you send from your computer to us over the Internet will be protected by any form of encryption (encoding software). In light of this, We cannot and do not ensure or warrant the security or privacy of your personal information, including payment and account details. You transmit your personal information to us at your own risk.
    You are entirely responsible for maintaining the security of your passwords and/or account information.
-   <br><br>
-   <p>In order to protect your privacy and ensure safety of all LocaL2LocaL members our platform does not allow you to share any personal data. This includes</p><br>
+   <p>In order to protect your privacy and ensure safety of all LocaL2LocaL members our platform does not allow you to share any personal data. This includes</p>
    <p>
       Phone Number <br>
       Full Name <br>
       Email Address <br>
-      Other Inappropriate Text <br>
-   </p><br>
-   <p>LocaL2LocaL does not accept any responsibility for the disclosure of personal data.</p><br>
+      Other Inappropriate Text
+   </p>
+   <p>LocaL2LocaL does not accept any responsibility for the disclosure of personal data.</p>
   
    <p>LocaL2LocaL does not accept cash payments to ensure the security of the LocaL2LocaL community. Payments need to be processed through our payment platform within the app.
       Once your offer has been accepted, the funds are held via Stripe until the task is completed.
-   </p><br>
+   </p>
    <p>We have included this information in our Policy to ensure the safety of our LocaL2LocaL community.</p>
 </p>
 <p class="mt-2">

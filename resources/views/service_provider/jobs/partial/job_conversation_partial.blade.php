@@ -82,6 +82,7 @@
    var service_provider_offer_accept_check_url = "{{ route('service_provider_offer_accept_check')}}";
    var job_status = "{{$job->status}}";
    var job_id = "{{$job->id}}";
+   var user_id = "{{Auth::id()}}";
 
       $( document ).ready(function() {
         var elem = document.getElementById('scroll-area');
@@ -96,9 +97,9 @@
          $('#job_msg_modal').modal("hide");    
       }
 
-      $('#service_provider_conversation_message').on('keyup', function (event) {
-         filter_text();
-      });
+      // $('#service_provider_conversation_message').on('keyup', function (event) {
+      //    filter_text();
+      // });
 
       function open_job_offer_modal(){
       	   toggle_animation(true);
@@ -117,7 +118,7 @@
                  $("#job_offer_description").val(results['json']['offer_description']);
                }
                $('#job_make_offer_modal').modal("show");
-      		 toggle_animation(false);
+      		   toggle_animation(false);
              },
              error: function(results, status, err) {
                  console.log(err);

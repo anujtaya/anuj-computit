@@ -226,6 +226,10 @@ Route::group(['middleware' => 'auth' ], function () {
   //storage directory links
 
   Route::get('/fetch/job_attachments/{id}', 'ImageStorageController@make_job_attachment_image_link');
+
+
+  //message policy breach reports
+  Route::post('policybreach/message/report', 'PolicyController@generate_security_policy_breah_event')->name('policybreach_message_report');
 });
 
 
