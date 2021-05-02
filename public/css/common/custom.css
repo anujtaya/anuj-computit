@@ -1,0 +1,15 @@
+@media screen and (min-width: 995px) and (max-width:1199px) {
+    #checkLogo{ 
+        flex: 0 0 15%!important;
+        max-width: 15%!important;
+    }
+
+    #checkNav {
+        flex: 0 0 85%!important;
+        max-width: 85%!important;
+    }
+
+    .navbar-brand {
+        width: 38%;
+    }
+  }

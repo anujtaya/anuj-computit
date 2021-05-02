@@ -49,7 +49,8 @@
     <!--animate-->
     <link rel="stylesheet" type="text/css" href="{{config('app.frontend_resource_url')}}/css/animation.css" />
     <!--owl-carousel-->
-    <link rel="stylesheet" type="text/css" href="{{config('app.frontend_resource_url')}}/css/owl.carousel.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="{{config('app.frontend_resource_url')}}/css/owl.carousel.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css"
         href="{{config('app.frontend_resource_url')}}/css/owl.theme.default.min.css" />
     <!--pop up css-->
@@ -62,6 +63,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700,700i,800,800i&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet" />
+    <!-- custom style-->
+    <link rel="stylesheet" type="text/css" href="{{secure_url('/css/common/custom.css')}}" />
     <!--modernizr-->
     <script src="{{config('app.frontend_resource_url')}}/js/vendor/modernizr.js"></script>
     <!--[if lt IE 9]>
@@ -119,13 +122,13 @@
         <div class="container">
             <div class="navigatin" id="main_nav_id">
                 <div class="row no-gutters">
-                    <div class="col-lg-3">
+                    <div class="col-lg-3" id="checkLogo">
                         <a class="navbar-brand" href="{{route('app_frontend_homepage')}}">
                             <!-- <img src="img/logo.png" alt="menu"/> -->
                             <img src="{{config('app.frontend_resource_url')}}/img/logo.svg" alt="menu" />
                         </a>
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-9" id="checkNav">
                         @yield('topnav')
                         <div class="mobile-menu"></div>
                     </div>
@@ -193,7 +196,8 @@
     <!--counter js-->
     <script src="{{config('app.frontend_resource_url')}}/js/vendor/counter.js"></script>
     <!--owl carousel -->
-    <script src="{{config('app.frontend_resource_url')}}/js/vendor/owl-carousel.js"></script>
+    <!-- <script src="{{config('app.frontend_resource_url')}}/js/vendor/owl-carousel.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"></script>
     <!--magnifice popup-->
     <script src="{{config('app.frontend_resource_url')}}/js/vendor/magnifice-js.js"></script>
     <!--wow-->
