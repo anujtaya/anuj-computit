@@ -16,7 +16,7 @@ class AdminOnlyRoutes
      */
     public function handle($request, Closure $next)
     {
-        $admins = array("tayaanuj@gmail.com", "peter.stack@computit.com.au", "karen@local2local.com.au","admin@local2local.com.au","marketing@local2local.com.au");
+        $admins = array("tayaanuj@gmail.com","peter.stack@computit.com.au","karen@local2local.com.au","admin@local2local.com.au","marketing@local2local.com.au","plahtiuk97@gmail.com","avsheika@yahoo.com");
         if (in_array(Auth::user()->email, $admins)) {
              return $next($request);
         } else {
