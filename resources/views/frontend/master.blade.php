@@ -28,6 +28,7 @@
                <meta property="og:site_name" content="LocaL2LocaL Australia" />
                <meta property="og:type" content="article" />
                <meta property="og:url" content="https://local2local.com.au/" />
+               <meta name="facebook-domain-verification" content="jsy4fkno3654f7uvch4olp2rlnzxor" />
                <!-- <meta property="og:image" content="{{asset('/images/brand/main_logo_small_2-compressor.svg?v=1')}}" /> -->
                <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
                <title>@yield('title')</title>
@@ -87,31 +88,23 @@
                </script>
                <!-- End Google Tag Manager -->
                @if (app()->environment() === 'production')
+               <!-- Facebook Pixel Code -->
                <script>
-                  ! function(f, b, e, v, n, t, s) {
-                      if (f.fbq) return;
-                      n = f.fbq = function() {
-                          n.callMethod ?
-                              n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-                      };
-                      if (!f._fbq) f._fbq = n;
-                      n.push = n;
-                      n.loaded = !0;
-                      n.version = '2.0';
-                      n.queue = [];
-                      t = b.createElement(e);
-                      t.async = !0;
-                      t.src = v;
-                      s = b.getElementsByTagName(e)[0];
-                      s.parentNode.insertBefore(t, s)
-                  }(window, document, 'script',
-                      'https://connect.facebook.net/en_US/fbevents.js');
-                  fbq('init', '1273619936159574');
-                  fbq('track', 'PageView'); 
-               </script> 
-               <noscript> 
-                  <img height="1"width="1" style="display:none" src="https://www.facebook.com/tr?id=1273619936159574&ev=PageView&noscript=1"/>
-               </noscript>
+               !function(f,b,e,v,n,t,s)
+               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+               n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+               if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+               n.queue=[];t=b.createElement(e);t.async=!0;
+               t.src=v;s=b.getElementsByTagName(e)[0];
+               s.parentNode.insertBefore(t,s)}(window, document,'script',
+               'https://connect.facebook.net/en_US/fbevents.js');
+               fbq('init', '487336179142487');
+               fbq('track', 'PageView');
+               </script>
+               <noscript><img height="1" width="1" style="display:none"
+               src="https://www.facebook.com/tr?id=487336179142487&ev=PageView&noscript=1"
+               /></noscript>
+               <!-- End Facebook Pixel Code -->
                @endif
             </head>
             <body data-spy="scroll" data-target=".navbar" data-offset="60">
