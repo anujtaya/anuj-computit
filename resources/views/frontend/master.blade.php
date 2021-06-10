@@ -175,9 +175,12 @@
                      </div>
                   </div>
                   <!--/.container-->
-                 
-                  <img src="{{config('app.frontend_resource_url')}}/img/footer_mock1.png" class="f-left" alt="" />
-                  <img src="{{config('app.frontend_resource_url')}}/img/footer_mock2.png" class="f-right" alt="" />
+                  <img src="{{asset('/images/homepage-images/footer_1.png')}}" class="f-left" alt="" />
+
+                  <img src="{{asset('/images/homepage-images/footer_2.png')}}" class="f-right" alt="" />
+
+                  <!-- <img src="{{config('app.frontend_resource_url')}}/img/footer_mock1.png" class="f-left" alt="" />
+                  <img src="{{config('app.frontend_resource_url')}}/img/footer_mock2.png" class="f-right" alt="" /> -->
                </footer>
                <!--footers-->
                <!--<div data-aos="fade-up" data-aos-anchor=".other-element"></div>-->
