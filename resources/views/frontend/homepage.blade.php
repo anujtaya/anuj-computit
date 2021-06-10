@@ -18,9 +18,6 @@ LocaL2LocaL – Homepage
          <a href="#pricing_id">Service Fee</a>
       </li>
       <li>
-         <a href="{{route('app_frontend_privacypolicy')}}">Privacy Policy</a>
-      </li>
-      <li>
          <a href="#screenshot_id">App</a>
       </li>
       <li>
@@ -109,7 +106,7 @@ LocaL2LocaL – Homepage
                <img src="{{config('app.frontend_resource_url')}}/img/post.svg" alt="" />
                <h4><a href="#">Post a job</a></h4>
                <p>
-                  As a Seeker write a brief description about your job. Provide us with the details of where you want it done and choose to post it immediately or schedule in a later date. Our booking process is quick and simple whilst being completly free.
+                  As a Seeker write a brief description about your job. Provide us with the details of where you want it done and choose to post it immediately or schedule it in for a later date. Our booking process is quick and simple whilst being completly free.
                </p>
                <img src="{{config('app.frontend_resource_url')}}/img/home2/icon/service-shape.svg" class="svg" alt="" />
             </div>
@@ -123,7 +120,7 @@ LocaL2LocaL – Homepage
                <img src="{{config('app.frontend_resource_url')}}/img/postt.svg" alt="" />
                <h4><a href="#">Select your Provider</a></h4>
                <p>
-                  Once a Provider makes an offer on your job you’ll be immediately notified and will be able to browse through their profiles filtering your selection through pricing, distance, ratings until you find the right one for the job.
+                  Once a Provider makes an offer on your job you’ll be immediately notified and will be able to browse through their profiles filtering your selection through pricing, distance or ratings until you find the right local for your job
                </p>
                <img src="{{config('app.frontend_resource_url')}}/img/home2/icon/service-shape.svg" class="svg" alt="" />
             </div>
@@ -137,7 +134,7 @@ LocaL2LocaL – Homepage
                <img src="{{config('app.frontend_resource_url')}}/img/location.svg" alt="" />
                <h4><a href="#">Completion</a></h4>
                <p>
-                  Once selected our in app messaging systems allow for easy breezy communication and our live tracking  feature shows your provider coming to you in real time. On completion, just confirm your payment method, leave a review and you're all done. 
+                  Once selected, our in app messaging systems allow for easy breezy communication and our live tracking  feature shows your provider coming to you in real time. On completion, just confirm your payment method, leave a review and you're all done. 
                </p>
                <img src="{{config('app.frontend_resource_url')}}/img/home2/icon/service-shape.svg" class="svg" alt="" />
             </div>
@@ -248,8 +245,7 @@ LocaL2LocaL – Homepage
                <h4>Immediate Assistance</h4>
                <p>
                   One tap and a Service Provider comes directly to you. Payment is
-                  safe via our secure Stripe payment gateway The LocaL2LocaL
-                  community extends throughout the country.
+                  safe via our secure Stripe payment gateway.
                </p>
             </div>
             <!--/.single_feature_in2-->
@@ -259,7 +255,7 @@ LocaL2LocaL – Homepage
                   ></span>
                <h4>On-Demand Service</h4>
                <p>
-                  As a Service Seeker, you can book the services you need, anytime, anywhere. Subject to Service Provider availablity.
+                  As a Service Seeker, you can book the services you need, anytime, anywhere - Subject to Service Provider availability.
                </p>
             </div>
             <!--/.single_feature_in2-->
@@ -274,7 +270,7 @@ LocaL2LocaL – Homepage
                <div class="icon cl3"><i class="fas fa-people-carry"></i></div>
                <h4>Real Time Tracking</h4>
                <p>
-                  Track your Service Provider, live, using our Smart App. All you need is a location enabled device.
+                  Track your Provider in real time using ourlive geo tracking technology similar to rideshare apps.
                </p>
             </div>
             <!--/.single_feature_in2-->
@@ -321,7 +317,7 @@ LocaL2LocaL – Homepage
                   <div class="overview_contents">
                      <h3>Unique Tracking</h3>
                      <p>
-                        The unique tracking once a job has been accepted gives an immediate response to allow for the continuation of your day without the indefinite wait time. <br> We understand that everybody is on a deadline and when something needs to be done now, we can’t wait. <br>This App allows you to visually see who in your local area can come to your aid and help with almost anything.
+                        Our unique tracking allows you to see your providers coming to you in real time. We have found a new way of job booking so you don’t have to wait around for approximate arrival times. 
                      </p>
                      <a href="#" class="btn btn-style2">Try it Free Now</a>
                   </div>
@@ -336,9 +332,9 @@ LocaL2LocaL – Homepage
                   <div class="overview_contents">
                      <h3>In-App Messaging</h3>
                      <p>
-                        Our in app messaging is available as soon as you receive your first offer on your job post until completion. Allowing both parties to immediately reach out via our private messaging system to discuss pricing, times, job details and more.
+                        Our in app messaging is available as soon as you receive your first offer on your job.This allows both parties to immediately reach out to discuss pricing, times, job details and more.
                      </p>
-                     <a href="#" class="btn btn-style2">Sign Up for free Now</a>
+                     <a href="#" class="btn btn-style2">Sign up Now</a>
                   </div>
                   <!--/.overview_contents-->
                </div>
@@ -356,6 +352,12 @@ LocaL2LocaL – Homepage
    <!--/.container-->
 </section>
 <!--section-overview-->
+
+<style>
+.testimonials_inside_single {
+   height: 600px;
+}
+</style>
 <!--pricing-testimonials-->
 <section class="pricing-testimonials-sec home2">
    <div class="container-fluid">
@@ -366,7 +368,7 @@ LocaL2LocaL – Homepage
                <i class="far fa-comment"></i>
                <h4>Local Reviews</h4>
                <p>
-                  "Reff did an amazing job cleaning my apartment from top to bottom (inside & outside) . Her attention to detail is so impressive. Could not be more happ..."
+                  "Reff did an amazing job cleaning my apartment from top to bottom (inside & outside) . Her attention to detail is so impressive."
                </p>
                <img src="{{config('app.frontend_resource_url')}}/img/ryan.jpg" alt="" />
                <h6><strong>Damian G</strong> - Deception Bay, QLD</h6>
@@ -379,7 +381,7 @@ LocaL2LocaL – Homepage
                <i class="far fa-comment"></i>
                <h4>Local Reviews</h4>
                <p>
-                  "Perfectly done! They were very careful with my piano. Thanks for the hard work guys!"
+                  "Perfectly done! They were very careful with my piano. Thanks for the hard work guys!" 
                </p>
                <img src="{{config('app.frontend_resource_url')}}/img/Tai.jpg" alt="" />
                <h6><strong>Shibu T</strong> - Sydney, NSW</h6>
@@ -445,10 +447,11 @@ LocaL2LocaL – Homepage
                      >
                      <div class="head">
                         <h4>Provider</h4>
-                        <h4 class="p" style=""> <img src="{{asset('/images/homepage-images/9percent.png')}}" width="70" height="50" alt="LocaL2LocaL 9 Percent discount image" style="margin-top: -15px;"></h4>
+                        <h4 class="p">Free<small></small></h4>
+                        <!-- <h4 class="p" style=""> <img src="{{asset('/images/homepage-images/9percent.png')}}" width="70" height="50" alt="LocaL2LocaL 9 Percent discount image" style="margin-top: -15px;"></h4> -->
                      </div>
                      <ul>
-                        <li>Try for FREE for 3 months</li>
+                        <li>0% Service Fee</li>
                         <li>Be your own boss</li>
                         <li>Time Flexibility</li>
                         <li>Create Community</li>
@@ -472,7 +475,10 @@ LocaL2LocaL – Homepage
             <div class="count_title title">
                <h2>The easier way to work</h2>
                <p>
-                  Local2Local is an application for fulfilling Immediate Services. This means that if you need something done ‘Now’, then LocaL2LocaL provides a method to connect with a Service Provider who is available to assist. <br>There are many services currently listed including trades, cars, pet care, handyman and tutoring. If you are able to assist a local, then create an account and select from the list of services you wish to provide. <br>In this day and age where having a full-time job or needing a second job is more necessary, the LocaL2LocaL platform allows you to choose what you can benefit your community with and then, in your time, become an active LocaL2LocaL Service Provider and attain payment for your service.
+                  LocaL2LocaL is an application for fulfilling immediate services. 
+                  This means that if you need something done ‘Now’ LocaL2LocaL has you covered. 
+                  There are many services currently listed including trades, car maintenance, babysitting, cleaning and more. 
+                  We are trying to break the norm of 9-5 and put the power back into your hands. If your a provider with a skill of services, download the app today and see what opportunities await you.
                </p>
             </div>
             <!--/.title-->
@@ -503,7 +509,7 @@ LocaL2LocaL – Homepage
                      data-wow-delay="0.4s"
                      >
                      <h3><span class="counter">831</span>+</h3>
-                     <p>Projects Done</p>
+                     <p>Jobs Done</p>
                   </div>
                   <!--/.single_fact_in-->
                </div>
@@ -522,7 +528,7 @@ LocaL2LocaL – Homepage
             <div class="title color-white text-center">
                <h2>The App</h2>
                <p>
-                  This is a supportive community where we can share our skills and talents and give back to the local area with these attributes and earn extra money while doing so. <br>Locals helping Locals – Neighbours helping Neighbours The ‘need it now’ motto means exactly that, if you need it now, then someone local and nearby <br>will be able to lend a hand and get the job done.
+                  LocaL2LocaL is a supportive community where users can share their skills and talents whilst giving back to their local community. “Locals helping locals” - The need it now motto means exactly that. We make sure that if you need it now, that someone local and near by will be able to lend a hand and get the job done in only just a couple of clicks.
                </p>
             </div>
             <!--/.title-->
@@ -594,7 +600,7 @@ LocaL2LocaL – Homepage
                <!--simply use inline background-image-->
                <div class="content">
                   <ul class="meta">
-                     <li><i class="far fa-calendar-alt"></i> 29 Sep, 2020</li>
+                     <li><i class="far fa-calendar-alt"></i> 22 Feb, 2021</li>
                      <li><i class="fas fa-user"></i><a href="#">Admin</a></li>
                   </ul>
                   <h4><a href="https://blog.local2local.com.au/top-6-tips-when-renovating-for-profit">Top 6 Tips when Renovating for Profit</a></h4>
@@ -611,13 +617,11 @@ LocaL2LocaL – Homepage
                <!--simply use inline background-image-->
                <div class="content">
                   <ul class="meta">
-                     <li><i class="far fa-calendar-alt"></i> 29 Sep, 2020</li>
+                     <li><i class="far fa-calendar-alt"></i> 23 Oct, 2019</li>
                      <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
                   </ul>
                   <h4>
-                  <a
-                                href="https://blog.local2local.com.au/did-you-catch-local2local-featured-on-7-news-gold-coast">Did
-                                you catch us on 7 News Gold Coast?</a>
+                  <a href="https://blog.local2local.com.au/did-you-catch-local2local-featured-on-7-news-gold-coast">Did you catch us on 7 News Gold Coast?</a>
                   </h4>
                </div>
             </div>
@@ -632,12 +636,11 @@ LocaL2LocaL – Homepage
                <!--simply use inline background-image-->
                <div class="content">
                   <ul class="meta">
-                     <li><i class="far fa-calendar-alt"></i> 29 Sep, 2020</li>
+                     <li><i class="far fa-calendar-alt"></i> 19 Feb, 2021</li>
                      <li><i class="fas fa-user"></i> <a href="#">Admin</a></li>
                   </ul>
                   <h4>
-                  <a href="https://blog.local2local.com.au/how-to-launch-your-own-business-in-6-simple-steps">How
-                                to Launch Your Own Business in 6 Simple Steps</a>
+                  <a href="https://blog.local2local.com.au/how-to-launch-your-own-business-in-6-simple-steps">How to Launch Your Own Business in 6 Simple Steps</a>
                   </h4>
                </div>
             </div>
@@ -648,4 +651,36 @@ LocaL2LocaL – Homepage
    <!--/.container-->
 </section>
 <!--blog-->
+
+<script>
+
+// $(document).ready(function () {
+
+// $("#owl-example").owlCarousel({
+//     afterUpdate: function () {
+//         updateSize();
+//     },
+//     afterInit:function(){
+//         updateSize();
+//     }
+// });
+// function updateSize(){
+//         var minHeight=parseInt($('.owl-item').eq(0).css('height'));
+//         $('.owl-item').each(function () {
+//             var thisHeight = parseInt($(this).css('height'));
+//             minHeight=(minHeight<=thisHeight?minHeight:thisHeight);
+//         });
+//         $('.owl-wrapper-outer').css('height',minHeight+'px');
+
+//         /*show the bottom part of the cropped images*/
+//         $('.owl-carousel .owl-item img').each(function(){
+//             var thisHeight = parseInt($(this).css('height'));
+//             if(thisHeight>minHeight){
+//                 $(this).css('margin-top',-1*(thisHeight-minHeight)+'px');
+//             }
+//         });
+
+//     }
+// });
+</script>
 @endsection

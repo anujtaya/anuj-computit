@@ -175,6 +175,7 @@
                      </div>
                   </div>
                   <!--/.container-->
+                 
                   <img src="{{config('app.frontend_resource_url')}}/img/footer_mock1.png" class="f-left" alt="" />
                   <img src="{{config('app.frontend_resource_url')}}/img/footer_mock2.png" class="f-right" alt="" />
                </footer>

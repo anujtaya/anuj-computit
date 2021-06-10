@@ -23,9 +23,6 @@ LocaL2LocaL – Privacy Policy
         <li>
             <a href="{{route('app_frontend_homepage')}}#pricing_id">Service Fee</a>
         </li>
-        <li class="current">
-            <a href="{{route('app_frontend_privacypolicy')}}">Privacy Policy</a>
-        </li>
         <li>
             <a href="{{route('app_frontend_homepage')}}#screenshot_id">App</a>
         </li>
@@ -35,6 +32,7 @@ LocaL2LocaL – Privacy Policy
                 <li><a href="https://blog.local2local.com.au">Blog</a></li>
                 <li><a href="{{route('app_frontend_faq')}}">FAQ</a></li>
                 <li><a href="{{route('app_frontend_support')}}">Support</a></li>
+                <li><a href="{{route('app_frontend_privacypolicy')}}">Privacy Policy</a></li>
             </ul>
         </li>
         <li>
