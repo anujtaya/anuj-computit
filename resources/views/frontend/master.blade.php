@@ -160,7 +160,7 @@
                            <div class="copyright_con">
                               <div class="row">
                                  <div class="col">
-                                    <img class="f_logo" src="{{config('app.frontend_resource_url')}}/img/logo.svg" alt="" />
+                                    <img class="f_logo bg-white rounded-circle p-0" src="{{config('app.frontend_resource_url')}}/img/logo.svg" alt="" />
                                  </div>
                                  <div class="col my-auto text-right">
                                     <p>
