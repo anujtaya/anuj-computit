@@ -50,7 +50,7 @@ LocaL2LocaL – Homepage
                      </h1>
                      <a href="https://itunes.apple.com/au/app/local2local-australia/id1367359034?mt=8" class="btn btn-style2">Download Now</a>
                      <div class="donwload_btn">
-                        <p>Available on all platform</p>
+                        <p>Available on all platforms</p>
                         <div class="btn-group">
                            <a
                               href="https://itunes.apple.com/au/app/local2local-australia/id1367359034?mt=8"
@@ -134,7 +134,7 @@ LocaL2LocaL – Homepage
                <img src="{{config('app.frontend_resource_url')}}/img/location.svg" alt="" />
                <h4><a href="#">Completion</a></h4>
                <p>
-                  Once selected, our in app messaging systems allow for easy breezy communication and our live tracking  feature shows your provider coming to you in real time. On completion, just confirm your payment method, leave a review and you're all done. 
+                  Once selected, our in app messaging system allow for easy breezy communication and our live tracking  feature shows your provider coming to you in real time. On completion, just confirm your payment method, leave a review and you're all done. 
                </p>
                <img src="{{config('app.frontend_resource_url')}}/img/home2/icon/service-shape.svg" class="svg" alt="" />
             </div>
@@ -162,12 +162,8 @@ LocaL2LocaL – Homepage
             >
       </h5>
       <p class="pl-4 pr-4">
-         A Service Provider nominates the amount they wish
-         to be paid either per job or per hour. When a Service Seeker engages
-         you to do a job, the nominated amount is secured from the Service
-         Seeker’s credit card and placed on hold. When the Service Provider
-         completes the job, they are paid automatically less a small engagement
-         fee.
+         A Service Provider nominates the amount they wish to be paid for the task and when the Service Seeker engages them to do the job, the nominated amount is secured from the 
+         Service Seeker’s credit card and placed on hold. When the Service Provider completes the job, they are paid automatically through our secure payment provider, Stripe.
       </p>
    </div>
 </div>
@@ -270,7 +266,7 @@ LocaL2LocaL – Homepage
                <div class="icon cl3"><i class="fas fa-people-carry"></i></div>
                <h4>Real Time Tracking</h4>
                <p>
-                  Track your Provider in real time using ourlive geo tracking technology similar to rideshare apps.
+                  Track your Provider in real time using our live geo tracking technology similar to rideshare apps.
                </p>
             </div>
             <!--/.single_feature_in2-->
@@ -332,7 +328,7 @@ LocaL2LocaL – Homepage
                   <div class="overview_contents">
                      <h3>In-App Messaging</h3>
                      <p>
-                        Our in app messaging is available as soon as you receive your first offer on your job.This allows both parties to immediately reach out to discuss pricing, times, job details and more.
+                        Our in app messaging is available as soon as you receive your first offer on your job. This allows both parties to immediately reach out to discuss pricing, times, job details and more.
                      </p>
                      <a href="#" class="btn btn-style2">Sign up Now</a>
                   </div>
@@ -411,11 +407,10 @@ LocaL2LocaL – Homepage
             <div class="row h-100">
                <div class="col my-auto">
                   <div class="title price_title">
-                     <h2>Want to be your own boss?</h2>
+                     <h2>Are you sick of service platforms and their hefty fees?</h2>
                      <p>
-                        You can register to be both a Service Seeker and a Service Provider
-                        for free. It's free for a Service Provider to advertise their
-                        business & services. So what are you waiting for?
+                        Want more back in your pocket. With LocaL2LocaL you can register to be both a Service Seeker and a Service Provider for free. 
+                        This is also a great platform to advertise your business & services. So what are you waiting for?
                      </p>
                   </div>
                   <!--/.price_title-->
@@ -436,7 +431,7 @@ LocaL2LocaL – Homepage
                         <li>Provider Selection</li>
                         <li>Ratings and Reviews</li>
                      </ul>
-                     <a href="#" class="btn btn-price">Get Started Now</a>
+                     <a href="#" class="btn btn-price">Get Started</a>
                   </div>
                   <!--/.price_single_in-->
                </div>
@@ -456,7 +451,7 @@ LocaL2LocaL – Homepage
                         <li>Time Flexibility</li>
                         <li>Create Community</li>
                      </ul>
-                     <a href="#" class="btn btn-price">Get Started Now</a>
+                     <a href="#" class="btn btn-price">Download today</a>
                   </div>
                   <!--/.price_single_in-->
                </div>
@@ -528,7 +523,7 @@ LocaL2LocaL – Homepage
             <div class="title color-white text-center">
                <h2>The App</h2>
                <p>
-                  LocaL2LocaL is a supportive community where users can share their skills and talents whilst giving back to their local community. “Locals helping locals” - The need it now motto means exactly that. We make sure that if you need it now, that someone local and near by will be able to lend a hand and get the job done in only just a couple of clicks.
+                  LocaL2LocaL is a supportive community where users can share their skills and talents whilst giving back to their local community. “Locals helping locals” - The need it now motto means exactly that. We make sure that if you need it now, some local legend who’s in your area will be able to lend a hand and get the job done in only just a couple of clicks.
                </p>
             </div>
             <!--/.title-->
