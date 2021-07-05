@@ -39,6 +39,28 @@ function send_message_provider(conversation_id) {
             report_policy_breach(user_id, conversation_id, input);
             console.log('Report it to admin.');
         }
+
+        toggle_animation(true);
+        $.ajax({
+            type: "POST",
+            url: app_url + '/service_provider/jobs/job/conversation/send_message',
+            data: {
+                "_token": csrf_token,
+                "conversation_id": conversation_id,
+                "message": $("#service_provider_conversation_message").val(),
+            },
+            success: function(results) {
+                //console.log(results)
+                if (results) {
+                    location.reload();
+                } else {
+                    toggle_animation(false);
+                }
+            },
+            error: function(results, status, err) {
+                console.log(err);
+            }
+        });
     }
 }
 
@@ -132,14 +154,14 @@ function filter_text(){
     var result = is_input_valid()
     if(result){
       //$("#service_provider_conversation_message").val("");
-      $("#service_provider_conversation_message").addClass('is-invalid');
-      $("#service_provider_conversation_message").removeClass('is-valid');
-      $("#msg-alert").removeClass('d-none');
+    //   $("#service_provider_conversation_message").addClass('is-invalid');
+    //   $("#service_provider_conversation_message").removeClass('is-valid');
+    //   $("#msg-alert").removeClass('d-none');
       //alert("Not allowed!");
     } else {
-        $("#service_provider_conversation_message").removeClass('is-invalid');
-        $("#service_provider_conversation_message").addClass('is-valid');
-        $("#msg-alert").addClass('d-none');
+        // $("#service_provider_conversation_message").removeClass('is-invalid');
+        // $("#service_provider_conversation_message").addClass('is-valid');
+        // $("#msg-alert").addClass('d-none');
     }
   }
   
