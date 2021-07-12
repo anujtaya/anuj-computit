@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 function send_message_provider(conversation_id) {
-    filter_text();
+    //filter_text();
     var a = is_input_valid();
     if(!a) {
         toggle_animation(true);
@@ -149,21 +149,21 @@ function start_offer_check_interval() {
 
 
 
-//new code to validate user message inputs
-function filter_text(){
-    var result = is_input_valid()
-    if(result){
-      //$("#service_provider_conversation_message").val("");
-    //   $("#service_provider_conversation_message").addClass('is-invalid');
-    //   $("#service_provider_conversation_message").removeClass('is-valid');
-    //   $("#msg-alert").removeClass('d-none');
-      //alert("Not allowed!");
-    } else {
-        // $("#service_provider_conversation_message").removeClass('is-invalid');
-        // $("#service_provider_conversation_message").addClass('is-valid');
-        // $("#msg-alert").addClass('d-none');
-    }
-  }
+// //new code to validate user message inputs
+// function filter_text(){
+//     var result = is_input_valid()
+//     if(result){
+//       //$("#service_provider_conversation_message").val("");
+//     //   $("#service_provider_conversation_message").addClass('is-invalid');
+//     //   $("#service_provider_conversation_message").removeClass('is-valid');
+//     //   $("#msg-alert").removeClass('d-none');
+//       //alert("Not allowed!");
+//     } else {
+//         // $("#service_provider_conversation_message").removeClass('is-invalid');
+//         // $("#service_provider_conversation_message").addClass('is-valid');
+//         // $("#msg-alert").addClass('d-none');
+//     }
+//   }
   
   function is_input_valid(){
     var isValid = false;
