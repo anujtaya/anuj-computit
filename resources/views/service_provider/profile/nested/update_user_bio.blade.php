@@ -43,7 +43,7 @@
 <script>
     var user_id = "{{Auth::id()}}";
     function validate_reg(){
-        filter_text();
+        //filter_text();
         var a = is_input_valid();
         console.log(a);
         if(!a) {
@@ -55,6 +55,13 @@
                 toggle_animation(false);      
             }
         } else {
+            if($('#aboutMeForm')[0].checkValidity()){
+                toggle_animation(true, "Updating your account..");
+                document.getElementById('aboutMeForm').submit();      
+            }
+            else {
+                toggle_animation(false);      
+            }
             //report to admin 
             var input = $("#about_me_input").val();
             if(input != '') {
