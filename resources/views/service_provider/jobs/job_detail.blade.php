@@ -65,29 +65,14 @@ $currentUserTab = 'joboverview';
             <div class="col-12">
             @if($job->status == 'OPEN')
             @elseif($job->status == 'APPROVED')
-               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
-                     @csrf
-                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
-                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
-               </form>
+            <a class="btn btn-danger text-white btn-sm fs--1 card-1 float-right" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
             @elseif($job->status == 'ONTRIP')
-               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
-                     @csrf
-                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
-                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
-               </form>
+            <a class="btn btn-danger text-white btn-sm fs--1 card-1 float-right" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
             @elseif($job->status == 'ARRIVED')
-               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
-                     @csrf
-                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
-                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
-               </form>
+            <a class="btn btn-danger text-white btn-sm fs--1 card-1 float-right" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
             @elseif($job->status == 'STARTED')
-               <form action="{{route('service_provider_job_cancel')}}" method="POST" onsubmit="toggle_animation(true);">
-                     @csrf
-                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
-                     <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button>
-               </form>
+               <a class="btn btn-danger text-white btn-sm fs--1 card-1 float-right" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
+              
             @elseif($job->status == 'COMPLETED')
             @endif
             </div>
@@ -142,4 +127,29 @@ $currentUserTab = 'joboverview';
             @endif
       </div>
 </div>
+
+
+<!-- modal display to cancel the job confimation dialog. -->
+<div class="modal fade" id="job_cancel_confirm_modal" tabindex="4" role="dialog" aria-labelledby="job_cancel_confirm_modal_title" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered-d" role="document">
+      <div class="modal-content">
+         <div class="modal-body">
+            <span class="fs-1">Are you sure?</span>
+            <br>
+            <br>
+            <p>
+               This action cannot be undone. Proceed with caution.
+            </p>
+            <form action="{{route('service_provider_job_cancel')}}" method="POST" id="job_cancel_form" onsubmit="toggle_animation(true);">
+                     @csrf
+                     <input type="hidden" name="sp_job_cancel_id" value="{{$job->id}}" required>
+                     <!-- <button class="btn btn-danger text-white btn-sm fs--1 card-1 float-right">Cancel Job</button> -->
+               </form>
+            <button class="fs--2 btn-sm btn-danger text-white mr-2" onclick=" $( '#job_cancel_form' ).submit()">Proceed to Cancel</button>
+            <button class="fs--2 btn-sm btn-secondary text-white" data-dismiss="modal">Dismiss</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal -->
 @endsection
