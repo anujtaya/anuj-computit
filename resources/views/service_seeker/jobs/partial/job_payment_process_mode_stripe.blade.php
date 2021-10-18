@@ -3,10 +3,23 @@
    $stripe_fixed_fee = 0.30;
    $stripe_fixed_percentage = 1.75;
    $job_price = $job_payment->job_price;
+   $job_orignal_price = $job_payment->actual_job_price;
+   //payable job price id promotion is applied
+   ////find the promotion if any
+   $promotion = DB::table('promotions')->where('id', $job->promocode)->first();
+   $promotion_discount_discription = '';
+   $promotion_price = 0.00;
 
-
+   if($promotion != null) {
+      if($promotion->type == 'FIXED') {
+         $promotion_price = round($job_orignal_price - $promotion->value);
+      } else {
+         $promotion_price = round(($promotion->value/100)*($job_orignal_price),2);
+      }
+   }
+ 
    //since there is no charge on gst on card processing fee. We will exclude it below
-   $stripe_job_price = $job_payment->job_price - $job_payment->gst_fee_value;
+   $stripe_job_price = $job_price - $job_payment->gst_fee_value;
    
    $credit_card_processing_fee =  round(($stripe_fixed_percentage/100)*($stripe_job_price),2);                    
    $credit_card_processing_fee += $stripe_fixed_fee;
@@ -18,6 +31,17 @@
       <td class="theme-color" >Payment Method: </td>
       <td class="text-right"> Card</td>
    </tr>
+  
+   @if($promotion != null)
+   <tr>
+      <td class="theme-color">Job Price: </td>
+      <td class="text-right"> ${{number_format($job_orignal_price, 2)}} </td>
+   </tr>
+   <tr>
+      <td class="theme-color">Promotion discount ({{$promotion->code}}): </td>
+      <td class="text-right"> ${{number_format($promotion_price, 2)}} </td>
+   </tr>
+   @endif
    <tr>
       <td class="theme-color">Total Job Price: </td>
       <td class="text-right"> ${{number_format($job_price, 2)}} </td>
@@ -81,6 +105,47 @@
       </form>
    </div>
 </div>
+<!-- add promo code  -->
+<div class="m-1 ">
+   <form action="{{route('service_seeker_job_promotion_add')}}" class="my-form needs-validation"  method="post" id="payment-form">
+         @csrf
+         <input type="hidden" name="promocode_job_id" value="{{$job->id}}">
+         <div class="rounded p-2 border">
+         @if($job->promocode != null)
+            <div class="col-12 p-0">
+             
+               <table class="table-borderless table-sm table">
+                  <tr>
+                     <td>Promo Code</td>
+                     <td>Type</td>
+                  </tr>
+               </table>
+               
+            </div>
+           @endif
+           @if(Session::has('promoerror'))
+           <div class="col-12 p-0">
+               <div class="alert alert-danger fs--1">{{Session::pull('promoerror')}}</div>
+            </div>
+           @endif
+           @if(Session::has('promosuccess'))
+           <div class="col-12 p-0">
+               <div class="alert alert-success fs--1">{{Session::pull('promosuccess')}}</div>
+            </div>
+           @endif
+           
+            <div class="col-12 p-0">
+               <label for="promo_code">Enter Promo Code</label>
+               <input type="text" class="form-control form-control-sm" name="promocode" placeholder="Enter promo code.." value="@if($promotion != null){{$promotion->code}}@endif">
+            </div>
+            <div class="col-12 p-0">
+               <button  class="btn btn-sm theme-background-color fs--2 mt-3 shadow">Apply Code</button>
+            </div>
+         </div>
+  
+   </form>
+</div>
+<!-- end promo code -->
 <!-- payment button  -->
 <div class="m-1">
    <form action="{{route('service_seeker_process_job_payment_pay_with_stripe')}}" method="POST" onsubmit="toggle_animation(true);">

@@ -8,7 +8,7 @@ function fetch_all_jobs(flag) {
         type: 'POST',
         data: { _token: CSRF_TOKEN },
         dataType: 'JSON',
-        success: function(data) {
+        success: function (data) {
             //console.log(data);
             //console.log('Event: Job Refresh Counter Updated.')
             update_refresh_count = 0;
@@ -43,7 +43,7 @@ function display_job_list() {
         var li = document.createElement('li');
         li.classList = "custom-job-class-list list-group-item  m-1 shadow-sm";
         li.id = "jl_" + jobs[i]['id'];
-        li.addEventListener("click", function() {
+        li.addEventListener("click", function () {
             open_job_view(this.id);
         });
 

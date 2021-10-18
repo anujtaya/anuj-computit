@@ -3,68 +3,79 @@
 <script src="{{asset('/js/third/pulltorefresh.umd.js')}}"></script>
 <style>
    .pure-material-progress-linear {
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-   border: none;
-   height: 0.1em;
-   color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
-   background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.12);
-   font-size: 16px;
-   min-width: 100%!important;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: none;
+      height: 0.1em;
+      color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+      background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.12);
+      font-size: 16px;
+      min-width: 100% !important;
    }
+
    .pure-material-progress-linear::-webkit-progress-bar {
-   background-color: transparent;
+      background-color: transparent;
    }
+
    /* Determinate */
    .pure-material-progress-linear::-webkit-progress-value {
-   background-color: currentColor;
-   transition: all 0.2s;
+      background-color: currentColor;
+      transition: all 0.2s;
    }
+
    .pure-material-progress-linear::-moz-progress-bar {
-   background-color: currentColor;
-   transition: all 0.2s;
+      background-color: currentColor;
+      transition: all 0.2s;
    }
+
    .pure-material-progress-linear::-ms-fill {
-   border: none;
-   background-color: currentColor;
-   transition: all 0.2s;
+      border: none;
+      background-color: currentColor;
+      transition: all 0.2s;
    }
+
    /* Indeterminate */
    .pure-material-progress-linear:indeterminate {
-   background-size: 200% 100%;
-   background-image: linear-gradient(to right, transparent 50%, currentColor 50%, currentColor 60%, transparent 60%, transparent 71.5%, currentColor 71.5%, currentColor 84%, transparent 84%);
-   animation: pure-material-progress-linear 2s infinite linear;
+      background-size: 200% 100%;
+      background-image: linear-gradient(to right, transparent 50%, currentColor 50%, currentColor 60%, transparent 60%, transparent 71.5%, currentColor 71.5%, currentColor 84%, transparent 84%);
+      animation: pure-material-progress-linear 2s infinite linear;
    }
+
    .pure-material-progress-linear:indeterminate::-moz-progress-bar {
-   background-color: transparent;
+      background-color: transparent;
    }
+
    .pure-material-progress-linear:indeterminate::-ms-fill {
-   animation-name: none;
+      animation-name: none;
    }
+
    @keyframes pure-material-progress-linear {
-   0% {
-   background-size: 200% 100%;
-   background-position: left -31.25% top 0%;
-   }
-   50% {
-   background-size: 800% 100%;
-   background-position: left -49% top 0%;
-   }
-   100% {
-   background-size: 400% 100%;
-   background-position: left -102% top 0%;
-   }
+      0% {
+         background-size: 200% 100%;
+         background-position: left -31.25% top 0%;
+      }
+
+      50% {
+         background-size: 800% 100%;
+         background-position: left -49% top 0%;
+      }
+
+      100% {
+         background-size: 400% 100%;
+         background-position: left -102% top 0%;
+      }
    }
 </style>
 <div class="container ">
-   <div class="row  justify-content-center" >
+   <div class="row  justify-content-center">
       <div class="col-lg-12 sticky-top shadow-sm bg-white p-3  border-d">
          <div class="row">
             <div class="col-4">
                <i class="fas fa-briefcase theme-color fs-1"></i>
             </div>
-            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Jobs <br><span class="fs--2 text-muted font-weight-normal ">All Jobs</span></div>
+            <div class="col-4 font-size-bolder text-center font-weight-bold theme-color">Jobs <br><span
+                  class="fs--2 text-muted font-weight-normal ">All Jobs</span></div>
             <div class="col-4 text-right">
                <div class="dropleft">
                </div>
@@ -74,29 +85,38 @@
       <div class="col-lg-12 p-0">
          <!-- progress bar contianer -->
          <div id="prog-container" style="display:none;">
-            <progress class="pure-material-progress-linear d-block"/>
+            <progress class="pure-material-progress-linear d-block" />
          </div>
-         <!-- end container -->   
+         <!-- end container -->
       </div>
       <div class="col-lg-12 pl-1 mt-2 border-d">
          <div class="d-flex  bd-highlight">
             <div class="fs1 p-1 bd-highlight">
-               <a class="btn theme-background-color btn-sm shadow text-white"  href="#" role="button" id="ss_jobs_filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fas fa-sort-amount-up-alt"></i> Filter
+               <a class="btn theme-background-color btn-sm shadow text-white" href="#" role="button" id="ss_jobs_filter"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-sort-amount-up-alt"></i> Filter
                </a>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ALL');" style="cursor: pointer">All</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ONTRIP');" style="cursor: pointer">On-Trip</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('OPEN');" style="cursor: pointer">Open</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('APPROVED')" style="cursor: pointer">Approved</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('STARTED');" style="cursor: pointer">In-Progress</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('EXPIRED');" style="cursor: pointer">Expired</span>
-                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('COMPLETED');" style="cursor: pointer">Completed</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ALL');"
+                     style="cursor: pointer">All</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('ONTRIP');"
+                     style="cursor: pointer">On-Trip</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('OPEN');"
+                     style="cursor: pointer">Open</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('APPROVED')"
+                     style="cursor: pointer">Approved</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('STARTED');"
+                     style="cursor: pointer">In-Progress</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('EXPIRED');"
+                     style="cursor: pointer">Expired</span>
+                  <span class="dropdown-item" onclick="filter_service_seeker_jobs('COMPLETED');"
+                     style="cursor: pointer">Completed</span>
                </div>
             </div>
             <div class="fs--1 p-1 flex-fill bd-highlight">
-               <a  class="btn theme-background-color btn-sm shadow text-white" href="{{route('service_seeker_jobs_full_history')}}" onclick="toggle_animation(true);">
-               <i class="fas fa-history"></i> Full History
+               <a class="btn theme-background-color btn-sm shadow text-white"
+                  href="{{route('service_seeker_jobs_full_history')}}" onclick="toggle_animation(true);">
+                  <i class="fas fa-history"></i> Full History
                </a>
             </div>
          </div>
@@ -111,6 +131,7 @@
    var service_seeker_jobs_filter_url = "{{route('service_seeker_jobs_filter')}}";
    var current_filter_choice = 'ALL';  
    window.onload = function() {
+      counter();
        setInterval(() => {
         filter_service_seeker_jobs(current_filter_choice);
        }, 15000);

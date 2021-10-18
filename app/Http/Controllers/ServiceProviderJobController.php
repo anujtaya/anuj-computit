@@ -612,7 +612,7 @@ class ServiceProviderJobController extends Controller
 		//print('Final price is: '. $final_price);print('<br>');
 		$service_fee_without_extras =    $this->calcualte_final_job_total_without_extras($job->id);    
 		//print('Final price without extras is: '. $service_fee_without_extras);print('<br>');
-		$service_fee_percentage = 0.00;
+		$service_fee_percentage = 9.00;
 		//print('LocaL2LocaL service fee percentage is: '. $service_fee_percentage);print('<br>');
 		$service_fee_price = ($service_fee_percentage/100)*$service_fee_without_extras;
 		//print('LocaL2LocaL service fee price is: '. $service_fee_price);print('<br>');
@@ -642,6 +642,7 @@ class ServiceProviderJobController extends Controller
 		$payment_source = new JobPayment();
 		$payment_source->job_id = $job->id;
 		$payment_source->job_price = $final_price;
+		$payment_source->actual_job_price =   $final_price;
 		$payment_source->payable_job_price = $payable_job_final_value;
 		$payment_source->service_fee_percentage = $service_fee_percentage;
 		$payment_source->service_fee_price = $service_fee_price;

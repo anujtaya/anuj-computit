@@ -3,7 +3,20 @@
    $paypal_fixed_fee = 0.30;
    $paypal_fixed_percentage = 2.60;
    $job_price = $job_payment->job_price;
+   $job_orignal_price = $job_payment->actual_job_price;
+   //payable job price id promotion is applied
+   ////find the promotion if any
+   $promotion = DB::table('promotions')->where('id', $job->promocode)->first();
+   $promotion_discount_discription = '';
+   $promotion_price = 0.00;
 
+   if($promotion != null) {
+      if($promotion->type == 'FIXED') {
+         $promotion_price = round($job_orignal_price - $promotion->value);
+      } else {
+         $promotion_price = round(($promotion->value/100)*($job_orignal_price),2);
+      }
+   }
    //since there is no charge on gst on card processing fee. We will exclude it below
    $paypal_job_price = $job_payment->job_price - $job_payment->gst_fee_value;
 
@@ -17,6 +30,16 @@
       <td class="theme-color" >Payment Method: </td>
       <td class="text-right"> Card</td>
    </tr>
+   @if($promotion != null)
+   <tr>
+      <td class="theme-color">Job Price: </td>
+      <td class="text-right"> ${{number_format($job_orignal_price, 2)}} </td>
+   </tr>
+   <tr>
+      <td class="theme-color">Promotion discount ({{$promotion->code}}): </td>
+      <td class="text-right"> ${{number_format($promotion_price, 2)}} </td>
+   </tr>
+   @endif
    <tr>
       <td class="theme-color">Total Job Price: </td>
       <td class="text-right"> ${{number_format($job_price, 2)}} </td>

@@ -44,11 +44,11 @@
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Total Job Price</div>
-         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->actual_job_price, 2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">GST Included (if applicable)</div>
-         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->gst_fee_value,2)}}</div>
+         <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->actual_job_price/11,2)}}</div>
       </div>
       <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
          <div class="p-2 bd-highlight">Service Fee ({{number_format($job_payment->service_fee_percentage,0)}}%)</div>

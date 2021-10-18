@@ -112,6 +112,8 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/job/notify/arrival', 'ServiceSeekerJobController@job_notify_arrival')->name('service_seeker_job_notify_arrival');
   Route::post('/service_seeker/job/request/update', 'ServiceSeekerJobController@job_request_stutus_update')->name('service_seeker_job_request_status_updte');
   Route::post('/service_seeker/job/request/provider_info', 'ServiceSeekerJobController@job_request_provider_info')->name('service_seeker_job_request_provider_info');
+  //promotion routes
+  Route::post('/service_seeker/job/promotion/add', 'PromotionController@add_promocode_to_job')->name('service_seeker_job_promotion_add');
   //service seeker rating update
   Route::post('/service_seeker/jobs/job/update/rating', 'ServiceSeekerJobController@update_rating')->name('service_seeker_job_update_rating');
   //job cancel route
@@ -137,6 +139,10 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified']] , function () {
   Route::post('/service_seeker/jobs/job/expired/prepare_repost_flow/set_expired_job_to_open', 'ExpiredJobController@set_expired_job_to_open')->name('service_seeker_jobs_expired_prepare_job_repost_flow_set_expired_job_to_open');
   
   Route::post('/service_seeker/jobs/job/expired/prepare_repost_flow/update_location', 'ExpiredJobController@update_job_location')->name('service_seeker_jobs_expired_prepare_job_repost_flow_update_location');
+
+  //inbox routes
+  Route::get('/service_seeker/jobs/conversation','InboxController@main_view')->name('service_seeker_inbox_conversation');
+
 });
 
 
@@ -210,6 +216,11 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::post('/service_provider/jobs/job/cancel', 'ServiceProviderJobController@service_provider_job_cancel')->name('service_provider_job_cancel');
   //post job completion routes
   Route::post('/service_provider/jobs/job_notify_job_completion/', 'PostJobCompletionController@job_notify_completion_confirmation')->name('service_provider_job_notify_job_completion');
+
+  //inbox routes
+  Route::get('/service_provider/jobs/conversation','InboxController@main_view')->name('service_provider_inbox_conversation');
+
+
 });
 
 
@@ -255,6 +266,7 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified', 'isServiceProvider']] 
   Route::get('/banking', 'ProviderPortalController@redirect_to_banking_page');
   Route::get('/app/portal/provider/banking/stripe/connect/onboarding', 'StripeConnectController@store_stripe_connect_account')->name('app_portal_provider_banking_stripe_onboarding');
   Route::get('/app/portal/provider/banking/stripe/connect/single_sign_on_link', 'StripeConnectController@single_sign_on_link')->name('app_portal_provider_banking_single_on_link');
+
 });
 
 
@@ -287,6 +299,12 @@ Route::group(['middleware' => ['auth', 'isPhoneVerified','admin_routes']] , func
   Route::post('/app/portal/admin/maps/heatmap/api/fetch', 'AdminController@fetch_heatmap_locations')->name('app_portal_admin_maps_heatmap_api_fetch');
   Route::get('/app/portal/admin/maps/user_track', 'AdminController@show_user_track')->name('app_portal_admin_maps_user_track');
   Route::post('/app/portal/admin/maps/user_track/api/fetch', 'AdminController@fetch_user_track_locations')->name('app_portal_admin_maps_user_track_api_fetch');
+  //promotions
+  Route::get('/app/portal/admin/promotions/home', 'PromotionController@admin_home')->name('app_portal_admin_promotion_home');
+  Route::get('/app/portal/admin/promotions/edit/{id}', 'PromotionController@admin_edit')->name('app_portal_admin_promotion_edit');
+  Route::post('/app/portal/admin/promotions/create', 'PromotionController@admin_create')->name('app_portal_admin_promotion_create');
+  Route::post('/app/portal/admin/promotions/update', 'PromotionController@admin_update')->name('app_portal_admin_promotion_update');
+
   //charts module
   Route::post('/app/portal/admin/chart/reg_trend_fetch', 'AdminController@reg_trend_fetch')->name('app_portal_admin_chart_reg_trend_fetch');
   //service manager routes
@@ -343,3 +361,6 @@ Route::post('/serviceLatLng2', 'MobileInterfaceController@android_location_recei
 Route::post('/notify', 'MobileInterfaceController@save_ios_device_token')->name('app_mobile_api_save_save_ios_device_token');
 Route::post('/notifyAndro', 'MobileInterfaceController@save_android_device_token')->name('app_mobile_api_save_android_device_token');
 Route::post('/save_android_token', 'MobileInterfaceController@save_android_device_token_2')->name('app_mobile_api_save_android_device_token_2');
+
+
+Route::get('/service_provider/inbox/conversation_count/','InboxController@count_unread_message')->name('service_provider_inbox_conversation_count');

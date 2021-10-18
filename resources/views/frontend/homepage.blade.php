@@ -409,7 +409,7 @@ LocaL2LocaL – Homepage
                   <div class="title price_title">
                      <h2>Are you sick of service platforms and their hefty fees?</h2>
                      <p>
-                        Want more back in your pocket. With LocaL2LocaL you can register to be both a Service Seeker and a Service Provider for free. 
+                        Want more back in your pocket. With LocaL2LocaL you can register to be both a Service Seeker and a Service Provider. 
                         This is also a great platform to advertise your business & services. So what are you waiting for?
                      </p>
                   </div>
@@ -442,11 +442,11 @@ LocaL2LocaL – Homepage
                      >
                      <div class="head">
                         <h4>Provider</h4>
-                        <h4 class="p">Free<small></small></h4>
+                        <h4 class="p">9%<small></small></h4>
                         <!-- <h4 class="p" style=""> <img src="{{asset('/images/homepage-images/9percent.png')}}" width="70" height="50" alt="LocaL2LocaL 9 Percent discount image" style="margin-top: -15px;"></h4> -->
                      </div>
                      <ul>
-                        <li>0% Service Fee</li>
+                        <li>9% Service Fee</li>
                         <li>Be your own boss</li>
                         <li>Time Flexibility</li>
                         <li>Create Community</li>

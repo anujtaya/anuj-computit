@@ -236,7 +236,20 @@
             @php
             $job_payment =  $job->job_payments;
             @endphp
+            
             @if($job_payment != null)
+            @php 
+               $promotion = DB::table('promotions')->where('id', $job->promocode)->first();
+               $promotion_price = 0.00;
+               $total_price_paid = $job_payment->job_price + $job_payment->payment_processing_fee;
+               if($promotion != null) {
+                  if($promotion->type == 'FIXED') {
+                     $promotion_price = round($job_payment->actual_job_price - $promotion->value);
+                  } else {
+                     $promotion_price = round(($promotion->value/100)*($job_payment->actual_job_price),2);
+                  }
+               }
+            @endphp
             @if($job_payment->status == 'UNPAID')
             <div class="alert alert-danger">
                We are currently waiting for Service Seeker approval for this job invoice. Once the Service Seeker approves the invoice we will transfer the money in your nominated bank account.  
@@ -245,6 +258,14 @@
             <div class="d-flex bd-highlight mb-2">
                <div class="p-0 bd-highlight font-weight-bolder">Job Summary</div>
             </div>
+            @if($promotion != null) 
+
+
+
+            <div class="alert alert-info fs--2">
+               A promotion amount of {{number_format($promotion_price,2)}} AUD is applied to this job.
+            </div>
+            @endif
             <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
                <div class="p-2 bd-highlight">Total Job Price</div>
                <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>

@@ -8,60 +8,60 @@ function send_message(conversation_id) {
 
     console.log(a);
 
-    // if(!a) {
-    //     toggle_animation(true);
-    //     $.ajax({
-    //         type: "POST",
-    //         url: app_url + '/service_seeker/jobs/job/conversation/send_message',
-    //         data: {
-    //             "_token": csrf_token,
-    //             "conversation_id": conversation_id,
-    //             "message": $("#service_seeker_conversation_message").val(),
-    //         },
-    //         success: function(results) {
-    //             //console.log(results)
-    //             if (results) {
-    //                 location.reload();
-    //             } else {
-    //                 toggle_animation(false);
-    //                 // alert("Something went wrong!");
-    //             }
-    //         },
-    //         error: function(results, status, err) {
-    //            console.log(err);
-    //         }
-    //     });
-    // } else {
-    //     //report to admin 
-    //     var input = $("#service_seeker_conversation_message").val();
-    //     if(input != '') {
-    //         report_policy_breach(user_id, conversation_id, input);
-    //         console.log('Report it to admin.');
-    //     }
+    if(!a) {
+        toggle_animation(true);
+        $.ajax({
+            type: "POST",
+            url: app_url + '/service_seeker/jobs/job/conversation/send_message',
+            data: {
+                "_token": csrf_token,
+                "conversation_id": conversation_id,
+                "message": $("#service_seeker_conversation_message").val(),
+            },
+            success: function(results) {
+                //console.log(results)
+                if (results) {
+                    location.reload();
+                } else {
+                    toggle_animation(false);
+                    // alert("Something went wrong!");
+                }
+            },
+            error: function(results, status, err) {
+               console.log(err);
+            }
+        });
+    } else {
+        //report to admin 
+        var input = $("#service_seeker_conversation_message").val();
+        if(input != '') {
+            report_policy_breach(user_id, conversation_id, input);
+            console.log('Report it to admin.');
+        }
 
-    //     toggle_animation(true);
-    //     $.ajax({
-    //         type: "POST",
-    //         url: app_url + '/service_seeker/jobs/job/conversation/send_message',
-    //         data: {
-    //             "_token": csrf_token,
-    //             "conversation_id": conversation_id,
-    //             "message": $("#service_seeker_conversation_message").val(),
-    //         },
-    //         success: function(results) {
-    //             //console.log(results)
-    //             if (results) {
-    //                 location.reload();
-    //             } else {
-    //                 toggle_animation(false);
-    //                 // alert("Something went wrong!");
-    //             }
-    //         },
-    //         error: function(results, status, err) {
-    //            console.log(err);
-    //         }
-    //     });
-    // }
+        toggle_animation(true);
+        $.ajax({
+            type: "POST",
+            url: app_url + '/service_seeker/jobs/job/conversation/send_message',
+            data: {
+                "_token": csrf_token,
+                "conversation_id": conversation_id,
+                "message": $("#service_seeker_conversation_message").val(),
+            },
+            success: function(results) {
+                //console.log(results)
+                if (results) {
+                    location.reload();
+                } else {
+                    toggle_animation(false);
+                    // alert("Something went wrong!");
+                }
+            },
+            error: function(results, status, err) {
+               console.log(err);
+            }
+        });
+    }
 }
 
 function report_policy_breach(a,b,c){

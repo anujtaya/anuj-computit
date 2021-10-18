@@ -1,21 +1,22 @@
 <!-- wizard 1 -->
 <div id="wizard_view_1">
-   <div class="row fs--1 m-0" >
+   <div class="row fs--1 m-0">
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1" >Step 1 of 4</span>
+               <span class="text-white mt-1">Step 1 of 4</span>
             </div>
             <div class=" bd-highlight p-2">
-               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i class="fas fs-1 fa-times"></i></a>
+               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
+                     class="fas fs-1 fa-times"></i></a>
             </div>
          </div>
          <div class="text-center mt-4">
-            <span id="service_selection_name_display"  class="fs-1 text-white"></span>
+            <span id="service_selection_name_display" class="fs-1 text-white"></span>
          </div>
       </div>
       <!-- sub category list view -->
-      <div class="col-12 p-2 p-3" >
+      <div class="col-12 p-2 p-3">
          <span class="fs--1">Choose a Sub-category</span>
          <br><br>
          <ul class="list-group fs--1" id="wizard_service_node_list">
@@ -49,26 +50,29 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1" >Step 2 of 4</span>
+               <span class="text-white mt-1">Step 2 of 4</span>
             </div>
             <div class=" bd-highlight p-2">
-               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i class="fas fs-1 fa-times"></i></a>
+               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
+                     class="fas fs-1 fa-times"></i></a>
             </div>
          </div>
          <div class="text-center mt-4">
-            <span id="service_subselection_name_display"  class="fs-1 text-white"></span><br>
+            <span id="service_subselection_name_display" class="fs-1 text-white"></span><br>
          </div>
       </div>
       <!-- job title and description -->
-      <div class="col-12 fs--1 p-2 p-3" >
+      <div class="col-12 fs--1 p-2 p-3">
          <div class="form-group">
             <label for="exampleInputEmail1">Write your job title</label>
-            <input type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();"  id="service_job_title" placeholder="Please enter your job title" value="">
+            <input type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();"
+               id="service_job_title" placeholder="Please enter your job title" value="">
             <small id="emailHelp" class="form-text text-muted">Please use plain english text.</small>
          </div>
          <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
-            <textarea type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();" rows="12" id="service_job_description" placeholder="Please enter your job description"></textarea>
+            <textarea type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();" rows="12"
+               id="service_job_description" placeholder="Please enter your job description"></textarea>
             <small id="emailHelp" class="form-text text-muted">Provide as much detail as you can.</small>
          </div>
       </div>
@@ -100,22 +104,25 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1" >Step 3 of 4</span>
+               <span class="text-white mt-1">Step 3 of 4</span>
             </div>
             <div class=" bd-highlight p-2">
-               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i class="fas fs-1 fa-times"></i></a>
+               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
+                     class="fas fs-1 fa-times"></i></a>
             </div>
          </div>
          <div class="text-center mt-4">
-           <span id="service_subselection_name_display"  class="fs-1 text-white"></span><br>
+            <span id="service_subselection_name_display" class="fs-1 text-white"></span><br>
          </div>
       </div>
       <!-- job title and description -->
-      <div class="col-12 fs--1 p-2 p-3" >
+      <div class="col-12 fs--1 p-2 p-3">
          <div class="form-group">
             <label for="exampleInputEmail1">As soon as possible after this Date and Time:</label>
             <div class="input-group input-group-sm mb-3">
-               <input class="form-control" type="text" onchange="create_seeker_job_draft();" class="form-control form-control-sm"  id="service_job_datetime" value="{{\Carbon\Carbon::now()->format('h:i A d/m/Y')}}" readonly="readonly" required>
+               <input class="form-control" type="text" onchange="create_seeker_job_draft();"
+                  class="form-control form-control-sm" id="service_job_datetime"
+                  value="{{\Carbon\Carbon::now()->format('h:i A d/m/Y')}}" readonly="readonly" required>
                <div class="input-group-append">
                   <span class="input-group-text" id="inputGroup-sizing-sm"> <i class="fas fa-calendar fs-1"></i> </span>
                </div>
@@ -154,19 +161,20 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1" >Step 4 of 4</span>
+               <span class="text-white mt-1">Step 4 of 4</span>
             </div>
             <div class=" bd-highlight p-2">
-               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i class="fas fs-1 fa-times"></i></a>
+               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
+                     class="fas fs-1 fa-times"></i></a>
             </div>
          </div>
          <div class="text-center mt-4">
-           <span id="service_subselection_name_display"  class="fs-1 text-white"></span><br>
+            <span id="service_subselection_name_display" class="fs-1 text-white"></span><br>
          </div>
       </div>
       <!-- confirm user location -->
-      <div class="col-12 fs--1 p-2 p-3" >
-        @include('service_seeker.location_confirmation')
+      <div class="col-12 fs--1 p-2 p-3">
+         @include('service_seeker.location_confirmation')
       </div>
       <!-- end confirm user location view -->
    </div>
@@ -181,7 +189,7 @@
             </div>
             <div class=" bd-highlight   pt-3 pr-4 pb-3">
                <a href="" class="theme-color fs-1" onclick="book_job();event.preventDefault();">
-                Done
+                  Done
                </a>
             </div>
          </div>

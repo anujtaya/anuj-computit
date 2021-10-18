@@ -24,6 +24,29 @@
       </a>
    </div>
 </div>
+<div class="fs--2">
+@php 
+   $promotion = DB::table('promotions')->where('id', $job->promocode)->first();
+   $promotion_price = 0.00;
+   $total_price_paid = $job_payment->job_price + $job_payment->payment_processing_fee;
+   if($promotion != null) {
+      if($promotion->type == 'FIXED') {
+         $promotion_price = round($job_price - $promotion->value);
+      } else {
+         $promotion_price = round(($promotion->value/100)*($job_price),2);
+      }
+   }
+@endphp
+@if($promotion != null)
+<div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+   <div class="p-2 bd-highlight">Job Price</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->actual_job_price, 2)}}</div>
+</div>
+<div class="d-flex border bd-highlight" style="border-style:dotted!important;">
+   <div class="p-2 bd-highlight">Promo Discount ({{$promotion->code}})</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($promotion_price, 2)}}</div>
+</div>
+@endif
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">Total Job Price</div>
    <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price, 2)}}</div>
@@ -44,9 +67,13 @@
    <div class="p-2 bd-highlight">Payment Ref. Number</div>
    <div class="ml-auto p-2 bd-highlight fs--2 text-monospace"> {{substr($job_payment->payment_reference_number,0,15)}}...</div>
 </div>
+
+
 <div class="d-flex border bd-highlight" style="border-style:dotted!important;">
    <div class="p-2 bd-highlight">Total Price Paid Price</div>
-   <div class="ml-auto p-2 bd-highlight"> ${{number_format($job_payment->job_price + $job_payment->payment_processing_fee, 2)}}</div>
+   <div class="ml-auto p-2 bd-highlight"> ${{number_format($total_price_paid , 2)}}</div>
+</div>
+
 </div>
 <br>
 <span class="font-weight-bolder">Rate Your Service Provider</span> <br> <br>

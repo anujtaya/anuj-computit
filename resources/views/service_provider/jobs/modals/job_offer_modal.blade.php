@@ -8,6 +8,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
+      <p class="ml-3 mr-3 fs--1 text-left">
+        LocaL2LocaL deducts a 9% Service Fee from your job total on completion of your task.
+      </p>
 	  <form action="{{ route('service_provider_job_make_offer')}}" method="post" onsubmit="toggle_animation(true);">
 		  @csrf
 		  <div class="modal-body">

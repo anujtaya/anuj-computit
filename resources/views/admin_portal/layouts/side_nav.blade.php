@@ -35,6 +35,9 @@
       <a  class="list-group-item {{ request()->is('app/portal/admin/maps/heatmap') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_heatmap')}}">
       <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Heat Maps
       </a>
+      <a  class="list-group-item {{ request()->is('app/portal/admin/promotion/*') ? 'active' : '' }}" href="{{route('app_portal_admin_promotion_home')}}">
+      <i class="fas fa-bullhorn p-1" style="min-width:30px!important;"></i> Promotions
+      </a>
       <a  class="list-group-item {{ request()->is('app/portal/admin/maps/user_track') ? 'active' : '' }}" href="{{route('app_portal_admin_maps_user_track')}}">
       <i class="fas fa-map-pin p-1" style="min-width:30px!important;"></i> Track User Location
       </a>
