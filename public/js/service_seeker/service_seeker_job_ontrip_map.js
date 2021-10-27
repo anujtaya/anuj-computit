@@ -6,13 +6,13 @@ var distance_matrix_service;
 function initMap() {
     // Try HTML5 geolocation.
     var icons = {
-        url: '/images/map/l2l_ss_job_map_icon_round.svg',
+        url: 'https://local2local.com.au/images/map/l2l_ss_job_map_icon_round.svg',
         scaledSize: new google.maps.Size(30, 30), // scaled size
         // origin: new google.maps.Point(0,0), // origin
         // anchor: new google.maps.Point(0, 0) // anchor
     };
     var service_provider_icon = {
-        url: '/images/map/l2l_sp_job_map_icon_car.svg',
+        url: 'https://local2local.com.au/images/map/l2l_sp_job_map_icon_car.svg',
         scaledSize: new google.maps.Size(30, 30), // scaled size
         // origin: new google.maps.Point(0,0), // origin
         // anchor: new google.maps.Point(0, 0) // anchor
@@ -212,7 +212,7 @@ function set_display_bounds() {
     zoomLevel = map.getZoom();
     //console.log(zoomLevel);
     map.setCenter(current_job_marker.position);
-    zoomLevel = zoomLevel - 1;
+    zoomLevel = zoomLevel - 1.0;
     map.setZoom(zoomLevel);
     //console.log('Map zoom updated to: ' + zoomLevel);
 }

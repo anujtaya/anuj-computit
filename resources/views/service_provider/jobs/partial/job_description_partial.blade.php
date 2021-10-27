@@ -27,12 +27,73 @@
       {{ date('h:ia d/m/Y', strtotime($job->job_date_time)) }}
    </div>
    <div class="form-group">
+
+
+   @if($job->service_category_id == 9)
+   <div class="text-center-d p-0">
+      <span>
+         <div class="bordered text-left">
+            <span class="font-weight-bolder">Pick Up Address</span>
+            <br>
+            <span class="">{{$job->street_number_pickup}} {{$job->street_name_pickup}} {{$job->city_pickup}} {{$job->state_pickup}} {{$job->postcode_pickup}}</span>  
+      </span>
+    
+      </div>
+      @if($job->status != 'OPEN')
+      <?php
+         //detect user mobile agnet
+         $iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
+         $iPhone  = stripos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+         $iPad    = stripos($_SERVER['HTTP_USER_AGENT'],"iPad");
+         $Android = stripos($_SERVER['HTTP_USER_AGENT'],"Android");
+         $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
+         ?>
+      @if($iPhone)
+      <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat_pickup}},{{$job->job_lng_pickup}})">Get Pick Up Directions</button>
+      @elseif($iPad)
+      <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng3({{$job->job_lat_pickup}},{{$job->job_lng_pickup}})">Get Pick Up Directions</button>
+      @else
+      <button class="btn btn-sm fs--1 theme-background-color card-1" onclick="geocodeLatLng2({{$job->job_lat_pickup}},{{$job->job_lng_pickup}})">Get Pick Up Directions</button>
+      @endif
+      @endif
+   </div>
+   <div class="text-center-d p-0 mt-2">
+      <span>
+         <div class="bordered text-left">
+            <span class="font-weight-bolder">Drop-off Address</span>
+            <br>
+            <span class="">{{$job->street_number_dropoff}} {{$job->street_name_dropoff}} {{$job->city_dropoff}} {{$job->state_dropoff}} {{$job->postcode_dropoff}}</span>  
+      </span>
+    
+      </div>
+      @if($job->status != 'OPEN')
+         <?php
+            //detect user mobile agnet
+            $iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
+            $iPhone  = stripos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+            $iPad    = stripos($_SERVER['HTTP_USER_AGENT'],"iPad");
+            $Android = stripos($_SERVER['HTTP_USER_AGENT'],"Android");
+            $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
+            ?>
+         @if($iPhone)
+         <button class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="geocodeLatLng3({{$job->job_lat_dropoff}},{{$job->job_lng_dropoff}})">Get Drop Off Directions</button>
+         @elseif($iPad)
+         <button class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="geocodeLatLng3({{$job->job_lat_dropoff}},{{$job->job_lng_dropoff}})">Get Drop Off Directions</button>
+         @else
+         <button class="btn btn-sm theme-background-color border-0 fs--1 card-1" onclick="geocodeLatLng2({{$job->job_lat_dropoff}},{{$job->job_lng_dropoff}})">Get Drop Off Directions</button>
+         @endif
+         @endif
+   </div>
+   @else
+
+
+
       <label  class="font-weight-bold" for="exampleInputEmail1">Location</label> <br>
       <span> 
           @if($job->status == 'APPROVED'|| $job->status == 'ARRIVED' || $job->status == 'STARTED')
             {{$job->street_number}} {{$job->street_name}} <br>
          @endif
-         {{$job->suburb}}, {{$job->city}}<br>{{$job->state}}, {{$job->postcode}}
+         {{$job->suburb}} {{$job->city}} {$job->state}} {{$job->postcode}}
       </span>
       <br>
       <div class="">
@@ -46,14 +107,16 @@
             $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
             ?>
          @if($iPhone)
-         <button class="btn btn-sm fs--2 theme-background-color" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})"><i class="fas fa-location-arrow"></i> Get Directions</button>
+         <button class="btn btn-sm fs--2 theme-background-color" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})">Get Directions</button>
          @elseif($iPad)
-         <button class="btn btn-sm fs--2 theme-background-color" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})"><i class="fas fa-location-arrow"></i> Get Directions</button>
+         <button class="btn btn-sm fs--2 theme-background-color" onclick="geocodeLatLng3({{$job->job_lat}},{{$job->job_lng}})">Get Directions</button>
          @else
-         <button class="btn btn-sm fs--2 theme-background-color" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})"><i class="fas fa-location-arrow"></i> Get Directions</button>
+         <button class="btn btn-sm fs--2 theme-background-color" onclick="geocodeLatLng2({{$job->job_lat}},{{$job->job_lng}})">Get Directions</button>
          @endif
          @endif
       </div>
+
+      @endif
    </div>
    <div class="form-group">
       <label  class="font-weight-bold" for="exampleInputEmail1">Job Title</label> <br>

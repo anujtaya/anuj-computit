@@ -8,7 +8,7 @@
 @endpush
 @push('header-style')
 <style>
-   .modal-backdrop {
+    .modal-backdrop {
       position: fixed;
       top: 0;
       right: 0;
@@ -19,7 +19,19 @@
    }
 
    .modal {
-      z-index: 20 !important;
+      z-index: 20;
+   }
+
+   .relative-counter {
+      position: relative;
+   }
+
+
+
+   .absolute-counter {
+      position: absolute;
+      top: -18px;
+      right: -11px;
    }
 </style>
 @endpush
@@ -143,7 +155,7 @@
 </div>
 <!-- end modal -->
 <!-- Modal -->
-<div class="modal fade" id="user_location_modal_manual_popup" tabindex="-1" role="dialog"
+<div class="modal fade" id="user_location_modal_manual_popup"  role="dialog"
    aria-labelledby="user_location_modal_manual_popup_title" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centereds" role="document">
       <div class="modal-content border-0 shadow">

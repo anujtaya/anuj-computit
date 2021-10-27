@@ -1,4 +1,3 @@
-
 <style>
    .modal-backdrop {
    position:;
@@ -10,12 +9,11 @@
    background-color:transparent;
    }
    .fade {
-      transition: opacity .15s linear;
+   transition: opacity .15s linear;
    }
    .modal {
-      z-index:2000!important;
+   z-index:2000!important;
    }
-
 </style>
 <div class="fs--1">
    <div class="mt-3 border-0  rounded shadow-sm-none" >
@@ -33,29 +31,61 @@
       </div>
    </div>
    <div class="p-0 mt-2">
+      <!-- if delivery job type  -->
+      @if($job->service_category_id == 9)
+      <div class="text-center-d p-0">
+         <span>
+            This is a delivery type job. Please click on Drop Off Address button to pick Seeker item on timely basis.<br> <br>
+            <!-- <br><br> -->
+            <div class="bordered text-left">
+               <span class="font-weight-bolder">Drop Off Address</span>
+               <br>
+               <span class="">{{$job->street_number_dropoff}} {{$job->street_name_dropoff}} {{$job->city_dropoff}} {{$job->state_dropoff}} {{$job->postcode_dropoff}}</span>  
+         </span>
+         <br> <br>
+         </div>
+         @if($job->status != 'OPEN')
+         <?php
+            //detect user mobile agnet
+            $iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
+            $iPhone  = stripos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+            $iPad    = stripos($_SERVER['HTTP_USER_AGENT'],"iPad");
+            $Android = stripos($_SERVER['HTTP_USER_AGENT'],"Android");
+            $webOS   = stripos($_SERVER['HTTP_USER_AGENT'],"webOS");
+            ?>
+         @if($iPhone)
+         <button class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" onclick="geocodeLatLng3({{$job->job_lat_dropoff}},{{$job->job_lng_dropoff}})">Get Drop Off Directions <i class="fas fa-location-arrow fs--2"></i></button>
+         @elseif($iPad)
+         <button class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" onclick="geocodeLatLng3({{$job->job_lat_dropoff}},{{$job->job_lng_dropoff}})">Get Drop Off Directions <i class="fas fa-location-arrow fs--2"></i></button>
+         @else
+         <button class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" onclick="geocodeLatLng2({{$job->job_lat_dropoff}},{{$job->job_lng_dropoff}})">Get Drop Off Directions <i class="fas fa-location-arrow fs--2"></i></button>
+         @endif
+         @endif
+      </div>
+      @endif
       <div class="mt-3 border-0  rounded shadow-sm-none" >
          <form action="{{route('service_provider_job_update_status_mark_completed')}}" id="complete_job_form" onsubmit="toggle_animation(true);" method="POST">
             @csrf
             <input type="hidden" value="{{$job->id}}" name="started_job_id" required>
-            <a class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal" onclick=" $('#complete_job_confirm_modal').modal('show');"><i class="fas fa-check-double fs--2"></i> Complete Job</a>
+            <a class="btn btn-sm theme-background-color border-0 fs--1 card-1 btn-block" data-toggle="modal" data-target="#complete_job_confirm_modal" onclick=" $('#complete_job_confirm_modal').modal('show');">Complete Job</a>
          </form>
       </div>
       <ul class="list-group fs--1 border-light border" style="overflow:scroll; height:440px;">
          @foreach($job_extras as $extra)
-            <li class="list-group-item mb-1-0  border" style="border-style:dashed!important;">
-               <div class="d-flex bd-highlight">
-                  <div class="pb-2 w-100 bd-highlight theme-color">
-                     {{$extra->quantity}} ×  {{$extra->name}}
-                  </div>
-                  <div class="pb-2 ml-auto">${{number_format(($extra->quantity * $extra->price),2)}}</div>
+         <li class="list-group-item mb-1-0  border" style="border-style:dashed!important;">
+            <div class="d-flex bd-highlight">
+               <div class="pb-2 w-100 bd-highlight theme-color">
+                  {{$extra->quantity}} ×  {{$extra->name}}
                </div>
-               <div class="d-flex bd-highlight fs--2">
-                  <div class="pb-2 bd-highlight">{{$extra->description}}</div>
-                  <div class="pb-2 ml-auto">
-                     <a href="{{route('app_services_job_extra_remove', $extra->id)}}" class="text-danger" onclick="toggle_animation(true)">Remove</a>
-                  </div>
+               <div class="pb-2 ml-auto">${{number_format(($extra->quantity * $extra->price),2)}}</div>
+            </div>
+            <div class="d-flex bd-highlight fs--2">
+               <div class="pb-2 bd-highlight">{{$extra->description}}</div>
+               <div class="pb-2 ml-auto">
+                  <a href="{{route('app_services_job_extra_remove', $extra->id)}}" class="text-danger" onclick="toggle_animation(true)">Remove</a>
                </div>
-            </li>
+            </div>
+         </li>
          @endforeach
       </ul>
    </div>
@@ -65,7 +95,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content border-0 card-1">
          <div class="modal-header">
-         <span class="modal-title fs--1" id="exampleModalLabel">Add Extra</span>
+            <span class="modal-title fs--1" id="exampleModalLabel">Add Extra</span>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -99,22 +129,22 @@
 <!-- end add extra to job modal  -->
 <!-- job complete confirmation modal -->
 <div class="modal fade" id="complete_job_confirm_modal" tabindex="-1" role="dialog" aria-labelledby="complete_job_confirm_modal_label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content border-0 card-1">
-      <div class="modal-header">
-        <span class="modal-title fs--1" id="exampleModalLabel">Are you sure?</span>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   <div class="modal-dialog" role="document">
+      <div class="modal-content border-0 card-1">
+         <div class="modal-header">
+            <span class="modal-title fs--1" id="exampleModalLabel">Are you sure?</span>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body text-center">
+            <p>If you click 'YES' the job will be marked completed and the job total amount will be charged from the Service Seeker's account.</p>
+            <br>
+            <button class="btn btn-sm theme-background-color card-1 mr-3" onclick="$('#complete_job_form').submit();">Yes</button>
+            <button class="btn btn-sm btn-danger text-white card-1" data-dismiss="modal" aria-label="Close">No</button>
+         </div>
       </div>
-      <div class="modal-body text-center">
-         <p>If you click 'YES' the job will be marked completed and the job total amount will be charged from the Service Seeker's account.</p>
-         <br>
-        <button class="btn btn-sm theme-background-color card-1 mr-3" onclick="$('#complete_job_form').submit();">Yes</button>
-        <button class="btn btn-sm btn-danger text-white card-1" data-dismiss="modal" aria-label="Close">No</button>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
 <!-- end job comlete confirmation modal  -->
 <script>

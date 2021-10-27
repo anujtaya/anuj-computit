@@ -20,56 +20,110 @@
    </div>
    @endif
    <!-- end notice section display -->
-   @if($job->status == 'OPEN')
-         <br>
-         <form action="{{route('service_seeker_job_location_update')}}" method="post" onsubmit="toggle_animation(true);" method="POST">
-            @csrf
-            <input type="hidden" name="update_location_job_id" value="{{$job->id}}">
-            <div class="form-group">
-               <label for="location_input">Change Location?</label>
-               <input type="text" class="form-control form-control-sm" id="location_input" name="location_input" onFocus="initAutocomplete()" required/>
-            </div>
-            <input type="hidden" value="" id="json_location_object" name="json_location_object" required>
-            <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Location</button>
-         </form>
-         @endif
+  
+  
+   @if($job->service_category_id == 9)
+      <!--pickup job location -->
+      @if($job->status == 'OPEN')
+      <br>
+      <form action="{{route('service_seeker_job_location_update_pickup')}}" method="post" onsubmit="toggle_animation(true);" method="POST">
+         @csrf
+         <input type="hidden" name="update_location_pickup_job_id" value="{{$job->id}}">
+         <div class="form-group">
+            <label for="location_input_pickup">Change Pick-up Location?</label>
+            <input type="text" class="form-control form-control-sm" id="location_input_pickup" name="location_input_pickup" onFocus="initAutocompletePickUp()" required/>
+         </div>
+         <input type="hidden" value="" id="json_location_object_pickup" name="json_location_object_pickup" required>
+         <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Pickup Location</button>
+      </form>
+      <br>
+      <form action="{{route('service_seeker_job_location_update_dropoff')}}" method="post" onsubmit="toggle_animation(true);" method="POST">
+         @csrf
+         <input type="hidden" name="update_location_dropoff_job_id" value="{{$job->id}}">
+         <div class="form-group">
+            <label for="location_input_dropoff">Change Drop-off Location?</label>
+            <input type="text" class="form-control form-control-sm" id="location_input_dropoff" name="location_input_dropoff" onFocus="initAutocompleteDropOff()" required/>
+         </div>
+         <input type="hidden" value="" id="json_location_object_dropoff" name="json_location_object_dropoff" required>
+         <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Drop-off Location</button>
+      </form>
+      @endif
+   @else
+      <!--drop-off job location -->
+      @if($job->status == 'OPEN')
+      <br>
+      <form action="{{route('service_seeker_job_location_update')}}" method="post" onsubmit="toggle_animation(true);" method="POST">
+         @csrf
+         <input type="hidden" name="update_location_job_id" value="{{$job->id}}">
+         <div class="form-group">
+            <label for="location_input">Change Location?</label>
+            <input type="text" class="form-control form-control-sm" id="location_input" name="location_input" onFocus="initAutocomplete()" required/>
+         </div>
+         <input type="hidden" value="" id="json_location_object" name="json_location_object" required>
+         <button class="btn btn-sm fs--2 theme-background-color shadow" type="submit">Update Location</button>
+      </form>
+      @endif
+   @endif
+
+
+
+
+
+
+
+
    <form action="{{route('service_seeker_job_details_update')}}" method="post" onsubmit="toggle_animation(true);">
       @csrf
       <input type="hidden" name="update_job_id" value="{{$job->id}}">
+      <!-- show pick up address and drop off address if job is delivery job -->
+      @if($job->service_category_id == 9)
+      <div class="bordered text-left">
+         <span class="font-weight-bolder">Pick Up Address</span>
+         <br>
+         <span class="">{{$job->street_number_pickup}} {{$job->street_name_pickup}} {{$job->city_pickup}} {{$job->state_pickup}} {{$job->postcode_pickup}}</span>  
+         </span>
+      </div>
+      <div class="bordered text-left mt-2">
+         <span class="font-weight-bolder">Drop-off Address</span>
+         <br>
+         <span class="">{{$job->street_number_dropoff}} {{$job->street_name_dropoff}} {{$job->city_dropoff}} {{$job->state_dropoff}} {{$job->postcode_dropoff}}</span>  
+         </span>
+      </div>
+      @else
       <div class="form-group">
          <label  class="font-weight-bold" for="exampleInputEmail1">Job Location</label> <br>
-         {{$job->street_number}} {{$job->street_name}} <br>
-         {{$job->city ?: 'Unknown'}}<br>{{$job->state ?: 'Unknown'}}, {{$job->postcode ?: 'Unknown'}}
-     
+         {{$job->street_number}} {{$job->street_name}}
+         {{$job->city ?: ''}} {{$job->state ?: ''}} {{$job->postcode ?: ''}}
       </div>
-      <div class="form-group">
+      @endif
+      <div class="form-group mt-2">
          <label class="font-weight-bold" for="job_scheduled_for">Job Schedule Time</label>
          <br>
          {{ date('d/m/Y h:ia', strtotime($job->job_date_time))}}
       </div>
       @if($job->status == 'OPEN')
-      <div class="form-group">
+      <div class="form-group mt-2">
          <label class="font-weight-bold" for="update_job_datetime">Change Schedule Time</label>
          <input type='text' class="form-control form-control-sm"  id="update_job_datetime" name="update_job_datetime" value="{{\Carbon\Carbon::parse($job->job_date_time)->format('h:i A d/m/Y')}}" readonly="readonly" required  onchange="$('#job_detail_save_btn').show();">
-      </div> 
+      </div>
       <link rel="stylesheet" type="text/css" href="{{asset('/lib/anypic/anypicker-all.min.css')}}" />
       <script type="text/javascript" src="{{asset('/lib/anypic/anypicker.min.js')}}"></script>
       <script>
-      $(document).ready(function()
-      {
-         $("#update_job_datetime").AnyPicker(
+         $(document).ready(function()
          {
-            mode: "datetime",
-            showComponentLabel: true,
-            dateTimeFormat: "hh:mm AA d/M/yyyy",
-            onChange: function(iRow, iComp, oSelectedValues)
+            $("#update_job_datetime").AnyPicker(
             {
-                  //console.log("Changed Value : " + iRow + " " + iComp + " " + oSelectedValues);
-            },
-            theme: "Android"
+               mode: "datetime",
+               showComponentLabel: true,
+               dateTimeFormat: "hh:mm AA d/M/yyyy",
+               onChange: function(iRow, iComp, oSelectedValues)
+               {
+                     //console.log("Changed Value : " + iRow + " " + iComp + " " + oSelectedValues);
+               },
+               theme: "Android"
+            });
+         
          });
-
-      });
       </script>
       @endif
       <div class="form-group">
@@ -96,6 +150,5 @@
       <a class="btn btn-danger text-white btn-sm fs--2 shadow" href="#" data-toggle="modal" data-target="#job_cancel_confirm_modal">Cancel Job</a>
    </form>
    <!-- job cancellation confirm dialog modal -->
-   
    @endif
 </div>

@@ -174,6 +174,63 @@ class ServiceSeekerController extends Controller
       return redirect()->back();
     }
 
+    protected function service_seeker_job_location_update_pickup(Request $request){
+      $input = $request->all();
+      $validation = Validator::make($request->all(), [
+        'update_location_pickup_job_id' => 'required',
+        'json_location_object_pickup' => 'required'
+       ]);
+       if($validation->passes()){
+         $job = Job::find($input['update_location_pickup_job_id']);
+         if($job){
+           if($job->service_seeker_id == Auth::id() && $job->status == 'OPEN'){
+             $location = json_decode($input['json_location_object_pickup']);
+             $job->street_number_pickup = $location->street_number;
+             $job->street_name_pickup = $location->street_name;
+             $job->state_pickup = $location->state;
+             $job->postcode_pickup = $location->postcode;
+             $job->city_pickup = $location->city;
+             $job->suburb_pickup = $location->suburb;
+             $job->job_lat_pickup = $location->lat;
+             $job->job_lng_pickup = $location->lng;
+             $job->save();
+            Session::put('status', 'The job location has been successfully updated.');
+           }
+         }
+       }
+      Session::put('current_tab', 'jobdetail');
+      return redirect()->back();
+    }
+
+    protected function service_seeker_job_location_update_dropoff(Request $request){
+      $input = $request->all();
+      $validation = Validator::make($request->all(), [
+        'update_location_dropoff_job_id' => 'required',
+        'json_location_object_dropoff' => 'required'
+       ]);
+       if($validation->passes()){
+         $job = Job::find($input['update_location_dropoff_job_id']);
+         if($job){
+           if($job->service_seeker_id == Auth::id() && $job->status == 'OPEN'){
+             $location = json_decode($input['json_location_object_dropoff']);
+             $job->street_number_dropoff = $location->street_number;
+             $job->street_name_dropoff = $location->street_name;
+             $job->state_dropoff = $location->state;
+             $job->postcode_dropoff = $location->postcode;
+             $job->city_dropoff = $location->city;
+             $job->suburb_dropoff = $location->suburb;
+             $job->job_lat_dropoff = $location->lat;
+             $job->job_lng_dropoff = $location->lng;
+             $job->save();
+            Session::put('status', 'The job location has been successfully updated.');
+           }
+         }
+       }
+      Session::put('current_tab', 'jobdetail');
+      return redirect()->back();
+    }
+
+
     protected function show_message_offer(){
       $conversation_id = $_POST['conversation_id'];
       $data = array();

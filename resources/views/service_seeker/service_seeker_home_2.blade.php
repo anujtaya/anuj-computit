@@ -1,7 +1,7 @@
 @extends('layouts.service_seeker_master')
 @section('content')
 @push('header-script')
-<script src="{{asset('/js/service_seeker/service_seeker_home.js')}}?v=51"></script>
+<script src="{{asset('/js/service_seeker/service_seeker_home.js')}}?v={{rand(1,10000)}}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" type="text/css" href="{{asset('/lib/anypic/anypicker-all.min.css')}}" />
 <script type="text/javascript" src="{{asset('/lib/anypic/anypicker.min.js')}}"></script>

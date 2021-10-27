@@ -4,7 +4,7 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1">Step 1 of 4</span>
+               <span class="text-white mt-1">Step 1 of <span class="total_steps"></span></span>
             </div>
             <div class=" bd-highlight p-2">
                <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
@@ -50,7 +50,7 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1">Step 2 of 4</span>
+               <span class="text-white mt-1">Step 2 of <span class="total_steps"></span></span>
             </div>
             <div class=" bd-highlight p-2">
                <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
@@ -66,13 +66,13 @@
          <div class="form-group">
             <label for="exampleInputEmail1">Write your job title</label>
             <input type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();"
-               id="service_job_title" placeholder="Please enter your job title" value="">
+               id="service_job_title" placeholder="Please enter your job title" value="asdsad">
             <small id="emailHelp" class="form-text text-muted">Please use plain english text.</small>
          </div>
          <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
             <textarea type="text" class="form-control form-control-sm" onchange="create_seeker_job_draft();" rows="12"
-               id="service_job_description" placeholder="Please enter your job description"></textarea>
+               id="service_job_description" placeholder="Please enter your job description">sadsa</textarea>
             <small id="emailHelp" class="form-text text-muted">Provide as much detail as you can.</small>
          </div>
       </div>
@@ -104,7 +104,7 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1">Step 3 of 4</span>
+               <span class="text-white mt-1">Step 3 of <span class="total_steps"></span></span>
             </div>
             <div class=" bd-highlight p-2">
                <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
@@ -161,7 +161,7 @@
       <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
          <div class="d-flex bd-highlight">
             <div class="mr-auto p-2 bd-highlight">
-               <span class="text-white mt-1">Step 4 of 4</span>
+               <span class="text-white mt-1">Step 4 of <span class="total_steps"></span></span>
             </div>
             <div class=" bd-highlight p-2">
                <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
@@ -198,6 +198,96 @@
    <!-- en bottom nav  -->
 </div>
 <!-- end wizard 4 -->
+
+<!-- new steps for delivery locations -->
+
+<!-- wizard 5 for deliveries only -->
+<div id="wizard_view_5" style="display:none;">
+   <div class="row fs--1 m-0">
+      <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
+         <div class="d-flex bd-highlight">
+            <div class="mr-auto p-2 bd-highlight">
+               <span class="text-white mt-1">Step 4 of <span class="total_steps"></span></span>
+            </div>
+            <div class=" bd-highlight p-2">
+               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
+                     class="fas fs-1 fa-times"></i></a>
+            </div>
+         </div>
+         <div class="text-center mt-4">
+            <span id="service_subselection_name_display" class="fs-1 text-white"></span><br>
+         </div>
+      </div>
+      <!-- confirm user location -->
+      <div class="col-12 fs--1 p-2 p-3">
+         @include('service_seeker.location_confirmation_pickup')
+      </div>
+      <!-- end confirm user location view -->
+   </div>
+   <!-- bottom nav -->
+   <div class="fixed-bottom">
+      <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
+         <div class="d-flex bd-highlight">
+            <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_3');event.preventDefault();">
+                  <i class="fas fa-arrow-left"></i> Back
+               </a>
+            </div>
+            <div class=" bd-highlight   pt-3 pr-4 pb-3">
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_6');event.preventDefault();">
+                  Next <i class="fas fa-arrow-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- en bottom nav  -->
+</div>
+<!-- end wizard 5 for deliveries only -->
+<!-- wizard 6 for deliveries -->
+<div id="wizard_view_6" style="display:none;">
+   <div class="row fs--1 m-0">
+      <div class="col-12 text-center p-2 p-3" style="background:#399BDB!important;">
+         <div class="d-flex bd-highlight">
+            <div class="mr-auto p-2 bd-highlight">
+               <span class="text-white mt-1">Step 5 of <span class="total_steps"></span></span>
+            </div>
+            <div class=" bd-highlight p-2">
+               <a href="" class="text-white float-right " onclick="wizard_exit(); event.preventDefault();"><i
+                     class="fas fs-1 fa-times"></i></a>
+            </div>
+         </div>
+         <div class="text-center mt-4">
+            <span id="service_subselection_name_display" class="fs-1 text-white"></span><br>
+         </div>
+      </div>
+      <!-- confirm user location -->
+      <div class="col-12 fs--1 p-2 p-3">
+      @include('service_seeker.location_confirmation_dropoff')
+      </div>
+      <!-- end confirm user location view -->
+   </div>
+   <!-- bottom nav -->
+   <div class="fixed-bottom">
+      <div class=" border-top bg-white  justify-content-center fs--1 text-center m-0">
+         <div class="d-flex bd-highlight">
+            <div class="mr-auto pt-3 pl-4 pb-3 bd-highlight">
+               <a href="" class="theme-color fs-1" onclick="wizard_switch('wizard_view_5');event.preventDefault();">
+                  <i class="fas fa-arrow-left"></i> Back
+               </a>
+            </div>
+            <div class=" bd-highlight   pt-3 pr-4 pb-3">
+               <span href="" class="theme-color fs-1" onclick="book_delivery_job();event.preventDefault();">
+                  Done
+</span>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- en bottom nav  -->
+</div>
+<!-- end wizard 6 for deliveries -->
+<!-- end new steps for delivery locations -->
 <script>
    var seeker_jobs_url = '{{route("service_seeker_jobs")}}';
    $(document).ready(function()

@@ -5,7 +5,7 @@ var radius = 50;
 function initMap() {
     // Try HTML5 geolocation.
     var icons = {
-        url: '/images/map/l2l_ss_job_map_icon.svg',
+        url: 'https://local2local.com.au/images/map/l2l_ss_job_map_icon.svg',
         scaledSize: new google.maps.Size(25, 25), // scaled size
         // origin: new google.maps.Point(0,0), // origin
         // anchor: new google.maps.Point(0, 0) // anchor
@@ -321,6 +321,27 @@ var current_address_string = {
         lng: '',
         lat: ''
     }
+var current_address_string_pickup = {
+    street_number: '',
+    street_name: '',
+    state: '',
+    postcode: '',
+    city: '',
+    suburb: '',
+    lng: '',
+    lat: ''
+}
+
+var current_address_string_dropoff = {
+    street_number: '',
+    street_name: '',
+    state: '',
+    postcode: '',
+    city: '',
+    suburb: '',
+    lng: '',
+    lat: ''
+}
     //new location update functions
 function initAutocomplete() {
 
@@ -333,6 +354,36 @@ function initAutocomplete() {
         place = autocomplete.getPlace();
         console.log(place);
         prepare_user_address_object(place['address_components'], place.geometry.location.lat(), place.geometry.location.lng());
+    });
+}
+
+//update pickup location address feature
+function initAutocompletePickUp() {
+
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('location_input_pickup'), {
+        types: ['geocode'],
+        componentRestrictions: { country: 'au' }
+    });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        // Get the place details from the autocomplete object.
+        place = autocomplete.getPlace();
+        console.log(place);
+        prepare_user_address_object_pickup(place['address_components'], place.geometry.location.lat(), place.geometry.location.lng());
+    });
+}
+
+//update dropoff location address feature
+function initAutocompleteDropOff() {
+
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('location_input_dropoff'), {
+        types: ['geocode'],
+        componentRestrictions: { country: 'au' }
+    });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        // Get the place details from the autocomplete object.
+        place = autocomplete.getPlace();
+        console.log(place);
+        prepare_user_address_object_dropoff(place['address_components'], place.geometry.location.lat(), place.geometry.location.lng());
     });
 }
 
@@ -372,5 +423,82 @@ function prepare_user_address_object(address_object, new_lat, new_lng) {
         current_address_string.lng = new_lng;
 
         document.getElementById('json_location_object').value = JSON.stringify(current_address_string);
+    }
+}
+//prepare user current address pickup string for job booking pickup object
+function prepare_user_address_object_pickup(address_object, new_lat, new_lng) {
+    //make default values null
+    current_address_string_pickup = {
+        street_number: '',
+        street_name: '',
+        state: '',
+        postcode: '',
+        city: '',
+        suburb: '',
+        lng: '',
+        lat: ''
+    }
+    for (var i = 0; i < address_object.length; i++) {
+        var address_type = address_object[i].types[0];
+
+        var val = address_object[i]['long_name']
+        if (address_type == "street_number") {
+            current_address_string_pickup.street_number = val;
+        } else if (address_type == "route") {
+            current_address_string_pickup.street_name = val;
+        } else if (address_type == "administrative_area_level_2") {
+            current_address_string_pickup.city = val;
+        } else if (address_type == "administrative_area_level_1") {
+            current_address_string_pickup.state = val;
+        } else if (address_type == "postal_code") {
+            current_address_string_pickup.postcode = val;
+        } else if (address_type == "postal_code") {
+            current_address_string_pickup.postcode = val;
+        } else if (address_type == "locality") {
+            current_address_string_pickup.suburb = val;
+        }
+        current_address_string_pickup.lat = new_lat;
+        current_address_string_pickup.lng = new_lng;
+
+        document.getElementById('json_location_object_pickup').value = JSON.stringify(current_address_string_pickup);
+    }
+}
+
+//prepare user current address dropoff string for job booking pickup object
+function prepare_user_address_object_dropoff(address_object, new_lat, new_lng) {
+    //make default values null
+    current_address_string_dropoff = {
+        street_number: '',
+        street_name: '',
+        state: '',
+        postcode: '',
+        city: '',
+        suburb: '',
+        lng: '',
+        lat: ''
+    }
+    for (var i = 0; i < address_object.length; i++) {
+        var address_type = address_object[i].types[0];
+
+        var val = address_object[i]['long_name']
+        if (address_type == "street_number") {
+            current_address_string_dropoff.street_number = val;
+        } else if (address_type == "route") {
+            current_address_string_dropoff.street_name = val;
+        } else if (address_type == "administrative_area_level_2") {
+            current_address_string_dropoff.city = val;
+        } else if (address_type == "administrative_area_level_1") {
+            current_address_string_dropoff.state = val;
+        } else if (address_type == "postal_code") {
+            current_address_string_dropoff.postcode = val;
+        } else if (address_type == "postal_code") {
+            current_address_string_dropoff.postcode = val;
+        } else if (address_type == "locality") {
+            current_address_string_dropoff.suburb = val;
+        }
+        current_address_string_dropoff.lat = new_lat;
+        current_address_string_dropoff.lng = new_lng;
+
+        document.getElementById('json_location_object_dropoff').value = JSON.stringify(current_address_string_dropoff);
     }
 }

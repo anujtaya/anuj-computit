@@ -462,6 +462,141 @@ class ServiceSeekerJobController extends Controller
       return Response::json($response);
     }
 
+    protected function job_request_type_board_delivery(){
+      $job_obj = json_decode($_POST['job_obj']);
+      $seeker_id = Auth::user()->id;
+      $response = false;
+      //check whether a draft job exists for this job.
+      if($job_obj->current_job_draft_id != null){
+        $job = Job::where('id', $job_obj->current_job_draft_id)->where('status', 'Draft')->where('service_seeker_id', $seeker_id)->first();
+        if($job){
+          $job->title = $job_obj->title;
+          $job->description = $job_obj->description;
+          if($job_obj->job_date_time != null){
+            $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $job_obj->job_date_time)->toDateTimeString();
+          }
+          $job->service_seeker_id = $seeker_id;
+
+          //addresses fomration for job address, pickup address and dropoff address
+          //for job address
+          $job->street_number = $job_obj->current_address_string->street_number;
+          $job->street_name = $job_obj->current_address_string->street_name;
+          $job->state = $job_obj->current_address_string->state;
+          $job->postcode = $job_obj->current_address_string->postcode;
+          $job->city =$job_obj->current_address_string->city;
+          $job->suburb = $job_obj->current_address_string->suburb;
+          $job->job_lat = $job_obj->job_lat;
+          $job->job_lng = $job_obj->job_lng;
+          //for pickup address
+          $job->street_number_pickup = $job_obj->current_address_string_pickup->street_number;
+          $job->street_name_pickup = $job_obj->current_address_string_pickup->street_name;
+          $job->state_pickup = $job_obj->current_address_string_pickup->state;
+          $job->postcode_pickup = $job_obj->current_address_string_pickup->postcode;
+          $job->city_pickup =$job_obj->current_address_string_pickup->city;
+          $job->suburb_pickup = $job_obj->current_address_string_pickup->suburb;
+          $job->job_lat_pickup = $job_obj->job_lat_pickup;
+          $job->job_lng_pickup = $job_obj->job_lng_pickup;
+          //for dropoff address
+          $job->street_number_dropoff = $job_obj->current_address_string_dropoff->street_number;
+          $job->street_name_dropoff = $job_obj->current_address_string_dropoff->street_name;
+          $job->state_dropoff = $job_obj->current_address_string_dropoff->state;
+          $job->postcode_dropoff = $job_obj->current_address_string_dropoff->postcode;
+          $job->city_dropoff =$job_obj->current_address_string_dropoff->city;
+          $job->suburb_dropoff = $job_obj->current_address_string_dropoff->suburb;
+          $job->job_lat_dropoff = $job_obj->job_lat_dropoff;
+          $job->job_lng_dropoff = $job_obj->job_lng_dropoff;
+
+
+          $job->service_category_id = $job_obj->service_category_id;
+          $job->service_category_name = $job_obj->service_category_name;
+          $job->service_subcategory_name = $job_obj->service_subcategory_name;
+          $job->service_subcategory_id = $job_obj->service_subcategory_id;
+    
+          $job->status = "OPEN";
+          $job->job_type = $job_obj->job_type;
+        
+          $job->job_pin = mt_rand(1000,9999);
+          if($job->job_type == 'BOARD') {
+            $response = $job->save();
+            if($response){
+              //$this->send_notification_job_board_notification($job);
+              //mobile notification
+              $title = 'We have successfully posted your job to job board.';
+              $message = 'Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$job->id;
+              $this->send_user_mobile_notification(Auth::user(), $title, $message);
+              $marketing_user =  User::find(1910);
+              if($marketing_user != null ) {
+                $this->send_user_mobile_notification($marketing_user,'New Job Alert!','New job with id:#'.$job->id.' created just now.');
+              }
+            }
+          } 
+        }
+      }else{
+        $job = new Job();
+        $job->title = $job_obj->title;
+        $job->description = $job_obj->description;
+        if($job_obj->job_date_time != null){
+          $job->job_date_time = Carbon::createFromFormat('h:i A d/m/Y', $job_obj->job_date_time)->toDateTimeString();
+        }
+        $job->service_seeker_id = $seeker_id;
+        
+        //addresses fomration for job address, pickup address and dropoff address
+        //for job address
+        $job->street_number = $job_obj->current_address_string->street_number;
+        $job->street_name = $job_obj->current_address_string->street_name;
+        $job->state = $job_obj->current_address_string->state;
+        $job->postcode = $job_obj->current_address_string->postcode;
+        $job->city =$job_obj->current_address_string->city;
+        $job->suburb = $job_obj->current_address_string->suburb;
+        $job->job_lat = $job_obj->job_lat;
+        $job->job_lng = $job_obj->job_lng;
+        //for pickup address
+        $job->street_number_pickup = $job_obj->current_address_string_pickup->street_number;
+        $job->street_name_pickup = $job_obj->current_address_string_pickup->street_name;
+        $job->state_pickup = $job_obj->current_address_string_pickup->state;
+        $job->postcode_pickup = $job_obj->current_address_string_pickup->postcode;
+        $job->city_pickup =$job_obj->current_address_string_pickup->city;
+        $job->suburb_pickup = $job_obj->current_address_string_pickup->suburb;
+        $job->job_lat_pickup = $job_obj->job_lat_pickup;
+        $job->job_lng_pickup = $job_obj->job_lng_pickup;
+        //for dropoff address
+        $job->street_number_dropoff = $job_obj->current_address_string_dropoff->street_number;
+        $job->street_name_dropoff = $job_obj->current_address_string_dropoff->street_name;
+        $job->state_dropoff = $job_obj->current_address_string_dropoff->state;
+        $job->postcode_dropoff = $job_obj->current_address_string_dropoff->postcode;
+        $job->city_dropoff =$job_obj->current_address_string_dropoff->city;
+        $job->suburb_dropoff = $job_obj->current_address_string_dropoff->suburb;
+        $job->job_lat_dropoff = $job_obj->job_lat_dropoff;
+        $job->job_lng_dropoff = $job_obj->job_lng_dropoff;
+
+
+        $job->service_category_id = $job_obj->service_category_id;
+        $job->service_category_name = $job_obj->service_category_name;
+        $job->service_subcategory_name = $job_obj->service_subcategory_name;
+        $job->service_subcategory_id = $job_obj->service_subcategory_id;
+        $job->status = "OPEN";
+        $job->job_type = $job_obj->job_type;
+        $job->job_pin = mt_rand(1000,9999);
+        if($job->job_type == 'BOARD') {
+          $response = $job->save();
+          if($response){
+            //$this->send_notification_job_board_notification($job);
+            //mobile notification
+            $title = 'We have successfully posted your job to job board.';
+            $message = 'We have succesfully posted the job on job board. Service Provider will respond to your job with quotes soon. Visit LocaL2LocaL Job menu to see more info about the job. Your unique job id is:#'.$job->id;
+            $this->send_user_mobile_notification(Auth::user(), $title, $message);
+
+            $marketing_user =  User::find(1910);
+            if($marketing_user != null ) {
+              $this->send_user_mobile_notification($marketing_user,'New Job Alert!','New job with id:#'.$job->id.' created just now.');
+            }
+          }
+        } 
+      }
+      return Response::json($response);
+    }
+
+
     protected function show_job_conversation($job_id, $service_provider_id){
       //make sure the messages are in right order
       $job = Job::find($job_id);
@@ -601,8 +736,28 @@ class ServiceSeekerJobController extends Controller
     $title = 'Congratulations! Job Quote Offer Accepted by Service Seeker';
     $message = 'Please visit your Service Provider Jobs menu for more information. The job id is:#'.$job->id;
     $this->send_user_mobile_notification($conversation->service_provider_profile, $title, $message);
+    $this->notify_job_accepted_to_providers($job->id, $conversation->service_provider_id,$conversation->json['offer']);
     return redirect()->route('service_seeker_job', $job->id);
   
+  }
+
+  protected function notify_job_accepted_to_providers($job_id, $excepted_provider_id,$offer_amount) {
+    //find the job 
+    $job = Job::find($job_id);
+    if($job != null){
+      //message to be delivered
+      $title = 'Job Update';
+      $message = 'Thanks for making an offer on Job ID #'.$job->id.'. It has been accepted by another provider for $'.$offer_amount.'. We wish you luck on your next offer. Feel free to browse your job board for more opportunities.';
+      $conversations = Conversation::where('job_id', $job->id)->get();
+      foreach($conversations as $conversation) {
+        //check if the provider id is not equal to excepted provider id
+        if($conversation->service_provider_id != $excepted_provider_id) {
+            $this->send_user_mobile_notification($conversation->service_provider_profile, $title, $message);
+        } else{
+          //do nothing
+        }
+      }
+    }
   }
 
 
