@@ -11,7 +11,7 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "~6.0",
         "intervention/image": "dev-master",
-        "laravel/framework": "6.20.26",
+        "laravel/framework": "6.20.42",
         "laravel/tinker": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "paypal/rest-api-sdk-php": "^1.14",
